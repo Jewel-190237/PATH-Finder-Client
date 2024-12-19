@@ -6,6 +6,64 @@ import { Rate } from "antd";
 import ReviewCard from "../../Shared-file/card/ReviewCard";
 
 const Review = () => {
+  const reviewData = [
+    {
+      image: review1,
+      name: "John Doe",
+      rating: 4.5,
+      description:
+        "Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, eveniet.",
+    },
+    {
+      image: review1,
+      name: "John Doe",
+      rating: 4.5,
+      description:
+        "Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, eveniet.",
+    },
+    {
+      image: review1,
+      name: "John Doe",
+      rating: 4.5,
+      description:
+        "Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, eveniet.",
+    },
+    {
+      image: review1,
+      name: "John Doe",
+      rating: 4.5,
+      description:
+        "Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, eveniet.",
+    },
+    {
+      image: review1,
+      name: "John Doe",
+      rating: 4.5,
+      description:
+        "Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, eveniet.",
+    },
+    {
+      image: review1,
+      name: "John Doe",
+      rating: 4.5,
+      description:
+        "Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, eveniet.",
+    },
+    {
+      image: review1,
+      name: "John Doe",
+      rating: 4.5,
+      description:
+        "Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, eveniet.",
+    },
+    {
+      image: review1,
+      name: "John Doe",
+      rating: 4.5,
+      description:
+        "Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, eveniet.",
+    },
+  ];
   return (
     <div
       className="bg-cover bg-center relative text-white"
@@ -19,12 +77,15 @@ const Review = () => {
         </p>
         <div className="mt-6 md:mt-10 lg:mt-12 xl:mt-[60px]">
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-            <ReviewCard
-              image={review1}
-              name="John Doe"
-              rating={4.5}
-              description="Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, eveniet."
-            />
+            {reviewData.map((item, index) => (
+              <ReviewCard
+                key={index}
+                image={item.image}
+                name={item.name}
+                rating={item.rating}
+                description={item.description}
+              />
+            ))}
           </div>
         </div>
       </div>
