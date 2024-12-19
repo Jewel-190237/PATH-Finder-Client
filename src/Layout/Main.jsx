@@ -8,7 +8,9 @@ const Main = () => {
     <div>
       <Navbar />
       <Outlet />
-      <Footer />
+      <div className="mb-10 sm:mb-12 md:mb-16 lg:mb-20 xl:mb-24">
+        <Footer />
+      </div>
       <CommonNav />
     </div>
   );

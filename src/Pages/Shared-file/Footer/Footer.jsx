@@ -97,7 +97,7 @@ const Footer = () => {
               </li>
             </ul>
           </div>
-          <div className="-ml-4 p-4">
+          <div className="-ml-4 p-4 ">
             <p className="heading2 !font-medium">Subscribe to our newsletter</p>
             <p className="description mt-2">
               Get pro video editing tips, trends, and insights—delivered to your

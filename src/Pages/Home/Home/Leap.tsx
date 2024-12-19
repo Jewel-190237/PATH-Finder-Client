@@ -1,3 +1,4 @@
+//@ts-nocheck
 import React from "react";
 import leapBg from "../../../assets/leapBg.png";
 import bgImage from "../../../assets/bgImage.png";
@@ -10,7 +11,7 @@ const Leap = () => {
     >
       <div className="max-w-[1320px] mx-auto relative z-10 p-6 lg:p-10 xl:p-12">
         <div
-          className="max-w-[1100px] border-[1px] border-[#E7E7E7] mx-auto bg-[#2307134D] p-6 md:p-8 lg:p-12 xl:p-[60px] my-5 md:my-8 lg:my-[90px] xl:my-[110px] rounded-[10px] md:rounded-[14px] lg:rounded-[20px] xl:rounded-[30px]"
+          className="max-w-[900px] border-[1px] border-[#a09e9e] mx-auto bg-[#2307134D] p-6 md:p-8 lg:p-12 xl:p-[60px] my-5 md:my-8 lg:my-[90px] xl:my-[110px] rounded-[10px] md:rounded-[14px] lg:rounded-[20px] xl:rounded-[30px]"
           style={{ backdropFilter: "blur(30px)" }}
         >
           <h1 className="heading text-center text-white mb-4">
