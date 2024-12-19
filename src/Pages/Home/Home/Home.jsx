@@ -1,3 +1,4 @@
+import CommonNav from "../../Shared-file/commonNav/commonNav";
 import Banner from "./Banner";
 
 const Home = () => {
@@ -5,6 +6,7 @@ const Home = () => {
     return (
         <section>
              <Banner/>
+             {/* <CommonNav/> */}
         </section>
     );
 };

@@ -10,7 +10,7 @@ import email from "../../../assets/email.png";
 const Footer = () => {
   return (
     <footer
-      className="mt-20 bg-cover bg-center"
+      className="bg-cover bg-center"
       style={{ backgroundImage: `url(${footerImg})` }}
     >
       <div className="pt-14 md-20 lg:pt-24 xl:pt-[120px] max-w-[1320px] px-8 md:px-4 lg:px-2 xl:px-0 mx-auto text-white">
@@ -118,7 +118,7 @@ const Footer = () => {
             </div>
           </div>
         </div>
-        <div className="mt-0 md:-mt-3 lg:-mt-5 xl:-mt-6 flex items-center justify-center">
+        <div className="mt-2 md:mt-3 lg:-mt-5 xl:-mt-6 flex items-center justify-center">
           <button className="common-button rounded-[16px] lg:rounded-[24px] xl:rounded-[32px]">
             Start Shopping
           </button>
