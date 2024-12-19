@@ -28,7 +28,7 @@ const CommonNav = () => {
   ];
 
   return (
-    <div className="fixed bottom-0 w-full bg-[#20010D] description text-white mx-auto flex items-center justify-between">
+    <div className="fixed z-50 bottom-0 w-full bg-[#20010D] description text-white mx-auto flex items-center justify-between">
       {navItems.map((item, index) => (
         <Link to={item.to} key={index} onClick={() => handleSetActive(index)} className="flex-1">
           <button
