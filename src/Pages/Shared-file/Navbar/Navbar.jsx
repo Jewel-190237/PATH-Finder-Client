@@ -1,24 +1,39 @@
 import { useState, useEffect } from 'react';
 import { GiHamburgerMenu } from "react-icons/gi";
 import { IoMdCloseCircle } from 'react-icons/io';
+import { BsCoin, BsSun, BsMoon } from 'react-icons/bs';
+import { BiLogIn } from 'react-icons/bi';
 import { Link, useNavigate } from 'react-router-dom';
-import AuthButton from '../../../Authentication/AuthButton/AuthButton';
-
+import { AiOutlineDown } from 'react-icons/ai'
 const links = [
   { name: 'Home', path: '/' },
-  { name: 'About', path: '/about' },
+  { name: 'Course', path: '/course' },
+  { name: 'Review', path: '/review' },
   { name: 'FAQ', path: '/faq' },
-  { name: 'Contact', path: '/contact' },
+  {
+    name: 'Others',
+    path: '/others',
+    submenu: [
+      { name: 'About', path: '/about' },
+      { name: 'Contact', path: '/contact' },
+      { name: 'Privacy Policy', path: '/privacy-policy' },
+    ],
+  },
 ];
 
 const Navbar = () => {
   const [activeLink, setActiveLink] = useState('');
   const [isOpen, setIsOpen] = useState(false);
+  const [darkMode, setDarkMode] = useState(false);
   const navigate = useNavigate();
 
   useEffect(() => {
     const currentPath = window.location.pathname;
-    const activeItem = links.find(link => link.path === currentPath);
+    const activeItem = links.find(
+      (link) =>
+        link.path === currentPath ||
+        link.submenu?.some((sublink) => sublink.path === currentPath)
+    );
     if (activeItem) {
       setActiveLink(activeItem.name);
     }
@@ -33,77 +48,92 @@ const Navbar = () => {
   };
 
   const toggleMenu = () => setIsOpen(!isOpen);
+  const toggleDarkMode = () => setDarkMode(!darkMode);
 
   const renderLinks = () =>
     links.map((link, index) => (
-      <div key={index}>
-        <a
-          href={link.path}
-          className={`font-noto text-[18px]  font-medium ${activeLink === link.name ? 'text-[#fff] bg-primary px-3 py-2 rounded' : 'text-[#030712]'
-            }`}
-          onClick={() => handleLinkClick(link.name, link.path)}
-        >
-          {link.name}
-        </a>
+      <div key={index} className="relative group">
+        <div className="flex items-center space-x-2">
+          <a
+            href={link.path || '#'}
+            className={`font-noto text-[18px] hover:text-[#3F3FDE] font-medium ${activeLink === link.name ? 'text-[#3F3FDE]' : 'text-gray-300'
+              } hover:text-white`}
+            onClick={() =>
+              link.submenu ? null : handleLinkClick(link.name, link.path)
+            }
+          >
+            {link.name}
+          </a>
+          {link.submenu && (
+            <AiOutlineDown className="text-gray-300 group-hover:text-[#3F3FDE]" />
+          )}
+        </div>
+        {link.submenu && (
+          <div className="hidden group-hover:block w-28 absolute top-full left-0 bg-gray-800 text-white shadow-md rounded-md p-2 space-y-2">
+            {link.submenu.map((sublink, subIndex) => (
+              <a
+                key={subIndex}
+                href={sublink.path}
+                className="block text-sm hover:text-[#3F3FDE]"
+                onClick={() => handleLinkClick(sublink.name, sublink.path)}
+              >
+                {sublink.name}
+              </a>
+            ))}
+          </div>
+        )}
       </div>
     ));
+  
 
   return (
-    <nav className="fixed top-0 w-full h-fit z-20 pt-2 bg-[#fff]">
-      <div className="max-w-[1320px] mx-auto  px-4  flex items-center justify-between">
-        <a href="/">
-          <img
-            src="/src/assets/logo.png"
-            alt="logoImage"
-            className="w-20 h-20 bg-primary rounded-full p-1"
-          />
-        </a>
-
-        <div className="lg:hidden absolute left-36 sm:left-1/2 transform -translate-x-1/2 ml-8">
-          <Link to='/ticket'>
-            <button className="border-2 border-[#E67529]  animate-pulse-scale px-2 sm:px-4 md:px-8 py-2 sm:py-4 rounded-[4px] hover:bg-[#E67529] hover:text-white text-primary transition">
-              Buy Tickets
-            </button>
-          </Link>
+    <nav
+      className='bg-[#20010D]'
+    >
+      <div className="max-w-[1320px] mx-auto px-4 flex items-center justify-between h-16">
+        {/* Left Side: Logo and Menu */}
+        <div className="flex items-center space-x-8">
+          <a href="/">
+            <img
+              src="/src/assets/logo.png"
+              alt="logoImage"
+              className="w-24 h-14"
+            />
+          </a>
+          <div className="hidden lg:flex space-x-8">{renderLinks()}</div>
         </div>
 
-        <div className="lg:hidden flex flex-col justify-center">
-          <button
-            onClick={toggleMenu}
-            className="text-[#030712] focus:outline-none absolute right-4"
-          >
-            {isOpen ? (
-              <IoMdCloseCircle className="text-3xl" />
+        {/* Right Side: Search and Icons */}
+        <div className="flex items-center space-x-4">
+          <div className="hidden lg:block relative w-80">
+            <input
+              type="text"
+              placeholder="Search..."
+              className="w-full px-4 py-2 pr-10 rounded-[8px] border bg-[#78120D] text-white focus:outline-none"
+            />
+            <div className="absolute right-2 top-1/2 transform -translate-y-1/2 text-white cursor-pointer">
+            <img src='/src/assets/navbar/search.png' className='w-7 h-7'></img>
+            </div>
+          </div>
+          <img src='/src/assets/navbar/coin.png' className='w-7 h-7'></img>
+          <img src='/src/assets/navbar/login.png' className='w-7 h-7'></img>
+          <button onClick={toggleDarkMode} className="focus:outline-none">
+            {darkMode ? (
+              <BsSun className="text-xl text-orange-400" />
             ) : (
-              <GiHamburgerMenu className="text-3xl" />
+              <BsMoon className="text-xl text-orange-900" />
             )}
           </button>
+          <button onClick={toggleMenu} className="lg:hidden text-2xl">
+            {isOpen ? <IoMdCloseCircle /> : <GiHamburgerMenu />}
+          </button>
         </div>
-
-        <div className="hidden lg:flex items-center text-[18px] font-medium text-[#030712]   space-x-10">
-          {renderLinks()}
-        </div>
-
-        <div className='flex space-x-4'>
-          <div>
-            {/* <AuthButton /> */}
-          </div>
-          <div className="hidden lg:flex relative justify-center lg:justify-end">
-            <Link to='/ticket'>
-            <button className="border-2 border-[#E67529]  animate-pulse-scale px-4 md:px-8 py-4 rounded-[4px] hover:bg-[#E67529] hover:text-white text-primary transition">
-              Buy Tickets
-            </button>
-          </Link>
-          </div>
-        </div>
-
       </div>
 
-      <div className="h-[1px] mt-2 w-full relative bg-gray-500"></div>
-
+      {/* Mobile Menu */}
       {isOpen && (
-        <div className="lg:hidden absolute top-28 left-0 w-1/3 z-50 flex flex-col text-[18px] bg-primary font-medium px-4 space-y-4">
-          {renderLinks(true)}
+        <div className="lg:hidden bg-gray-800 text-white p-4 space-y-4">
+          {renderLinks()}
         </div>
       )}
     </nav>
@@ -111,3 +141,5 @@ const Navbar = () => {
 };
 
 export default Navbar;
+
+
