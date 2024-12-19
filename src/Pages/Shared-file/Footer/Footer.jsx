@@ -3,6 +3,9 @@ import footerImg from "../../../assets/footerbg.png";
 import facebook from "../../../assets/facebook.png";
 import person from "../../../assets/person.png";
 import shape from "../../../assets/shape.png";
+import logo from "../../../assets/logo1.png";
+import call from "../../../assets/call.png";
+import email from "../../../assets/email.png";
 
 const Footer = () => {
   return (
@@ -10,7 +13,32 @@ const Footer = () => {
       className="mt-20 bg-cover bg-center"
       style={{ backgroundImage: `url(${footerImg})` }}
     >
-      <div className="max-w-[1320px] px-8 md:px-4 lg:px-2 xl:px-0 mx-auto text-white">
+      <div className="pt-14 md-20 lg:pt-24 xl:pt-[120px] max-w-[1320px] px-8 md:px-4 lg:px-2 xl:px-0 mx-auto text-white">
+        <div className="w-full bg-[#20010D] border-[1px] border-[#FFFFFF1A] px-3 md:px-4 lg:px-5 xl:px-6 py-1 md:py-2 lg:py-3 xl:py-4 rounded-lg">
+          <div className="flex flex-col md:flex-row items-center justify-between">
+            <img
+              className=" rounded-full"
+              width={92}
+              height={42}
+              src={logo}
+              alt=""
+            />
+            <div className="flex items-center gap-2 md:gap-3 lg:gap-6 xl:gap-7">
+              <div className="flex items-center gap-2">
+                <img className="w-[30px] h-[30px]" src={call} alt="Call" />
+                <p className="description">+0123 456 7891</p>
+              </div>
+              <div className="flex items-center gap-2">
+                <img
+                  className="w-[30px] h-[30px]"
+                  src={email}
+                  alt="email"
+                />
+                <p className="description">info@pathfinder.com</p>
+              </div>
+            </div>
+          </div>
+        </div>
         <div className="pt-6 lg:pt-8 xl:pt-10 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
           <div className="w-full bg-[#2307134D] p-3 lg:p-4 rounded-lg">
             <p className="heading3 text-center !font-medium">About Me</p>
@@ -90,10 +118,12 @@ const Footer = () => {
             </div>
           </div>
         </div>
-        <div className="flex items-center justify-center">
-          <button className="common-button rounded-[16px] lg:rounded-[24px] xl:rounded-[32px]">Start Shopping</button>
+        <div className="mt-0 md:-mt-3 lg:-mt-5 xl:-mt-6 flex items-center justify-center">
+          <button className="common-button rounded-[16px] lg:rounded-[24px] xl:rounded-[32px]">
+            Start Shopping
+          </button>
         </div>
-        <div className="bg-[#20010D] flex items-center justify-between border border-b-0 rounded-t-[12px] mt-12 ">
+        <div className="bg-[#20010D] flex items-center justify-between border-[1px] border-[#FFFFFF33] border-b-0 rounded-t-[12px] mt-12 ">
           <p className="description p-3 lg:p-4 xl:p-5">
             CopyRights {new Date().getFullYear()} All rights reserved.
             <span className="text-primary"> PATH Finder</span>
