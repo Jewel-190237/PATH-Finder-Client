@@ -3,7 +3,7 @@
 @tailwind utilities;
 
 .heading {
-  @apply text-center text-[24px] md:text-[30px] lg:text-4xl xl:text-5xl text-[#030712] font-bold;
+  @apply text-xl md:text-2xl lg:text-[32px] xl:text-[40px] font-bold font-roboto ;
 }
 .heading2 {
   @apply text-[16px] md:text-[18px] lg:text-xl xl:text-2xl font-bold font-roboto;
@@ -13,6 +13,9 @@
 }
 .description {
   @apply text-[12px] md:text-[14px] lg:text-[15px] xl:text-[16px] font-roboto;
+}
+.watch-button {
+  @apply text-white text-[12px] md:text-[16px] lg:text-[18px] xl:text-[20px] font-bold font-roboto bg-[#2D2D2D] py-2 lg:py-3 xl:py-4 px-4 md:px-6 lg:px-7 xl:px-8 hover:bg-[#111111] transition-colors duration-300 ease-in-out;
 }
 .common-button {
   @apply text-white text-[12px] md:text-[16px] lg:text-[18px] xl:text-[20px] font-bold font-roboto bg-[#3F3FDE] py-2 lg:py-3 xl:py-4 px-4 md:px-6 lg:px-7 xl:px-8 hover:bg-[#0303f5] transition-colors duration-300 ease-in-out;
