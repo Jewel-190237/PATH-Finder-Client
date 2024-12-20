@@ -1,8 +1,10 @@
 import React from "react";
+import { Swiper, SwiperSlide } from "swiper/react";
+import { Autoplay, Keyboard, Pagination } from "swiper/modules";
+import "swiper/css";
+import "swiper/css/pagination";
 import reviewBg from "../../../assets/reviewBg.png";
 import review1 from "../../../assets/review1.png";
-import content from "../../../assets/content.png";
-import { Rate } from "antd";
 import ReviewCard from "../../Shared-file/card/ReviewCard";
 
 const Review = () => {
@@ -12,56 +14,56 @@ const Review = () => {
       name: "John Doe",
       rating: 4.5,
       description:
-        "Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, eveniet.",
+        "Incredible work! The final video exceeded our expectations, and the process was seamless..",
     },
     {
       image: review1,
       name: "John Doe",
       rating: 4.5,
       description:
-        "Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, eveniet.",
+        "Incredible work! The final video exceeded our expectations, and the process was seamless..",
     },
     {
       image: review1,
       name: "John Doe",
       rating: 4.5,
       description:
-        "Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, eveniet.",
+        "Incredible work! The final video exceeded our expectations, and the process was seamless..",
     },
     {
       image: review1,
       name: "John Doe",
       rating: 4.5,
       description:
-        "Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, eveniet.",
+        "Incredible work! The final video exceeded our expectations, and the process was seamless..",
     },
     {
       image: review1,
       name: "John Doe",
       rating: 4.5,
       description:
-        "Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, eveniet.",
+        "Incredible work! The final video exceeded our expectations, and the process was seamless..",
     },
     {
       image: review1,
       name: "John Doe",
       rating: 4.5,
       description:
-        "Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, eveniet.",
+        "Incredible work! The final video exceeded our expectations, and the process was seamless..",
     },
     {
       image: review1,
       name: "John Doe",
       rating: 4.5,
       description:
-        "Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, eveniet.",
+        "Incredible work! The final video exceeded our expectations, and the process was seamless.",
     },
     {
       image: review1,
       name: "John Doe",
       rating: 4.5,
       description:
-        "Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, eveniet.",
+        "Incredible work! The final video exceeded our expectations, and the process was seamless.",
     },
   ];
   return (
@@ -75,18 +77,31 @@ const Review = () => {
           Trusted by hundreds, loved by all—here’s{" "}
           <br className="hidden md:block" /> what they have to share.
         </p>
-        <div className="mt-6 md:mt-10 lg:mt-12 xl:mt-[60px]">
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+        <div className="mt-6 md:mt-10 lg:mt-12 xl:mt-[60px] review">
+          <Swiper
+            spaceBetween={20}
+            breakpoints={{
+              640: { slidesPerView: 1 },
+              768: { slidesPerView: 2 },
+              1024: { slidesPerView: 3 },
+              1280: { slidesPerView: 4 },
+            }}
+            pagination={{ clickable: true }}
+            keyboard={{ enabled: true }}
+            modules={[ Keyboard, Pagination]}
+            className="my-8"
+          >
             {reviewData.map((item, index) => (
-              <ReviewCard
-                key={index}
-                image={item.image}
-                name={item.name}
-                rating={item.rating}
-                description={item.description}
-              />
+              <SwiperSlide key={index}>
+                <ReviewCard
+                  image={item.image}
+                  name={item.name}
+                  rating={item.rating}
+                  description={item.description}
+                />
+              </SwiperSlide>
             ))}
-          </div>
+          </Swiper>
         </div>
       </div>
     </div>
