@@ -38,15 +38,15 @@ export const router = createBrowserRouter([
         path: '/',
         element: <Home></Home>
       },
-      // {
-      //   path: '/login',
-      //   element: <ProtectedLogin> <Login /> </ProtectedLogin>
-      // },
+      {
+        path: '/login',
+        element: <ProtectedLogin> <Login /> </ProtectedLogin>
+      },
 
-      // {
-      //   path: '/signup',
-      //   element: <SignUp />
-      // },
+      {
+        path: '/signup',
+        element: <SignUp />
+      },
       // {
       //   path: '/service/:id',
       //   element: <AllService />
@@ -68,14 +68,14 @@ export const router = createBrowserRouter([
       //   path: '/contact',
       //   element: <ContactPage />
       // },
-      // {
-      //   path: '/forgetPassword',
-      //   element: <ForgetPassword/>
-      // },
-      // {
-      //   path: '/resetPassword/:token',
-      //   element: <ResetPassword/>
-      // },
+      {
+        path: '/forgetPassword',
+        element: <ForgetPassword/>
+      },
+      {
+        path: '/resetPassword/:token',
+        element: <ResetPassword/>
+      },
       // {
       //   path: '/payment/success/:tran_id',
       //   element: <PaymentSuccess/>

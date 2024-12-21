@@ -5,6 +5,7 @@ import { BsCoin, BsSun, BsMoon } from 'react-icons/bs';
 import { BiLogIn } from 'react-icons/bi';
 import { Link, useNavigate } from 'react-router-dom';
 import { AiOutlineDown } from 'react-icons/ai'
+import AuthButton from '../../../Authentication/AuthButton/AuthButton';
 const links = [
   { name: 'Home', path: '/' },
   { name: 'Course', path: '/course' },
@@ -116,7 +117,8 @@ const Navbar = () => {
             </div>
           </div>
           <img src='/src/assets/navbar/coin.png' className='w-7 h-7'></img>
-          <img src='/src/assets/navbar/login.png' className='w-7 h-7'></img>
+          {/* <img src='/src/assets/navbar/login.png' className='w-7 h-7'></img> */}
+          <AuthButton />
           <button onClick={toggleDarkMode} className="focus:outline-none">
             {darkMode ? (
               <BsSun className="text-xl text-orange-400" />
