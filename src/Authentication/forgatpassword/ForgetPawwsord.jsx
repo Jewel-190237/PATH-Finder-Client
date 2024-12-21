@@ -3,6 +3,7 @@ import { useState } from "react";
 import Swal from "sweetalert2";
 import useAxiosPublic from "../../Hooks/useAxiosPublic";
 import { useNavigate } from "react-router-dom";
+import signup from "../../assets/signup.png";
 
 const ForgetPassword = () => {
   const navigate = useNavigate();
@@ -49,51 +50,60 @@ const ForgetPassword = () => {
   };
 
   return (
-    <div className="px-8 lg:px-0 mt-40 max-w-[1320px] mx-auto">
-      <div className="bg-[#FF4E25] mx-auto max-w-[868px] px-5 md:px-[150px] lg:px-[250px] py-20 md:py-[100px] lg:py-[150px] rounded bg-opacity-10">
-        <p className="auth-heading">Forgot Password</p>
-        <p className="text-center mt-3">
-          Please confirm your phone number below, and we will send you a
-          verification code.
-        </p>
-        <Form
-          className="mt-6 login-form md:mt-8 lg:mt-12"
-          onFinish={onFinish}
-          form={form}
+    <div
+      className="bg-cover bg-center relative "
+      style={{ backgroundImage: `url(${signup})` }}
+    >
+      <div className="path-container py-10 md:py-12 lg:py-16 xl:py-20 max-w-[1320px] mx-auto text-white">
+        <div
+          style={{ backdropFilter: "blur(50px)" }}
+          className="bg-[#FF4E25] text-white mx-auto max-w-[868px] px-5 md:px-[150px] lg:px-[250px] py-10 md:py-12 lg:py-[60px] xl:py-[80px] rounded bg-opacity-10"
         >
-          <Form.Item
-            label="Phone Number"
-            name="phone"
-            rules={[
-              { required: true, message: "Please input your Phone Number!" },
-            ]}
+          <p className="heading2 text-white text-center">Forgot Password</p>
+          <p className="text-center mt-3">
+            Please confirm your phone number below, and we will send you a
+            verification code.
+          </p>
+          <Form
+            className="mt-6 login-form md:mt-8 lg:mt-12"
+            onFinish={onFinish}
+            form={form}
           >
-            <Input
-              placeholder="Input your Phone Number"
-              type="number"
-              className="p-4"
-              onChange={(e) => setPhone(e.target.value)}
-            />
-          </Form.Item>
-          <Form.Item
-            label="Email"
-            name="email"
-            rules={[{ required: true, message: "Please input your Email!" }]}
-          >
-            <Input
-              placeholder="Input your Email"
-              type="email"
-              className="p-4"
-              onChange={(e) => setEmail(e.target.value)}
-            />
-          </Form.Item>
-          <button
-            type="submit"
-            className="font-poppins w-full button py-4 mt-5 md:mt-6 lg:mt-8"
-          >
-            Continue
-          </button>
-        </Form>
+            <Form.Item
+              label="Phone Number"
+              name="phone"
+              rules={[
+                { required: true, message: "Please input your Phone Number!" },
+              ]}
+            >
+              <Input
+                placeholder="Input your Phone Number"
+                type="number"
+                className="p-2 md:p-3 lg:p-4 xl:p-5 bg-[#78120D] text-white !border-none description"
+                onChange={(e) => setPhone(e.target.value)}
+              />
+            </Form.Item>
+            <Form.Item
+              label="Email"
+              className="mt-3"
+              name="email"
+              rules={[{ required: true, message: "Please input your Email!" }]}
+            >
+              <Input
+                placeholder="Input your Email"
+                type="email"
+                className="p-2 md:p-3 lg:p-4 xl:p-5 bg-[#78120D] text-white !border-none description"
+                onChange={(e) => setEmail(e.target.value)}
+              />
+            </Form.Item>
+            <button
+              type="submit"
+              className="common-button w-full py-4 mt-5 md:mt-6 lg:mt-8 rounded-md"
+            >
+              Continue
+            </button>
+          </Form>
+        </div>
       </div>
     </div>
   );

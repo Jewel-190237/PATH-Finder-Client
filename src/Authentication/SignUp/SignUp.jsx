@@ -5,6 +5,7 @@ import { Link, useLocation, useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
 import useAxiosPublic from "../../Hooks/useAxiosPublic";
 import signup from "../../assets/signup.png";
+
 const SignUp = () => {
   const navigate = useNavigate();
   const axiosSecurePublic = useAxiosPublic();
