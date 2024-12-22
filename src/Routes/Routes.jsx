@@ -26,6 +26,7 @@ import CounterPayment from "../Pages/Dashboard/CounterPayment/CounterPayment";
 import Ticket from "../Pages/Ticket/Ticket";
 import Plan from "../Pages/Plan/Plan";
 import Aspire from "../Pages/Aspire/Aspire";
+import Forum from "../Pages/Forum/Forum";
 
 export const router = createBrowserRouter([
   {
@@ -67,10 +68,10 @@ export const router = createBrowserRouter([
         path: "/aspire",
         element: <Aspire />,
       },
-      // {
-      //   path: '/contact',
-      //   element: <ContactPage />
-      // },
+      {
+        path: "/forum",
+        element: <Forum />,
+      },
       {
         path: "/forgetPassword",
         element: <ForgetPassword />,
