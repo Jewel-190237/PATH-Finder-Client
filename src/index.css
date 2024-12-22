@@ -324,3 +324,40 @@
 .ant-otp-input {
   @apply hover:!border-primary;
 }
+
+
+/* azhar added for new site */
+
+.home1Faq {
+  .ant-collapse {
+    border: none;
+  }
+
+  .ant-collapse-header {
+   border-bottom-width: 0px;
+  }
+  .ant-collapse>.ant-collapse-item {
+    border-bottom: 2px solid #10B981;
+    border-bottom-left-radius: 12px !important;
+    border-bottom-right-radius: 12px !important;
+  }
+
+  .ant-collapse-content {
+    /* background-color: ; */
+    color: black;
+  }
+
+  .ant-collapse-content>.ant-collapse-content-box {
+    padding: 0px;
+  }
+  .ant-collapse>.ant-collapse-item.ant-collapse-item-active>.ant-collapse-header {
+    background-color: #10B981;
+    border-top-left-radius: 12px !important;
+    border-top-right-radius: 12px !important;
+  }
+
+  .ant-collapse .ant-collapse-content {
+    border-top: #101928 solid;
+    background-color: none !important;
+  }
+}
