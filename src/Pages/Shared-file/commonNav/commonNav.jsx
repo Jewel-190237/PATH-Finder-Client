@@ -21,7 +21,7 @@ const CommonNav = () => {
 
   const navItems = [
     { icon: <FaHome />, label: "Home", to: "/" },
-    { icon: <FaPhoneAlt />, label: "Call", to: "/call" },
+    { icon: <FaPhoneAlt />, label: "Plan", to: "/plan" },
     { icon: <FaGift />, label: "Offer", to: "/offer" },
     { icon: <FaFacebookMessenger />, label: "Messenger", to: "/messenger" },
     { icon: <FaWhatsapp />, label: "WhatsApp", to: "/whatsapp" },

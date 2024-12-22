@@ -1,6 +1,4 @@
-import {
-  createBrowserRouter,
-} from "react-router-dom";
+import { createBrowserRouter } from "react-router-dom";
 
 import Main from "../Layout/Main";
 import Home from "../Pages/Home/Home/Home";
@@ -28,6 +26,7 @@ import Profile from "../Pages/Dashboard/Profile/Profile";
 import Payment from "../Pages/Dashboard/Payment/Payment";
 import CounterPayment from "../Pages/Dashboard/CounterPayment/CounterPayment";
 import Ticket from "../Pages/Ticket/Ticket";
+import Plan from "../Pages/Plan/Plan";
 
 export const router = createBrowserRouter([
   {
@@ -35,31 +34,36 @@ export const router = createBrowserRouter([
     element: <Main></Main>,
     children: [
       {
-        path: '/',
-        element: <Home></Home>
+        path: "/",
+        element: <Home></Home>,
       },
-      // {
-      //   path: '/login',
-      //   element: <ProtectedLogin> <Login /> </ProtectedLogin>
-      // },
+      {
+        path: "/login",
+        element: (
+          <ProtectedLogin>
+            {" "}
+            <Login />{" "}
+          </ProtectedLogin>
+        ),
+      },
 
-      // {
-      //   path: '/signup',
-      //   element: <SignUp />
-      // },
+      {
+        path: "/signup",
+        element: <SignUp />,
+      },
       // {
       //   path: '/service/:id',
       //   element: <AllService />
       // },
-      
+
       // {
       //   path: '/about',
       //   element: <About />
       // },
-      // {
-      //   path: '/ticket',
-      //   element: <Ticket/>
-      // },
+      {
+        path: "/plan",
+        element: <Plan />,
+      },
       // {
       //   path: '/faq',
       //   element: <AllFaq />
@@ -68,14 +72,14 @@ export const router = createBrowserRouter([
       //   path: '/contact',
       //   element: <ContactPage />
       // },
-      // {
-      //   path: '/forgetPassword',
-      //   element: <ForgetPassword/>
-      // },
-      // {
-      //   path: '/resetPassword/:token',
-      //   element: <ResetPassword/>
-      // },
+      {
+        path: "/forgetPassword",
+        element: <ForgetPassword />,
+      },
+      {
+        path: "/resetPassword/:token",
+        element: <ResetPassword />,
+      },
       // {
       //   path: '/payment/success/:tran_id',
       //   element: <PaymentSuccess/>
@@ -84,7 +88,7 @@ export const router = createBrowserRouter([
       //   path: '/payment/fail/:tran_id',
       //   element: <PaymentFail/>
       // }
-    ]
+    ],
   },
   // {
   //   path: 'dashboard',
@@ -132,4 +136,4 @@ export const router = createBrowserRouter([
   //     },
   //   ]
   // }
-  ])
+]);
