@@ -5,12 +5,10 @@ import Home from "../Pages/Home/Home/Home";
 import Login from "../Authentication/Login/Login";
 import SignUp from "../Authentication/SignUp/SignUp";
 import ProtectedLogin from "../Authentication/ProtectLogin/ProtectedLogin";
-import AllService from "../Pages/Service/AllService";
 import About from "../Pages/About/About";
 import AllFaq from "../Pages/FAQ/AllFaq";
 import ContactPage from "../Pages/Contact/ContactPage";
 import ProtectedAdmin from "../Authentication/ProtectedAdmin/ProtectedAdmin";
-// import Dashboard from "../Layout/Dashboard";
 import AdminHome from "../Pages/Dashboard/AdminHome/AdminHome";
 import AllUsers from "../Pages/Dashboard/AllUsers/AllUsers";
 import AllMaster from "../Pages/Dashboard/AllMaster/AllMaster";
@@ -27,6 +25,7 @@ import Payment from "../Pages/Dashboard/Payment/Payment";
 import CounterPayment from "../Pages/Dashboard/CounterPayment/CounterPayment";
 import Ticket from "../Pages/Ticket/Ticket";
 import Plan from "../Pages/Plan/Plan";
+import Aspire from "../Pages/Aspire/Aspire";
 
 export const router = createBrowserRouter([
   {
@@ -64,10 +63,10 @@ export const router = createBrowserRouter([
         path: "/plan",
         element: <Plan />,
       },
-      // {
-      //   path: '/faq',
-      //   element: <AllFaq />
-      // },
+      {
+        path: "/aspire",
+        element: <Aspire />,
+      },
       // {
       //   path: '/contact',
       //   element: <ContactPage />
