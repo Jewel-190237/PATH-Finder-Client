@@ -1,5 +1,4 @@
 import FAQ from "../../FAQ/Faq";
-import CommonNav from "../../Shared-file/commonNav/commonNav";
 import Banner from "./Banner";
 import LeaderBoard from "./LeaderBoard";
 import Leap from "./Leap";
