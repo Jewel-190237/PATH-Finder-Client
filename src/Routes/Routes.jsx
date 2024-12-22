@@ -27,6 +27,7 @@ import Ticket from "../Pages/Ticket/Ticket";
 import Plan from "../Pages/Plan/Plan";
 import Aspire from "../Pages/Aspire/Aspire";
 import Forum from "../Pages/Forum/Forum";
+import Dashboard from "../Layout/Dashboard";
 
 export const router = createBrowserRouter([
   {
@@ -90,50 +91,54 @@ export const router = createBrowserRouter([
       // }
     ],
   },
-  // {
-  //   path: 'dashboard',
-  //   element: <ProtectedAdmin> <Dashboard /> </ProtectedAdmin>,
-  //   children: [
-  //     {
-  //       path: 'adminHome',
-  //       element: <AdminHome />
-  //     },
-  //     {
-  //       path: 'allUsers',
-  //       element: <AllUsers />
-  //     },
-  //     {
-  //       path: 'allMaster',
-  //       element: <AllMaster/>
-  //     },
-  //     {
-  //       path: 'addBus',
-  //       element: <AddBus/>
-  //     },
-  //     {
-  //       path: 'manageBus',
-  //       element: <ManageBus/>
-  //     },
-  //     {
-  //       path: 'addRoute',
-  //       element: <AddRoute/>
-  //     },
-  //     {
-  //       path: 'routeManage',
-  //       element: <RouteManage/>
-  //     },
-  //     {
-  //       path: 'profile',
-  //       element: <Profile/>
-  //     },
-  //     {
-  //       path: 'payment',
-  //       element: <Payment/>
-  //     },
-  //     {
-  //       path: 'counterPayment',
-  //       element: <CounterPayment/>
-  //     },
-  //   ]
-  // }
+  {
+    path: "dashboard",
+    element: (
+      <ProtectedAdmin>
+        <Dashboard />
+      </ProtectedAdmin>
+    ),
+    children: [
+      {
+        path: "adminHome",
+        element: <AdminHome />,
+      },
+      //     {
+      //       path: 'allUsers',
+      //       element: <AllUsers />
+      //     },
+      //     {
+      //       path: 'allMaster',
+      //       element: <AllMaster/>
+      //     },
+      //     {
+      //       path: 'addBus',
+      //       element: <AddBus/>
+      //     },
+      //     {
+      //       path: 'manageBus',
+      //       element: <ManageBus/>
+      //     },
+      //     {
+      //       path: 'addRoute',
+      //       element: <AddRoute/>
+      //     },
+      //     {
+      //       path: 'routeManage',
+      //       element: <RouteManage/>
+      //     },
+      //     {
+      //       path: 'profile',
+      //       element: <Profile/>
+      //     },
+      //     {
+      //       path: 'payment',
+      //       element: <Payment/>
+      //     },
+      //     {
+      //       path: 'counterPayment',
+      //       element: <CounterPayment/>
+      //     },
+    ],
+  },
 ]);

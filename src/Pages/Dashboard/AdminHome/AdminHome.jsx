@@ -1,6 +1,8 @@
 import { useEffect, useState } from "react";
-import { FaBus, FaUserAstronaut, FaUsers } from "react-icons/fa";
+import { FaUsers } from "react-icons/fa";
+import { FaBookAtlas } from "react-icons/fa6";
 import { GiPoliceOfficerHead } from "react-icons/gi";
+import { TfiCommentAlt } from "react-icons/tfi";
 
 const AdminHome = () => {
   const [totalUsers, setTotalUsers] = useState(0);
@@ -24,8 +26,10 @@ const AdminHome = () => {
       })
       .then((data) => {
         const allUsers = data.length;
-        const masters = data.filter((user) => user.role === "master").length;
-        const normalUsers = data.filter((user) => user.role === "member").length;
+        const masters = data.filter((user) => user.role === "subAdmin").length;
+        const normalUsers = data.filter(
+          (user) => user.role === "student"
+        ).length;
 
         setTotalUsers(allUsers);
         setMastersCount(masters);
@@ -57,23 +61,23 @@ const AdminHome = () => {
   const dashboardItems = [
     {
       icon: FaUsers,
-      count: totalUsers,
-      text: "Total Number of All Users",
+      count: totalUsers -1 ,
+      text: "Total Users",
     },
     {
       icon: GiPoliceOfficerHead,
       count: mastersCount,
-      text: "Number of Counter Masters",
+      text: "Total Sub Admins",
     },
     {
-      icon: FaUserAstronaut,
+      icon: FaBookAtlas,
       count: normalUsersCount,
-      text: "Total Number of Normal Users",
+      text: "Total Courses",
     },
     {
-      icon: FaBus,
+      icon: TfiCommentAlt,
       count: totalBuses,
-      text: "Total Number of Buses",
+      text: "Total Reviews",
     },
   ];
 

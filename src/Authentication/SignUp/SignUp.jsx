@@ -9,7 +9,7 @@ import signup from "../../assets/signup.png";
 const SignUp = () => {
   const navigate = useNavigate();
   const axiosSecurePublic = useAxiosPublic();
-  const userRole = ["student", "subAdmin", "admin"];
+  const userRole = ["student", "subAdmin"];
   const [activeRole, setActiveRole] = useState("student");
   const [form] = Form.useForm();
 
