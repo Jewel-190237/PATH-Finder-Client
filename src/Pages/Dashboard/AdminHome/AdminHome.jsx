@@ -83,7 +83,7 @@ const AdminHome = () => {
   ];
 
   return (
-    <div className="mx-10 my-12">
+    <div className="mx-10 pt-10">
       {/* Dashboard content */}
       <div className="flex flex-wrap gap-6">
         {dashboardItems.map((item, index) => (
