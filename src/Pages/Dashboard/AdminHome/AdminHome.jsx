@@ -25,6 +25,7 @@ const AdminHome = () => {
         return response.json();
       })
       .then((data) => {
+        console.log(data);
         const allUsers = data.length;
         const masters = data.filter((user) => user.role === "subAdmin").length;
         const normalUsers = data.filter(
@@ -43,7 +44,7 @@ const AdminHome = () => {
     const token = localStorage.getItem("token");
     fetch("http://localhost:5000/buses", {
       headers: {
-        Authorization: `Bearer ${token}`, // Include token in headers
+        Authorization: `Bearer ${token}`,
       },
     })
       .then((response) => {
@@ -61,7 +62,7 @@ const AdminHome = () => {
   const dashboardItems = [
     {
       icon: FaUsers,
-      count: totalUsers -1 ,
+      count: totalUsers - 1,
       text: "Total Users",
     },
     {

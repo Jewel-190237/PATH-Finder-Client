@@ -9,11 +9,9 @@ const AuthButton = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    // Check authentication status on component mount
     const token = localStorage.getItem("token");
     setIsAuthenticated(!!token);
 
-    // Listen for changes in localStorage, especially for login events
     const handleStorageChange = () => {
       const updatedToken = localStorage.getItem("token");
       setIsAuthenticated(!!updatedToken);

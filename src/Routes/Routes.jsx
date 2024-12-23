@@ -101,7 +101,11 @@ export const router = createBrowserRouter([
     children: [
       {
         path: "adminHome",
-        element: <AdminHome />,
+        element: (
+          <ProtectedAdmin>
+            <AdminHome />
+          </ProtectedAdmin>
+        ),
       },
       //     {
       //       path: 'allUsers',

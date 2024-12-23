@@ -24,7 +24,7 @@ const ProtectedAdmin = ({ children }) => {
 
                 if (response.data.role === 'admin') {
                     setLoading(false);
-                    navigate('/dashboard');
+                    navigate('/dashboard/adminHome');
 
                 } else {
                     Swal.fire({
