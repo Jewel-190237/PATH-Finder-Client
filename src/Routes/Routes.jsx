@@ -42,8 +42,7 @@ export const router = createBrowserRouter([
         path: "/login",
         element: (
           <ProtectedLogin>
-            {" "}
-            <Login />{" "}
+            <Login />
           </ProtectedLogin>
         ),
       },
@@ -110,11 +109,19 @@ export const router = createBrowserRouter([
       },
       {
         path: "users",
-        element: <AllUsers />,
+        element: (
+          <ProtectedAdmin>
+            <AllUsers />
+          </ProtectedAdmin>
+        ),
       },
       {
         path: "subAdmin",
-        element: <AllMaster />,
+        element: (
+          <ProtectedAdmin>
+            <AllMaster />
+          </ProtectedAdmin>
+        ),
       },
       //     {
       //       path: 'addBus',
