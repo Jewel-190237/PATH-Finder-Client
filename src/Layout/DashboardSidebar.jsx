@@ -1,37 +1,10 @@
 import { useState, useRef, useEffect } from "react";
-import {
-  FaHome,
-  FaBars,
-  FaTimes,
-  FaMoneyCheckAlt,
-  FaShoppingBag,
-} from "react-icons/fa";
+import { FaHome, FaBars, FaTimes } from "react-icons/fa";
 import { IoLogOut } from "react-icons/io5";
-import {
-  FaDog,
-  FaQuestion,
-  FaShopify,
-  FaUsers,
-  FaUserTie,
-} from "react-icons/fa6";
-import {
-  MdCurrencyPound,
-  MdDashboard,
-  MdDeviceHub,
-  MdEmail,
-  MdInsertPageBreak,
-  MdOutlinePets,
-} from "react-icons/md";
-import { AiFillSetting } from "react-icons/ai";
-import { GrLanguage } from "react-icons/gr";
-import { BiSolidCategoryAlt } from "react-icons/bi";
-import { BiSolidCoupon } from "react-icons/bi";
-import { GoCodeReview } from "react-icons/go";
-import { RiServiceFill } from "react-icons/ri";
-import { LiaWarehouseSolid } from "react-icons/lia";
+import { FaUsers, FaUserTie } from "react-icons/fa6";
+import { MdDashboard } from "react-icons/md";
 import { PiUsersFourFill } from "react-icons/pi";
 import { useLocation } from "react-router-dom";
-
 import logo from "../assets/logo2.png";
 import { Link } from "react-router-dom";
 export default function DashboardSidebar() {
@@ -39,10 +12,10 @@ export default function DashboardSidebar() {
     {
       navTitle: "General",
       link: [
-        { to: "/dashboard", label: "Overview", icon: MdDashboard },
+        { to: "/dashboard/adminHome", label: "Overview", icon: MdDashboard },
         { to: "/", label: "Home", icon: FaHome },
-        { to: "/dashboard/users", label: "Users", icon: PiUsersFourFill },
-        { to: "/dashboard/vendors", label: "Vendors", icon: FaUsers },
+        { to: "/dashboard/users", label: "Members", icon: PiUsersFourFill },
+        { to: "/dashboard/vendors", label: "Sub Admins", icon: FaUsers },
         { to: "/dashboard/providers", label: "Providers", icon: FaUserTie },
       ],
     },
@@ -125,7 +98,7 @@ export default function DashboardSidebar() {
   }, []);
 
   return (
-    <section className="health-shadow">
+    <section className="health-shadow ">
       <div className="flex">
         {/* Sidebar for small and medium devices */}
         <div
@@ -136,7 +109,7 @@ export default function DashboardSidebar() {
         >
           <ul className="mt-14">
             <div className="bg-[#78120D] p-4 rounded-xl mb-6">
-              <img className="" src={logo} width={140} height={43} alt="Logo" />
+              <img className="w-[120px]" src={logo} width={140} height={43} alt="Logo" />
             </div>
             {navItems.map((section, sectionIndex) => (
               <div key={sectionIndex} className="mb-4">
@@ -167,7 +140,7 @@ export default function DashboardSidebar() {
         </div>
 
         {/* Sidebar for large and above devices */}
-        <div className="hidden lg:flex flex-col justify-between bg-[#78120D] text-white h-screen">
+        <div className="hidden lg:flex flex-col justify-between bg-[#78120D] text-white !h-screen">
           <div className="w-[230px] xl:w-[260px]">
             <img className="p-7 xl:p-8 w-[200px]" src={logo} alt="Logo" />
             {navItems.map((section, sectionIndex) => (

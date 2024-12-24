@@ -45,7 +45,7 @@ const AuthButton = () => {
 
   const handleDashboardRedirect = () => {
     // Directly navigating to admin dashboard
-    navigate("/dashboard/adminHome");
+    navigate("/dashboard/overview");
   };
 
   return (

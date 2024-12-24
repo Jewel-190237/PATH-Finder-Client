@@ -1,7 +1,10 @@
 import { useEffect, useState } from "react";
 import { FaUsers } from "react-icons/fa";
 import { FaBookAtlas } from "react-icons/fa6";
-import { GiPoliceOfficerHead } from "react-icons/gi";
+import { GiClick, GiPoliceOfficerHead } from "react-icons/gi";
+import { MdShoppingCart } from "react-icons/md";
+import { PiStudentDuotone } from "react-icons/pi";
+import { TbCoinTaka } from "react-icons/tb";
 import { TfiCommentAlt } from "react-icons/tfi";
 
 const AdminHome = () => {
@@ -80,19 +83,39 @@ const AdminHome = () => {
       count: totalBuses,
       text: "Total Reviews",
     },
+    {
+      icon: MdShoppingCart,
+      count: 2,
+      text: "Total Sales",
+    },
+    {
+      icon: TbCoinTaka,
+      count: 2,
+      text: "Total Revenue",
+    },
+    {
+      icon: PiStudentDuotone,
+      count: 2,
+      text: "Total Enrolled",
+    },
+    {
+      icon: GiClick,
+      count: 2,
+      text: "Total Clicked",
+    },
   ];
 
   return (
     <div className="mx-10 pt-10">
       {/* Dashboard content */}
-      <div className="flex flex-wrap gap-6">
+      <div className="grid grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-4 lg:gap-6 xl:gap-8 w-full justify-center">
         {dashboardItems.map((item, index) => (
           <div
             key={index}
-            className="flex flex-col items-center justify-center w-64 h-48 bg-purple-100 shadow-lg hover:scale-105 group rounded-lg transition-transform duration-200"
+            className="w-full py-5 md:py-6 lg:py-8 xl:py-10 text-white flex flex-col items-center justify-center bg-[#78120D] shadow-lg hover:scale-105 group rounded-lg transition-transform duration-200"
           >
-            <item.icon className="text-6xl text-[#2b2b38] group-hover:text-primary" />
-            <h1 className="text-[#2b2b38] group-hover:text-primary font-bold p-6 py-2 text-center">
+            <item.icon className="heading group-hover:text-primary" />
+            <h1 className=" group-hover:text-primary font-medium mt-3 lg:mt-4 xl:mt-5 text-center description">
               {item.text}: {item.count}
             </h1>
           </div>

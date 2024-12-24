@@ -100,6 +100,7 @@ export const router = createBrowserRouter([
     ),
     children: [
       {
+        // /dashboard/overview
         path: "adminHome",
         element: (
           <ProtectedAdmin>
