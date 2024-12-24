@@ -108,10 +108,10 @@ export const router = createBrowserRouter([
           </ProtectedAdmin>
         ),
       },
-      //     {
-      //       path: 'allUsers',
-      //       element: <AllUsers />
-      //     },
+          {
+            path: 'users',
+            element: <AllUsers />
+          },
       //     {
       //       path: 'allMaster',
       //       element: <AllMaster/>
