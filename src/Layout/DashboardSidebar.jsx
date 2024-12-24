@@ -15,7 +15,7 @@ export default function DashboardSidebar() {
         { to: "/dashboard/adminHome", label: "Overview", icon: MdDashboard },
         { to: "/", label: "Home", icon: FaHome },
         { to: "/dashboard/users", label: "Members", icon: PiUsersFourFill },
-        { to: "/dashboard/vendors", label: "Sub Admins", icon: FaUsers },
+        { to: "/dashboard/subAdmin", label: "Sub Admins", icon: FaUsers },
         { to: "/dashboard/providers", label: "Providers", icon: FaUserTie },
       ],
     },
