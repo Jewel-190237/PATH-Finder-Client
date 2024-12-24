@@ -1,12 +1,13 @@
 /* eslint-disable react/prop-types */
 import { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 import axios from 'axios';
 import Swal from 'sweetalert2';
 
 const ProtectedAdmin = ({ children }) => {
     const [loading, setLoading] = useState(true);
     const navigate = useNavigate();
+    const location = useLocation();
 
     useEffect(() => {
         const checkAdminAccess = async () => {
@@ -23,16 +24,14 @@ const ProtectedAdmin = ({ children }) => {
                 });
 
                 if (response.data.role === 'admin') {
-                    setLoading(false);
-                    navigate('/dashboard');
-
+                    setLoading(false); // Allow access for admin
                 } else {
                     Swal.fire({
                         icon: 'warning',
-                        title: 'You are not Admin',
-                        text: 'You can not access on Dashboard'
+                        title: 'You are not an Admin',
+                        text: 'You cannot access this Dashboard.',
                     });
-                    navigate('/');
+                    navigate('/'); // Redirect non-admin users to the homepage
                 }
             } catch (error) {
                 console.error('Error checking admin access:', error);
@@ -45,6 +44,7 @@ const ProtectedAdmin = ({ children }) => {
 
     if (loading) return <div>Loading...</div>;
 
+    // Render the requested child component for admin
     return children;
 };
 

@@ -42,8 +42,7 @@ export const router = createBrowserRouter([
         path: "/login",
         element: (
           <ProtectedLogin>
-            {" "}
-            <Login />{" "}
+            <Login />
           </ProtectedLogin>
         ),
       },
@@ -100,17 +99,30 @@ export const router = createBrowserRouter([
     ),
     children: [
       {
+        // /dashboard/overview
         path: "adminHome",
-        element: <AdminHome />,
+        element: (
+          <ProtectedAdmin>
+            <AdminHome />
+          </ProtectedAdmin>
+        ),
       },
-      //     {
-      //       path: 'allUsers',
-      //       element: <AllUsers />
-      //     },
-      //     {
-      //       path: 'allMaster',
-      //       element: <AllMaster/>
-      //     },
+      {
+        path: "users",
+        element: (
+          <ProtectedAdmin>
+            <AllUsers />
+          </ProtectedAdmin>
+        ),
+      },
+      {
+        path: "subAdmin",
+        element: (
+          <ProtectedAdmin>
+            <AllMaster />
+          </ProtectedAdmin>
+        ),
+      },
       //     {
       //       path: 'addBus',
       //       element: <AddBus/>

@@ -1,19 +1,17 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
-import { FaUserCircle } from "react-icons/fa";
+import { Dropdown, Space } from "antd";
+import loginPerson from "../../assets/loginPerson.png";
 
 const AuthButton = () => {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
-  const [isDropdownVisible, setIsDropdownVisible] = useState(false);
   const navigate = useNavigate();
 
   useEffect(() => {
-    // Check authentication status on component mount
     const token = localStorage.getItem("token");
     setIsAuthenticated(!!token);
 
-    // Listen for changes in localStorage, especially for login events
     const handleStorageChange = () => {
       const updatedToken = localStorage.getItem("token");
       setIsAuthenticated(!!updatedToken);
@@ -46,41 +44,50 @@ const AuthButton = () => {
   };
 
   const handleDashboardRedirect = () => {
-    // Directly navigating to admin dashboard
     navigate("/dashboard/adminHome");
   };
+
+  const menuItems = [
+    {
+      key: "1",
+      label: (
+        <button
+          onClick={handleDashboardRedirect}
+          className="block w-full text-left"
+        >
+          Dashboard
+        </button>
+      ),
+    },
+    {
+      key: "2",
+      label: (
+        <button
+          onClick={handleSignOut}
+          className="block w-full text-left text-red-500"
+        >
+          Sign Out
+        </button>
+      ),
+    },
+  ];
 
   return (
     <>
       {isAuthenticated ? (
-        <div className="relative right-10 md:right-32 lg:right-0 lg:top-3 ">
-          <FaUserCircle
-            className="text-4xl cursor-pointer"
-            onMouseEnter={() => setIsDropdownVisible(true)}
-            onMouseLeave={() => setIsDropdownVisible(false)}
-          />
-
-          {isDropdownVisible && (
-            <div
-              className="absolute right-0 w-48 bg-primary shadow-lg rounded-md z-50"
-              onMouseEnter={() => setIsDropdownVisible(true)}
-              onMouseLeave={() => setIsDropdownVisible(false)}
-            >
-              <button
-                onClick={handleDashboardRedirect}
-                className="block w-full px-4 py-2 text-left text-white "
-              >
-                Dashboard
-              </button>
-              <button
-                onClick={handleSignOut}
-                className="block w-full px-4 py-2 text-left text-white"
-              >
-                Sign Out
-              </button>
-            </div>
-          )}
-        </div>
+        <Dropdown
+          menu={{ items: menuItems }}
+          trigger={["hover"]}
+          placement="bottom"
+        >
+          <Space>
+            <img
+              src={loginPerson}
+              alt="User"
+              className="w-8 h-8 cursor-pointer rounded-full"
+            />
+          </Space>
+        </Dropdown>
       ) : (
         <button onClick={handleLoginRedirect} className="button px-2 text-white">
           Login
