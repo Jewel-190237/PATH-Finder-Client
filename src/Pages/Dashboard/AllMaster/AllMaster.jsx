@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
 import { FaRegEdit, FaTrashAlt } from "react-icons/fa";
-import { MdOutlineSystemUpdateAlt } from "react-icons/md";
 import Swal from "sweetalert2";
 
 const AllMaster = () => {
@@ -36,6 +35,28 @@ const AllMaster = () => {
       })
       .finally(() => setLoading(false));
   }, []);
+
+  const reloadUsers = async () => {
+    try {
+      const token = localStorage.getItem("token");
+      const response = await fetch("http://localhost:5000/users", {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+
+      const updatedUsers = await response.json();
+
+      if (response.ok && updatedUsers) {
+        setUsers(updatedUsers);
+      } else {
+        Swal.fire("Error", "Failed to reload users.", "error");
+      }
+    } catch (error) {
+      console.error("Error fetching updated users:", error);
+      Swal.fire("Error", "Failed to reload users.", "error");
+    }
+  };
 
   const handleDelete = (user) => {
     Swal.fire({
@@ -113,11 +134,7 @@ const AllMaster = () => {
             text: `${formData.name} has been updated.`,
             icon: "success",
           });
-          setUsers((prevUsers) =>
-            prevUsers.map((user) =>
-              user._id === selectedUser._id ? { ...user, ...formData } : user
-            )
-          );
+          reloadUsers();
           setIsModalOpen(false);
           setFormData({ name: "", phone: "", location: "", role: "" }); // Reset form data
         } else {
@@ -166,11 +183,7 @@ const AllMaster = () => {
                 `${user.name} has been approved.`,
                 "success"
               );
-              setUsers((prevUsers) =>
-                prevUsers.map((u) =>
-                  u._id === user._id ? { ...u, status: "approved" } : u
-                )
-              );
+              reloadUsers();
             } else {
               Swal.fire("Error!", "Failed to approve the user.", "error");
             }
@@ -185,6 +198,44 @@ const AllMaster = () => {
           });
       }
     });
+  };
+
+  const handleSubRoleChange = async (user, subRole) => {
+    if (!subRole) return;
+    try {
+      const token = localStorage.getItem("token");
+      const response = await fetch(
+        `http://localhost:5000/users/${user._id}/approve`,
+        {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+          body: JSON.stringify({ role: subRole }),
+        }
+      );
+
+      const data = await response.json();
+
+      if (response.ok && data.success) {
+        Swal.fire("Success", "Sub-role updated successfully!", "success");
+        await reloadUsers();
+      } else {
+        Swal.fire(
+          "Error",
+          data.message || "Failed to update sub-role.",
+          "error"
+        );
+      }
+    } catch (error) {
+      console.error("Error updating sub-role:", error);
+      Swal.fire(
+        "Error",
+        "An error occurred while updating the sub-role.",
+        "error"
+      );
+    }
   };
 
   const memberUsers = users.filter((user) => user.role === "subAdmin");
@@ -217,7 +268,8 @@ const AllMaster = () => {
                 <th className="px-4 py-2">Name</th>
                 <th className="px-4 py-2">Phone Number</th>
                 <th className="px-4 py-2">Role</th>
-                <th className="px-4 py-2">Status</th>
+                {/* <th className="px-4 py-2">Status</th> */}
+                <th className="px-4 py-2">Select User</th>
                 <th className="px-4 py-2">Update</th>
                 <th className="px-4 py-2">Delete</th>
               </tr>
@@ -228,19 +280,32 @@ const AllMaster = () => {
                   <td className="px-4 py-2">{index + indexOfFirstUser + 1}</td>
                   <td className="px-4 py-2">{user.name}</td>
                   <td className="px-4 py-2">{user.phone}</td>
-                  <td className="px-4 py-2">{user.role}</td>
                   <td className="px-4 py-2">
-                    {user.status !== "approved" ? (
+                    {user?.subRole ? user.subRole : user.role}
+                  </td>
+                  <td className="px-4 py-2">
+                    {user.status === "approved" ? (
+                      <select
+                        onChange={(e) =>
+                          handleSubRoleChange(user, e.target.value)
+                        }
+                        defaultValue=""
+                        className="rounded px-2 py-1 bg-[#78120D] text-white cursor-pointer"
+                      >
+                        <option value="" disabled>
+                          Select Role
+                        </option>
+                        <option value="CSO">CSO</option>
+                        <option value="Manager">Manager</option>
+                        <option value="HR">HR</option>
+                      </select>
+                    ) : (
                       <button
-                        className="px-3 py-2 rounded-lg bg-primary text-white"
                         onClick={() => handleApprove(user)}
+                        className="bg-blue-500 text-white px-4 py-2 rounded"
                       >
                         Approve
                       </button>
-                    ) : user.status === "approved" ? (
-                      "Approved"
-                    ) : (
-                      ""
                     )}
                   </td>
                   <td className="pl-8 py-2">
@@ -251,6 +316,7 @@ const AllMaster = () => {
                       <FaRegEdit className="text-xl text-primary" />
                     </button>
                   </td>
+
                   <td className="pl-8 py-2">
                     <button
                       onClick={() => handleDelete(user)}
@@ -318,7 +384,7 @@ const AllMaster = () => {
                   required
                 />
               </div>
-              
+
               <div className="mb-4">
                 <label className="block text-gray-700">Role</label>
                 <select
