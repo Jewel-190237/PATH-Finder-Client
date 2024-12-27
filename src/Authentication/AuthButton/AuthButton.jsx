@@ -3,10 +3,16 @@ import { useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
 import { Dropdown, Space } from "antd";
 import loginPerson from "../../assets/loginPerson.png";
+import GetUser from "../../Backend/GetUser";
 
 const AuthButton = () => {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const navigate = useNavigate();
+  const [currentUser, setCurrentUser] = useState(null);
+  const user = GetUser();
+  useEffect(() => {
+    setCurrentUser(user);
+  }, [user]);
 
   useEffect(() => {
     const token = localStorage.getItem("token");
@@ -44,7 +50,15 @@ const AuthButton = () => {
   };
 
   const handleDashboardRedirect = () => {
-    navigate("/dashboard/adminHome");
+    if (currentUser?.role === "admin") {
+      return navigate("/dashboard/adminHome");
+    } else if (currentUser?.subRole === "Manager") {
+      return navigate("/managerDashboard/managerHome");
+    } else if (currentUser?.subRole === "HR") {
+      return navigate("/hrDashboard/hrHome");
+    } else {
+      return navigate("/login");
+    }
   };
 
   const menuItems = [
@@ -89,7 +103,10 @@ const AuthButton = () => {
           </Space>
         </Dropdown>
       ) : (
-        <button onClick={handleLoginRedirect} className="button px-2 text-white">
+        <button
+          onClick={handleLoginRedirect}
+          className="button px-2 text-white"
+        >
           Login
         </button>
       )}

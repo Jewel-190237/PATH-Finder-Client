@@ -1,7 +1,16 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import LeaderBoardImage from "../../../assets/leaderboard.png";
+import GetUser from "../../../Backend/GetUser";
 
 const LeaderBoard = () => {
+  const [currentUser, setCurrentUser] = useState(null);
+  const user = GetUser();
+  useEffect(() => {
+    setCurrentUser(user);
+  }, [user]);
+
+  console.log("Current User:", currentUser);
+
   return (
     <div
       className="bg-cover bg-center relative"
@@ -15,5 +24,3 @@ const LeaderBoard = () => {
 };
 
 export default LeaderBoard;
-
-

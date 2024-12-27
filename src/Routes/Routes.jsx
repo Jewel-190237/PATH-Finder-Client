@@ -16,7 +16,6 @@ import ForgetPassword from "../Authentication/forgatpassword/ForgetPawwsord";
 import ResetPassword from "../Authentication/ResetPassword/ResetPassword";
 import PaymentSuccess from "../Pages/Payment/PaymentSuccess";
 import PaymentFail from "../Pages/Payment/PaymentFail";
-import AddBus from "../Pages/Dashboard/AddBus/AddBus";
 import AddRoute from "../Pages/Dashboard/AddRoute/AddRoute";
 import RouteManage from "../Pages/Dashboard/RouteManage/RouteManage";
 import ManageBus from "../Pages/Dashboard/ManageBus/ManageBus";
@@ -28,6 +27,9 @@ import Plan from "../Pages/Plan/Plan";
 import Aspire from "../Pages/Aspire/Aspire";
 import Forum from "../Pages/Forum/Forum";
 import Dashboard from "../Layout/Dashboard";
+import AdminDashboard from "../Pages/Dashboard/AdminDashboard/AdminDashboard";
+import ManagerDashboard from "../Layout/ManagerDashboard/ManagerDashboard";
+import ManagerOverview from "../Pages/Manager/ManagerOverview";
 
 export const router = createBrowserRouter([
   {
@@ -90,67 +92,16 @@ export const router = createBrowserRouter([
       // }
     ],
   },
+
+  //Manager Dashboard
   {
-    path: "dashboard",
-    element: (
-      <ProtectedAdmin>
-        <Dashboard />
-      </ProtectedAdmin>
-    ),
+    path: "managerDashboard",
+    element: <ManagerDashboard />,
     children: [
       {
-        // /dashboard/overview
-        path: "adminHome",
-        element: (
-          <ProtectedAdmin>
-            <AdminHome />
-          </ProtectedAdmin>
-        ),
+        path: "managerHome",
+        element: <ManagerOverview />,
       },
-      {
-        path: "users",
-        element: (
-          <ProtectedAdmin>
-            <AllUsers />
-          </ProtectedAdmin>
-        ),
-      },
-      {
-        path: "subAdmin",
-        element: (
-          <ProtectedAdmin>
-            <AllMaster />
-          </ProtectedAdmin>
-        ),
-      },
-      //     {
-      //       path: 'addBus',
-      //       element: <AddBus/>
-      //     },
-      //     {
-      //       path: 'manageBus',
-      //       element: <ManageBus/>
-      //     },
-      //     {
-      //       path: 'addRoute',
-      //       element: <AddRoute/>
-      //     },
-      //     {
-      //       path: 'routeManage',
-      //       element: <RouteManage/>
-      //     },
-      //     {
-      //       path: 'profile',
-      //       element: <Profile/>
-      //     },
-      //     {
-      //       path: 'payment',
-      //       element: <Payment/>
-      //     },
-      //     {
-      //       path: 'counterPayment',
-      //       element: <CounterPayment/>
-      //     },
     ],
   },
 ]);

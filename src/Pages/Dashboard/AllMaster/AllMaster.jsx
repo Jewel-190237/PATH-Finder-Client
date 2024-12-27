@@ -422,5 +422,4 @@ const AllMaster = () => {
     </>
   );
 };
-
 export default AllMaster;
