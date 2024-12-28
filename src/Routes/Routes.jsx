@@ -93,6 +93,35 @@ export const router = createBrowserRouter([
     ],
   },
 
+  // Admin Dashboard
+  {
+    path: "dashboard",
+    element: (
+      <ProtectedAdmin>
+        {" "}
+        <Dashboard />{" "}
+      </ProtectedAdmin>
+    ),
+    children: [
+      {
+        path: "adminHome",
+        element: <AdminHome />,
+      },
+      {
+        path: "users",
+        element: <AllUsers />,
+      },
+      {
+        path: "subAdmin",
+        element: <AllMaster />,
+      },
+      {
+        path: "adminDashboard",
+        element: <AdminDashboard />,
+      },
+    ],
+  },
+
   //Manager Dashboard
   {
     path: "managerDashboard",
