@@ -73,7 +73,7 @@ const DashboardHeader = () => {
 
   return (
     <header className="z-10 bg-[#78120D] bg-opacity-90 mt-14 lg:mt-0">
-      <div className="flex items-center justify-between gap-1 sm:gap-8 px-2 sm:px-4 py-2 md:py-3 lg:py-4 xl:py-5">
+      <div className="flex items-center justify-between gap-1 sm:gap-8 px-2 sm:px-4 py-4 md:py-6 lg:py-8 xl:py-10">
         <h1 className="heading2 text-white">Dashboard</h1>
         <div className="flex justify-between items-center h-full">
           <div className="flex items-center space-x-1 sm:space-x-3 md:gap-x-6 notification-popover">

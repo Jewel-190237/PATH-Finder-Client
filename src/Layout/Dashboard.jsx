@@ -4,20 +4,17 @@ import DashboardHeader from "./DashboardHeader";
 
 const Dashboard = () => {
   return (
-    <>
-      <div className="flex w-full">
+    <div className="flex h-screen w-full">
+      <div className="bg-[#78120D] flex-shrink-0">
         <DashboardSidebar />
-        <main className="w-full">
-          <div className="">
-            {" "}
-            <DashboardHeader />
-          </div>
-          <div className="bg-[#20010D] w-full h-screen">
-            <Outlet />
-          </div>
-        </main>
       </div>
-    </>
+      <main className="flex flex-col w-full h-full">
+        <DashboardHeader />
+        <div className="bg-[#20010D] flex-grow overflow-y-auto">
+          <Outlet />
+        </div>
+      </main>
+    </div>
   );
 };
 

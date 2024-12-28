@@ -10,13 +10,17 @@ export default function DashboardSidebar() {
       navTitle: "General",
       link: [
         // { to: "/dashboard/adminHome", label: "Overview", icon: MdDashboard },
-        // { to: "/", label: "Home", icon: FaHome },
+
         // { to: "/dashboard/users", label: "Members", icon: PiUsersFourFill },
         // { to: "/dashboard/subAdmin", label: "Sub Admins", icon: FaUsers },
-        { to: "/dashboard/managerHome", label: "Dashboard", icon: RxDashboard },
+        {
+          to: "/managerDashboard/managerHome",
+          label: "Dashboard",
+          icon: RxDashboard,
+        },
+        { to: "/", label: "Home", icon: FaHome },
       ],
     },
-    
   ];
 
   const location = useLocation();
@@ -54,7 +58,13 @@ export default function DashboardSidebar() {
         >
           <ul className="mt-14">
             <div className="bg-[#78120D] p-4 rounded-xl mb-6">
-              <img className="w-[120px]" src={logo} width={140} height={43} alt="Logo" />
+              <img
+                className="w-[120px]"
+                src={logo}
+                width={140}
+                height={43}
+                alt="Logo"
+              />
             </div>
             {navItems.map((section, sectionIndex) => (
               <div key={sectionIndex} className="mb-4">

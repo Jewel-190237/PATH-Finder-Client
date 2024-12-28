@@ -99,7 +99,7 @@ export default function DashboardSidebar() {
   }, []);
 
   return (
-    <section className="health-shadow ">
+    <section className="health-shadow">
       <div className="flex">
         {/* Sidebar for small and medium devices */}
         <div
@@ -141,9 +141,9 @@ export default function DashboardSidebar() {
         </div>
 
         {/* Sidebar for large and above devices */}
-        <div className="hidden lg:flex flex-col justify-between bg-[#78120D] text-white !h-screen">
+        <div className="hidden lg:flex flex-col justify-between bg-[#78120D] text-white">
           <div className="w-[230px] xl:w-[260px]">
-            <img className="p-7 xl:p-8 w-[200px]" src={logo} alt="Logo" />
+            <img className="p-6 xl:p-7 w-[200px]" src={logo} alt="Logo" />
             {navItems.map((section, sectionIndex) => (
               <div key={sectionIndex} className="mb-6">
                 {/* <p className="description px-7 xl:px-8 !font-inter uppercase">

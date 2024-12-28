@@ -106,7 +106,7 @@ const AdminHome = () => {
   ];
 
   return (
-    <div className="mx-10 pt-10">
+    <div className="mx-6 md:mx-8 lg:mx-9 xl:mx-11 pt-6 md:pt-8 lg:pt-9 xl:pt-11">
       {/* Dashboard content */}
       <div className="grid grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-4 lg:gap-6 xl:gap-8 w-full justify-center">
         {dashboardItems.map((item, index) => (
