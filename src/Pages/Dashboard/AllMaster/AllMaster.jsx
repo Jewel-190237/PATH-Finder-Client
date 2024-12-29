@@ -295,9 +295,20 @@ const AllMaster = () => {
                         <option value="" disabled>
                           Select Role
                         </option>
-                        <option value="CSO">CSO</option>
-                        <option value="Manager">Manager</option>
-                        <option value="HR">HR</option>
+                        <option value="CEO">CEO</option>
+                        <option value="Marketing Panel">Marketing Panel</option>
+                        <option value="Marketing Executive">
+                          Marketing Executive
+                        </option>
+                        <option value="Skill Strategist">
+                          Skill Strategist
+                        </option>
+                        <option value="Skill Specialist">
+                          Skill Specialist
+                        </option>
+                        <option value="Dev Advisor">Dev Advisor</option>
+                        <option value="Sales Director">Sales Director</option>
+                        <option value="Virtual assistant">Virtual assistant</option>
                       </select>
                     ) : (
                       <button
@@ -383,22 +394,6 @@ const AllMaster = () => {
                   className="border border-gray-300 rounded w-full px-2 py-1"
                   required
                 />
-              </div>
-
-              <div className="mb-4">
-                <label className="block text-gray-700">Role</label>
-                <select
-                  value={formData.role}
-                  onChange={(e) =>
-                    setFormData({ ...formData, role: e.target.value })
-                  }
-                  className="border border-gray-300 rounded w-full px-2 py-1"
-                  required
-                >
-                  <option value="master">Master</option>
-                  <option value="admin">Admin</option>
-                  <option value="user">User</option>
-                </select>
               </div>
               <div className="flex justify-end">
                 <button
