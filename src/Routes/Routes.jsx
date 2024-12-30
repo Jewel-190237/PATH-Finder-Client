@@ -19,6 +19,18 @@ import AdminDashboard from "../Pages/Dashboard/AdminDashboard/AdminDashboard";
 import ManagerDashboard from "../Layout/ManagerDashboard/ManagerDashboard";
 import ManagerOverview from "../Pages/Manager/ManagerOverview";
 import MarketingOverview from "../Pages/Marketing/MarketingOverview";
+import { Virtual } from "swiper/modules";
+import VirtualAssistantOverview from "../Pages/VirtualAssistant/SalesDirector";
+import VirtualAssistantDashboard from "../Layout/VirtualAssistant/VirtualAssistantDashboard";
+import SalesDirectorDashboard from "../Layout/SalesDirector/SalesDirectorDashboard";
+import SalesDirectorOverview from "../Pages/SalesDirector/SalesDirector";
+import DevAdvisorDashboard from "../Layout/DevAdvisor/DevAdvisorDashboard";
+import DevAdvisorOverview from "../Pages/DevVisor/DevAdvisor";
+import SkillSpecialistDashboard from "../Layout/SkillSpecialist/SkillSpecilistDashboard";
+import SkillSpecialistOverview from "../Pages/SkillSpecialist/SkillSpecialist";
+import SkillStrategistDashboard from "../Layout/SkillStrategist/SkillStrategistDashboard";
+import SkillStrategistOverview from "../Pages/SkillStrategist/SkillStrategist";
+import MarketingDashboard from "../Layout/MarketingExecutive/MarketingDashboard";
 
 export const router = createBrowserRouter([
   {
@@ -126,7 +138,7 @@ export const router = createBrowserRouter([
   //Marketing Executive Dashboard
   {
     path: "marketingDashboard",
-    element: <ManagerDashboard />,
+    element: <MarketingDashboard />,
     children: [
       {
         path: "marketingHome",
@@ -138,35 +150,37 @@ export const router = createBrowserRouter([
   //Skill Strategist Dashboard
   {
     path: "skillStrategist",
-    element: <ManagerDashboard />,
+    element: <SkillStrategistDashboard />,
     children: [
       {
         path: "strategistHome",
-        element: <ManagerOverview />,
-      },
-    ],
-  },
-  
-  //Skill Specialist Dashboard
-  {
-    path: "skillSpecialist",
-    element: <ManagerDashboard />,
-    children: [
-      {
-        path: "specialistDashboard",
-        element: <ManagerOverview />,
+        element: <SkillStrategistOverview />,
       },
     ],
   },
 
+  //Skill Specialist Dashboard
+  {
+    path: "skillSpecialist",
+    element: <SkillSpecialistDashboard />,
+    children: [
+      {
+        path: "specialistDashboard",
+        element: <SkillSpecialistOverview />,
+      },
+    ],
+  },
+
+
+
   //Dev Advisor Dashboard
   {
     path: "devAdvisorDashboard",
-    element: <ManagerDashboard />,
+    element: <DevAdvisorDashboard />,
     children: [
       {
         path: "advisorHome",
-        element: <ManagerOverview />,
+        element: <DevAdvisorOverview />,
       },
     ],
   },
@@ -174,11 +188,11 @@ export const router = createBrowserRouter([
   //Sales Director Dashboard
   {
     path: "salesDirectorDashboard",
-    element: <ManagerDashboard />,
+    element: <SalesDirectorDashboard />,
     children: [
       {
         path: "directorHome",
-        element: <ManagerOverview />,
+        element: <SalesDirectorOverview />,
       },
     ],
   },
@@ -186,11 +200,11 @@ export const router = createBrowserRouter([
   //Virtual Assistant Dashboard
   {
     path: "virtualAssistantDashboard",
-    element: <ManagerDashboard />,
+    element: <VirtualAssistantDashboard />,
     children: [
       {
         path: "assistantHome",
-        element: <ManagerOverview />,
+        element: <VirtualAssistantOverview />,
       },
     ],
   },
