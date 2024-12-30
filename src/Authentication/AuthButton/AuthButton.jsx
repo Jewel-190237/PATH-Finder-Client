@@ -55,17 +55,17 @@ const AuthButton = () => {
     } else if (currentUser?.subRole === "Marketing Panel") {
       return navigate("/managerDashboard/managerHome");
     } else if (currentUser?.subRole === "Marketing Executive") {
-      return navigate("/hrDashboard/hrHome");
+      return navigate("/marketingDashboard/marketingHome");
     } else if (currentUser?.subRole === "Skill Strategist") {
-      return navigate("/hrDashboard/hrHome");
+      return navigate("/skillStrategist/strategistHome");
     } else if (currentUser?.subRole === "Skill Specialist") {
-      return navigate("/hrDashboard/hrHome");
+      return navigate("/skillSpecialist/specialistDashboard");
     } else if (currentUser?.subRole === "Dev Advisor") {
-      return navigate("/hrDashboard/hrHome");
+      return navigate("/devAdvisorDashboard/advisorHome");
     } else if (currentUser?.subRole === "Sales Director") {
-      return navigate("/hrDashboard/hrHome");
+      return navigate("/salesDirectorDashboard/directorHome");
     } else if (currentUser?.subRole === "Virtual assistant") {
-      return navigate("/hrDashboard/hrHome");
+      return navigate("/virtualAssistantDashboard/assistantHome");
     } else {
       return navigate("/login");
     }

@@ -5,24 +5,12 @@ import Home from "../Pages/Home/Home/Home";
 import Login from "../Authentication/Login/Login";
 import SignUp from "../Authentication/SignUp/SignUp";
 import ProtectedLogin from "../Authentication/ProtectLogin/ProtectedLogin";
-import About from "../Pages/About/About";
-import AllFaq from "../Pages/FAQ/AllFaq";
-import ContactPage from "../Pages/Contact/ContactPage";
 import ProtectedAdmin from "../Authentication/ProtectedAdmin/ProtectedAdmin";
 import AdminHome from "../Pages/Dashboard/AdminHome/AdminHome";
 import AllUsers from "../Pages/Dashboard/AllUsers/AllUsers";
 import AllMaster from "../Pages/Dashboard/AllMaster/AllMaster";
 import ForgetPassword from "../Authentication/forgatpassword/ForgetPawwsord";
 import ResetPassword from "../Authentication/ResetPassword/ResetPassword";
-import PaymentSuccess from "../Pages/Payment/PaymentSuccess";
-import PaymentFail from "../Pages/Payment/PaymentFail";
-import AddRoute from "../Pages/Dashboard/AddRoute/AddRoute";
-import RouteManage from "../Pages/Dashboard/RouteManage/RouteManage";
-import ManageBus from "../Pages/Dashboard/ManageBus/ManageBus";
-import Profile from "../Pages/Dashboard/Profile/Profile";
-import Payment from "../Pages/Dashboard/Payment/Payment";
-import CounterPayment from "../Pages/Dashboard/CounterPayment/CounterPayment";
-import Ticket from "../Pages/Ticket/Ticket";
 import Plan from "../Pages/Plan/Plan";
 import Aspire from "../Pages/Aspire/Aspire";
 import Forum from "../Pages/Forum/Forum";
@@ -30,6 +18,7 @@ import Dashboard from "../Layout/Dashboard";
 import AdminDashboard from "../Pages/Dashboard/AdminDashboard/AdminDashboard";
 import ManagerDashboard from "../Layout/ManagerDashboard/ManagerDashboard";
 import ManagerOverview from "../Pages/Manager/ManagerOverview";
+import MarketingOverview from "../Pages/Marketing/MarketingOverview";
 
 export const router = createBrowserRouter([
   {
@@ -129,6 +118,78 @@ export const router = createBrowserRouter([
     children: [
       {
         path: "managerHome",
+        element: <ManagerOverview />,
+      },
+    ],
+  },
+
+  //Marketing Executive Dashboard
+  {
+    path: "marketingDashboard",
+    element: <ManagerDashboard />,
+    children: [
+      {
+        path: "marketingHome",
+        element: <MarketingOverview />,
+      },
+    ],
+  },
+
+  //Skill Strategist Dashboard
+  {
+    path: "skillStrategist",
+    element: <ManagerDashboard />,
+    children: [
+      {
+        path: "strategistHome",
+        element: <ManagerOverview />,
+      },
+    ],
+  },
+  
+  //Skill Specialist Dashboard
+  {
+    path: "skillSpecialist",
+    element: <ManagerDashboard />,
+    children: [
+      {
+        path: "specialistDashboard",
+        element: <ManagerOverview />,
+      },
+    ],
+  },
+
+  //Dev Advisor Dashboard
+  {
+    path: "devAdvisorDashboard",
+    element: <ManagerDashboard />,
+    children: [
+      {
+        path: "advisorHome",
+        element: <ManagerOverview />,
+      },
+    ],
+  },
+
+  //Sales Director Dashboard
+  {
+    path: "salesDirectorDashboard",
+    element: <ManagerDashboard />,
+    children: [
+      {
+        path: "directorHome",
+        element: <ManagerOverview />,
+      },
+    ],
+  },
+
+  //Virtual Assistant Dashboard
+  {
+    path: "virtualAssistantDashboard",
+    element: <ManagerDashboard />,
+    children: [
+      {
+        path: "assistantHome",
         element: <ManagerOverview />,
       },
     ],
