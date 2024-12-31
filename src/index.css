@@ -32,6 +32,37 @@
   @apply text-[20px] text-[#030712CC];
 }
 
+/* Target the entire modal content */
+.custom-modal .ant-modal-content {
+  background-color: #78120D !important; /* Full background color */
+  color: white !important; /* Ensure all text is white */
+  border-radius: 8px; /* Optional: rounded corners for better aesthetics */
+}
+
+/* Target the modal header */
+.custom-modal .ant-modal-header {
+  background-color: #78120D !important;
+  border-bottom: none !important; /* Remove the default header border */
+}
+
+/* Target the modal title */
+.custom-modal .ant-modal-title {
+  color: white !important; /* Title text color */
+}
+
+/* Target the modal close button */
+.custom-modal .ant-modal-close-x {
+  color: white !important; /* Close button color */
+}
+
+/* Target the modal footer */
+.custom-modal .ant-modal-footer {
+  background-color: #78120D !important; /* Footer matches background */
+  border-top: none !important; /* Remove default footer border */
+}
+
+
+
 .review {
   .swiper-pagination {
     margin-top: 80px;

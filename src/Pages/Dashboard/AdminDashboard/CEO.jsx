@@ -180,62 +180,90 @@ const CEO = () => {
       </div>
 
       <Modal
-        title={<h2 className="text-white">User Details</h2>}
-        visible={isModalOpen}
-        onOk={handleOk}
-        onCancel={handleCancel}
-        footer={null}
-        bodyStyle={{
-          backgroundColor: "#78120D", // Background color for the modal
-          borderRadius: "8px", // Optional: Add rounded corners for a smoother design
-          color: "white", // Text color for better readability
-        }}
-      >
-        {selectedUser && (
-          <div>
-            <h2 className="text-lg font-bold mb-4">Courses</h2>
-            <div className="mb-4">
-              <p>Canvas course - 79% Complete</p>
-              <div className="w-full bg-gray-300 rounded-full h-2.5">
-                <div
-                  className="bg-red-600 h-2.5 rounded-full"
-                  style={{ width: "79%" }}
-                ></div>
-              </div>
-            </div>
-            <div className="mb-4">
-              <p>Copy course - 91% Complete</p>
-              <div className="w-full bg-gray-300 rounded-full h-2.5">
-                <div
-                  className="bg-red-600 h-2.5 rounded-full"
-                  style={{ width: "91%" }}
-                ></div>
-              </div>
-            </div>
-            <h2 className="text-lg font-bold mb-4">
-              Review Head of Marketing Task
-            </h2>
-            <div className="space-y-2">
-              {["Facebook", "TikTok", "YouTube"].map((platform) => (
-                <div
-                  key={platform}
-                  className="flex justify-between items-center bg-[#8B0000] p-2 rounded"
-                >
-                  <span>Like, Comment, Follow and Share on {platform}</span>
-                  <div>
-                    <button className="bg-green-600 px-2 py-1 rounded text-white mr-2">
-                      Accept
-                    </button>
-                    <button className="bg-red-600 px-2 py-1 rounded text-white">
-                      Decline
-                    </button>
-                  </div>
-                </div>
-              ))}
+  visible={isModalOpen}
+  onOk={handleOk}
+  onCancel={handleCancel}
+  footer={null}
+  className="custom-modal"
+  bodyStyle={{
+    backgroundColor: "#78120D",
+    color: "white",
+  }}
+>
+  {selectedUser && (
+    <div>
+      <h1 className="heading2 mb-4 text-center">Details of {selectedUser.name}</h1>
+      <h2 className="heading2 mb-4 text-center">Courses</h2>
+      {/* Add table with requested data */}
+      <div className="mb-6">
+        <table className="w-full text-left text-white border description">
+          <thead>
+            <tr>
+              <th className="border-b border-white px-4 py-2">Metric</th>
+              <th className="border-b border-white px-4 py-2">Value</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td className="px-4 py-2 border-b">Course Enrolled</td>
+              <td className="px-4 py-2 border-b">2</td>
+            </tr>
+            <tr>
+              <td className="px-4 py-2 border-b">Course Completed</td>
+              <td className="px-4 py-2 border-b">1</td>
+            </tr>
+            <tr>
+              <td className="px-4 py-2">Level</td>
+              <td className="px-4 py-2">2</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      {/* Progress Bars */}
+      <div className="mb-4 description">
+        <p>Canvas course - 79% Complete</p>
+        <div className="w-full bg-gray-300 rounded-full h-2.5">
+          <div
+            className="bg-red-600 h-2.5 rounded-full"
+            style={{ width: "79%" }}
+          ></div>
+        </div>
+      </div>
+      <div className="mb-4 description">
+        <p>Copy course - 91% Complete</p>
+        <div className="w-full bg-gray-300 rounded-full h-2.5">
+          <div
+            className="bg-red-600 h-2.5 rounded-full"
+            style={{ width: "91%" }}
+          ></div>
+        </div>
+      </div>
+
+      {/* Review Head of Marketing Task */}
+      <h2 className="my-4 heading2 text-center py-2">Review Head of Marketing Task</h2>
+      <div className="space-y-2">
+        {["Facebook", "TikTok", "YouTube"].map((platform) => (
+          <div
+            key={platform}
+            className="flex justify-between items-center bg-[#8B0000] p-2 rounded"
+          >
+            <span className="">Like, Comment, Follow and Share on {platform}</span>
+            <div>
+              <button className="bg-green-600 px-2 py-1 rounded text-white mr-2">
+                Accept
+              </button>
+              <button className="bg-red-600 px-2 py-1 rounded text-white">
+                Decline
+              </button>
             </div>
           </div>
-        )}
-      </Modal>
+        ))}
+      </div>
+    </div>
+  )}
+</Modal>
+
     </>
   );
 };
