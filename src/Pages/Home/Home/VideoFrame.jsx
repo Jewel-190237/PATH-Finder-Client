@@ -1,12 +1,10 @@
 import { useState } from "react";
 import HeroVideoDialog from "./HeroVideoDialog";
 
+const VideoFrame = () => {
+    const [isHovered, setIsHovered] = useState(false);
 
-const Banner = () => {
-  const [isHovered, setIsHovered] = useState(false);
-  return (
-    <div className="relative h-[982px]  mb-20 " >
-     
+    return (
         <div
             className="w-full h-full bg-cover bg-center -mt-24"
             style={{
@@ -15,7 +13,7 @@ const Banner = () => {
             onMouseEnter={() => setIsHovered(true)}
             onMouseLeave={() => setIsHovered(false)}
         >
-            <div className="relative max-w-[1320px] mx-auto pb-40 pt-12  my-20 mb-16">
+            <div className="relative max-w-[1320px] mx-auto py-40 my-20 mb-16">
                 <HeroVideoDialog
                     className="dark:hidden block"
                     animationStyle="top-in-bottom-out"
@@ -49,15 +47,7 @@ const Banner = () => {
                 </div>
             </div>
         </div>
-
-
-
-      
-
-    </div>
-   
-  );
+    );
 };
 
-export default Banner;
-
+export default VideoFrame;
