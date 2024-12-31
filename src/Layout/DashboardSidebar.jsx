@@ -1,6 +1,5 @@
 import { useState, useRef, useEffect } from "react";
 import { FaHome, FaBars, FaTimes } from "react-icons/fa";
-import { IoLogOut } from "react-icons/io5";
 import { FaUsers, FaUserTie } from "react-icons/fa6";
 import { MdDashboard } from "react-icons/md";
 import { PiUsersFourFill } from "react-icons/pi";
@@ -18,6 +17,7 @@ export default function DashboardSidebar() {
         { to: "/dashboard/users", label: "Members", icon: PiUsersFourFill },
         { to: "/dashboard/subAdmin", label: "Sub Admins", icon: FaUsers },
         { to: "/dashboard/adminDashboard", label: "Dashboard", icon: RxDashboard },
+        { to: "/dashboard/ceo", label: "CEO", icon: FaUserTie },
       ],
     },
     // {

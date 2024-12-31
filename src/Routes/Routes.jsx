@@ -31,6 +31,7 @@ import SkillSpecialistOverview from "../Pages/SkillSpecialist/SkillSpecialist";
 import SkillStrategistDashboard from "../Layout/SkillStrategist/SkillStrategistDashboard";
 import SkillStrategistOverview from "../Pages/SkillStrategist/SkillStrategist";
 import MarketingDashboard from "../Layout/MarketingExecutive/MarketingDashboard";
+import CEO from "../Pages/Dashboard/AdminDashboard/CEO";
 
 export const router = createBrowserRouter([
   {
@@ -119,6 +120,10 @@ export const router = createBrowserRouter([
       {
         path: "adminDashboard",
         element: <AdminDashboard />,
+      },
+      {
+        path: "ceo",
+        element: <CEO />,
       },
     ],
   },
