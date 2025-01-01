@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap");
 
 @tailwind base;
 @tailwind components;
@@ -34,34 +34,27 @@
 
 /* Target the entire modal content */
 .custom-modal .ant-modal-content {
-  background-color: #78120D !important; /* Full background color */
-  color: white !important; /* Ensure all text is white */
-  border-radius: 8px; /* Optional: rounded corners for better aesthetics */
+  background-color: #78120d !important;
+  color: white !important;
+  border-radius: 8px;
 }
-
-/* Target the modal header */
 .custom-modal .ant-modal-header {
-  background-color: #78120D !important;
-  border-bottom: none !important; /* Remove the default header border */
+  background-color: #78120d !important;
+  border-bottom: none !important;
 }
 
-/* Target the modal title */
 .custom-modal .ant-modal-title {
-  color: white !important; /* Title text color */
+  color: white !important;
 }
 
-/* Target the modal close button */
 .custom-modal .ant-modal-close-x {
-  color: white !important; /* Close button color */
+  color: white !important;
 }
 
-/* Target the modal footer */
 .custom-modal .ant-modal-footer {
-  background-color: #78120D !important; /* Footer matches background */
-  border-top: none !important; /* Remove default footer border */
+  background-color: #78120d !important;
+  border-top: none !important;
 }
-
-
 
 .review {
   .swiper-pagination {
@@ -132,16 +125,15 @@
     align-items: center;
     max-width: 100%;
     height: 7px;
-    color: #B0B0B0;
+    color: #b0b0b0;
     font-size: 17px;
   }
 
-  ::placeholder{
+  ::placeholder {
     color: white !important;
   }
   :focus {
-    
-    background-color: #78120D !important;
+    background-color: #78120d !important;
     border: none;
   }
 
@@ -150,7 +142,7 @@
   .ant-input-password:hover,
   .ant-input-affix-wrapper:hover {
     border: none;
-    background-color: #78120D;
+    background-color: #78120d;
   }
 }
 
@@ -359,7 +351,6 @@
   @apply hover:!border-primary;
 }
 
-
 /* azhar added for new site */
 
 .home1Faq {
@@ -368,11 +359,11 @@
   }
 
   .ant-collapse-header {
-   border-bottom-width: 0px;
+    border-bottom-width: 0px;
   }
-  .ant-collapse>.ant-collapse-item {
-    border-bottom: 2px solid #78120D;
-    background-color: #78120D;
+  .ant-collapse > .ant-collapse-item {
+    border-bottom: 2px solid #78120d;
+    background-color: #78120d;
     border-bottom-left-radius: 12px !important;
     border-bottom-right-radius: 12px !important;
   }
@@ -382,24 +373,26 @@
     margin-bottom: 16px;
   }
 
-  .ant-collapse-content>.ant-collapse-content-box {
+  .ant-collapse-content > .ant-collapse-content-box {
     padding: 0px;
   }
-  .ant-collapse>.ant-collapse-item.ant-collapse-item-active>.ant-collapse-header {
-    background-color: #78120D;
+  .ant-collapse
+    > .ant-collapse-item.ant-collapse-item-active
+    > .ant-collapse-header {
+    background-color: #78120d;
     /* padding: 40px 20px; */
     border-top-left-radius: 12px !important;
     border-top-right-radius: 12px !important;
   }
 
   .ant-collapse .ant-collapse-content {
-    background-color: #78120D;
-    border-top: #78120D solid;
+    background-color: #78120d;
+    border-top: #78120d solid;
     background-color: none !important;
     border-bottom-left-radius: 12px !important;
     border-bottom-right-radius: 12px !important;
   }
-  .ant-collapse>.ant-collapse-item >.ant-collapse-header {
+  .ant-collapse > .ant-collapse-item > .ant-collapse-header {
     position: relative;
     display: flex;
     flex-wrap: nowrap;

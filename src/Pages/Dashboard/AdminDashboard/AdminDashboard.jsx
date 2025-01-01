@@ -22,7 +22,7 @@ const AdminDashboard = () => {
         <RevenueChart title={"Total Click"} revenue={"$2,000"} />
       </div>
       <h3 className="heading2 py-3 lg:py-4 xl:py-6">Course activities</h3>
-      <div className="bg-[#F6170C] bg-opacity-20 px-4 py-3 rounded-xl mt-4 md:mt-5 lg:mt-6 xl:mt-8 ">
+      <div className="bg-[#F6170C] bg-opacity-20 px-4 py-3 rounded-xl">
         <div className="flex items-center justify-between">
           <h2 className="heading2">CEO Activities</h2>
           <div className="space-y-1">

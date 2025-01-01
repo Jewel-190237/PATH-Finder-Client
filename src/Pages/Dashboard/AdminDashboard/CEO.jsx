@@ -3,6 +3,7 @@ import { FaEye, FaTelegramPlane, FaTrashAlt } from "react-icons/fa";
 import { MdOutlineWhatsapp } from "react-icons/md";
 import { Modal } from "antd";
 import Swal from "sweetalert2";
+import { IoMdAddCircleOutline } from "react-icons/io";
 
 const CEO = () => {
   const [users, setUsers] = useState([]);
@@ -73,6 +74,7 @@ const CEO = () => {
     });
   };
 
+  // CEO Table Pagination
   const memberUsers = users.filter((user) => user.subRole === "CEO");
   const indexOfLastUser = currentPage * usersPerPage;
   const indexOfFirstUser = indexOfLastUser - usersPerPage;
@@ -161,6 +163,69 @@ const CEO = () => {
             </tbody>
           </table>
         </div>
+        <div className="flex justify-center mt-4">
+          {Array.from({ length: totalPages }, (_, index) => (
+            <button
+              key={index + 1}
+              onClick={() => setCurrentPage(index + 1)}
+              className={`mx-1 px-3 py-1 rounded ${
+                currentPage === index + 1
+                  ? "bg-primary text-white"
+                  : "bg-gray-300 text-black"
+              }`}
+            >
+              {index + 1}
+            </button>
+          ))}
+        </div>
+
+        <h3 className="heading2 mt-10 py-3 lg:py-4 xl:py-6 text-white text-center">
+          Guided to CEO
+        </h3>
+
+        <h2 className="heading2 text-white mb-4 !font-semibold">
+          Total Task: 5
+        </h2>
+        <div className="overflow-x-auto text-white">
+          <table className="table-auto w-full divide-y divide-gray-300 text-center text-sm lg:text-base">
+            <thead className="bg-[#78120D] text-white">
+              <tr>
+                <th className="px-4 py-2">Sl No</th>
+                <th className="px-4 py-2">Name</th>
+                <th className="px-4 py-2">Task</th>
+                <th className="px-4 py-2">Status</th>
+                <th className="px-4 py-2">Add Task</th>
+                <th className="px-4 py-2">Delete</th>
+              </tr>
+            </thead>
+            <tbody className="divide-y divide-gray-200 description">
+              {currentUsers.map((user, index) => (
+                <tr key={user._id}>
+                  <td className="px-4 py-2">{index + indexOfFirstUser + 1}</td>
+                  <td className="px-4 py-2">{user.name}</td>
+                  <td className="px-4 py-2">Task 1</td>
+                  <td className="px-4 py-2">Pending</td>
+                  <td className="px-4 py-2">
+                    <button
+                      // onClick={() => handleDelete(user)}
+                      className="btn btn-ghost btn-sm"
+                    >
+                      <IoMdAddCircleOutline className="text-green-800 text-lg" />
+                    </button>
+                  </td>
+                  <td className="px-4 py-2">
+                    <button
+                      onClick={() => handleDelete(user)}
+                      className="btn btn-ghost btn-sm"
+                    >
+                      <FaTrashAlt className="text-red-800 text-lg" />
+                    </button>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
 
         <div className="flex justify-center mt-4">
           {Array.from({ length: totalPages }, (_, index) => (
@@ -177,93 +242,99 @@ const CEO = () => {
             </button>
           ))}
         </div>
+
+        <button className="bg-[#78120D] px-4 py-3 rounded-[12px] flex items-center justify-center">
+          <p className="text-center text-white description">View All</p>
+        </button>
       </div>
 
       <Modal
-  visible={isModalOpen}
-  onOk={handleOk}
-  onCancel={handleCancel}
-  footer={null}
-  className="custom-modal"
-  bodyStyle={{
-    backgroundColor: "#78120D",
-    color: "white",
-  }}
->
-  {selectedUser && (
-    <div>
-      <h1 className="heading2 mb-4 text-center">Details of {selectedUser.name}</h1>
-      <h2 className="heading2 mb-4 text-center">Courses</h2>
-      {/* Add table with requested data */}
-      <div className="mb-6">
-        <table className="w-full text-left text-white border description">
-          <thead>
-            <tr>
-              <th className="border-b border-white px-4 py-2">Metric</th>
-              <th className="border-b border-white px-4 py-2">Value</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td className="px-4 py-2 border-b">Course Enrolled</td>
-              <td className="px-4 py-2 border-b">2</td>
-            </tr>
-            <tr>
-              <td className="px-4 py-2 border-b">Course Completed</td>
-              <td className="px-4 py-2 border-b">1</td>
-            </tr>
-            <tr>
-              <td className="px-4 py-2">Level</td>
-              <td className="px-4 py-2">2</td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
+        visible={isModalOpen}
+        onOk={handleOk}
+        onCancel={handleCancel}
+        footer={null}
+        className="custom-modal"
+        bodyStyle={{
+          backgroundColor: "#78120D",
+          color: "white",
+        }}
+      >
+        {selectedUser && (
+          <div>
+            <h1 className="heading2 mb-4 text-center">
+              Details of {selectedUser.name}
+            </h1>
+            <h2 className="heading2 mb-4 text-center">Courses</h2>
+            <div className="mb-6">
+              <table className="w-full text-left text-white border description">
+                <thead>
+                  <tr>
+                    <th className="border-b border-white px-4 py-2">Metric</th>
+                    <th className="border-b border-white px-4 py-2">Value</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td className="px-4 py-2 border-b">Course Enrolled</td>
+                    <td className="px-4 py-2 border-b">2</td>
+                  </tr>
+                  <tr>
+                    <td className="px-4 py-2 border-b">Course Completed</td>
+                    <td className="px-4 py-2 border-b">1</td>
+                  </tr>
+                  <tr>
+                    <td className="px-4 py-2">Level</td>
+                    <td className="px-4 py-2">2</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
 
-      {/* Progress Bars */}
-      <div className="mb-4 description">
-        <p>Canvas course - 79% Complete</p>
-        <div className="w-full bg-gray-300 rounded-full h-2.5">
-          <div
-            className="bg-red-600 h-2.5 rounded-full"
-            style={{ width: "79%" }}
-          ></div>
-        </div>
-      </div>
-      <div className="mb-4 description">
-        <p>Copy course - 91% Complete</p>
-        <div className="w-full bg-gray-300 rounded-full h-2.5">
-          <div
-            className="bg-red-600 h-2.5 rounded-full"
-            style={{ width: "91%" }}
-          ></div>
-        </div>
-      </div>
+            <div className="mb-4 description">
+              <p>Canvas course - 79% Complete</p>
+              <div className="w-full bg-gray-300 rounded-full h-2.5">
+                <div
+                  className="bg-red-600 h-2.5 rounded-full"
+                  style={{ width: "79%" }}
+                ></div>
+              </div>
+            </div>
+            <div className="mb-4 description">
+              <p>Copy course - 91% Complete</p>
+              <div className="w-full bg-gray-300 rounded-full h-2.5">
+                <div
+                  className="bg-red-600 h-2.5 rounded-full"
+                  style={{ width: "91%" }}
+                ></div>
+              </div>
+            </div>
 
-      {/* Review Head of Marketing Task */}
-      <h2 className="my-4 heading2 text-center py-2">Review Head of Marketing Task</h2>
-      <div className="space-y-2">
-        {["Facebook", "TikTok", "YouTube"].map((platform) => (
-          <div
-            key={platform}
-            className="flex justify-between items-center bg-[#8B0000] p-2 rounded"
-          >
-            <span className="">Like, Comment, Follow and Share on {platform}</span>
-            <div>
-              <button className="bg-green-600 px-2 py-1 rounded text-white mr-2">
-                Accept
-              </button>
-              <button className="bg-red-600 px-2 py-1 rounded text-white">
-                Decline
-              </button>
+            <h2 className="my-4 heading2 text-center py-2">
+              Review Head CSE Task
+            </h2>
+            <div className="space-y-2">
+              {["Facebook", "TikTok", "YouTube"].map((platform) => (
+                <div
+                  key={platform}
+                  className="flex justify-between items-center bg-[#F6170C] bg-opacity-50 p-2 rounded"
+                >
+                  <span className="">
+                    Like, Comment, Follow and Share on {platform}
+                  </span>
+                  <div>
+                    <button className="bg-green-600 px-2 py-1 rounded text-white mr-2">
+                      Accept
+                    </button>
+                    <button className="bg-red-600 px-2 py-1 rounded text-white">
+                      Decline
+                    </button>
+                  </div>
+                </div>
+              ))}
             </div>
           </div>
-        ))}
-      </div>
-    </div>
-  )}
-</Modal>
-
+        )}
+      </Modal>
     </>
   );
 };

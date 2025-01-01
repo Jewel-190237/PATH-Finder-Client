@@ -6,13 +6,14 @@ import { ImExit } from "react-icons/im";
 import { Link, useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
 import GetUser from "../Backend/GetUser";
+import coin from "../assets/coin.png";
+
 
 const DashboardHeader = () => {
   const navigate = useNavigate();
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [currentUser, setCurrentUser] = useState(null);
 
-  // Fetch user data
   const user = GetUser();
 
   useEffect(() => {
@@ -90,6 +91,12 @@ const DashboardHeader = () => {
         <h1 className="heading2 text-white">Dashboard</h1>
         <div className="flex justify-between items-center h-full">
           <div className="flex items-center space-x-1 sm:space-x-3 md:gap-x-6 notification-popover">
+            <div className=" flex items-center">
+              <img className="w-10 h-10 rounded-full -mr-4 relative z-50" src={coin} alt="coin" />
+              <div className="heading3 bg-[#78120D] rounded-[20px] ">
+                <p className="text-white px-6 py-1 pr-3">999</p>
+              </div>
+            </div>
             <Link
               to="/"
               target="_blank"
