@@ -2,13 +2,13 @@ import React from "react";
 import AddTaskTable from "../../../CommonTable/AddTaskTable";
 import ViewTable from "../../../CommonTable/ViewTavle";
 
-const CEO = () => {
+const Marketing = () => {
   return (
     <>
-      <ViewTable subRole="CEO" />
-      <AddTaskTable subRole="CEO" />
+      <ViewTable subRole="Marketing Panel" />
+      <AddTaskTable subRole="Marketing Panel" />
     </>
   );
 };
 
-export default CEO;
+export default Marketing;

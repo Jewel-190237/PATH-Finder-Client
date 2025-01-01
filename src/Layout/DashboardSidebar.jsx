@@ -1,5 +1,5 @@
 import { useState, useRef, useEffect } from "react";
-import { FaHome, FaBars, FaTimes } from "react-icons/fa";
+import { FaHome, FaBars, FaTimes, FaUser } from "react-icons/fa";
 import { FaUsers, FaUserTie } from "react-icons/fa6";
 import { MdDashboard } from "react-icons/md";
 import { PiUsersFourFill } from "react-icons/pi";
@@ -7,6 +7,7 @@ import { useLocation } from "react-router-dom";
 import logo from "../assets/logo2.png";
 import { Link } from "react-router-dom";
 import { RxDashboard } from "react-icons/rx";
+import { FcBusinessman } from "react-icons/fc";
 export default function DashboardSidebar() {
   const navItems = [
     {
@@ -18,6 +19,13 @@ export default function DashboardSidebar() {
         { to: "/dashboard/subAdmin", label: "Sub Admins", icon: FaUsers },
         { to: "/dashboard/adminDashboard", label: "Dashboard", icon: RxDashboard },
         { to: "/dashboard/ceo", label: "CEO", icon: FaUserTie },
+        { to: "/dashboard/marketing", label: "Head of Marketing", icon: FcBusinessman },
+        { to: "/dashboard/executive", label: "Marketing Executive", icon: FaUser },
+        { to: "/dashboard/skillStrategist", label: "Skill Strategist", icon: FaUser },
+        { to: "/dashboard/skillSpecialist", label: "Skill Specialist", icon: FaUser },
+        { to: "/dashboard/devAdvisor", label: "Dev Advisor", icon: FaUser },
+        { to: "/dashboard/salesDirector", label: "Sales Director", icon: FaUser },
+        { to: "/dashboard/virtualAssistant", label: "Virtual Assistant", icon: FaUser },
       ],
     },
     // {
@@ -104,7 +112,7 @@ export default function DashboardSidebar() {
         {/* Sidebar for small and medium devices */}
         <div
           ref={sidebarRef}
-          className={`w-52 bg-[#78120D] rounded-xl p-4 ${
+          className={`bg-[#78120D] rounded-xl p-4 ${
             isMenuOpen ? "block absolute top-0 left-0 z-50" : "hidden"
           } block lg:hidden`}
         >
@@ -142,7 +150,7 @@ export default function DashboardSidebar() {
 
         {/* Sidebar for large and above devices */}
         <div className="hidden lg:flex flex-col justify-between bg-[#78120D] text-white">
-          <div className="w-[230px] xl:w-[260px]">
+          <div className="">
             <img className="p-6 xl:p-7 w-[200px]" src={logo} alt="Logo" />
             {navItems.map((section, sectionIndex) => (
               <div key={sectionIndex} className="mb-6">

@@ -32,6 +32,13 @@ import SkillStrategistDashboard from "../Layout/SkillStrategist/SkillStrategistD
 import SkillStrategistOverview from "../Pages/SkillStrategist/SkillStrategist";
 import MarketingDashboard from "../Layout/MarketingExecutive/MarketingDashboard";
 import CEO from "../Pages/Dashboard/AdminDashboard/CEO";
+import Marketing from "../Pages/Dashboard/AdminDashboard/Marketing";
+import MarketingExecutive from "../Pages/Dashboard/AdminDashboard/MarketingExecutive";
+import SkillStrategist from "../Pages/Dashboard/AdminDashboard/SkillStrategist";
+import SkillSpecialist from "../Pages/Dashboard/AdminDashboard/SkillSpecialist";
+import DevAdvisor from "../Pages/Dashboard/AdminDashboard/DevAdvisor";
+import SalesDirector from "../Pages/Dashboard/AdminDashboard/SalesDirector";
+import VirtualAssistant from "../Pages/Dashboard/AdminDashboard/VirtualAssistant";
 
 export const router = createBrowserRouter([
   {
@@ -125,6 +132,34 @@ export const router = createBrowserRouter([
         path: "ceo",
         element: <CEO />,
       },
+      {
+        path: "marketing",
+        element: <Marketing />,
+      },
+      {
+        path: "executive",
+        element: <MarketingExecutive />,
+      },
+      {
+        path: "skillStrategist",
+        element: <SkillStrategist />,
+      },
+      {
+        path: "skillSpecialist",
+        element: <SkillSpecialist />,
+      },
+      {
+        path: "devAdvisor",
+        element: <DevAdvisor />,
+      },
+      {
+        path: "salesDirector",
+        element: <SalesDirector />,
+      },
+      {
+        path: "virtualAssistant",
+        element: <VirtualAssistant />,
+      },
     ],
   },
 
@@ -175,8 +210,6 @@ export const router = createBrowserRouter([
       },
     ],
   },
-
-
 
   //Dev Advisor Dashboard
   {

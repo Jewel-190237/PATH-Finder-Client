@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
-import { Dropdown, Space } from "antd";
+import { Dropdown, message, Space } from "antd";
 import loginPerson from "../../assets/loginPerson.png";
 import GetUser from "../../Backend/GetUser";
 
@@ -35,12 +35,7 @@ const AuthButton = () => {
   const handleSignOut = () => {
     localStorage.removeItem("token");
     localStorage.removeItem("userId");
-    Swal.fire({
-      icon: "success",
-      title: "Signed out successfully",
-      showConfirmButton: false,
-      timer: 2000,
-    });
+    message.success("Sign out successful");
     navigate("/login");
     setIsAuthenticated(false);
   };
