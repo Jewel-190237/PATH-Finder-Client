@@ -39,6 +39,7 @@ import SkillSpecialist from "../Pages/Dashboard/AdminDashboard/SkillSpecialist";
 import DevAdvisor from "../Pages/Dashboard/AdminDashboard/DevAdvisor";
 import SalesDirector from "../Pages/Dashboard/AdminDashboard/SalesDirector";
 import VirtualAssistant from "../Pages/Dashboard/AdminDashboard/VirtualAssistant";
+import ControlPanel from "../Pages/Dashboard/AdminDashboard/ControlPanel";
 
 export const router = createBrowserRouter([
   {
@@ -127,6 +128,10 @@ export const router = createBrowserRouter([
       {
         path: "adminDashboard",
         element: <AdminDashboard />,
+      },
+      {
+        path: "controlPanel",
+        element: <ControlPanel />,
       },
       {
         path: "ceo",

@@ -10,7 +10,7 @@ const Dashboard = () => {
       </div>
       <main className="flex flex-col w-full h-full">
         <DashboardHeader />
-        <div className="bg-[#20010D] flex-grow h-full ">
+        <div className="bg-[#20010D] flex-grow overflow-y-auto">
           <Outlet />
         </div>
       </main>

@@ -1,13 +1,12 @@
 import { useState, useRef, useEffect } from "react";
-import { FaHome, FaBars, FaTimes, FaUser } from "react-icons/fa";
-import { FaUsers, FaUserTie } from "react-icons/fa6";
-import { MdDashboard } from "react-icons/md";
+import { FaHome, FaBars, FaTimes } from "react-icons/fa";
+import { FaUsers } from "react-icons/fa6";
+import { MdDashboard, MdOutlineControlCamera } from "react-icons/md";
 import { PiUsersFourFill } from "react-icons/pi";
 import { useLocation } from "react-router-dom";
 import logo from "../assets/logo2.png";
 import { Link } from "react-router-dom";
 import { RxDashboard } from "react-icons/rx";
-import { FcBusinessman } from "react-icons/fc";
 export default function DashboardSidebar() {
   const navItems = [
     {
@@ -17,15 +16,16 @@ export default function DashboardSidebar() {
         { to: "/", label: "Home", icon: FaHome },
         { to: "/dashboard/users", label: "Members", icon: PiUsersFourFill },
         { to: "/dashboard/subAdmin", label: "Sub Admins", icon: FaUsers },
-        { to: "/dashboard/adminDashboard", label: "Dashboard", icon: RxDashboard },
-        { to: "/dashboard/ceo", label: "CEO", icon: FaUserTie },
-        { to: "/dashboard/marketing", label: "Head of Marketing", icon: FcBusinessman },
-        { to: "/dashboard/executive", label: "Marketing Executive", icon: FaUser },
-        { to: "/dashboard/skillStrategist", label: "Skill Strategist", icon: FaUser },
-        { to: "/dashboard/skillSpecialist", label: "Skill Specialist", icon: FaUser },
-        { to: "/dashboard/devAdvisor", label: "Dev Advisor", icon: FaUser },
-        { to: "/dashboard/salesDirector", label: "Sales Director", icon: FaUser },
-        { to: "/dashboard/virtualAssistant", label: "Virtual Assistant", icon: FaUser },
+        {
+          to: "/dashboard/adminDashboard",
+          label: "Dashboard",
+          icon: RxDashboard,
+        },
+        {
+          to: "/dashboard/controlPanel",
+          label: "Control Panel",
+          icon: MdOutlineControlCamera,
+        },
       ],
     },
     // {
@@ -118,7 +118,13 @@ export default function DashboardSidebar() {
         >
           <ul className="mt-14">
             <div className="bg-[#78120D] p-4 rounded-xl mb-6">
-              <img className="w-[120px]" src={logo} width={140} height={43} alt="Logo" />
+              <img
+                className="w-[120px]"
+                src={logo}
+                width={140}
+                height={43}
+                alt="Logo"
+              />
             </div>
             {navItems.map((section, sectionIndex) => (
               <div key={sectionIndex} className="mb-4">
