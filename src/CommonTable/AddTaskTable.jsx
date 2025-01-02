@@ -1,17 +1,18 @@
-
 import React, { useEffect, useState } from "react";
-import { FaEye, FaTelegramPlane, FaTrashAlt } from "react-icons/fa";
-import { MdOutlineWhatsapp } from "react-icons/md";
-import { Modal } from "antd";
-import Swal from "sweetalert2";
+import { FaTrashAlt } from "react-icons/fa";
+import { Form, Input, message, Modal } from "antd";
 import { IoMdAddCircleOutline } from "react-icons/io";
+import { FcViewDetails } from "react-icons/fc";
 
-const AddTaskTable = ({ subRole}) => {
+const AddTaskTable = ({ subRole }) => {
   const [users, setUsers] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [usersPerPage] = useState(12);
   const [selectedUser, setSelectedUser] = useState(null);
+  const [selectedUserShow, setSelectedUserShow] = useState(null);
   const [addModalOpen, setAddModalOpen] = useState(false);
+  const [showModalOpen, setShowModalOpen] = useState(false);
+  const [form] = Form.useForm();
 
   useEffect(() => {
     fetchUsers();
@@ -27,7 +28,7 @@ const AddTaskTable = ({ subRole}) => {
       .then((response) => response.json())
       .then((data) => setUsers(data))
       .catch((error) => console.error("Error fetching users:", error));
-    };
+  };
 
   // CEO Table Pagination
   const memberUsers = users.filter((user) => user.subRole == subRole);
@@ -46,9 +47,59 @@ const AddTaskTable = ({ subRole}) => {
     setSelectedUser(null);
   };
 
-  const handleAddCancel = () => {
+  const handleCancel = () => {
     setAddModalOpen(false);
     setSelectedUser(null);
+  };
+
+  //show Modal
+  const showModal = (user) => {
+    setSelectedUserShow(user);
+    setShowModalOpen(true);
+  };
+
+  const handleOk = () => {
+    setShowModalOpen(false);
+    setSelectedUserShow(null);
+  };
+
+  const handleAddCancel = () => {
+    setShowModalOpen(false);
+    setSelectedUserShow(null);
+  };
+
+  const onFinish = async (values) => {
+    const data = {
+      userId: selectedUser._id,
+      taskName: values.taskName,
+      taskDescription: values.taskDescription,
+    };
+    try {
+      const token = localStorage.getItem("token");
+      const response = await fetch("http://localhost:5000/add-task", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify(data),
+      });
+
+      if (response.ok) {
+        const result = await response.json();
+        message.success("Task added successfully");
+        fetchUsers();
+        setAddModalOpen(false);
+        setSelectedUser(null);
+        form.resetFields();
+      } else {
+        message.error("Error adding task");
+        console.error("Error adding task");
+      }
+    } catch (error) {
+      message.error("Error adding task");
+      console.error("Error adding task:", error);
+    }
   };
 
   return (
@@ -56,7 +107,6 @@ const AddTaskTable = ({ subRole}) => {
       <div className="flex justify-center py-8 text-white">
         <h2 className="heading2">Manage {subRole}</h2>
       </div>
-
       <div className="w-full px-4 lg:px-10">
         <h2 className="heading2 text-white mb-4 !font-semibold">
           Total Task: 5
@@ -70,15 +120,17 @@ const AddTaskTable = ({ subRole}) => {
                 <th className="px-4 py-2">Task</th>
                 <th className="px-4 py-2">Status</th>
                 <th className="px-4 py-2">Add Task</th>
-                <th className="px-4 py-2">Delete</th>
+                <th className="px-4 py-2">View</th>
               </tr>
             </thead>
             <tbody className="divide-y divide-gray-200 description">
               {currentUsers.map((user, index) => (
                 <tr key={user._id}>
                   <td className="px-4 py-2">{index + indexOfFirstUser + 1}</td>
-                  <td className="px-4 py-2">{user.name}</td>
-                  <td className="px-4 py-2">Task 1</td>
+                  <td className="px-4 py-2">{user?.name}</td>
+                  <td className="px-4 py-2">
+                    {user?.tasks?.map((task) => task?.taskName)}
+                  </td>
                   <td className="px-4 py-2">Pending</td>
                   <td className="px-4 py-2">
                     <button
@@ -90,10 +142,10 @@ const AddTaskTable = ({ subRole}) => {
                   </td>
                   <td className="px-4 py-2">
                     <button
-                      onClick={() => handleDelete(user)}
+                      onClick={() => showModal(user)}
                       className="btn btn-ghost btn-sm"
                     >
-                      <FaTrashAlt className="text-red-800 text-lg" />
+                      <FcViewDetails className="text-lg" />
                     </button>
                   </td>
                 </tr>
@@ -123,7 +175,7 @@ const AddTaskTable = ({ subRole}) => {
       <Modal
         visible={addModalOpen}
         onOk={handleAddOk}
-        onCancel={handleAddCancel}
+        onCancel={() => setAddModalOpen(false)}
         footer={null}
         className="custom-modal"
         bodyStyle={{
@@ -133,74 +185,102 @@ const AddTaskTable = ({ subRole}) => {
       >
         {selectedUser && (
           <div>
-            <h2 className="heading2 mb-4 text-center">Add Course</h2>
-            <div className="mb-6">
-              <table className="w-full text-left text-white border description">
+            <h2 className="heading2 mb-4 text-center">Add Task</h2>
+            <div
+              className="max-w-[1000px] task-form rounded-[16px] mx-auto my-4 md:my-8"
+              style={{ backdropFilter: "blur(30px)" }}
+            >
+              <Form
+                layout="vertical"
+                className="space-y-4 p-4"
+                onFinish={onFinish}
+                form={form}
+              >
+                <Form.Item
+                  label="Task Name: "
+                  name="taskName"
+                  required
+                  className="text-white"
+                >
+                  <Input
+                    placeholder="Input Task Name"
+                    type="text"
+                    className="p-2 md:p-3 lg:p-4 xl:p-5 bg-[#78120D] text-white border description focus:bg-[#78120D] hover:bg-[#78120D] focus:border-white hover:border-white placeholder-white"
+                  />
+                </Form.Item>
+
+                <Form.Item
+                  label="Task Description:"
+                  name="taskDescription"
+                  required
+                  className="text-white"
+                >
+                  <Input.TextArea
+                    placeholder="Input Task Description"
+                    type="text"
+                    className="p-2 md:p-3 lg:p-4 xl:p-5 bg-[#78120D] text-white border description focus:bg-[#78120D] hover:bg-[#78120D] focus:border-white hover:border-white placeholder-white"
+                  />
+                </Form.Item>
+
+                <button
+                  type="submit"
+                  className="common-button w-full !mt-10 !rounded-md"
+                >
+                  Submit
+                </button>
+              </Form>
+            </div>
+          </div>
+        )}
+      </Modal>
+
+      {/* show Modal */}
+      <Modal
+        visible={showModalOpen}
+        onOk={handleOk}
+        onCancel={() => setShowModalOpen(false)}
+        footer={null}
+        destroyOnClose={true}
+        className="custom-modal"
+        bodyStyle={{
+          backgroundColor: "#78120D",
+          color: "white",
+        }}
+      >
+        {selectedUserShow && (
+          <div>
+            <h2 className="heading2 mb-4 text-center">View Task</h2>
+            {selectedUserShow.tasks && selectedUserShow.tasks.length > 0 ? (
+              <table className="w-full text-white border-collapse">
                 <thead>
-                  <tr>
-                    <th className="border-b border-white px-4 py-2">Metric</th>
-                    <th className="border-b border-white px-4 py-2">Value</th>
+                  <tr className="">
+                    <th className="border px-4 py-2">
+                      Task Name
+                    </th>
+                    <th className="border px-4 py-2">
+                      Task Description
+                    </th>
                   </tr>
                 </thead>
                 <tbody>
-                  <tr>
-                    <td className="px-4 py-2 border-b">Course Enrolled</td>
-                    <td className="px-4 py-2 border-b">2</td>
-                  </tr>
-                  <tr>
-                    <td className="px-4 py-2 border-b">Course Completed</td>
-                    <td className="px-4 py-2 border-b">1</td>
-                  </tr>
-                  <tr>
-                    <td className="px-4 py-2">Level</td>
-                    <td className="px-4 py-2">2</td>
-                  </tr>
+                  {selectedUserShow?.tasks?.map((task, index) => (
+                    <tr
+                      key={index}
+                      
+                    >
+                      <td className="border px-4 py-2">
+                        {task.taskName}
+                      </td>
+                      <td className="border px-4 py-2">
+                        {task.taskDescription}
+                      </td>
+                    </tr>
+                  ))}
                 </tbody>
               </table>
-            </div>
-
-            <div className="mb-4 description">
-              <p>Canvas course - 79% Complete</p>
-              <div className="w-full bg-gray-300 rounded-full h-2.5">
-                <div
-                  className="bg-red-600 h-2.5 rounded-full"
-                  style={{ width: "79%" }}
-                ></div>
-              </div>
-            </div>
-            <div className="mb-4 description">
-              <p>Copy course - 91% Complete</p>
-              <div className="w-full bg-gray-300 rounded-full h-2.5">
-                <div
-                  className="bg-red-600 h-2.5 rounded-full"
-                  style={{ width: "91%" }}
-                ></div>
-              </div>
-            </div>
-
-            <h2 className="my-4 heading2 text-center py-2">
-              Review Head CSE Task
-            </h2>
-            <div className="space-y-2">
-              {["Facebook", "TikTok", "YouTube"].map((platform) => (
-                <div
-                  key={platform}
-                  className="flex justify-between items-center bg-[#F6170C] bg-opacity-50 p-2 rounded"
-                >
-                  <span className="">
-                    Like, Comment, Follow and Share on {platform}
-                  </span>
-                  <div>
-                    <button className="bg-green-600 px-2 py-1 rounded text-white mr-2">
-                      Accept
-                    </button>
-                    <button className="bg-red-600 px-2 py-1 rounded text-white">
-                      Decline
-                    </button>
-                  </div>
-                </div>
-              ))}
-            </div>
+            ) : (
+              <p className="text-center">No tasks available.</p>
+            )}
           </div>
         )}
       </Modal>
@@ -209,4 +289,3 @@ const AddTaskTable = ({ subRole}) => {
 };
 
 export default AddTaskTable;
-

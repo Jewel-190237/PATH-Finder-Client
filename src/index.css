@@ -146,209 +146,37 @@
   }
 }
 
-.ticket-header {
-  @apply text-xl md:text-2xl capitalize font-semibold text-[#030712] border-dashed border-b border-black py-5;
-}
-
-.seat {
-  @apply bg-[#E675291A] border border-primary h-10 w-14 md:h-10 md:w-20 lg:h-20 lg:w-40 rounded-md flex items-center justify-center;
-}
-
-.seat-text {
-  @apply text-[#E67529] text-[16px] lg:text-2xl font-extrabold;
-}
-
-.select-seat {
-  @apply bg-[#E675291A] border border-primary h-12 w-28 md:h-16 md:w-32 lg:h-20 lg:w-56 rounded-md flex items-center justify-center text-[#E67529] text-[16px] lg:text-2xl font-extrabold;
-}
-
-/* Azhar's css  */
-.subHeading {
-  color: #e67529;
-  font-size: 18px;
-  font-style: normal;
-  font-weight: 700;
-  line-height: 120%;
-  text-transform: capitalize;
-}
-
-.para1 {
-  color: #534c4c;
-  font-size: 16px;
-  font-style: normal;
-  font-weight: 400;
-  line-height: 160%;
-  text-transform: capitalize;
-}
-
-.para2 {
-  color: #2b2b2b;
-  text-align: justify;
-  font-size: 16px;
-  font-style: normal;
-  font-weight: 400;
-  line-height: 160%;
-}
-
-/* buy tickets button */
-@keyframes pulse-scale {
-  0% {
-    transform: scale(0.95);
+.task-form {
+  /* Custom CSS for the label text color */
+  .ant-form-item-label {
+    color: white !important; /* Make label white */
+  }
+  .ant-input,
+  .ant-input-focused,
+  .ant-input:hover {
+    border-color: white !important; 
   }
 
-  50% {
-    transform: scale(1.05);
+  .ant-input-textarea,
+  .ant-input-textarea-focused,
+  .ant-input-textarea:hover {
+    border-color: white !important;
   }
 
-  100% {
-    transform: scale(0.95);
+  /* Placeholder color */
+  .ant-input::placeholder,
+  .ant-input-textarea::placeholder {
+    color: white !important;
   }
-}
-
-.animate-pulse-scale {
-  animation: pulse-scale 2s infinite 300ms;
-}
-
-/* FAQ component */
-.ant-collapse {
-  border: none;
-}
-
-.ant-collapse .ant-collapse-item:last-child {
-  border-bottom: 1px solid #d9d9d9;
-}
-
-.ant-collapse > .ant-collapse-item:last-child {
-  border-radius: 4px 4px 4px 4px;
-}
-
-.ant-collapse .ant-collapse-content {
-  border-top: none;
-}
-
-.ant-input-outlined:hover {
-  border-color: none;
-  box-shadow: none;
-}
-
-.ant-btn-default:not(:disabled):not(.ant-btn-disabled):hover {
-  color: #fff;
-  border-color: #e67529;
-  background: #e67529;
-}
-
-.ant-input-outlined:focus,
-:where(.css-dev-only-do-not-override-qnu6hi).ant-input-outlined:focus-within {
-  border-color: #e67529;
-}
-
-/* Swiper slider custom styles */
-.slider111 {
-  .swiper-button-prev,
-  .swiper-button-next {
-    position: absolute;
-    bottom: 0px;
-    margin-top: 180px;
-    width: 60px;
-    height: 60px;
-    z-index: 10;
-    cursor: pointer;
-    display: flex;
+  .ant-form-item .ant-form-item-label >label {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    max-width: 100%;
+    height: 32px;
     color: white;
-    background-color: #e67529;
-    flex-direction: row;
-    border-radius: 100%;
-    padding: 16px;
-  }
-
-  .swiper-button-prev:after,
-  .swiper-button-next:after {
-    font-size: 24px;
-  }
-
-  .swiper-button-next,
-  .swiper-rtl .swiper-button-prev {
-    right: 10px;
-    left: auto;
-  }
-
-  .swiper-button-prev,
-  .swiper-rtl .swiper-button-prev {
-    right: 85px;
-    left: auto;
-  }
-
-  /* Pagination styling */
-
-  /* Responsive styles for smaller screens */
-  @media (max-width: 768px) {
-    .swiper-button-prev,
-    .swiper-button-next {
-      width: 45px;
-      height: 45px;
-      margin-top: 210px;
-    }
-
-    .swiper-pagination {
-      margin-top: 10px;
-    }
-  }
-
-  @media (max-width: 480px) {
-    .swiper-button-prev,
-    .swiper-button-next {
-      width: 35px;
-      height: 35px;
-      padding: 10px;
-    }
-
-    .swiper-button-prev:after,
-    .swiper-button-next:after {
-      font-size: 16px;
-    }
-
-    .swiper-button-prev,
-    .swiper-rtl .swiper-button-prev {
-      right: 55px;
-      left: auto;
-    }
-
-    .swiper-pagination {
-      margin-top: 5px;
-    }
-  }
+    @apply description
 }
-
-/* dropdown */
-.custom-select {
-  appearance: none;
-  /* Remove default styling */
-  background: url("src/assets/arrow.svg") no-repeat right 5px center;
-  /* Add your custom arrow */
-  background-size: 20px;
-  /* Adjust size of the arrow */
-  padding-right: 30px;
-  font-size: medium;
-}
-
-.custom-select:hover {
-  cursor: pointer;
-  /* Change cursor on hover */
-}
-
-.auth-heading {
-  @apply text-3xl font-bold text-black text-center;
-}
-
-.ant-otp {
-  @apply flex items-center mx-auto justify-center space-x-2;
-}
-
-.ant-otp .ant-otp-input {
-  @apply text-center mx-auto !w-12 !h-7 p-2 md:p-4 lg:p-5 hover:!border-primary;
-}
-.ant-otp-input {
-  @apply hover:!border-primary;
 }
 
 /* azhar added for new site */

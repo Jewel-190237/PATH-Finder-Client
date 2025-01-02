@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { FaEye, FaTelegramPlane, FaTrashAlt } from "react-icons/fa";
 import { MdOutlineWhatsapp } from "react-icons/md";
-import { Modal } from "antd";
+import { message, Modal } from "antd";
 import Swal from "sweetalert2";
 import { IoMdAddCircleOutline } from "react-icons/io";
 
@@ -50,25 +50,17 @@ const ViewTable = ({ subRole }) => {
           .then((response) => response.json())
           .then((result) => {
             if (result.message === "User deleted successfully") {
-              Swal.fire(
-                "Deleted!",
-                `${user.name} has been deleted.`,
-                "success"
-              );
+              message.success("User deleted successfully");
               setUsers((prevUsers) =>
                 prevUsers.filter((u) => u._id !== user._id)
               );
             } else {
-              Swal.fire("Error!", "Failed to delete the user.", "error");
+              message.error("An error occurred while deleting the user.");
             }
           })
           .catch((error) => {
             console.error("Error deleting user:", error);
-            Swal.fire(
-              "Error!",
-              "An error occurred while deleting the user.",
-              "error"
-            );
+            message.error("An error occurred while deleting the user.");
           });
       }
     });
@@ -84,6 +76,8 @@ const ViewTable = ({ subRole }) => {
   const showModal = (user) => {
     setSelectedUser(user);
     setIsModalOpen(true);
+    console.log("User", user);
+
   };
 
   const handleOk = () => {
@@ -245,13 +239,14 @@ const ViewTable = ({ subRole }) => {
               Review Head CSE Task
             </h2>
             <div className="space-y-2">
-              {["Facebook", "TikTok", "YouTube"].map((platform) => (
+              {selectedUser?.tasks?.map((task, index) => (
                 <div
-                  key={platform}
+                  key={index}
                   className="flex justify-between items-center bg-[#F6170C] bg-opacity-50 p-2 rounded"
                 >
                   <span className="">
-                    Like, Comment, Follow and Share on {platform}
+                    {task?.taskName}
+                    {/* Like, Comment, Follow and Share on {platform} */}
                   </span>
                   <div>
                     <button className="bg-green-600 px-2 py-1 rounded text-white mr-2">
