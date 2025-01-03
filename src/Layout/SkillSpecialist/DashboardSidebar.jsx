@@ -4,18 +4,21 @@ import { useLocation } from "react-router-dom";
 import logo from "../../assets/logo2.png";
 import { Link } from "react-router-dom";
 import { RxDashboard } from "react-icons/rx";
+import { SlUser } from "react-icons/sl";
 export default function DashboardSidebar() {
   const navItems = [
     {
       navTitle: "General",
       link: [
-        // { to: "/dashboard/adminHome", label: "Overview", icon: MdDashboard },
-        // { to: "/dashboard/users", label: "Members", icon: PiUsersFourFill },
-        // { to: "/dashboard/subAdmin", label: "Sub Admins", icon: FaUsers },
         {
           to: "/skillSpecialist/specialistDashboard",
           label: "Dashboard",
           icon: RxDashboard,
+        },
+        {
+          to: "/skillSpecialist/devAdvisor",
+          label: "Dev Advisor",
+          icon: SlUser,
         },
         { to: "/", label: "Home", icon: FaHome },
       ],
@@ -51,7 +54,7 @@ export default function DashboardSidebar() {
         {/* Sidebar for small and medium devices */}
         <div
           ref={sidebarRef}
-          className={`w-52 bg-[#78120D] rounded-xl p-4 ${
+          className={` bg-[#78120D] rounded-xl p-4 ${
             isMenuOpen ? "block absolute top-0 left-0 z-50" : "hidden"
           } block lg:hidden`}
         >
@@ -95,7 +98,7 @@ export default function DashboardSidebar() {
 
         {/* Sidebar for large and above devices */}
         <div className="hidden lg:flex flex-col justify-between bg-[#78120D] text-white !h-screen">
-          <div className="w-[230px] xl:w-[260px]">
+          <div className="">
             <img className="p-7 xl:p-8 w-[200px]" src={logo} alt="Logo" />
             {navItems.map((section, sectionIndex) => (
               <div key={sectionIndex} className="mb-6">

@@ -4,19 +4,21 @@ import { useLocation } from "react-router-dom";
 import logo from "../../assets/logo2.png";
 import { Link } from "react-router-dom";
 import { RxDashboard } from "react-icons/rx";
+import { TbUserBolt, TbUsers } from "react-icons/tb";
 export default function DashboardSidebar() {
   const navItems = [
     {
       navTitle: "General",
       link: [
-        // { to: "/dashboard/adminHome", label: "Overview", icon: MdDashboard },
-        // marketingDashboard/marketingHome
-        // { to: "/dashboard/users", label: "Members", icon: PiUsersFourFill },
-        // { to: "/dashboard/subAdmin", label: "Sub Admins", icon: FaUsers },
         {
           to: "/devAdvisorDashboard/advisorHome",
           label: "Dashboard",
           icon: RxDashboard,
+        },
+        {
+          to: "/devAdvisorDashboard/salesDirector",
+          label: "Sales Director",
+          icon: TbUserBolt,
         },
         { to: "/", label: "Home", icon: FaHome },
       ],

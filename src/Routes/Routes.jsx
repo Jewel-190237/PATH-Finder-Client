@@ -38,6 +38,8 @@ import SalesDirector from "../Pages/CEO/SalesDirector";
 import MarketingExecutive from "../Pages/HeadOfMarketing/MarketingExecutive";
 import SkillStrategist from "../Pages/MarketingExecutive/SkillStragist";
 import SkillSpecialist from "../Pages/SkillStrategist/SkillSpecialist";
+import DevAdvisor from "../Pages/SkillSpecialist/DevAdvisor";
+import VirtualAssistant from "../Pages/SalesDirector/VirtualAssistant";
 
 export const router = createBrowserRouter([
   {
@@ -211,6 +213,10 @@ export const router = createBrowserRouter([
         path: "specialistDashboard",
         element: <SkillSpecialistOverview />,
       },
+      {
+        path: "devAdvisor",
+        element: <DevAdvisor />,
+      },
     ],
   },
 
@@ -223,6 +229,10 @@ export const router = createBrowserRouter([
         path: "advisorHome",
         element: <DevAdvisorOverview />,
       },
+      {
+        path: "salesDirector",
+        element: <SalesDirector />,
+      },
     ],
   },
 
@@ -234,6 +244,10 @@ export const router = createBrowserRouter([
       {
         path: "directorHome",
         element: <SalesDirectorOverview />,
+      },
+      {
+        path: "virtualAssistant",
+        element: <VirtualAssistant />,
       },
     ],
   },
