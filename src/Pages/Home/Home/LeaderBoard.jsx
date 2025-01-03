@@ -1,4 +1,6 @@
+import { useEffect, useState } from "react";
 import LeaderBoardImage from "../../../assets/leaderboard.png";
+import GetUser from "../../../Backend/GetUser";
 
 const LeaderBoard = () => {
   const data = [
@@ -8,6 +10,13 @@ const LeaderBoard = () => {
     { id: 7, name: "Cheyenne Kenter", amount: "35469 $" },
     { id: 8, name: "Tiana Baptista", amount: "35469 $" },
   ];
+  const [currentUser, setCurrentUser] = useState(null);
+  const user = GetUser();
+  useEffect(() => {
+    setCurrentUser(user);
+  }, [user]);
+
+  console.log("Current User:", currentUser);
 
   return (
     <div
@@ -48,5 +57,3 @@ const LeaderBoard = () => {
 };
 
 export default LeaderBoard;
-
-

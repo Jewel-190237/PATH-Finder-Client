@@ -1,8 +1,8 @@
 import { Outlet } from "react-router-dom";
 import DashboardSidebar from "./DashboardSidebar";
-import DashboardHeader from "./DashboardHeader";
+import DashboardHeader from "../DashboardHeader";
 
-const Dashboard = () => {
+const SkillSpecialistDashboard = () => {
   return (
     <div className="flex h-screen w-full">
       <div className="bg-[#78120D] flex-shrink-0">
@@ -18,4 +18,4 @@ const Dashboard = () => {
   );
 };
 
-export default Dashboard;
+export default SkillSpecialistDashboard;

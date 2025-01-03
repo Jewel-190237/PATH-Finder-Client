@@ -1,29 +1,28 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect } from "react";
 import { GiHamburgerMenu } from "react-icons/gi";
-import { IoMdCloseCircle } from 'react-icons/io';
-import { BsCoin, BsSun, BsMoon } from 'react-icons/bs';
-import { BiLogIn } from 'react-icons/bi';
-import { Link, useNavigate } from 'react-router-dom';
-import { AiOutlineDown } from 'react-icons/ai'
-import AuthButton from '../../../Authentication/AuthButton/AuthButton';
+import { IoMdCloseCircle } from "react-icons/io";
+import { BsSun, BsMoon } from "react-icons/bs";
+import { useNavigate } from "react-router-dom";
+import { AiOutlineDown } from "react-icons/ai";
+import AuthButton from "../../../Authentication/AuthButton/AuthButton";
 const links = [
-  { name: 'Home', path: '/' },
-  { name: 'Course', path: '/course' },
-  { name: 'Review', path: '/review' },
-  { name: 'FAQ', path: '/faq' },
+  { name: "Home", path: "/" },
+  { name: "Course", path: "/course" },
+  { name: "Review", path: "/review" },
+  { name: "FAQ", path: "/faq" },
   {
-    name: 'Others',
-    path: '/others',
+    name: "Others",
+    path: "/others",
     submenu: [
-      { name: 'About', path: '/about' },
-      { name: 'Contact', path: '/contact' },
-      { name: 'Privacy Policy', path: '/privacy-policy' },
+      { name: "About", path: "/about" },
+      { name: "Contact", path: "/contact" },
+      { name: "Privacy Policy", path: "/privacy-policy" },
     ],
   },
 ];
 
 const Navbar = () => {
-  const [activeLink, setActiveLink] = useState('');
+  const [activeLink, setActiveLink] = useState("");
   const [isOpen, setIsOpen] = useState(false);
   const [darkMode, setDarkMode] = useState(false);
   const navigate = useNavigate();
@@ -56,9 +55,10 @@ const Navbar = () => {
       <div key={index} className="relative group">
         <div className="flex items-center space-x-2">
           <a
-            href={link.path || '#'}
-            className={`font-noto text-[18px] hover:text-[#3F3FDE] font-medium ${activeLink === link.name ? 'text-[#3F3FDE]' : 'text-gray-300'
-              } hover:text-white`}
+            href={link.path || "#"}
+            className={`font-noto text-[18px] hover:text-[#3F3FDE] font-medium ${
+              activeLink === link.name ? "text-[#3F3FDE]" : "text-gray-300"
+            } hover:text-white`}
             onClick={() =>
               link.submenu ? null : handleLinkClick(link.name, link.path)
             }
@@ -85,12 +85,9 @@ const Navbar = () => {
         )}
       </div>
     ));
-  
 
   return (
-    <nav
-      className='bg-[#20010D]'
-    >
+    <nav className="bg-[#20010D]">
       <div className="max-w-[1320px] mx-auto px-4 flex items-center justify-between h-16">
         {/* Left Side: Logo and Menu */}
         <div className="flex items-center space-x-8">
@@ -113,10 +110,13 @@ const Navbar = () => {
               className="w-full px-4 py-2 pr-10 rounded-[8px] border bg-[#78120D] text-white focus:outline-none"
             />
             <div className="absolute right-2 top-1/2 transform -translate-y-1/2 text-white cursor-pointer">
-            <img src='/src/assets/navbar/search.png' className='w-7 h-7'></img>
+              <img
+                src="/src/assets/navbar/search.png"
+                className="w-7 h-7"
+              ></img>
             </div>
           </div>
-          <img src='/src/assets/navbar/coin.png' className='w-7 h-7'></img>
+          <img src="/src/assets/navbar/coin.png" className="w-7 h-7"></img>
           {/* <img src='/src/assets/navbar/login.png' className='w-7 h-7'></img> */}
           <AuthButton />
           <button onClick={toggleDarkMode} className="focus:outline-none">
@@ -143,5 +143,3 @@ const Navbar = () => {
 };
 
 export default Navbar;
-
-

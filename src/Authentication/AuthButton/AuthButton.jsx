@@ -1,12 +1,18 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
-import { Dropdown, Space } from "antd";
+import { Dropdown, message, Space } from "antd";
 import loginPerson from "../../assets/loginPerson.png";
+import GetUser from "../../Backend/GetUser";
 
 const AuthButton = () => {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const navigate = useNavigate();
+  const [currentUser, setCurrentUser] = useState(null);
+  const user = GetUser();
+  useEffect(() => {
+    setCurrentUser(user);
+  }, [user]);
 
   useEffect(() => {
     const token = localStorage.getItem("token");
@@ -29,12 +35,7 @@ const AuthButton = () => {
   const handleSignOut = () => {
     localStorage.removeItem("token");
     localStorage.removeItem("userId");
-    Swal.fire({
-      icon: "success",
-      title: "Signed out successfully",
-      showConfirmButton: false,
-      timer: 2000,
-    });
+    message.success("Sign out successful");
     navigate("/login");
     setIsAuthenticated(false);
   };
@@ -44,7 +45,27 @@ const AuthButton = () => {
   };
 
   const handleDashboardRedirect = () => {
-    navigate("/dashboard/adminHome");
+    if (currentUser?.role === "admin") {
+      return navigate("/dashboard/adminHome");
+    } else if (currentUser?.subRole === "CEO") {
+      return navigate("/CEODashboard/CEOHome");
+    } else if (currentUser?.subRole === "Marketing Panel") {
+      return navigate("/managerDashboard/managerHome");
+    } else if (currentUser?.subRole === "Marketing Executive") {
+      return navigate("/marketingDashboard/marketingHome");
+    } else if (currentUser?.subRole === "Skill Strategist") {
+      return navigate("/skillStrategist/strategistHome");
+    } else if (currentUser?.subRole === "Skill Specialist") {
+      return navigate("/skillSpecialist/specialistDashboard");
+    } else if (currentUser?.subRole === "Dev Advisor") {
+      return navigate("/devAdvisorDashboard/advisorHome");
+    } else if (currentUser?.subRole === "Sales Director") {
+      return navigate("/salesDirectorDashboard/directorHome");
+    } else if (currentUser?.subRole === "Virtual assistant") {
+      return navigate("/virtualAssistantDashboard/assistantHome");
+    } else {
+      return navigate("/login");
+    }
   };
 
   const menuItems = [
@@ -89,7 +110,10 @@ const AuthButton = () => {
           </Space>
         </Dropdown>
       ) : (
-        <button onClick={handleLoginRedirect} className="button px-2 text-white">
+        <button
+          onClick={handleLoginRedirect}
+          className="button px-2 text-white"
+        >
           Login
         </button>
       )}

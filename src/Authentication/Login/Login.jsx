@@ -1,18 +1,15 @@
 import axios from "axios";
 import Swal from "sweetalert2";
-import { useLocation, useNavigate } from "react-router-dom";
-import { useState } from "react";
-import { Form, Input } from "antd";
+import { useNavigate } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { Form, Input, message } from "antd";
 import signup from "../../assets/signup.png";
 import { Link } from "react-router-dom";
 
 const Login = () => {
   const [form] = Form.useForm();
   const navigate = useNavigate();
-
-  const returnLocation = useLocation;
-  const from = returnLocation.state?.from?.pathname || "/";
-
+  const [currentUser, setCurrentUser] = useState(null);
   const userRole = ["student", "subAdmin", "admin"];
   const [activeRole, setActiveRole] = useState("student");
 
@@ -27,22 +24,41 @@ const Login = () => {
       });
 
       console.log("Server Response:", response.data);
+      message.success("Login successful");
 
-      Swal.fire({
-        icon: "success",
-        title: "Login successful",
-        showConfirmButton: false,
-        timer: 2000,
-      });
+      const { token, userId, role, subRole } = response.data;
 
-      localStorage.setItem("token", response.data.token);
-      localStorage.setItem("userId", response.data.userId);
+      // Store token and user details
+      localStorage.setItem("token", token);
+      localStorage.setItem("userId", userId);
+      setCurrentUser({ role, subRole });
+      console.log("Current User:", currentUser);
 
-      navigate(from, { replace: true });
+      // Redirect based on role and subRole
+      if (role === "admin") {
+        navigate("/dashboard/adminHome");
+      } else if (subRole === "CEO") {
+        navigate("/CEODashboard/CEOHome");
+      } else if (subRole === "Marketing Panel") {
+        navigate("/managerDashboard/managerHome");
+      } else if (subRole === "Marketing Executive") {
+        navigate("/marketingDashboard/marketingHome");
+      } else if (subRole === "Skill Strategist") {
+        navigate("/skillStrategist/strategistHome");
+      } else if (subRole === "Skill Specialist") {
+        navigate("/skillSpecialist/specialistDashboard");
+      } else if (subRole === "Dev Advisor") {
+        navigate("/devAdvisorDashboard/advisorHome");
+      } else if (subRole === "Sales Director") {
+        navigate("/salesDirectorDashboard/directorHome");
+      } else if (subRole === "Virtual assistant") {
+        navigate("/virtualAssistantDashboard/assistantHome");
+      } else {
+        navigate("/login");
+      }
     } catch (error) {
       console.error("Login error:", error);
 
-      // Check if the error is due to role mismatch (403)
       if (error.response && error.response.status === 403) {
         Swal.fire({
           icon: "error",
@@ -53,11 +69,9 @@ const Login = () => {
         Swal.fire({
           icon: "error",
           title: "User Not Found",
-          text: "User not found in Your input data. Please Login.",
+          text: "User not found in your input data. Please Login.",
         });
-      }
-      // Check if user credentials are wrong (401)
-      else if (error.response && error.response.status === 401) {
+      } else if (error.response && error.response.status === 401) {
         Swal.fire({
           icon: "error",
           title: "Login failed",
@@ -65,7 +79,6 @@ const Login = () => {
             error.response.data.message || "Invalid phone number or password",
         });
       } else {
-        // General error message
         Swal.fire({
           icon: "error",
           title: "Login failed",
@@ -79,12 +92,14 @@ const Login = () => {
 
   return (
     <div
-      className="bg-cover bg-center relative "
+      className="bg-cover bg-center relative"
       style={{ backgroundImage: `url(${signup})` }}
     >
       <div className="path-container p-8 md:p-10 lg:p-12 xl:p-[60px] border-[1px] border-[#20010D]">
         <div className="text-white">
-          <h2 className="heading2 text-center">Welcome Back! <br /> Access Your Account Now.</h2>
+          <h2 className="heading2 text-center">
+            Welcome Back! <br /> Access Your Account Now.
+          </h2>
           <div className="mt-3 md:mt-4 lg:mt-5 xl:mt-6 flex items-center justify-center gap-2 md:gap-3 lg:gap-4 xl:gap-5">
             {userRole.map((role) => (
               <button
@@ -111,14 +126,14 @@ const Login = () => {
               onFinish={onFinish}
               form={form}
             >
-              <Form.Item label="Phone Number: " name="phone" required>
+              <Form.Item label="Phone Number: " name="phone" rules={[{ required: true, message: 'Please enter your phone number!' }]}>
                 <Input
                   placeholder="Input your Phone Number"
                   type="number"
                   className="p-2 md:p-3 lg:p-4 xl:p-5 bg-[#78120D] text-white !border-none description"
                 />
               </Form.Item>
-              <Form.Item label="Password" name="password" required>
+              <Form.Item label="Password" name="password" rules={[{ required: true, message: 'Please enter your password!' }]}>
                 <Input
                   placeholder="Input your password"
                   type="password"
