@@ -20,7 +20,6 @@ import AddBus from "../Pages/Dashboard/AddBus/AddBus";
 import AddRoute from "../Pages/Dashboard/AddRoute/AddRoute";
 import RouteManage from "../Pages/Dashboard/RouteManage/RouteManage";
 import ManageBus from "../Pages/Dashboard/ManageBus/ManageBus";
-import Profile from "../Pages/Dashboard/Profile/Profile";
 import Payment from "../Pages/Dashboard/Payment/Payment";
 import CounterPayment from "../Pages/Dashboard/CounterPayment/CounterPayment";
 import Ticket from "../Pages/Ticket/Ticket";
@@ -28,6 +27,7 @@ import Plan from "../Pages/Plan/Plan";
 import Aspire from "../Pages/Aspire/Aspire";
 import Forum from "../Pages/Forum/Forum";
 import Dashboard from "../Layout/Dashboard";
+import Profile from "../Pages/Profile/Profile";
 
 export const router = createBrowserRouter([
   {
@@ -71,6 +71,10 @@ export const router = createBrowserRouter([
       {
         path: "/forum",
         element: <Forum />,
+      },
+      {
+        path: "/profile",
+        element: <Profile />,
       },
       {
         path: "/forgetPassword",

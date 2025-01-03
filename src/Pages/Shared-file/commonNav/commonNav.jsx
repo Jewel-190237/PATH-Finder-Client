@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { FaHome, FaFacebookMessenger, FaWhatsapp } from "react-icons/fa";
+import { FaHome } from "react-icons/fa";
 import { HiOutlineLightBulb } from "react-icons/hi";
 import { IoPersonCircleOutline } from "react-icons/io5";
 import { MdOutlineEditCalendar, MdOutlineForum } from "react-icons/md";

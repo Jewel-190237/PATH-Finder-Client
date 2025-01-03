@@ -5,7 +5,7 @@ const About = () => {
     return (
         <div>
              <BasicHeader heading='About'/>
-          <Welcome></Welcome>
+             <Welcome></Welcome>
         </div>
     );
 };

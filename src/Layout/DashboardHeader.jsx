@@ -8,7 +8,7 @@ import Swal from "sweetalert2";
 
 const DashboardHeader = () => {
   const navigate = useNavigate();
-  const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [ setIsAuthenticated] = useState(false);
 
   useEffect(() => {
     const token = localStorage.getItem("token");
