@@ -37,6 +37,8 @@ const Login = () => {
       // Redirect based on role and subRole
       if (role === "admin") {
         navigate("/dashboard/adminHome");
+      } else if (subRole === "CEO") {
+        navigate("/CEODashboard/CEOHome");
       } else if (subRole === "Marketing Panel") {
         navigate("/managerDashboard/managerHome");
       } else if (subRole === "Marketing Executive") {

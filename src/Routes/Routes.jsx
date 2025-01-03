@@ -17,9 +17,8 @@ import Forum from "../Pages/Forum/Forum";
 import Dashboard from "../Layout/Dashboard";
 import AdminDashboard from "../Pages/Dashboard/AdminDashboard/AdminDashboard";
 import ManagerDashboard from "../Layout/ManagerDashboard/ManagerDashboard";
-import ManagerOverview from "../Pages/Manager/ManagerOverview";
-import MarketingOverview from "../Pages/Marketing/MarketingOverview";
-import { Virtual } from "swiper/modules";
+import ManagerOverview from "../Pages/HeadOfMarketing/ManagerOverview";
+import MarketingOverview from "../Pages/MarketingExecutive/MarketingOverview";
 import VirtualAssistantOverview from "../Pages/VirtualAssistant/SalesDirector";
 import VirtualAssistantDashboard from "../Layout/VirtualAssistant/VirtualAssistantDashboard";
 import SalesDirectorDashboard from "../Layout/SalesDirector/SalesDirectorDashboard";
@@ -31,15 +30,14 @@ import SkillSpecialistOverview from "../Pages/SkillSpecialist/SkillSpecialist";
 import SkillStrategistDashboard from "../Layout/SkillStrategist/SkillStrategistDashboard";
 import SkillStrategistOverview from "../Pages/SkillStrategist/SkillStrategist";
 import MarketingDashboard from "../Layout/MarketingExecutive/MarketingDashboard";
-import CEO from "../Pages/Dashboard/AdminDashboard/CEO";
-import Marketing from "../Pages/Dashboard/AdminDashboard/Marketing";
-import MarketingExecutive from "../Pages/Dashboard/AdminDashboard/MarketingExecutive";
-import SkillStrategist from "../Pages/Dashboard/AdminDashboard/SkillStrategist";
-import SkillSpecialist from "../Pages/Dashboard/AdminDashboard/SkillSpecialist";
-import DevAdvisor from "../Pages/Dashboard/AdminDashboard/DevAdvisor";
-import SalesDirector from "../Pages/Dashboard/AdminDashboard/SalesDirector";
-import VirtualAssistant from "../Pages/Dashboard/AdminDashboard/VirtualAssistant";
 import ControlPanel from "../Pages/Dashboard/AdminDashboard/ControlPanel";
+import CEODashboard from "../Layout/CEO/CEODashboard";
+import CEOOverview from "../Pages/CEO/CEOOverview";
+import HeadOfMarketing from "../Pages/CEO/HeadOfMarketing";
+import SalesDirector from "../Pages/CEO/SalesDirector";
+import MarketingExecutive from "../Pages/HeadOfMarketing/MarketingExecutive";
+import SkillStrategist from "../Pages/MarketingExecutive/SkillStragist";
+import SkillSpecialist from "../Pages/SkillStrategist/SkillSpecialist";
 
 export const router = createBrowserRouter([
   {
@@ -133,42 +131,30 @@ export const router = createBrowserRouter([
         path: "controlPanel",
         element: <ControlPanel />,
       },
+    ],
+  },
+
+  //CEO Dashboard 
+  {
+    path: "CEODashboard",
+    element: <CEODashboard />,
+    children: [
       {
-        path: "ceo",
-        element: <CEO />,
+        path: "CEOHome",
+        element: <CEOOverview />,
       },
       {
-        path: "marketing",
-        element: <Marketing />,
-      },
-      {
-        path: "executive",
-        element: <MarketingExecutive />,
-      },
-      {
-        path: "skillStrategist",
-        element: <SkillStrategist />,
-      },
-      {
-        path: "skillSpecialist",
-        element: <SkillSpecialist />,
-      },
-      {
-        path: "devAdvisor",
-        element: <DevAdvisor />,
+        path: "headOfMarketing",
+        element: <HeadOfMarketing />,
       },
       {
         path: "salesDirector",
         element: <SalesDirector />,
       },
-      {
-        path: "virtualAssistant",
-        element: <VirtualAssistant />,
-      },
     ],
   },
 
-  //Manager Dashboard
+  //Head of Marketing Dashboard
   {
     path: "managerDashboard",
     element: <ManagerDashboard />,
@@ -176,6 +162,10 @@ export const router = createBrowserRouter([
       {
         path: "managerHome",
         element: <ManagerOverview />,
+      },
+      {
+        path: "marketingExecutive",
+        element: <MarketingExecutive />,
       },
     ],
   },
@@ -189,6 +179,10 @@ export const router = createBrowserRouter([
         path: "marketingHome",
         element: <MarketingOverview />,
       },
+      {
+        path: "skillStrategist",
+        element: <SkillStrategist />,
+      },
     ],
   },
 
@@ -200,6 +194,10 @@ export const router = createBrowserRouter([
       {
         path: "strategistHome",
         element: <SkillStrategistOverview />,
+      },
+      {
+        path: "skillSpecialist",
+        element: <SkillSpecialist />,
       },
     ],
   },

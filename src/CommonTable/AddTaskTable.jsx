@@ -47,11 +47,6 @@ const AddTaskTable = ({ subRole }) => {
     setSelectedUser(null);
   };
 
-  const handleCancel = () => {
-    setAddModalOpen(false);
-    setSelectedUser(null);
-  };
-
   //show Modal
   const showModal = (user) => {
     setSelectedUserShow(user);
@@ -59,11 +54,6 @@ const AddTaskTable = ({ subRole }) => {
   };
 
   const handleOk = () => {
-    setShowModalOpen(false);
-    setSelectedUserShow(null);
-  };
-
-  const handleAddCancel = () => {
     setShowModalOpen(false);
     setSelectedUserShow(null);
   };
@@ -105,12 +95,9 @@ const AddTaskTable = ({ subRole }) => {
   return (
     <>
       <div className="flex justify-center py-8 text-white">
-        <h2 className="heading2">Manage {subRole}</h2>
+        <h2 className="heading2">Add task to {subRole}</h2>
       </div>
       <div className="w-full px-4 lg:px-10">
-        <h2 className="heading2 text-white mb-4 !font-semibold">
-          Total Task: 5
-        </h2>
         <div className="overflow-x-auto text-white">
           <table className="table-auto w-full divide-y divide-gray-300 text-center text-sm lg:text-base">
             <thead className="bg-[#78120D] text-white">

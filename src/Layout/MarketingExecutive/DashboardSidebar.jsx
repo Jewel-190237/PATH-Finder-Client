@@ -4,6 +4,7 @@ import { useLocation } from "react-router-dom";
 import logo from "../../assets/logo2.png";
 import { Link } from "react-router-dom";
 import { RxDashboard } from "react-icons/rx";
+import { AiOutlineUsergroupAdd } from "react-icons/ai";
 export default function DashboardSidebar() {
   const navItems = [
     {
@@ -17,6 +18,11 @@ export default function DashboardSidebar() {
           to: "/marketingDashboard/marketingHome",
           label: "Dashboard",
           icon: RxDashboard,
+        },
+        {
+          to: "/marketingDashboard/skillStrategist",
+          label: "Skill Strategist",
+          icon: AiOutlineUsergroupAdd ,
         },
         { to: "/", label: "Home", icon: FaHome },
       ],

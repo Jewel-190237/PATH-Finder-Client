@@ -47,6 +47,8 @@ const AuthButton = () => {
   const handleDashboardRedirect = () => {
     if (currentUser?.role === "admin") {
       return navigate("/dashboard/adminHome");
+    } else if (currentUser?.subRole === "CEO") {
+      return navigate("/CEODashboard/CEOHome");
     } else if (currentUser?.subRole === "Marketing Panel") {
       return navigate("/managerDashboard/managerHome");
     } else if (currentUser?.subRole === "Marketing Executive") {

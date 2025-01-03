@@ -3,7 +3,7 @@ import { FaEye, FaTelegramPlane, FaTrashAlt } from "react-icons/fa";
 import { MdOutlineWhatsapp } from "react-icons/md";
 import { message, Modal } from "antd";
 import Swal from "sweetalert2";
-import { IoMdAddCircleOutline } from "react-icons/io";
+import GetUser from "../Backend/GetUser";
 
 const ViewTable = ({ subRole }) => {
   const [users, setUsers] = useState([]);
@@ -11,6 +11,12 @@ const ViewTable = ({ subRole }) => {
   const [usersPerPage] = useState(12);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedUser, setSelectedUser] = useState(null);
+
+  const [currentUser, setCurrentUser] = useState(null);
+  const user = GetUser();
+  useEffect(() => {
+    setCurrentUser(user);
+  }, [user]);
 
   useEffect(() => {
     fetchUsers();
@@ -77,7 +83,6 @@ const ViewTable = ({ subRole }) => {
     setSelectedUser(user);
     setIsModalOpen(true);
     console.log("User", user);
-
   };
 
   const handleOk = () => {
@@ -109,8 +114,10 @@ const ViewTable = ({ subRole }) => {
                 <th className="px-4 py-2">Phone Number</th>
                 <th className="px-4 py-2 ">WhatsApp</th>
                 <th className="px-4 py-2">Telegram</th>
-                <th className="px-4 py-2">View</th>
-                <th className="px-4 py-2">Delete</th>
+                <th className="px-4 py-2">View Task</th>
+                {currentUser?.role === "admin" && (
+                  <th className="px-4 py-2">Delete</th>
+                )}
               </tr>
             </thead>
             <tbody className="divide-y divide-gray-200 description">
@@ -144,14 +151,13 @@ const ViewTable = ({ subRole }) => {
                       <FaEye className="text-primary text-lg" />
                     </button>
                   </td>
-                  <td className="px-4 py-2">
-                    <button
-                      onClick={() => handleDelete(user)}
-                      className="btn btn-ghost btn-sm"
-                    >
-                      <FaTrashAlt className="text-red-800 text-lg" />
-                    </button>
-                  </td>
+                  {currentUser?.role === "admin" && (
+                    <td>
+                      <button onClick={() => handleDelete(user)}>
+                        <FaTrash className="text-primary text-lg" />
+                      </button>
+                    </td>
+                  )}
                 </tr>
               ))}
             </tbody>
