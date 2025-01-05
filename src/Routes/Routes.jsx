@@ -43,6 +43,7 @@ import DevAdvisor from "../Pages/SkillSpecialist/DevAdvisor";
 import VirtualAssistant from "../Pages/SalesDirector/VirtualAssistant";
 import PremiumServices from "../Pages/Premium/PremiumServices";
 import EarnRewards from "../Pages/Home/Home/EarnRewards";
+import TeamGrid from "../Pages/Team/TeamGrid";
 
 export const router = createBrowserRouter([
   {
@@ -98,6 +99,10 @@ export const router = createBrowserRouter([
       {
         path: "/afterLog",
         element: <EarnRewards />,
+      },
+      {
+        path: "/team",
+        element: <TeamGrid />,
       },
       {
         path: "/forgetPassword",
