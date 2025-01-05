@@ -1,3 +1,4 @@
+import { message } from "antd";
 import { useEffect, useState } from "react";
 import { FaTrashAlt } from "react-icons/fa";
 import Swal from "sweetalert2";
@@ -47,26 +48,17 @@ const AllUsers = () => {
           .then((response) => response.json())
           .then((result) => {
             if (result.message === "User deleted successfully") {
-              Swal.fire(
-                "Deleted!",
-                `${user.name} has been deleted.`,
-                "success"
-              );
-              // Update the state to remove the deleted user from the list
+              message.success("User deleted successfully");
               setUsers((prevUsers) =>
                 prevUsers.filter((u) => u._id !== user._id)
               );
             } else {
-              Swal.fire("Error!", "Failed to delete the user.", "error");
+              message.error("An error occurred while deleting the user.");
             }
           })
           .catch((error) => {
             console.error("Error deleting user:", error);
-            Swal.fire(
-              "Error!",
-              "An error occurred while deleting the user.",
-              "error"
-            );
+            message.error("An error occurred while deleting the user.");
           });
       }
     });
