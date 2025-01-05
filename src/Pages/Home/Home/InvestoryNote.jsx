@@ -109,10 +109,10 @@ const InvestoryNote = () => {
     </div>
 
       {/* Chart Section */}
-      <div className="bg-[#5b0404] mt-10 p-6 rounded-lg text-white shadow-md">
+      <div className="bg-[#78120D] mt-10 p-6 rounded-lg text-white shadow-md">
         <div className="flex justify-between items-center mb-4">
-          <h3 className="text-lg font-bold">Sales activities</h3>
-          <select className="bg-[#4b0404] text-white py-1 px-3 rounded-md">
+          <h3 className="text-[#B0B0B0] text-14px font-roboto">Sales activities</h3>
+          <select className="bg-[#20010D] text-white py-1 px-3 rounded-md">
             <option>Monthly</option>
             <option>Weekly</option>
             <option>Daily</option>
