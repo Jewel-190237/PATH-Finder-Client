@@ -1,3 +1,5 @@
+import { message } from "antd";
+import { m } from "framer-motion";
 import { useEffect, useState } from "react";
 import { FaRegEdit, FaTrashAlt } from "react-icons/fa";
 import Swal from "sweetalert2";
@@ -26,12 +28,8 @@ const AllMaster = () => {
       .then((response) => response.json())
       .then((data) => setUsers(data))
       .catch((error) => {
+        message.error("Failed to fetch users.");
         console.error("Error fetching users:", error);
-        Swal.fire({
-          title: "Error",
-          text: "Failed to fetch users",
-          icon: "error",
-        });
       })
       .finally(() => setLoading(false));
   }, []);
@@ -50,11 +48,11 @@ const AllMaster = () => {
       if (response.ok && updatedUsers) {
         setUsers(updatedUsers);
       } else {
-        Swal.fire("Error", "Failed to reload users.", "error");
+        message.error("Failed to reload users.");
       }
     } catch (error) {
       console.error("Error fetching updated users:", error);
-      Swal.fire("Error", "Failed to reload users.", "error");
+      message.error("Failed to reload users.");
     }
   };
 
@@ -80,26 +78,17 @@ const AllMaster = () => {
           .then((response) => response.json())
           .then((result) => {
             if (result.message === "User deleted successfully") {
-              Swal.fire(
-                "Deleted!",
-                `${user.name} has been deleted.`,
-                "success"
-              );
-              // Update the state to remove the deleted user from the list
+              message.success("User deleted successfully");
               setUsers((prevUsers) =>
                 prevUsers.filter((u) => u._id !== user._id)
               );
             } else {
-              Swal.fire("Error!", "Failed to delete the user.", "error");
+              message.error("An error occurred while deleting the user.");
             }
           })
           .catch((error) => {
             console.error("Error deleting user:", error);
-            Swal.fire(
-              "Error!",
-              "An error occurred while deleting the user.",
-              "error"
-            );
+            message.error("An error occurred while deleting the user.");
           });
       }
     });
@@ -129,29 +118,17 @@ const AllMaster = () => {
       .then((response) => response.json())
       .then((result) => {
         if (result.success) {
-          Swal.fire({
-            title: "Updated!",
-            text: `${formData.name} has been updated.`,
-            icon: "success",
-          });
+          message.success("User updated successfully");
           reloadUsers();
           setIsModalOpen(false);
           setFormData({ name: "", phone: "", location: "", role: "" }); // Reset form data
         } else {
-          Swal.fire({
-            title: "Error!",
-            text: result.message || "Failed to update user",
-            icon: "error",
-          });
+          message.error("Failed to update user");
         }
       })
       .catch((error) => {
         console.error("Error updating user:", error);
-        Swal.fire({
-          title: "Error!",
-          text: "Failed to update user",
-          icon: "error",
-        });
+        message.error("An error occurred while updating the user.");
       });
   };
 
@@ -178,23 +155,15 @@ const AllMaster = () => {
           .then((response) => response.json())
           .then((result) => {
             if (result.success) {
-              Swal.fire(
-                "Approved!",
-                `${user.name} has been approved.`,
-                "success"
-              );
+              message.success("User approved successfully");
               reloadUsers();
             } else {
-              Swal.fire("Error!", "Failed to approve the user.", "error");
+              message.error("An error occurred while approving the user.");
             }
           })
           .catch((error) => {
             console.error("Error approving user:", error);
-            Swal.fire(
-              "Error!",
-              "An error occurred while approving the user.",
-              "error"
-            );
+            message.error("An error occurred while approving the user.");
           });
       }
     });
@@ -219,22 +188,14 @@ const AllMaster = () => {
       const data = await response.json();
 
       if (response.ok && data.success) {
-        Swal.fire("Success", "Sub-role updated successfully!", "success");
+        message.success("Sub-role updated successfully");
         await reloadUsers();
       } else {
-        Swal.fire(
-          "Error",
-          data.message || "Failed to update sub-role.",
-          "error"
-        );
+        message.error("An error occurred while updating the sub-role.");
       }
     } catch (error) {
       console.error("Error updating sub-role:", error);
-      Swal.fire(
-        "Error",
-        "An error occurred while updating the sub-role.",
-        "error"
-      );
+      message.error("An error occurred while updating the sub-role.");
     }
   };
 
@@ -308,7 +269,9 @@ const AllMaster = () => {
                         </option>
                         <option value="Dev Advisor">Dev Advisor</option>
                         <option value="Sales Director">Sales Director</option>
-                        <option value="Virtual assistant">Virtual assistant</option>
+                        <option value="Virtual assistant">
+                          Virtual assistant
+                        </option>
                       </select>
                     ) : (
                       <button
