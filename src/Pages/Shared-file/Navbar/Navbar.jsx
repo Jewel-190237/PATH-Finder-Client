@@ -19,6 +19,8 @@ const links = [
       { name: "Privacy Policy", path: "/privacy-policy" },
       { name: "Premium Services", path: "/premiumServe" },
       { name: "After login", path: "/afterLog" },
+      { name: "Team Member", path: "/team" },
+
       
     ],
   },
