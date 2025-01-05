@@ -154,7 +154,7 @@ const ViewTable = ({ subRole }) => {
                   {currentUser?.role === "admin" && (
                     <td>
                       <button onClick={() => handleDelete(user)}>
-                        <FaTrash className="text-primary text-lg" />
+                        <FaTrashAlt className="text-primary text-lg" />
                       </button>
                     </td>
                   )}

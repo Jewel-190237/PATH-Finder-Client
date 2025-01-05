@@ -1,10 +1,10 @@
 /* eslint-disable no-unused-vars */
 import { useState } from "react";
-import { Form, Input } from "antd";
+import { Form, Input, message } from "antd";
 import { Link, useLocation, useNavigate } from "react-router-dom";
-import Swal from "sweetalert2";
 import useAxiosPublic from "../../Hooks/useAxiosPublic";
 import signup from "../../assets/signup.png";
+import { code } from "framer-motion/client";
 
 const SignUp = () => {
   const navigate = useNavigate();
@@ -22,6 +22,7 @@ const SignUp = () => {
       phone: value.phone,
       role: activeRole,
       password: value.password,
+      code: value.code,
     };
     console.log("new User", newUser);
     try {
@@ -29,28 +30,14 @@ const SignUp = () => {
 
       console.log(response);
       if (response.status === 200) {
-        Swal.fire({
-          icon: "success",
-          title: "Sign Up successful",
-          showConfirmButton: true,
-          text: "Please Login Now",
-        });
+        message.success("User created successfully");
         navigate("/login", { state: { from } });
       }
     } catch (error) {
       if (error.response && error.response.status === 409) {
-        Swal.fire({
-          icon: "warning",
-          title: "User already exists",
-          text: "Please login.",
-          showConfirmButton: true,
-        });
+        message.error("User already exists");
       } else {
-        Swal.fire({
-          icon: "error",
-          title: "Registration failed",
-          text: "Please try again later.",
-        });
+        message.error("Something went wrong");
       }
       console.error("Error:", error);
     }
@@ -108,6 +95,13 @@ const SignUp = () => {
               <Form.Item label="Phone Number: " name="phone" required>
                 <Input
                   placeholder="Input your Phone Number"
+                  type="number"
+                  className="p-2 md:p-3 lg:p-4 xl:p-5 bg-[#78120D] text-white !border-none description"
+                />
+              </Form.Item>
+              <Form.Item label="Reference Code: " name="code" required>
+                <Input
+                  placeholder="Input your Reference Code"
                   type="number"
                   className="p-2 md:p-3 lg:p-4 xl:p-5 bg-[#78120D] text-white !border-none description"
                 />

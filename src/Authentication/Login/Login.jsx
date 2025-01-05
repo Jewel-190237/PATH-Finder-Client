@@ -1,7 +1,6 @@
 import axios from "axios";
-import Swal from "sweetalert2";
 import { useNavigate } from "react-router-dom";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { Form, Input, message } from "antd";
 import signup from "../../assets/signup.png";
 import { Link } from "react-router-dom";
@@ -9,14 +8,11 @@ import { Link } from "react-router-dom";
 const Login = () => {
   const [form] = Form.useForm();
   const navigate = useNavigate();
-  const [currentUser, setCurrentUser] = useState(null);
   const userRole = ["student", "subAdmin", "admin"];
   const [activeRole, setActiveRole] = useState("student");
 
   const onFinish = async (values) => {
-    console.log({ ...values, activeRole });
     try {
-      // Send phone, password, and role to the server
       const response = await axios.post("http://localhost:5000/login", {
         phone: values.phone,
         password: values.password,
@@ -27,14 +23,9 @@ const Login = () => {
       message.success("Login successful");
 
       const { token, userId, role, subRole } = response.data;
-
-      // Store token and user details
       localStorage.setItem("token", token);
       localStorage.setItem("userId", userId);
-      setCurrentUser({ role, subRole });
-      console.log("Current User:", currentUser);
 
-      // Redirect based on role and subRole
       if (role === "admin") {
         navigate("/dashboard/adminHome");
       } else if (subRole === "CEO") {
@@ -60,30 +51,14 @@ const Login = () => {
       console.error("Login error:", error);
 
       if (error.response && error.response.status === 403) {
-        Swal.fire({
-          icon: "error",
-          title: "Access Denied",
-          text: "The role does not match. Please select the correct role.",
-        });
+        message.error("Access Denied, The role does not match");
       } else if (error.response && error.response.status === 402) {
-        Swal.fire({
-          icon: "error",
-          title: "User Not Found",
-          text: "User not found in your input data. Please Login.",
-        });
+        message.error("User not found!, Please sign up");
+        navigate("/signup");
       } else if (error.response && error.response.status === 401) {
-        Swal.fire({
-          icon: "error",
-          title: "Login failed",
-          text:
-            error.response.data.message || "Invalid phone number or password",
-        });
+        message.error("Invalid credentials, Please try again");
       } else {
-        Swal.fire({
-          icon: "error",
-          title: "Login failed",
-          text: "An error occurred. Please try again later.",
-        });
+        message.error("Something went wrong");
       }
     }
 
@@ -126,14 +101,29 @@ const Login = () => {
               onFinish={onFinish}
               form={form}
             >
-              <Form.Item label="Phone Number: " name="phone" rules={[{ required: true, message: 'Please enter your phone number!' }]}>
+              <Form.Item
+                label="Phone Number: "
+                name="phone"
+                rules={[
+                  {
+                    required: true,
+                    message: "Please enter your phone number!",
+                  },
+                ]}
+              >
                 <Input
                   placeholder="Input your Phone Number"
                   type="number"
                   className="p-2 md:p-3 lg:p-4 xl:p-5 bg-[#78120D] text-white !border-none description"
                 />
               </Form.Item>
-              <Form.Item label="Password" name="password" rules={[{ required: true, message: 'Please enter your password!' }]}>
+              <Form.Item
+                label="Password"
+                name="password"
+                rules={[
+                  { required: true, message: "Please enter your password!" },
+                ]}
+              >
                 <Input
                   placeholder="Input your password"
                   type="password"
