@@ -13,9 +13,9 @@
 .heading3 {
   @apply text-sm md:text-[16px] lg:text-[18px] xl:text-xl font-bold font-roboto;
 }
-/* heading4 {
+.heading4 {
   @apply text-[12px] md:text-[14px] lg:text-[15px] xl:text-[16px] font-bold font-roboto;
-} */
+}
 .description {
   @apply text-[12px] md:text-[14px] lg:text-[15px] xl:text-[16px] font-roboto;
 }

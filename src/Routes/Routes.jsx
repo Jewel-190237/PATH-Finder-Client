@@ -42,6 +42,7 @@ import SkillSpecialist from "../Pages/SkillStrategist/SkillSpecialist";
 import DevAdvisor from "../Pages/SkillSpecialist/DevAdvisor";
 import VirtualAssistant from "../Pages/SalesDirector/VirtualAssistant";
 import PremiumServices from "../Pages/Premium/PremiumServices";
+import EarnRewards from "../Pages/Home/Home/EarnRewards";
 
 export const router = createBrowserRouter([
   {
@@ -93,6 +94,10 @@ export const router = createBrowserRouter([
       {
         path: "/premiumServe",
         element: <PremiumServices />,
+      },
+      {
+        path: "/afterLog",
+        element: <EarnRewards />,
       },
       {
         path: "/forgetPassword",
