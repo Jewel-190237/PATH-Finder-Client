@@ -41,6 +41,7 @@ import SkillStrategist from "../Pages/MarketingExecutive/SkillStragist";
 import SkillSpecialist from "../Pages/SkillStrategist/SkillSpecialist";
 import DevAdvisor from "../Pages/SkillSpecialist/DevAdvisor";
 import VirtualAssistant from "../Pages/SalesDirector/VirtualAssistant";
+import PremiumServices from "../Pages/Premium/PremiumServices";
 
 export const router = createBrowserRouter([
   {
@@ -88,6 +89,10 @@ export const router = createBrowserRouter([
       {
         path: "/profile",
         element: <Profile />,
+      },
+      {
+        path: "/premiumServe",
+        element: <PremiumServices />,
       },
       {
         path: "/forgetPassword",

@@ -17,6 +17,8 @@ const links = [
       { name: "About", path: "/about" },
       { name: "Contact", path: "/contact" },
       { name: "Privacy Policy", path: "/privacy-policy" },
+      { name: "Premium Services", path: "/premiumServe" },
+      
     ],
   },
 ];
@@ -70,7 +72,7 @@ const Navbar = () => {
           )}
         </div>
         {link.submenu && (
-          <div className="hidden group-hover:block w-28 absolute top-full left-0 bg-gray-800 text-white shadow-md rounded-md p-2 space-y-2">
+          <div className="hidden group-hover:block w-36 z-50 absolute top-full left-0 bg-gray-800 text-white shadow-md rounded-md p-2 space-y-2">
             {link.submenu.map((sublink, subIndex) => (
               <a
                 key={subIndex}
