@@ -1,3 +1,5 @@
+import InvestoryNote from "./InvestoryNote";
+
 const EarnRewards = () => {
   const cardData = [
     {
@@ -54,6 +56,7 @@ const EarnRewards = () => {
           ))}
         </div>
       </div>
+       <InvestoryNote/>
     </div>
   );
 };
