@@ -1,5 +1,5 @@
 import { useState, useRef, useEffect } from "react";
-import { FaHome, FaBars, FaTimes } from "react-icons/fa";
+import { FaHome, FaBars, FaTimes, FaUserGraduate } from "react-icons/fa";
 import { FaUsers} from "react-icons/fa6";
 import { MdDashboard, MdOutlineControlCamera } from "react-icons/md";
 import { PiUsersFourFill } from "react-icons/pi";
@@ -14,7 +14,7 @@ export default function DashboardSidebar() {
       link: [
         { to: "/dashboard/adminHome", label: "Overview", icon: MdDashboard },
         { to: "/", label: "Home", icon: FaHome },
-        { to: "/dashboard/users", label: "Members", icon: PiUsersFourFill },
+        { to: "/dashboard/users", label: "Students", icon: FaUserGraduate },
         { to: "/dashboard/subAdmin", label: "Sub Admins", icon: FaUsers },
         {
           to: "/dashboard/adminDashboard",

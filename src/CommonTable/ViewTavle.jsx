@@ -5,7 +5,7 @@ import { message, Modal } from "antd";
 import Swal from "sweetalert2";
 import GetUser from "../Backend/GetUser";
 
-const ViewTable = ({ subRole }) => {
+const ViewTable = ({ subRole, subAdmin }) => {
   const [users, setUsers] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [usersPerPage] = useState(12);
@@ -73,7 +73,10 @@ const ViewTable = ({ subRole }) => {
   };
 
   // CEO Table Pagination
-  const memberUsers = users.filter((user) => user.subRole === subRole);
+  const memberUsers = subRole
+    ? users.filter((user) => user.subRole === subRole)
+    : users.filter((user) => user.subAdmin === subAdmin);
+
   const indexOfLastUser = currentPage * usersPerPage;
   const indexOfFirstUser = indexOfLastUser - usersPerPage;
   const currentUsers = memberUsers.slice(indexOfFirstUser, indexOfLastUser);
@@ -98,12 +101,12 @@ const ViewTable = ({ subRole }) => {
   return (
     <>
       <div className="flex justify-center py-8 text-white">
-        <h2 className="heading2">Manage {subRole}</h2>
+        <h2 className="heading2">Manage {subRole? subRole : "Students"}</h2>
       </div>
 
       <div className="w-full px-4 lg:px-10">
         <h2 className="heading2 text-white mb-4 !font-semibold">
-          Total {subRole}: {memberUsers.length}
+          Total {subRole ? subRole : "Students"}: {memberUsers.length}
         </h2>
         <div className="overflow-x-auto text-white">
           <table className="table-auto w-full divide-y divide-gray-300 text-center text-sm lg:text-base">

@@ -88,6 +88,7 @@ const AllUsers = () => {
                 <th className="px-4 py-2">Sl No</th>
                 <th className="px-4 py-2">Name</th>
                 <th className="px-4 py-2">Phone Number</th>
+                <th className="px-4 py-2">Sub Admin</th>
                 <th className="px-4 py-2">Role</th>
                 <th className="px-4 py-2">Delete</th>
               </tr>
@@ -98,6 +99,7 @@ const AllUsers = () => {
                   <td className="px-4 py-2">{index + indexOfFirstUser + 1}</td>
                   <td className="px-4 py-2">{user.name}</td>
                   <td className="px-4 py-2">{user.phone}</td>
+                  <td className="px-4 py-2">{user.subAdmin}</td>
                   <td className="px-4 py-2">{user.role}</td>
                   <td className="px-4 py-2">
                     <button

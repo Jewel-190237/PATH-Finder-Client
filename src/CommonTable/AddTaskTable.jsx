@@ -4,7 +4,7 @@ import { Form, Input, message, Modal } from "antd";
 import { IoMdAddCircleOutline } from "react-icons/io";
 import { FcViewDetails } from "react-icons/fc";
 
-const AddTaskTable = ({ subRole }) => {
+const AddTaskTable = ({ subRole, subAdmin }) => {
   const [users, setUsers] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [usersPerPage] = useState(12);
@@ -31,7 +31,10 @@ const AddTaskTable = ({ subRole }) => {
   };
 
   // CEO Table Pagination
-  const memberUsers = users.filter((user) => user.subRole == subRole);
+  const memberUsers = subRole
+    ? users.filter((user) => user.subRole == subRole)
+    : users.filter((user) => user.subAdmin == subAdmin);
+  // const memberUsers = users.filter((user) => user.subRole == subRole);
   const indexOfLastUser = currentPage * usersPerPage;
   const indexOfFirstUser = indexOfLastUser - usersPerPage;
   const currentUsers = memberUsers.slice(indexOfFirstUser, indexOfLastUser);
@@ -95,7 +98,7 @@ const AddTaskTable = ({ subRole }) => {
   return (
     <>
       <div className="flex justify-center py-8 text-white">
-        <h2 className="heading2">Add task to {subRole}</h2>
+        <h2 className="heading2">Add task to {subRole ? subRole : 'Students'}</h2>
       </div>
       <div className="w-full px-4 lg:px-10">
         <div className="overflow-x-auto text-white">
@@ -241,23 +244,14 @@ const AddTaskTable = ({ subRole }) => {
               <table className="w-full text-white border-collapse">
                 <thead>
                   <tr className="">
-                    <th className="border px-4 py-2">
-                      Task Name
-                    </th>
-                    <th className="border px-4 py-2">
-                      Task Description
-                    </th>
+                    <th className="border px-4 py-2">Task Name</th>
+                    <th className="border px-4 py-2">Task Description</th>
                   </tr>
                 </thead>
                 <tbody>
                   {selectedUserShow?.tasks?.map((task, index) => (
-                    <tr
-                      key={index}
-                      
-                    >
-                      <td className="border px-4 py-2">
-                        {task.taskName}
-                      </td>
+                    <tr key={index}>
+                      <td className="border px-4 py-2">{task.taskName}</td>
                       <td className="border px-4 py-2">
                         {task.taskDescription}
                       </td>

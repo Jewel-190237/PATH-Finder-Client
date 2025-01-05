@@ -41,6 +41,7 @@ import SkillStrategist from "../Pages/MarketingExecutive/SkillStragist";
 import SkillSpecialist from "../Pages/SkillStrategist/SkillSpecialist";
 import DevAdvisor from "../Pages/SkillSpecialist/DevAdvisor";
 import VirtualAssistant from "../Pages/SalesDirector/VirtualAssistant";
+import CEOMembers from "../Pages/CEO/CEOMembers";
 
 export const router = createBrowserRouter([
   {
@@ -157,6 +158,10 @@ export const router = createBrowserRouter([
       {
         path: "salesDirector",
         element: <SalesDirector />,
+      },
+      {
+        path: "students",
+        element: <CEOMembers />,
       },
     ],
   },
