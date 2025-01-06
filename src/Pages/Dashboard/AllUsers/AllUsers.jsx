@@ -101,6 +101,7 @@ const AllUsers = () => {
                   <td className="px-4 py-2">{user.phone}</td>
                   <td className="px-4 py-2">{user.subAdmin}</td>
                   <td className="px-4 py-2">{user.role}</td>
+
                   <td className="px-4 py-2">
                     <button
                       onClick={() => handleDelete(user)}

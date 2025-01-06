@@ -91,7 +91,7 @@ const DashboardHeader = () => {
         <div className="flex justify-between items-center h-full">
           <div className="flex items-center space-x-1 sm:space-x-3 md:gap-x-6 notification-popover">
             {user?.subRole && (
-              <div className=" flex items-center">
+              <div className="flex items-center">
                 <img
                   className="w-10 h-10 rounded-full -mr-4 relative z-50"
                   src={coin}

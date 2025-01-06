@@ -4,6 +4,7 @@ import { MdOutlineWhatsapp } from "react-icons/md";
 import { message, Modal } from "antd";
 import Swal from "sweetalert2";
 import GetUser from "../Backend/GetUser";
+import coin from "../assets/coin.png";
 
 const ViewTable = ({ subRole, subAdmin }) => {
   const [users, setUsers] = useState([]);
@@ -98,10 +99,36 @@ const ViewTable = ({ subRole, subAdmin }) => {
     setSelectedUser(null);
   };
 
+  const handleTask = async (task, user, action) => {
+    console.log(task, action);
+    const updateTask = {
+      userId: user._id,
+      taskId: task._id,
+      coin: task.coin,
+    };
+    if (action === "accept") {
+      try {
+        const token = localStorage.getItem("token");
+        await fetch(`http://localhost:5000/task/${task._id}/accept`, {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+          body: JSON.stringify(updateTask),
+        });
+        message.success("Task accepted successfully");
+      } catch (error) {
+        console.error("Error accepting task:", error);
+        message.error("An error occurred while accepting the task.");
+      }
+    }
+  };
+
   return (
     <>
       <div className="flex justify-center py-8 text-white">
-        <h2 className="heading2">Manage {subRole? subRole : "Students"}</h2>
+        <h2 className="heading2">Manage {subRole ? subRole : "Students"}</h2>
       </div>
 
       <div className="w-full px-4 lg:px-10">
@@ -115,6 +142,7 @@ const ViewTable = ({ subRole, subAdmin }) => {
                 <th className="px-4 py-2">Sl No</th>
                 <th className="px-4 py-2">Name</th>
                 <th className="px-4 py-2">Phone Number</th>
+                <th className="px-4 py-2">Reference Code</th>
                 <th className="px-4 py-2 ">WhatsApp</th>
                 <th className="px-4 py-2">Telegram</th>
                 <th className="px-4 py-2">View Task</th>
@@ -129,6 +157,7 @@ const ViewTable = ({ subRole, subAdmin }) => {
                   <td className="px-4 py-2">{index + indexOfFirstUser + 1}</td>
                   <td className="px-4 py-2">{user.name}</td>
                   <td className="px-4 py-2">{user.phone}</td>
+                  <td className="px-4 py-2">{user.code}</td>
                   <td className="px-4 py-2">
                     <a
                       href={`https://wa.me/${user.whatsapp}`}
@@ -196,10 +225,10 @@ const ViewTable = ({ subRole, subAdmin }) => {
       >
         {selectedUser && (
           <div>
-            <h1 className="heading2 mb-4 text-center">
-              Details of {selectedUser.name}
+            <h1 className="mb-4 text-center heading3">
+              Details of <span className="heading2">{selectedUser.name}</span>
             </h1>
-            <h2 className="heading2 mb-4 text-center">Courses</h2>
+            <h2 className="heading2 mb-4 text-center mt-5">Courses</h2>
             <div className="mb-6">
               <table className="w-full text-left text-white border description">
                 <thead>
@@ -244,24 +273,40 @@ const ViewTable = ({ subRole, subAdmin }) => {
               </div>
             </div>
 
-            <h2 className="my-4 heading2 text-center py-2">
-              Review Head CSE Task
-            </h2>
+            <h2 className="my-4 heading2 text-center py-2">Review Task</h2>
             <div className="space-y-2">
               {selectedUser?.tasks?.map((task, index) => (
                 <div
                   key={index}
                   className="flex justify-between items-center bg-[#F6170C] bg-opacity-50 p-2 rounded"
                 >
-                  <span className="">
-                    {task?.taskName}
-                    {/* Like, Comment, Follow and Share on {platform} */}
-                  </span>
                   <div>
-                    <button className="bg-green-600 px-2 py-1 rounded text-white mr-2">
+                    <span className="">{task?.taskName}</span>
+                  </div>
+
+                  <div className="flex items-center flex-col md:flex-row gap-3">
+                    <div className="flex items-center">
+                      <img
+                        className="w-6 h-6 rounded-full -mr-4 relative z-50"
+                        src={coin}
+                        alt="coin"
+                      />
+                      <div className="description bg-[#78120D] rounded-[20px] ">
+                        <p className="text-white px-5 pr-3">
+                          {task?.coin || 0}
+                        </p>
+                      </div>
+                    </div>
+                    <button
+                      onClick={() => handleTask(task, selectedUser, "accept")}
+                      className="bg-green-600 px-2 py-1 rounded text-white mr-2"
+                    >
                       Accept
                     </button>
-                    <button className="bg-red-600 px-2 py-1 rounded text-white">
+                    <button
+                      onClick={() => handleTask(task, selectedUser, "decline")}
+                      className="bg-red-600 px-2 py-1 rounded text-white"
+                    >
                       Decline
                     </button>
                   </div>

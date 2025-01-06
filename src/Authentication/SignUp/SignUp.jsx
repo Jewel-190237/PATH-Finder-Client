@@ -4,7 +4,6 @@ import { Form, Input, message } from "antd";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import useAxiosPublic from "../../Hooks/useAxiosPublic";
 import signup from "../../assets/signup.png";
-import { code } from "framer-motion/client";
 
 const SignUp = () => {
   const navigate = useNavigate();
@@ -12,11 +11,23 @@ const SignUp = () => {
   const userRole = ["student", "subAdmin"];
   const [activeRole, setActiveRole] = useState("student");
   const [form] = Form.useForm();
-
+  const [users, setUsers] = useState([]);
   const returnLocation = useLocation();
   const from = returnLocation.state?.from?.pathname || "/";
 
+  const fetchUsers = () => {
+    const token = localStorage.getItem("token"); // Fetch the token for authorization
+    fetch("http://localhost:5000/users")
+      .then((response) => response.json())
+      .then((data) => setUsers(data))
+      .catch((error) => console.error("Error fetching users:", error));
+  };
+  
+  
   const onFinish = async (value) => {
+    fetchUsers();
+    console.log('All Users',users);
+    // const subAdmin = users.filter((user) => user.role === "subAdmin");
     const newUser = {
       name: value.name,
       phone: value.phone,

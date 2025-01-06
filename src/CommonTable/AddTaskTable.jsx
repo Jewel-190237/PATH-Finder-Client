@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import { FaTrashAlt } from "react-icons/fa";
 import { Form, Input, message, Modal } from "antd";
 import { IoMdAddCircleOutline } from "react-icons/io";
 import { FcViewDetails } from "react-icons/fc";
@@ -66,6 +65,7 @@ const AddTaskTable = ({ subRole, subAdmin }) => {
       userId: selectedUser._id,
       taskName: values.taskName,
       taskDescription: values.taskDescription,
+      coin: values.coin,
     };
     try {
       const token = localStorage.getItem("token");
@@ -98,7 +98,9 @@ const AddTaskTable = ({ subRole, subAdmin }) => {
   return (
     <>
       <div className="flex justify-center py-8 text-white">
-        <h2 className="heading2">Add task to {subRole ? subRole : 'Students'}</h2>
+        <h2 className="heading2">
+          Add task to {subRole ? subRole : "Students"}
+        </h2>
       </div>
       <div className="w-full px-4 lg:px-10">
         <div className="overflow-x-auto text-white">
@@ -194,6 +196,18 @@ const AddTaskTable = ({ subRole, subAdmin }) => {
                 >
                   <Input
                     placeholder="Input Task Name"
+                    type="text"
+                    className="p-2 md:p-3 lg:p-4 xl:p-5 bg-[#78120D] text-white border description focus:bg-[#78120D] hover:bg-[#78120D] focus:border-white hover:border-white placeholder-white"
+                  />
+                </Form.Item>
+                <Form.Item
+                  label="Task Coin: "
+                  name="coin"
+                  required
+                  className="text-white"
+                >
+                  <Input
+                    placeholder="Input Task Coin"
                     type="text"
                     className="p-2 md:p-3 lg:p-4 xl:p-5 bg-[#78120D] text-white border description focus:bg-[#78120D] hover:bg-[#78120D] focus:border-white hover:border-white placeholder-white"
                   />

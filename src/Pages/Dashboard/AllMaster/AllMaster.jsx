@@ -99,15 +99,14 @@ const AllMaster = () => {
     setFormData({
       name: user.name,
       phone: user.phone,
-      location: user.location,
-      role: user.role,
+      code: user.code,
     });
     setIsModalOpen(true);
   };
 
   const handleUpdate = () => {
     const token = localStorage.getItem("token");
-    fetch(`http://localhost:5000/users/${selectedUser._id}`, {
+    fetch(`http://localhost:5000/specific-users/${selectedUser._id}`, {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",
@@ -118,12 +117,12 @@ const AllMaster = () => {
       .then((response) => response.json())
       .then((result) => {
         if (result.success) {
-          message.success("User updated successfully");
+          message.success(result.message || "User updated successfully");
           reloadUsers();
           setIsModalOpen(false);
-          setFormData({ name: "", phone: "", location: "", role: "" }); // Reset form data
+          setFormData({ name: "", phone: "", code: "" });
         } else {
-          message.error("Failed to update user");
+          message.error(result.message || "Failed to update user");
         }
       })
       .catch((error) => {
@@ -131,6 +130,7 @@ const AllMaster = () => {
         message.error("An error occurred while updating the user.");
       });
   };
+  
 
   //handle approved counter master status is approved
   const handleApprove = (user) => {
@@ -228,9 +228,9 @@ const AllMaster = () => {
                 <th className="px-4 py-2">Sl No</th>
                 <th className="px-4 py-2">Name</th>
                 <th className="px-4 py-2">Phone Number</th>
+                <th className="px-4 py-2">Reference</th>
                 <th className="px-4 py-2">Role</th>
-                {/* <th className="px-4 py-2">Status</th> */}
-                <th className="px-4 py-2">Select User</th>
+                <th className="px-4 py-2">Select Role</th>
                 <th className="px-4 py-2">Update</th>
                 <th className="px-4 py-2">Delete</th>
               </tr>
@@ -241,6 +241,7 @@ const AllMaster = () => {
                   <td className="px-4 py-2">{index + indexOfFirstUser + 1}</td>
                   <td className="px-4 py-2">{user.name}</td>
                   <td className="px-4 py-2">{user.phone}</td>
+                  <td className="px-4 py-2">{user.code}</td>
                   <td className="px-4 py-2">
                     {user?.subRole ? user.subRole : user.role}
                   </td>
@@ -353,6 +354,18 @@ const AllMaster = () => {
                   value={formData.phone}
                   onChange={(e) =>
                     setFormData({ ...formData, phone: e.target.value })
+                  }
+                  className="border border-gray-300 rounded w-full px-2 py-1"
+                  required
+                />
+              </div>
+              <div className="mb-4">
+                <label className="block text-gray-700">Reference</label>
+                <input
+                  type="text"
+                  value={formData.code}
+                  onChange={(e) =>
+                    setFormData({ ...formData, code: e.target.value })
                   }
                   className="border border-gray-300 rounded w-full px-2 py-1"
                   required
