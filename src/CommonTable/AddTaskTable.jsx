@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Form, Input, message, Modal } from "antd";
 import { IoMdAddCircleOutline } from "react-icons/io";
 import { FcViewDetails } from "react-icons/fc";
+import { LuView } from "react-icons/lu";
 
 const AddTaskTable = ({ subRole, subAdmin }) => {
   const [users, setUsers] = useState([]);
@@ -109,10 +110,10 @@ const AddTaskTable = ({ subRole, subAdmin }) => {
               <tr>
                 <th className="px-4 py-2">Sl No</th>
                 <th className="px-4 py-2">Name</th>
-                <th className="px-4 py-2">Task</th>
-                <th className="px-4 py-2">Status</th>
+                <th className="px-4 py-2">Coin</th>
+                <th className="px-4 py-2">Student</th>
                 <th className="px-4 py-2">Add Task</th>
-                <th className="px-4 py-2">View</th>
+                <th className="px-4 py-2">View Task</th>
               </tr>
             </thead>
             <tbody className="divide-y divide-gray-200 description">
@@ -120,10 +121,8 @@ const AddTaskTable = ({ subRole, subAdmin }) => {
                 <tr key={user._id}>
                   <td className="px-4 py-2">{index + indexOfFirstUser + 1}</td>
                   <td className="px-4 py-2">{user?.name}</td>
-                  <td className="px-4 py-2">
-                    {user?.tasks?.map((task) => task?.taskName)}
-                  </td>
-                  <td className="px-4 py-2">Pending</td>
+                  <td className="px-4 py-2">{user?.coins} </td>
+                  <td className="px-4 py-2">0</td>
                   <td className="px-4 py-2">
                     <button
                       onClick={() => showAddModal(user)}
@@ -137,7 +136,7 @@ const AddTaskTable = ({ subRole, subAdmin }) => {
                       onClick={() => showModal(user)}
                       className="btn btn-ghost btn-sm"
                     >
-                      <FcViewDetails className="text-lg" />
+                      <LuView className="text-lg" />
                     </button>
                   </td>
                 </tr>
@@ -259,6 +258,8 @@ const AddTaskTable = ({ subRole, subAdmin }) => {
                 <thead>
                   <tr className="">
                     <th className="border px-4 py-2">Task Name</th>
+                    <th className="border px-4 py-2">Coin</th>
+                    <th className="border px-4 py-2">Status</th>
                     <th className="border px-4 py-2">Task Description</th>
                   </tr>
                 </thead>
@@ -266,6 +267,22 @@ const AddTaskTable = ({ subRole, subAdmin }) => {
                   {selectedUserShow?.tasks?.map((task, index) => (
                     <tr key={index}>
                       <td className="border px-4 py-2">{task.taskName}</td>
+                      <td className="border px-4 py-2">{task.coin}</td>
+                      <td className="border px-4 py-2">
+                        {task?.taskStatus === "accepted" ? (
+                          <span className="text-green-200 bg-green-900 px-2 rounded-md">
+                            Accepted
+                          </span>
+                        ) : task?.taskStatus === "rejected" ? (
+                          <span className="text-white bg-red-500 px-2 rounded-md">
+                            Rejected
+                          </span>
+                        ) : (
+                          <span className="text-purple-200 bg-purple-900 px-2 rounded-md">
+                            Pending
+                          </span>
+                        )}
+                      </td>
                       <td className="border px-4 py-2">
                         {task.taskDescription}
                       </td>

@@ -5,6 +5,7 @@ import { message, Modal } from "antd";
 import Swal from "sweetalert2";
 import GetUser from "../Backend/GetUser";
 import coin from "../assets/coin.png";
+import { p } from "framer-motion/client";
 
 const ViewTable = ({ subRole, subAdmin }) => {
   const [users, setUsers] = useState([]);
@@ -101,29 +102,60 @@ const ViewTable = ({ subRole, subAdmin }) => {
 
   const handleTask = async (task, user, action) => {
     console.log(task, action);
-    const updateTask = {
+  
+    // Validate task, user, and action
+    if (!task || !task._id || !task.coin) {
+      console.error("Invalid task data");
+      message.error("Invalid task data");
+      return;
+    }
+  
+    if (!user || !user._id) {
+      console.error("Invalid user data");
+      message.error("Invalid user data");
+      return;
+    }
+  
+    const taskPayload = {
       userId: user._id,
-      taskId: task._id,
       coin: task.coin,
+      action, // Include the action in the request
     };
-    if (action === "accept") {
-      try {
-        const token = localStorage.getItem("token");
-        await fetch(`http://localhost:5000/task/${task._id}/accept`, {
+  
+    try {
+      const token = localStorage.getItem("token");
+      if (!token) {
+        message.error("Please log in to perform this action");
+        return;
+      }
+  
+      const response = await fetch(
+        `http://localhost:5000/handle-task/${task._id}`,
+        {
           method: "PUT",
           headers: {
             "Content-Type": "application/json",
             Authorization: `Bearer ${token}`,
           },
-          body: JSON.stringify(updateTask),
-        });
-        message.success("Task accepted successfully");
-      } catch (error) {
-        console.error("Error accepting task:", error);
-        message.error("An error occurred while accepting the task.");
+          body: JSON.stringify(taskPayload),
+        }
+      );
+  
+      if (!response.ok) {
+        const errorData = await response.json();
+        message.error(errorData.message || "Failed to handle the task");
+        return;
       }
+  
+      message.success(`Task ${action}ed successfully`);
+      fetchUsers();
+      setIsModalOpen(false);
+    } catch (error) {
+      console.error(`Error handling task (${action}):`, error);
+      message.error(`An error occurred while ${action}ing the task.`);
     }
   };
+  
 
   return (
     <>
@@ -145,7 +177,7 @@ const ViewTable = ({ subRole, subAdmin }) => {
                 <th className="px-4 py-2">Reference Code</th>
                 <th className="px-4 py-2 ">WhatsApp</th>
                 <th className="px-4 py-2">Telegram</th>
-                <th className="px-4 py-2">View Task</th>
+                <th className="px-4 py-2">Action</th>
                 {currentUser?.role === "admin" && (
                   <th className="px-4 py-2">Delete</th>
                 )}
@@ -275,43 +307,55 @@ const ViewTable = ({ subRole, subAdmin }) => {
 
             <h2 className="my-4 heading2 text-center py-2">Review Task</h2>
             <div className="space-y-2">
-              {selectedUser?.tasks?.map((task, index) => (
-                <div
-                  key={index}
-                  className="flex justify-between items-center bg-[#F6170C] bg-opacity-50 p-2 rounded"
-                >
-                  <div>
-                    <span className="">{task?.taskName}</span>
-                  </div>
+              {selectedUser?.tasks?.filter(
+                (task) => task?.taskStatus === "pending"
+              ).length > 0 ? (
+                selectedUser.tasks
+                  .filter((task) => task.taskStatus === "pending")
+                  .map((task) => (
+                    <div
+                      key={task._id} // Use task._id for a unique key
+                      className="flex justify-between items-center bg-[#F6170C] bg-opacity-50 p-2 rounded"
+                    >
+                      <div>
+                        <span>{task?.taskName}</span>
+                      </div>
 
-                  <div className="flex items-center flex-col md:flex-row gap-3">
-                    <div className="flex items-center">
-                      <img
-                        className="w-6 h-6 rounded-full -mr-4 relative z-50"
-                        src={coin}
-                        alt="coin"
-                      />
-                      <div className="description bg-[#78120D] rounded-[20px] ">
-                        <p className="text-white px-5 pr-3">
-                          {task?.coin || 0}
-                        </p>
+                      <div className="flex items-center flex-col md:flex-row gap-3">
+                        <div className="flex items-center">
+                          <img
+                            className="w-6 h-6 rounded-full -mr-4 relative z-50"
+                            src={coin}
+                            alt="coin"
+                          />
+                          <div className="description bg-[#78120D] rounded-[20px]">
+                            <p className="text-white px-5 pr-3">
+                              {task?.coin || 0}
+                            </p>
+                          </div>
+                        </div>
+                        <button
+                          onClick={() =>
+                            handleTask(task, selectedUser, "accept")
+                          }
+                          className="bg-green-600 px-2 py-1 rounded text-white mr-2"
+                        >
+                          Accept
+                        </button>
+                        <button
+                          onClick={() =>
+                            handleTask(task, selectedUser, "decline")
+                          }
+                          className="bg-red-600 px-2 py-1 rounded text-white"
+                        >
+                          Decline
+                        </button>
                       </div>
                     </div>
-                    <button
-                      onClick={() => handleTask(task, selectedUser, "accept")}
-                      className="bg-green-600 px-2 py-1 rounded text-white mr-2"
-                    >
-                      Accept
-                    </button>
-                    <button
-                      onClick={() => handleTask(task, selectedUser, "decline")}
-                      className="bg-red-600 px-2 py-1 rounded text-white"
-                    >
-                      Decline
-                    </button>
-                  </div>
-                </div>
-              ))}
+                  ))
+              ) : (
+                <p className="description text-center">No pending tasks</p>
+              )}
             </div>
           </div>
         )}
