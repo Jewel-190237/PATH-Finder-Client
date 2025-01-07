@@ -1,6 +1,7 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { Progress, Slider, Space } from "antd";
-
+// import { useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 const Profile = () => {
     const [salaryPercent, setSalaryPercent] = useState(50);
     const [taskPercent, setTaskPercent] = useState(70);
@@ -61,15 +62,21 @@ const Profile = () => {
                         <p className="text-sm">4684654564</p>
                     </div>
                     <p className='text-[#F38122] hidden xl:flex items-center'>------------------------------------</p>
-                    <div className="bg-[#78120D] text-white  p-3 shadow-md w-64 rounded-[12px]">
-                        <p className="text-lg font-bold text-[#B0B0B0]">Team friends</p>
-                        <p className="text-sm">564</p>
-                    </div>
+
+
+                    <Link to="/team">
+                        <div className="w-64 p-3 bg-[#78120D] text-white shadow-md rounded-[12px] cursor-pointer">
+                            <p className="text-[#B0B0B0] text-lg font-bold">Team friends</p>
+                            <p className="text-sm">564</p>
+                        </div>
+                    </Link>
                     <p className='text-[#F38122] hidden xl:flex items-center'>------------------------------------</p>
+                    <Link to="/axisPoint">
                     <div className="bg-[#78120D] text-white  p-3 shadow-md w-64 rounded-[12px]">
                         <p className="text-lg font-bold text-[#B0B0B0]">Axis Point</p>
                         <p className="text-sm">06</p>
                     </div>
+                    </Link>
                 </div>
             </div>
 

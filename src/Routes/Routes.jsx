@@ -15,7 +15,7 @@ import Plan from "../Pages/Plan/Plan";
 import Aspire from "../Pages/Aspire/Aspire";
 import Forum from "../Pages/Forum/Forum";
 import Dashboard from "../Layout/Dashboard";
-import Profile from "../Pages/Profile/Profile";
+// import Profile from "../Pages/Profile/Profile";
 import AdminDashboard from "../Pages/Dashboard/AdminDashboard/AdminDashboard";
 import ManagerDashboard from "../Layout/ManagerDashboard/ManagerDashboard";
 import ManagerOverview from "../Pages/HeadOfMarketing/ManagerOverview";
@@ -44,6 +44,8 @@ import VirtualAssistant from "../Pages/SalesDirector/VirtualAssistant";
 import PremiumServices from "../Pages/Premium/PremiumServices";
 import EarnRewards from "../Pages/Home/Home/EarnRewards";
 import TeamGrid from "../Pages/Team/TeamGrid";
+import Profile from "../Pages/Profile/Profile";
+import AxisPoint from "../Pages/AxisPoint/AxisPoint";
 
 export const router = createBrowserRouter([
   {
@@ -91,6 +93,10 @@ export const router = createBrowserRouter([
       {
         path: "/profile",
         element: <Profile />,
+      },
+      {
+        path: "/axisPoint",
+        element: <AxisPoint />,
       },
       {
         path: "/premiumServe",
