@@ -121,7 +121,7 @@ const AddTaskTable = ({ subRole, subAdmin }) => {
                 <tr key={user._id}>
                   <td className="px-4 py-2">{index + indexOfFirstUser + 1}</td>
                   <td className="px-4 py-2">{user?.name}</td>
-                  <td className="px-4 py-2">{user?.coins} </td>
+                  <td className="px-4 py-2">{user?.coins || 0} </td>
                   <td className="px-4 py-2">0</td>
                   <td className="px-4 py-2">
                     <button
