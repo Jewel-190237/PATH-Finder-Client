@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import AddTaskTable from "../../CommonTable/AddTaskTable";
 import ViewTable from "../../CommonTable/ViewTavle";
-const CEOMembers = () => {
+const MarketingExecutiveMembers = () => {
   return (
     <div className="p-5 md:p-10 lg:p-12 xl:p-14 text-white">
       <ViewTable />
@@ -12,4 +12,4 @@ const CEOMembers = () => {
   );
 };
 
-export default CEOMembers;
+export default MarketingExecutiveMembers;

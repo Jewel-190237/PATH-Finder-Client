@@ -130,7 +130,6 @@ const AllMaster = () => {
         message.error("An error occurred while updating the user.");
       });
   };
-  
 
   //handle approved counter master status is approved
   const handleApprove = (user) => {
@@ -228,8 +227,8 @@ const AllMaster = () => {
                 <th className="px-4 py-2">Sl No</th>
                 <th className="px-4 py-2">Name</th>
                 <th className="px-4 py-2">Phone Number</th>
+                <th className="px-4 py-2">Coin</th>
                 <th className="px-4 py-2">Reference</th>
-                <th className="px-4 py-2">Role</th>
                 <th className="px-4 py-2">Select Role</th>
                 <th className="px-4 py-2">Update</th>
                 <th className="px-4 py-2">Delete</th>
@@ -241,22 +240,20 @@ const AllMaster = () => {
                   <td className="px-4 py-2">{index + indexOfFirstUser + 1}</td>
                   <td className="px-4 py-2">{user.name}</td>
                   <td className="px-4 py-2">{user.phone}</td>
+                  <td className="px-4 py-2">{user.coins}</td>
                   <td className="px-4 py-2">{user.code}</td>
-                  <td className="px-4 py-2">
-                    {user?.subRole ? user.subRole : user.role}
-                  </td>
                   <td className="px-4 py-2">
                     {user.status === "approved" ? (
                       <select
                         onChange={(e) =>
                           handleSubRoleChange(user, e.target.value)
                         }
-                        defaultValue=""
+                        defaultValue={user?.subRole}
                         className="rounded px-2 py-1 bg-[#78120D] text-white cursor-pointer"
                       >
-                        <option value="" disabled>
+                        {/* <option value="" disabled>
                           Select Role
-                        </option>
+                        </option> */}
                         <option value="CEO">CEO</option>
                         <option value="Marketing Panel">Marketing Panel</option>
                         <option value="Marketing Executive">

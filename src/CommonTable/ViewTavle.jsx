@@ -5,9 +5,8 @@ import { message, Modal } from "antd";
 import Swal from "sweetalert2";
 import GetUser from "../Backend/GetUser";
 import coin from "../assets/coin.png";
-import { p } from "framer-motion/client";
 
-const ViewTable = ({ subRole, subAdmin }) => {
+const ViewTable = ({ subRole }) => {
   const [users, setUsers] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [usersPerPage] = useState(12);
@@ -23,7 +22,7 @@ const ViewTable = ({ subRole, subAdmin }) => {
   useEffect(() => {
     fetchUsers();
   }, []);
-
+  const subAdmin = currentUser?._id;
   const fetchUsers = () => {
     const token = localStorage.getItem("token");
     fetch("http://localhost:5000/users", {
@@ -102,33 +101,33 @@ const ViewTable = ({ subRole, subAdmin }) => {
 
   const handleTask = async (task, user, action) => {
     console.log(task, action);
-  
+
     // Validate task, user, and action
     if (!task || !task._id || !task.coin) {
       console.error("Invalid task data");
       message.error("Invalid task data");
       return;
     }
-  
+
     if (!user || !user._id) {
       console.error("Invalid user data");
       message.error("Invalid user data");
       return;
     }
-  
+
     const taskPayload = {
       userId: user._id,
       coin: task.coin,
       action, // Include the action in the request
     };
-  
+
     try {
       const token = localStorage.getItem("token");
       if (!token) {
         message.error("Please log in to perform this action");
         return;
       }
-  
+
       const response = await fetch(
         `http://localhost:5000/handle-task/${task._id}`,
         {
@@ -140,13 +139,13 @@ const ViewTable = ({ subRole, subAdmin }) => {
           body: JSON.stringify(taskPayload),
         }
       );
-  
+
       if (!response.ok) {
         const errorData = await response.json();
         message.error(errorData.message || "Failed to handle the task");
         return;
       }
-  
+
       message.success(`Task ${action}ed successfully`);
       fetchUsers();
       setIsModalOpen(false);
@@ -155,7 +154,6 @@ const ViewTable = ({ subRole, subAdmin }) => {
       message.error(`An error occurred while ${action}ing the task.`);
     }
   };
-  
 
   return (
     <>

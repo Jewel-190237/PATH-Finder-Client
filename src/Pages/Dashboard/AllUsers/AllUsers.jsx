@@ -8,13 +8,12 @@ const AllUsers = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const [usersPerPage] = useState(12);
 
-  // Fetch users when the component mounts
   useEffect(() => {
     fetchUsers();
   }, []);
 
   const fetchUsers = () => {
-    const token = localStorage.getItem("token"); // Fetch the token for authorization
+    const token = localStorage.getItem("token");
     fetch("http://localhost:5000/users", {
       headers: {
         Authorization: `Bearer ${token}`,
@@ -89,7 +88,7 @@ const AllUsers = () => {
                 <th className="px-4 py-2">Name</th>
                 <th className="px-4 py-2">Phone Number</th>
                 <th className="px-4 py-2">Sub Admin</th>
-                <th className="px-4 py-2">Role</th>
+                <th className="px-4 py-2">Coin</th>
                 <th className="px-4 py-2">Delete</th>
               </tr>
             </thead>
@@ -99,8 +98,12 @@ const AllUsers = () => {
                   <td className="px-4 py-2">{index + indexOfFirstUser + 1}</td>
                   <td className="px-4 py-2">{user.name}</td>
                   <td className="px-4 py-2">{user.phone}</td>
-                  <td className="px-4 py-2">{user.subAdmin}</td>
-                  <td className="px-4 py-2">{user.role}</td>
+                  <td className="px-4 py-2">
+                    {user.subAdmin
+                      ? users?.find((u) => u?._id === user?.subAdmin)?.name
+                      : "NA"}
+                  </td>
+                  <td className="px-4 py-2">{user?.coins || "0"}</td>
 
                   <td className="px-4 py-2">
                     <button

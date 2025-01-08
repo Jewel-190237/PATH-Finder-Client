@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { Form, Input, message, Modal } from "antd";
 import { IoMdAddCircleOutline } from "react-icons/io";
-import { FcViewDetails } from "react-icons/fc";
 import { LuView } from "react-icons/lu";
+import GetUser from "../Backend/GetUser";
 
-const AddTaskTable = ({ subRole, subAdmin }) => {
+const AddTaskTable = ({ subRole }) => {
   const [users, setUsers] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [usersPerPage] = useState(12);
@@ -13,7 +13,12 @@ const AddTaskTable = ({ subRole, subAdmin }) => {
   const [addModalOpen, setAddModalOpen] = useState(false);
   const [showModalOpen, setShowModalOpen] = useState(false);
   const [form] = Form.useForm();
+  const [currentUser, setCurrentUser] = useState(null);
 
+  const user = GetUser();
+  useEffect(() => {
+    setCurrentUser(user);
+  }, [user]);
   useEffect(() => {
     fetchUsers();
   }, []);
@@ -30,11 +35,12 @@ const AddTaskTable = ({ subRole, subAdmin }) => {
       .catch((error) => console.error("Error fetching users:", error));
   };
 
+  const subAdmin = currentUser?._id;
+
   // CEO Table Pagination
   const memberUsers = subRole
     ? users.filter((user) => user.subRole == subRole)
     : users.filter((user) => user.subAdmin == subAdmin);
-  // const memberUsers = users.filter((user) => user.subRole == subRole);
   const indexOfLastUser = currentPage * usersPerPage;
   const indexOfFirstUser = indexOfLastUser - usersPerPage;
   const currentUsers = memberUsers.slice(indexOfFirstUser, indexOfLastUser);

@@ -11,35 +11,37 @@ const SignUp = () => {
   const userRole = ["student", "subAdmin"];
   const [activeRole, setActiveRole] = useState("student");
   const [form] = Form.useForm();
-  const [users, setUsers] = useState([]);
   const returnLocation = useLocation();
   const from = returnLocation.state?.from?.pathname || "/";
 
-  const fetchUsers = () => {
-    const token = localStorage.getItem("token"); // Fetch the token for authorization
-    fetch("http://localhost:5000/users")
-      .then((response) => response.json())
-      .then((data) => setUsers(data))
-      .catch((error) => console.error("Error fetching users:", error));
-  };
-  
-  
-  const onFinish = async (value) => {
-    fetchUsers();
-    console.log('All Users',users);
-    // const subAdmin = users.filter((user) => user.role === "subAdmin");
-    const newUser = {
-      name: value.name,
-      phone: value.phone,
-      role: activeRole,
-      password: value.password,
-      code: value.code,
-    };
-    console.log("new User", newUser);
+  const fetchUsers = async () => {
     try {
+      const response = await fetch("http://localhost:5000/users");
+      const data = await response.json();
+      return data;
+    } catch (error) {
+      console.error("Error fetching users:", error);
+      throw error;
+    }
+  };
+
+  const onFinish = async (value) => {
+    try {
+      const fetchedUsers = await fetchUsers();
+      const matchingUser = fetchedUsers.find(
+        (user) => user.code === value.code
+      );
+
+      const newUser = {
+        name: value.name,
+        phone: value.phone,
+        role: activeRole,
+        password: value.password,
+        code: value.code,
+        subAdmin: matchingUser ? matchingUser._id : null,
+      };
       const response = await axiosSecurePublic.post("/users", newUser);
 
-      console.log(response);
       if (response.status === 200) {
         message.success("User created successfully");
         navigate("/login", { state: { from } });
@@ -52,6 +54,7 @@ const SignUp = () => {
       }
       console.error("Error:", error);
     }
+
     form.resetFields();
   };
 
@@ -110,13 +113,15 @@ const SignUp = () => {
                   className="p-2 md:p-3 lg:p-4 xl:p-5 bg-[#78120D] text-white !border-none description"
                 />
               </Form.Item>
-              <Form.Item label="Reference Code: " name="code" required>
-                <Input
-                  placeholder="Input your Reference Code"
-                  type="number"
-                  className="p-2 md:p-3 lg:p-4 xl:p-5 bg-[#78120D] text-white !border-none description"
-                />
-              </Form.Item>
+              {activeRole === "student" && (
+                <Form.Item label="Reference Code: " name="code" required>
+                  <Input
+                    placeholder="Input your Reference Code"
+                    type="number"
+                    className="p-2 md:p-3 lg:p-4 xl:p-5 bg-[#78120D] text-white !border-none description"
+                  />
+                </Form.Item>
+              )}
               <Form.Item label="Password" name="password" required>
                 <Input
                   placeholder="Input your password"
@@ -128,7 +133,7 @@ const SignUp = () => {
                 type="submit"
                 className="common-button w-full !mt-10 !rounded-md"
               >
-                Sign In
+                Sign Up
               </button>
             </Form>
             <p className="my-4 text-center">
