@@ -278,7 +278,7 @@ const ViewTable = ({ subRole }) => {
                   </tr>
                   <tr>
                     <td className="px-4 py-2">Level</td>
-                    <td className="px-4 py-2">2</td>
+                    <td className="px-4 py-2">{selectedUser.level || "0"}</td>
                   </tr>
                 </tbody>
               </table>

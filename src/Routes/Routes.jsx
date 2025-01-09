@@ -42,6 +42,13 @@ import SkillSpecialist from "../Pages/SkillStrategist/SkillSpecialist";
 import DevAdvisor from "../Pages/SkillSpecialist/DevAdvisor";
 import VirtualAssistant from "../Pages/SalesDirector/VirtualAssistant";
 import CEOMembers from "../Pages/CEO/CEOMembers";
+import HeadOfMarketingMembers from "../Pages/HeadOfMarketing/HeadOfMarketingMembers";
+import MarketingExecutiveMembers from "../Pages/MarketingExecutive/MarketingExecutiveMembers";
+import SkillStrategistMembers from "../Pages/SkillStrategist/SkillStrategistMembers";
+import SkillSpecialistMembers from "../Pages/SkillSpecialist/SkillSpecialistMembers";
+import DevAdvisorMembers from "../Pages/DevVisor/DevAdvisorMembers";
+import SalesDirectorMembers from "../Pages/SalesDirector/SalesDirectorMembers";
+import VirtualAssistantMembers from "../Pages/VirtualAssistant/VirtulaAssistantMembers";
 
 export const router = createBrowserRouter([
   {
@@ -142,7 +149,7 @@ export const router = createBrowserRouter([
     ],
   },
 
-  //CEO Dashboard 
+  //CEO Dashboard
   {
     path: "CEODashboard",
     element: <CEODashboard />,
@@ -179,6 +186,10 @@ export const router = createBrowserRouter([
         path: "marketingExecutive",
         element: <MarketingExecutive />,
       },
+      {
+        path: "students",
+        element: <HeadOfMarketingMembers />,
+      },
     ],
   },
 
@@ -194,6 +205,10 @@ export const router = createBrowserRouter([
       {
         path: "skillStrategist",
         element: <SkillStrategist />,
+      },
+      {
+        path: "students",
+        element: <MarketingExecutiveMembers />,
       },
     ],
   },
@@ -211,6 +226,10 @@ export const router = createBrowserRouter([
         path: "skillSpecialist",
         element: <SkillSpecialist />,
       },
+      {
+        path: "students",
+        element: <SkillStrategistMembers />,
+      },
     ],
   },
 
@@ -226,6 +245,10 @@ export const router = createBrowserRouter([
       {
         path: "devAdvisor",
         element: <DevAdvisor />,
+      },
+      {
+        path: "students",
+        element: <SkillSpecialistMembers />,
       },
     ],
   },
@@ -243,6 +266,10 @@ export const router = createBrowserRouter([
         path: "salesDirector",
         element: <SalesDirector />,
       },
+      {
+        path: "students",
+        element: <DevAdvisorMembers />,
+      },
     ],
   },
 
@@ -259,6 +286,10 @@ export const router = createBrowserRouter([
         path: "virtualAssistant",
         element: <VirtualAssistant />,
       },
+      {
+        path: "students",
+        element: <SalesDirectorMembers />,
+      },
     ],
   },
 
@@ -270,6 +301,10 @@ export const router = createBrowserRouter([
       {
         path: "assistantHome",
         element: <VirtualAssistantOverview />,
+      },
+      {
+        path: "students",
+        element: <VirtualAssistantMembers />,
       },
     ],
   },

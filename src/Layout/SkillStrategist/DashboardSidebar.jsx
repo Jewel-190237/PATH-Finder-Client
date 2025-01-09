@@ -1,5 +1,5 @@
 import { useState, useRef, useEffect } from "react";
-import { FaHome, FaBars, FaTimes } from "react-icons/fa";
+import { FaHome, FaBars, FaTimes, FaUserGraduate } from "react-icons/fa";
 import { useLocation } from "react-router-dom";
 import logo from "../../assets/logo2.png";
 import { Link } from "react-router-dom";
@@ -23,6 +23,11 @@ export default function DashboardSidebar() {
           to: "/skillStrategist/skillSpecialist",
           label: "Skill Specialist",
           icon: HiOutlineUserCircle,
+        },
+        {
+          to: "/skillStrategist/students",
+          label: "Students", 
+          icon: FaUserGraduate,
         },
         { to: "/", label: "Home", icon: FaHome },
       ],
