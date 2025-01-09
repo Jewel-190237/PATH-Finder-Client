@@ -1,6 +1,5 @@
 import { useState } from 'react';
 import { Progress, Slider, Space } from "antd";
-// import { useNavigate } from 'react-router-dom';
 import { Link } from 'react-router-dom';
 const Profile = () => {
     const [salaryPercent, setSalaryPercent] = useState(50);

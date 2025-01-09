@@ -46,6 +46,7 @@ import EarnRewards from "../Pages/Home/Home/EarnRewards";
 import TeamGrid from "../Pages/Team/TeamGrid";
 import Profile from "../Pages/Profile/Profile";
 import AxisPoint from "../Pages/AxisPoint/AxisPoint";
+import EditProfile from "../Pages/Profile/UpdateProfile";
 
 export const router = createBrowserRouter([
   {
@@ -109,6 +110,10 @@ export const router = createBrowserRouter([
       {
         path: "/team",
         element: <TeamGrid />,
+      },
+      {
+        path: "/editProfile",
+        element: <EditProfile />,
       },
       {
         path: "/forgetPassword",
