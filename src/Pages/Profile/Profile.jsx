@@ -21,7 +21,6 @@ const Profile = () => {
             style={{ backgroundImage: `url('/src/assets/profile/Rank.png')` }}
         >
             <div className=" max-w-[1320px] mx-auto pt-28 flex flex-col items-center justify-center relative">
-                {/* Heading Section */}
                 <div className="text-center text-white">
                     <h1 className="heading font-bold mb-4">
                         Your Gateway to Exclusive Benefits!
