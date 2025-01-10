@@ -1,5 +1,5 @@
 import { useState, useRef, useEffect } from "react";
-import { FaHome, FaBars, FaTimes } from "react-icons/fa";
+import { FaHome, FaBars, FaTimes, FaUserGraduate } from "react-icons/fa";
 import { useLocation } from "react-router-dom";
 import logo from "../../assets/logo2.png";
 import { Link } from "react-router-dom";
@@ -10,10 +10,6 @@ export default function DashboardSidebar() {
     {
       navTitle: "General",
       link: [
-        // { to: "/dashboard/adminHome", label: "Overview", icon: MdDashboard },
-
-        // { to: "/dashboard/users", label: "Members", icon: PiUsersFourFill },
-        // { to: "/dashboard/subAdmin", label: "Sub Admins", icon: FaUsers },
         {
           to: "/managerDashboard/managerHome",
           label: "Dashboard",
@@ -23,6 +19,11 @@ export default function DashboardSidebar() {
           to: "/managerDashboard/marketingExecutive",
           label: "Marketing Executive",
           icon: FiUser,
+        },
+        {
+          to: "/managerDashboard/students",
+          label: "Students",
+          icon: FaUserGraduate,
         },
         { to: "/", label: "Home", icon: FaHome },
       ],

@@ -4,6 +4,7 @@ import { MdOutlineWhatsapp } from "react-icons/md";
 import { message, Modal } from "antd";
 import Swal from "sweetalert2";
 import GetUser from "../Backend/GetUser";
+import coin from "../assets/coin.png";
 
 const ViewTable = ({ subRole }) => {
   const [users, setUsers] = useState([]);
@@ -21,7 +22,7 @@ const ViewTable = ({ subRole }) => {
   useEffect(() => {
     fetchUsers();
   }, []);
-
+  const subAdmin = currentUser?._id;
   const fetchUsers = () => {
     const token = localStorage.getItem("token");
     fetch("http://localhost:5000/users", {
@@ -73,7 +74,10 @@ const ViewTable = ({ subRole }) => {
   };
 
   // CEO Table Pagination
-  const memberUsers = users.filter((user) => user.subRole === subRole);
+  const memberUsers = subRole
+    ? users.filter((user) => user.subRole === subRole)
+    : users.filter((user) => user.subAdmin === subAdmin);
+
   const indexOfLastUser = currentPage * usersPerPage;
   const indexOfFirstUser = indexOfLastUser - usersPerPage;
   const currentUsers = memberUsers.slice(indexOfFirstUser, indexOfLastUser);
@@ -95,15 +99,71 @@ const ViewTable = ({ subRole }) => {
     setSelectedUser(null);
   };
 
+  const handleTask = async (task, user, action) => {
+    console.log(task, action);
+
+    // Validate task, user, and action
+    if (!task || !task._id || !task.coin) {
+      console.error("Invalid task data");
+      message.error("Invalid task data");
+      return;
+    }
+
+    if (!user || !user._id) {
+      console.error("Invalid user data");
+      message.error("Invalid user data");
+      return;
+    }
+
+    const taskPayload = {
+      userId: user._id,
+      coin: task.coin,
+      action, // Include the action in the request
+    };
+
+    try {
+      const token = localStorage.getItem("token");
+      if (!token) {
+        message.error("Please log in to perform this action");
+        return;
+      }
+
+      const response = await fetch(
+        `http://localhost:5000/handle-task/${task._id}`,
+        {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+          body: JSON.stringify(taskPayload),
+        }
+      );
+
+      if (!response.ok) {
+        const errorData = await response.json();
+        message.error(errorData.message || "Failed to handle the task");
+        return;
+      }
+
+      message.success(`Task ${action}ed successfully`);
+      fetchUsers();
+      setIsModalOpen(false);
+    } catch (error) {
+      console.error(`Error handling task (${action}):`, error);
+      message.error(`An error occurred while ${action}ing the task.`);
+    }
+  };
+
   return (
     <>
       <div className="flex justify-center py-8 text-white">
-        <h2 className="heading2">Manage {subRole}</h2>
+        <h2 className="heading2">Manage {subRole ? subRole : "Students"}</h2>
       </div>
 
       <div className="w-full px-4 lg:px-10">
         <h2 className="heading2 text-white mb-4 !font-semibold">
-          Total {subRole}: {memberUsers.length}
+          Total {subRole ? subRole : "Students"}: {memberUsers.length}
         </h2>
         <div className="overflow-x-auto text-white">
           <table className="table-auto w-full divide-y divide-gray-300 text-center text-sm lg:text-base">
@@ -112,9 +172,10 @@ const ViewTable = ({ subRole }) => {
                 <th className="px-4 py-2">Sl No</th>
                 <th className="px-4 py-2">Name</th>
                 <th className="px-4 py-2">Phone Number</th>
+                <th className="px-4 py-2">Reference Code</th>
                 <th className="px-4 py-2 ">WhatsApp</th>
                 <th className="px-4 py-2">Telegram</th>
-                <th className="px-4 py-2">View Task</th>
+                <th className="px-4 py-2">Action</th>
                 {currentUser?.role === "admin" && (
                   <th className="px-4 py-2">Delete</th>
                 )}
@@ -126,6 +187,7 @@ const ViewTable = ({ subRole }) => {
                   <td className="px-4 py-2">{index + indexOfFirstUser + 1}</td>
                   <td className="px-4 py-2">{user.name}</td>
                   <td className="px-4 py-2">{user.phone}</td>
+                  <td className="px-4 py-2">{user.code}</td>
                   <td className="px-4 py-2">
                     <a
                       href={`https://wa.me/${user.whatsapp}`}
@@ -193,10 +255,10 @@ const ViewTable = ({ subRole }) => {
       >
         {selectedUser && (
           <div>
-            <h1 className="heading2 mb-4 text-center">
-              Details of {selectedUser.name}
+            <h1 className="mb-4 text-center heading3">
+              Details of <span className="heading2">{selectedUser.name}</span>
             </h1>
-            <h2 className="heading2 mb-4 text-center">Courses</h2>
+            <h2 className="heading2 mb-4 text-center mt-5">Courses</h2>
             <div className="mb-6">
               <table className="w-full text-left text-white border description">
                 <thead>
@@ -216,7 +278,7 @@ const ViewTable = ({ subRole }) => {
                   </tr>
                   <tr>
                     <td className="px-4 py-2">Level</td>
-                    <td className="px-4 py-2">2</td>
+                    <td className="px-4 py-2">{selectedUser.level || "0"}</td>
                   </tr>
                 </tbody>
               </table>
@@ -241,29 +303,57 @@ const ViewTable = ({ subRole }) => {
               </div>
             </div>
 
-            <h2 className="my-4 heading2 text-center py-2">
-              Review Head CSE Task
-            </h2>
+            <h2 className="my-4 heading2 text-center py-2">Review Task</h2>
             <div className="space-y-2">
-              {selectedUser?.tasks?.map((task, index) => (
-                <div
-                  key={index}
-                  className="flex justify-between items-center bg-[#F6170C] bg-opacity-50 p-2 rounded"
-                >
-                  <span className="">
-                    {task?.taskName}
-                    {/* Like, Comment, Follow and Share on {platform} */}
-                  </span>
-                  <div>
-                    <button className="bg-green-600 px-2 py-1 rounded text-white mr-2">
-                      Accept
-                    </button>
-                    <button className="bg-red-600 px-2 py-1 rounded text-white">
-                      Decline
-                    </button>
-                  </div>
-                </div>
-              ))}
+              {selectedUser?.tasks?.filter(
+                (task) => task?.taskStatus === "pending"
+              ).length > 0 ? (
+                selectedUser.tasks
+                  .filter((task) => task.taskStatus === "pending")
+                  .map((task) => (
+                    <div
+                      key={task._id} // Use task._id for a unique key
+                      className="flex justify-between items-center bg-[#F6170C] bg-opacity-50 p-2 rounded"
+                    >
+                      <div>
+                        <span>{task?.taskName}</span>
+                      </div>
+
+                      <div className="flex items-center flex-col md:flex-row gap-3">
+                        <div className="flex items-center">
+                          <img
+                            className="w-6 h-6 rounded-full -mr-4 relative z-50"
+                            src={coin}
+                            alt="coin"
+                          />
+                          <div className="description bg-[#78120D] rounded-[20px]">
+                            <p className="text-white px-5 pr-3">
+                              {task?.coin || 0}
+                            </p>
+                          </div>
+                        </div>
+                        <button
+                          onClick={() =>
+                            handleTask(task, selectedUser, "accept")
+                          }
+                          className="bg-green-600 px-2 py-1 rounded text-white mr-2"
+                        >
+                          Accept
+                        </button>
+                        <button
+                          onClick={() =>
+                            handleTask(task, selectedUser, "decline")
+                          }
+                          className="bg-red-600 px-2 py-1 rounded text-white"
+                        >
+                          Decline
+                        </button>
+                      </div>
+                    </div>
+                  ))
+              ) : (
+                <p className="description text-center">No pending tasks</p>
+              )}
             </div>
           </div>
         )}

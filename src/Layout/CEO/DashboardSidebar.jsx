@@ -5,7 +5,7 @@ import logo from "../../assets/logo2.png";
 import { Link } from "react-router-dom";
 import { RxDashboard } from "react-icons/rx";
 import { FcBusinessman } from "react-icons/fc";
-import { FaUserLarge } from "react-icons/fa6";
+import { FaUserGraduate, FaUserLarge } from "react-icons/fa6";
 export default function DashboardSidebar() {
   const navItems = [
     {
@@ -29,6 +29,11 @@ export default function DashboardSidebar() {
           to: "/CEODashboard/salesDirector",
           label: "Sales Director",
           icon: FcBusinessman,
+        },
+        {
+          to: "/CEODashboard/students",
+          label: "Students",
+          icon: FaUserGraduate,
         },
         { to: "/", label: "Home", icon: FaHome },
       ],

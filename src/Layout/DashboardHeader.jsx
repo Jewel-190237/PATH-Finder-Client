@@ -1,4 +1,4 @@
-import { Dropdown, Space } from "antd";
+import { Dropdown, message, Space } from "antd";
 import { useEffect, useState } from "react";
 import { BiUser } from "react-icons/bi";
 import { FiLogOut, FiUser } from "react-icons/fi";
@@ -44,12 +44,7 @@ const DashboardHeader = () => {
   const logout = () => {
     localStorage.removeItem("token");
     localStorage.removeItem("userId");
-    Swal.fire({
-      icon: "success",
-      title: "Signed out successfully",
-      showConfirmButton: false,
-      timer: 2000,
-    });
+    message.success("Sign out successful");
     navigate("/login");
     setIsAuthenticated(false);
   };
@@ -91,14 +86,16 @@ const DashboardHeader = () => {
         <div className="flex justify-between items-center h-full">
           <div className="flex items-center space-x-1 sm:space-x-3 md:gap-x-6 notification-popover">
             {user?.subRole && (
-              <div className=" flex items-center">
+              <div className="flex items-center">
                 <img
                   className="w-10 h-10 rounded-full -mr-4 relative z-50"
                   src={coin}
                   alt="coin"
                 />
                 <div className="heading3 bg-[#78120D] rounded-[20px] ">
-                  <p className="text-white px-6 py-1 pr-3">999</p>
+                  <p className="text-white px-6 py-1 pr-3">
+                    {currentUser?.coins || 0}{" "}
+                  </p>
                 </div>
               </div>
             )}

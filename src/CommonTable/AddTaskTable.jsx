@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
-import { FaTrashAlt } from "react-icons/fa";
 import { Form, Input, message, Modal } from "antd";
 import { IoMdAddCircleOutline } from "react-icons/io";
-import { FcViewDetails } from "react-icons/fc";
+import { LuView } from "react-icons/lu";
+import GetUser from "../Backend/GetUser";
 
 const AddTaskTable = ({ subRole }) => {
   const [users, setUsers] = useState([]);
@@ -13,7 +13,12 @@ const AddTaskTable = ({ subRole }) => {
   const [addModalOpen, setAddModalOpen] = useState(false);
   const [showModalOpen, setShowModalOpen] = useState(false);
   const [form] = Form.useForm();
+  const [currentUser, setCurrentUser] = useState(null);
 
+  const user = GetUser();
+  useEffect(() => {
+    setCurrentUser(user);
+  }, [user]);
   useEffect(() => {
     fetchUsers();
   }, []);
@@ -30,8 +35,12 @@ const AddTaskTable = ({ subRole }) => {
       .catch((error) => console.error("Error fetching users:", error));
   };
 
+  const subAdmin = currentUser?._id;
+
   // CEO Table Pagination
-  const memberUsers = users.filter((user) => user.subRole == subRole);
+  const memberUsers = subRole
+    ? users.filter((user) => user.subRole == subRole)
+    : users.filter((user) => user.subAdmin == subAdmin);
   const indexOfLastUser = currentPage * usersPerPage;
   const indexOfFirstUser = indexOfLastUser - usersPerPage;
   const currentUsers = memberUsers.slice(indexOfFirstUser, indexOfLastUser);
@@ -63,6 +72,7 @@ const AddTaskTable = ({ subRole }) => {
       userId: selectedUser._id,
       taskName: values.taskName,
       taskDescription: values.taskDescription,
+      coin: values.coin,
     };
     try {
       const token = localStorage.getItem("token");
@@ -95,7 +105,9 @@ const AddTaskTable = ({ subRole }) => {
   return (
     <>
       <div className="flex justify-center py-8 text-white">
-        <h2 className="heading2">Add task to {subRole}</h2>
+        <h2 className="heading2">
+          Add task to {subRole ? subRole : "Students"}
+        </h2>
       </div>
       <div className="w-full px-4 lg:px-10">
         <div className="overflow-x-auto text-white">
@@ -104,10 +116,11 @@ const AddTaskTable = ({ subRole }) => {
               <tr>
                 <th className="px-4 py-2">Sl No</th>
                 <th className="px-4 py-2">Name</th>
-                <th className="px-4 py-2">Task</th>
-                <th className="px-4 py-2">Status</th>
+                <th className="px-4 py-2">Coin</th>
+                <th className="px-4 py-2">Level</th>
+                <th className="px-4 py-2">Student</th>
                 <th className="px-4 py-2">Add Task</th>
-                <th className="px-4 py-2">View</th>
+                <th className="px-4 py-2">View Task</th>
               </tr>
             </thead>
             <tbody className="divide-y divide-gray-200 description">
@@ -115,10 +128,9 @@ const AddTaskTable = ({ subRole }) => {
                 <tr key={user._id}>
                   <td className="px-4 py-2">{index + indexOfFirstUser + 1}</td>
                   <td className="px-4 py-2">{user?.name}</td>
-                  <td className="px-4 py-2">
-                    {user?.tasks?.map((task) => task?.taskName)}
-                  </td>
-                  <td className="px-4 py-2">Pending</td>
+                  <td className="px-4 py-2">{user?.coins || 0} </td>
+                  <td className="px-4 py-2">{user?.level || 0} </td>
+                  <td className="px-4 py-2">0</td>
                   <td className="px-4 py-2">
                     <button
                       onClick={() => showAddModal(user)}
@@ -132,7 +144,7 @@ const AddTaskTable = ({ subRole }) => {
                       onClick={() => showModal(user)}
                       className="btn btn-ghost btn-sm"
                     >
-                      <FcViewDetails className="text-lg" />
+                      <LuView className="text-lg" />
                     </button>
                   </td>
                 </tr>
@@ -195,6 +207,18 @@ const AddTaskTable = ({ subRole }) => {
                     className="p-2 md:p-3 lg:p-4 xl:p-5 bg-[#78120D] text-white border description focus:bg-[#78120D] hover:bg-[#78120D] focus:border-white hover:border-white placeholder-white"
                   />
                 </Form.Item>
+                <Form.Item
+                  label="Task Coin: "
+                  name="coin"
+                  required
+                  className="text-white"
+                >
+                  <Input
+                    placeholder="Input Task Coin"
+                    type="text"
+                    className="p-2 md:p-3 lg:p-4 xl:p-5 bg-[#78120D] text-white border description focus:bg-[#78120D] hover:bg-[#78120D] focus:border-white hover:border-white placeholder-white"
+                  />
+                </Form.Item>
 
                 <Form.Item
                   label="Task Description:"
@@ -241,22 +265,31 @@ const AddTaskTable = ({ subRole }) => {
               <table className="w-full text-white border-collapse">
                 <thead>
                   <tr className="">
-                    <th className="border px-4 py-2">
-                      Task Name
-                    </th>
-                    <th className="border px-4 py-2">
-                      Task Description
-                    </th>
+                    <th className="border px-4 py-2">Task Name</th>
+                    <th className="border px-4 py-2">Coin</th>
+                    <th className="border px-4 py-2">Status</th>
+                    <th className="border px-4 py-2">Task Description</th>
                   </tr>
                 </thead>
                 <tbody>
                   {selectedUserShow?.tasks?.map((task, index) => (
-                    <tr
-                      key={index}
-                      
-                    >
+                    <tr key={index}>
+                      <td className="border px-4 py-2">{task.taskName}</td>
+                      <td className="border px-4 py-2">{task.coin}</td>
                       <td className="border px-4 py-2">
-                        {task.taskName}
+                        {task?.taskStatus === "accepted" ? (
+                          <span className="text-green-200 bg-green-900 px-2 rounded-md">
+                            Accepted
+                          </span>
+                        ) : task?.taskStatus === "rejected" ? (
+                          <span className="text-white bg-red-500 px-2 rounded-md">
+                            Rejected
+                          </span>
+                        ) : (
+                          <span className="text-purple-200 bg-purple-900 px-2 rounded-md">
+                            Pending
+                          </span>
+                        )}
                       </td>
                       <td className="border px-4 py-2">
                         {task.taskDescription}
