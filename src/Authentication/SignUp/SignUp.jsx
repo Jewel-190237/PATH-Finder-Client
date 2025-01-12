@@ -1,7 +1,7 @@
 /* eslint-disable no-unused-vars */
 import { useState } from "react";
 import { Form, Input, message } from "antd";
-import { Link, useLocation, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate, useSearchParams } from "react-router-dom";
 import useAxiosPublic from "../../Hooks/useAxiosPublic";
 import signup from "../../assets/signup.png";
 
@@ -24,6 +24,9 @@ const SignUp = () => {
       throw error;
     }
   };
+  const [param] = useSearchParams();
+  const referenceCode = param?.get("reference");
+  console.log("🚀 ~ SignUp ~ referenceCode:", referenceCode)
 
   const onFinish = async (value) => {
     try {
@@ -37,7 +40,7 @@ const SignUp = () => {
         phone: value.phone,
         role: activeRole,
         password: value.password,
-        code: value.code,
+        code: referenceCode || 0,
         subAdmin: matchingUser ? matchingUser._id : null,
       };
       const response = await axiosSecurePublic.post("/users", newUser);
@@ -113,15 +116,6 @@ const SignUp = () => {
                   className="p-2 md:p-3 lg:p-4 xl:p-5 bg-[#78120D] text-white !border-none description"
                 />
               </Form.Item>
-              {activeRole === "student" && (
-                <Form.Item label="Reference Code: " name="code" required>
-                  <Input
-                    placeholder="Input your Reference Code"
-                    type="number"
-                    className="p-2 md:p-3 lg:p-4 xl:p-5 bg-[#78120D] text-white !border-none description"
-                  />
-                </Form.Item>
-              )}
               <Form.Item label="Password" name="password" required>
                 <Input
                   placeholder="Input your password"
