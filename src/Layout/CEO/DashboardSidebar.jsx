@@ -11,10 +11,6 @@ export default function DashboardSidebar() {
     {
       navTitle: "General",
       link: [
-        // { to: "/dashboard/adminHome", label: "Overview", icon: MdDashboard },
-        // marketingDashboard/marketingHome
-        // { to: "/dashboard/users", label: "Members", icon: PiUsersFourFill },
-        // { to: "/dashboard/subAdmin", label: "Sub Admins", icon: FaUsers },
         {
           to: "/CEODashboard/CEOHome",
           label: "Dashboard",
