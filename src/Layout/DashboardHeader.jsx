@@ -4,7 +4,6 @@ import { BiUser } from "react-icons/bi";
 import { FiLogOut, FiUser } from "react-icons/fi";
 import { ImExit } from "react-icons/im";
 import { Link, useNavigate } from "react-router-dom";
-import Swal from "sweetalert2";
 import GetUser from "../Backend/GetUser";
 import coin from "../assets/coin.png";
 
