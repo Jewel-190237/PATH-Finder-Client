@@ -55,6 +55,9 @@ import SkillSpecialistMembers from "../Pages/SkillSpecialist/SkillSpecialistMemb
 import DevAdvisorMembers from "../Pages/DevVisor/DevAdvisorMembers";
 import SalesDirectorMembers from "../Pages/SalesDirector/SalesDirectorMembers";
 import VirtualAssistantMembers from "../Pages/VirtualAssistant/VirtulaAssistantMembers";
+import CourseDetails from "../Pages/Home/Course/CourseDetails";
+import PaymentSuccess from "../Pages/Payment/PaymentSuccess";
+import PaymentFail from "../Pages/Payment/PaymentFail";
 
 export const router = createBrowserRouter([
   {
@@ -131,14 +134,18 @@ export const router = createBrowserRouter([
         path: "/resetPassword/:token",
         element: <ResetPassword />,
       },
-      // {
-      //   path: '/payment/success/:tran_id',
-      //   element: <PaymentSuccess/>
-      // },
-      // {
-      //   path: '/payment/fail/:tran_id',
-      //   element: <PaymentFail/>
-      // }
+      {
+        path: "/course",
+        element: <CourseDetails />,
+      },
+      {
+        path: '/payment/success',
+        element: <PaymentSuccess/>
+      },
+      {
+        path: '/payment/fail',
+        element: <PaymentFail/>
+      }
     ],
   },
 
