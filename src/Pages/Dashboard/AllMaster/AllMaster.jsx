@@ -1,5 +1,4 @@
 import { message } from "antd";
-import { m } from "framer-motion";
 import { useEffect, useState } from "react";
 import { FaRegEdit, FaTrashAlt } from "react-icons/fa";
 import Swal from "sweetalert2";

@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import Swal from "sweetalert2";
 import { Dropdown, message, Space } from "antd";
 import loginPerson from "../../assets/loginPerson.png";
 import GetUser from "../../Backend/GetUser";
@@ -45,7 +44,7 @@ const AuthButton = () => {
   };
 
   const handleDashboardRedirect = () => {
-    if (currentUser?.role === "admin") {
+    if (currentUser?.role == "admin") {
       return navigate("/dashboard/adminHome");
     } else if (currentUser?.subRole === "CEO") {
       return navigate("/CEODashboard/CEOHome");

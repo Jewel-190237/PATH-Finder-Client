@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import GetUser from "../../../Backend/GetUser";
 import RevenueChart from "../../../CommonChart/RevenueChart";
 import Marketing from "../../../CommonChart/Marketing";

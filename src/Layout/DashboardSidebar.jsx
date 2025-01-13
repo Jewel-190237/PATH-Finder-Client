@@ -2,11 +2,11 @@ import { useState, useRef, useEffect } from "react";
 import { FaHome, FaBars, FaTimes, FaUserGraduate } from "react-icons/fa";
 import { FaUsers} from "react-icons/fa6";
 import { MdDashboard, MdOutlineControlCamera } from "react-icons/md";
-import { PiUsersFourFill } from "react-icons/pi";
 import { useLocation } from "react-router-dom";
 import logo from "../assets/logo2.png";
 import { Link } from "react-router-dom";
 import { RxDashboard } from "react-icons/rx";
+import { PiBookDuotone } from "react-icons/pi";
 export default function DashboardSidebar() {
   const navItems = [
     {
@@ -16,6 +16,7 @@ export default function DashboardSidebar() {
         { to: "/", label: "Home", icon: FaHome },
         { to: "/dashboard/users", label: "Students", icon: FaUserGraduate },
         { to: "/dashboard/subAdmin", label: "Sub Admins", icon: FaUsers },
+        { to: "/dashboard/courses", label: "All Courses", icon: PiBookDuotone },
         {
           to: "/dashboard/adminDashboard",
           label: "Dashboard",
@@ -26,61 +27,10 @@ export default function DashboardSidebar() {
           label: "Control Panel",
           icon: MdOutlineControlCamera,
         },
+     
       ],
     },
-    // {
-    //   navTitle: "Users",
-    //   link: [
-    //     { to: "/dashboard/users", label: "Users", icon: PiUsersFourFill },
-    //     { to: "/dashboard/vendors", label: "Vendors", icon: FaUsers },
-    //     { to: "/dashboard/providers", label: "Providers", icon: FaUserTie },
 
-    //   ],
-    // },
-    // {
-    //   navTitle: "Product",
-    //   link: [
-    //     { to: "/dashboard/category", label: "Categories", icon: BiSolidCategoryAlt },
-    //     { to: "/dashboard/products", label: "Products", icon: FaShoppingBag },
-    //     { to: "/dashboard/coupon", label: "Coupons", icon: BiSolidCoupon },
-    //     { to: "/dashboard/order", label: "Orders", icon: FaShopify },
-    //     { to: "/dashboard/testimonial", label: "Testimonials", icon: GoCodeReview },
-    //   ],
-    // },
-    // {
-    //   navTitle: "Pets",
-    //   link: [
-    //     { to: "/dashboard/pet", label: "Pet", icon: MdOutlinePets },
-    //     { to: "/dashboard/breed", label: "Breed", icon: FaDog },
-    //     { to: "/dashboard/hub", label: "Hub", icon: MdDeviceHub },
-    //     { to: "/dashboard/warehouse", label: "Warehouse", icon: LiaWarehouseSolid },
-    //   ],
-    // },
-    // {
-    //   navTitle: "Payment",
-    //   link: [
-    //     { to: "/dashboard/currency", label: "Currency", icon: MdCurrencyPound },
-    //     { to: "/dashboard/wallet", label: "Wallet", icon: FaDog },
-    //     { to: "/dashboard/paymentMethod", label: "Payment Method", icon: MdDeviceHub },
-    //   ],
-    // },
-    // {
-    //   navTitle: "Others",
-    //   link: [
-    //     { to: "/dashboard/service", label: "Services", icon: RiServiceFill  },
-    //     { to: "/dashboard/payment", label: "Payment", icon: FaMoneyCheckAlt },
-    //   ],
-    // },
-    // {
-    //   navTitle: "settings",
-    //   link: [
-    //     { to: "/dashboard/setting", label: "Setting", icon: AiFillSetting },
-    //     { to: "/dashboard/language", label: "language", icon: GrLanguage },
-    //     {to: "/dashboard/email_setting", label: "Email Setting", icon: MdEmail },
-    //     { to: "/dashboard/faq", label: "FAQ", icon: FaQuestion },
-    //     { to: "/dashboard/pagesetting", label: "Page Setting", icon: MdInsertPageBreak },
-    //   ],
-    // },
   ];
 
   const location = useLocation();

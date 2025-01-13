@@ -55,6 +55,7 @@ import SkillSpecialistMembers from "../Pages/SkillSpecialist/SkillSpecialistMemb
 import DevAdvisorMembers from "../Pages/DevVisor/DevAdvisorMembers";
 import SalesDirectorMembers from "../Pages/SalesDirector/SalesDirectorMembers";
 import VirtualAssistantMembers from "../Pages/VirtualAssistant/VirtulaAssistantMembers";
+import AllCourses from "../Pages/Dashboard/Courses/Courses";
 
 export const router = createBrowserRouter([
   {
@@ -163,6 +164,10 @@ export const router = createBrowserRouter([
       {
         path: "subAdmin",
         element: <AllMaster />,
+      },
+      {
+        path: "courses",
+        element: <AllCourses />,
       },
       {
         path: "adminDashboard",
