@@ -1,4 +1,4 @@
-import { Form, Input, message, Modal } from "antd";
+import { Button, Form, Input, message, Modal } from "antd";
 import { useEffect, useState } from "react";
 import { FaRegEdit, FaTrashAlt } from "react-icons/fa";
 import Swal from "sweetalert2";
@@ -11,6 +11,9 @@ const AllCourses = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedUser, setSelectedUser] = useState(null);
   const [addModalOpen, setAddModalOpen] = useState(false);
+  const [handleOpenModal, setHandleOpenModal] = useState(false);
+  const [selectedCourse, setSelectedCourse] = useState(null);
+  const [selectedUserShow, setSelectedUserShow] = useState(null);
   const [formData, setFormData] = useState({
     name: "",
     phone: "",
@@ -19,45 +22,29 @@ const AllCourses = () => {
   });
   const [loading, setLoading] = useState(false);
 
-  useEffect(() => {
+  const fetchCourses = async () => {
     setLoading(true);
-    // fetch("http://localhost:5000/courses",
-    fetch("http://localhost:5000/courses", {
-      //   headers: {
-      //     Authorization: `Bearer ${localStorage.getItem("token")}`,
-      //   },
-    })
-      .then((response) => response.json())
-      .then((data) => setCourses(data))
-      .catch((error) => {
-        message.error("Failed to fetch users.");
-        console.error("Error fetching users:", error);
-      })
-      .finally(() => setLoading(false));
+    try {
+      const response = await fetch("http://localhost:5000/courses");
+      if (!response.ok) {
+        throw new Error("Failed to fetch courses");
+      }
+      const data = await response.json();
+      setCourses(data);
+    } catch (error) {
+      message.error("Failed to fetch courses.");
+      console.error("Error fetching courses:", error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    fetchCourses();
   }, []);
-  console.log("dfsfff", courses);
 
-  //   const reloadUsers = async () => {
-  //     try {
-  //       const token = localStorage.getItem("token");
-  //       const response = await fetch("http://localhost:5000/users", {
-  //         headers: {
-  //           Authorization: `Bearer ${token}`,
-  //         },
-  //       });
 
-  //       const updatedUsers = await response.json();
 
-  //       if (response.ok && updatedUsers) {
-  //         setUsers(updatedUsers);
-  //       } else {
-  //         message.error("Failed to reload users.");
-  //       }
-  //     } catch (error) {
-  //       console.error("Error fetching updated users:", error);
-  //       message.error("Failed to reload users.");
-  //     }
-  //   };
 
   const handleDelete = (course) => {
     Swal.fire({
@@ -71,7 +58,7 @@ const AllCourses = () => {
     }).then((result) => {
       if (result.isConfirmed) {
         const token = localStorage.getItem("token");
-        fetch(`http://localhost:5000/users/${course?._id}`, {
+        fetch(`http://localhost:5000/courses/${course?._id}`, {
           method: "DELETE",
           headers: {
             "Content-Type": "application/json",
@@ -80,128 +67,134 @@ const AllCourses = () => {
         })
           .then((response) => response.json())
           .then((result) => {
-            if (result.message === "User deleted successfully") {
-              message.success("User deleted successfully");
-              setUsers((prevUsers) =>
+            if (result.message === "Course deleted successfully") {
+              message.success("Course deleted successfully");
+              setCourses((prevUsers) =>
                 prevUsers.filter((u) => u._id !== course?._id)
               );
             } else {
-              message.error("An error occurred while deleting the user.");
+              message.error("An error occurred while deleting the Course.");
             }
           })
           .catch((error) => {
-            console.error("Error deleting user:", error);
-            message.error("An error occurred while deleting the user.");
+            console.error("Error deleting Course:", error);
+            message.error("An error occurred while deleting the Course.");
           });
       }
     });
   };
 
-  const handleOpenModal = (course) => {
+  const showAddModal = (course) => {
     setSelectedUser(course);
-    setFormData({
-      name: course.name,
-      phone: course.phone,
-      code: course.code,
-    });
-    setIsModalOpen(true);
+    setAddModalOpen(true);
   };
 
-  const handleUpdate = () => {
-    const token = localStorage.getItem("token");
-    fetch(`http://localhost:5000/specific-users/${selectedUser._id}`, {
-      method: "PUT",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${token}`,
-      },
-      body: JSON.stringify(formData),
-    })
-      .then((response) => response.json())
-      .then((result) => {
-        if (result.success) {
-          message.success(result.message || "User updated successfully");
-          reloadUsers();
-          setIsModalOpen(false);
-          setFormData({ name: "", phone: "", code: "" });
-        } else {
-          message.error(result.message || "Failed to update user");
-        }
-      })
-      .catch((error) => {
-        console.error("Error updating user:", error);
-        message.error("An error occurred while updating the user.");
+  const handleUpdateModal = (course) => {
+    setSelectedUser(course);
+    setAddModalOpen(true);
+  };
+  const handleAddOk = () => {
+    setAddModalOpen(false);
+    setSelectedUser(null);
+  };
+
+  const handleEditdOk = () => {
+    setHandleOpenModal(false);
+    setSelectedUser(null);
+  };
+
+  const [imageFile, setImageFile] = useState(null); // State for storing the file
+
+  const onFinish = async (values) => {
+    try {
+      if (!imageFile) {
+        message.error("Please select an image file.");
+        return;
+      }
+
+      // Prepare the form data
+      const formData = new FormData();
+      formData.append("course_name", values.course_name);
+      formData.append("description", values.description);
+      formData.append("thumbnail_image", imageFile); // Use the file stored in state
+      formData.append("video", values.video);
+      formData.append("course_price", parseFloat(values.course_price));
+
+      const token = localStorage.getItem("token");
+      const response = await fetch("http://localhost:5000/courses", {
+        method: "POST",
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+        body: formData,
       });
+
+      if (response.ok) {
+        const result = await response.json();
+        message.success("Course added successfully");
+
+        // Reset form and clear image state
+        setImageFile(null);
+        form.resetFields();
+
+        // Close the modal
+        setAddModalOpen(false); // Assuming setAddModalOpen is the state handler for the modal
+
+        // Refresh the data
+        fetchCourses(); // Call a function to refresh the courses list
+      } else {
+        const error = await response.json();
+        message.error(error.message || "Error adding course");
+      }
+    } catch (error) {
+      message.error("Error adding course");
+      console.error("Error adding course:", error);
+    }
   };
 
-  //handle approved counter master status is approved
-  //   const handleApprove = (user) => {
-  //     Swal.fire({
-  //       title: "Are you sure?",
-  //       text: `You are about to approve ${user.name}.`,
-  //       icon: "warning",
-  //       showCancelButton: true,
-  //       confirmButtonColor: "#3085d6",
-  //       cancelButtonColor: "#d33",
-  //       confirmButtonText: "Yes, approve it!",
-  //     }).then((result) => {
-  //       if (result.isConfirmed) {
-  //         const token = localStorage.getItem("token");
-  //         fetch(`http://localhost:5000/users/${user._id}/approve`, {
-  //           method: "PUT",
-  //           headers: {
-  //             "Content-Type": "application/json",
-  //             Authorization: `Bearer ${token}`,
-  //           },
-  //         })
-  //           .then((response) => response.json())
-  //           .then((result) => {
-  //             if (result.success) {
-  //               message.success("User approved successfully");
-  //               reloadUsers();
-  //             } else {
-  //               message.error("An error occurred while approving the user.");
-  //             }
-  //           })
-  //           .catch((error) => {
-  //             console.error("Error approving user:", error);
-  //             message.error("An error occurred while approving the user.");
-  //           });
-  //       }
-  //     });
-  //   };
 
-  //   const handleSubRoleChange = async (user, subRole) => {
-  //     if (!subRole) return;
-  //     try {
-  //       const token = localStorage.getItem("token");
-  //       const response = await fetch(
-  //         `http://localhost:5000/users/${user._id}/approve`,
-  //         {
-  //           method: "PUT",
-  //           headers: {
-  //             "Content-Type": "application/json",
-  //             Authorization: `Bearer ${token}`,
-  //           },
-  //           body: JSON.stringify({ role: subRole }),
-  //         }
-  //       );
+  const onUpdateFinish = async (values) => {
+    try {
+      const formData = new FormData();
+      formData.append("id", values._id); // Add course ID for identification
+      formData.append("course_name", values.course_name);
+      formData.append("description", values.description);
+      if (imageFile) {
+        formData.append("thumbnail_image", imageFile); // Only include the new file if provided
+      }
+      formData.append("video", values.video);
+      formData.append("course_price", parseFloat(values.course_price));
+  
+      const token = localStorage.getItem("token");
+      const response = await fetch("http://localhost:5000/courses/update", {
+        method: "PUT",
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+        body: formData,
+      });
+  
+      if (response.ok) {
+        const result = await response.json();
+        message.success("Course updated successfully");
+        fetchCourses(); // Refresh course list
+        setUpdateModalOpen(false); // Close modal
+        setImageFile(null); // Clear image file state
+        form.resetFields(); // Reset form fields
+      } else {
+        const error = await response.json();
+        message.error(error.message || "Failed to update course");
+      }
+    } catch (error) {
+      message.error("Error updating course");
+      console.error("Error updating course:", error);
+    }
+  };
+  
 
-  //       const data = await response.json();
 
-  //       if (response.ok && data.success) {
-  //         message.success("Sub-role updated successfully");
-  //         await reloadUsers();
-  //       } else {
-  //         message.error("An error occurred while updating the sub-role.");
-  //       }
-  //     } catch (error) {
-  //       console.error("Error updating sub-role:", error);
-  //       message.error("An error occurred while updating the sub-role.");
-  //     }
-  //   };
 
-  //   const memberUsers = users.filter((user) => user.role === "subAdmin");
+
 
   // Pagination logic
   const indexOfLastUser = currentPage * usersPerPage;
@@ -212,47 +205,6 @@ const AllCourses = () => {
   if (loading) {
     return <div>Loading...</div>;
   }
-
-  const handleAddOk = () => {
-    setAddModalOpen(false);
-    setSelectedUser(null);
-  };
-
-  //   const onFinish = async (values) => {
-  //       const data = {
-  //         userId: selectedUser._id,
-  //         taskName: values.taskName,
-  //         taskDescription: values.taskDescription,
-  //         coin: values.coin,
-  //       };
-  //       try {
-  //         const token = localStorage.getItem("token");
-  //         const response = await fetch("http://localhost:5000/add-task", {
-  //           method: "POST",
-  //           headers: {
-  //             "Content-Type": "application/json",
-  //             Authorization: `Bearer ${token}`,
-  //           },
-  //           body: JSON.stringify(data),
-  //         });
-
-  //         if (response.ok) {
-  //           const result = await response.json();
-  //           message.success("Task added successfully");
-  //           fetchUsers();
-  //           setAddModalOpen(false);
-  //           setSelectedUser(null);
-  //           form.resetFields();
-  //         } else {
-  //           message.error("Error adding task");
-  //           console.error("Error adding task");
-  //         }
-  //       } catch (error) {
-  //         message.error("Error adding task");
-  //         console.error("Error adding task:", error);
-  //       }
-  //     };
-
   return (
     <>
       <div className="flex justify-center py-8 text-white">
@@ -260,9 +212,13 @@ const AllCourses = () => {
       </div>
 
       <div className="w-full px-4 lg:px-10">
-        <h2 className="heading2 text-white mb-4 !font-semibold">
-          Total Courses: {courses.length}
-        </h2>
+        <div className="flex justify-between mb-4 items-center">
+          <h2 className="heading2 text-white !font-semibold ">
+            Total Courses: {courses.length}
+          </h2>
+          <Button onClick={() => showAddModal(courses)} type="submit" className="bg-primary text-xl text-white px-6 py-6 rounded-lg">Add Course</Button>
+        </div>
+
         <div className="overflow-x-auto text-white description">
           <table className="table-auto w-full divide-y divide-gray-300 text-left text-sm lg:text-base">
             <thead className="bg-[#78120D] text-white">
@@ -288,10 +244,10 @@ const AllCourses = () => {
                   <td className="px-4 py-2">{course?.course_price}</td>
                   <td className="pl-8 py-2">
                     <button
-                      onClick={() => handleOpenModal(course)}
+                      onClick={() => handleUpdateModal(course)}
                       className="text-blue-600"
                     >
-                      <FaRegEdit className="text-xl text-primary" />
+                      <FaRegEdit  className="text-xl text-primary" />
                     </button>
                   </td>
 
@@ -315,86 +271,17 @@ const AllCourses = () => {
             <button
               key={index + 1}
               onClick={() => setCurrentPage(index + 1)}
-              className={`mx-1 px-3 py-1 rounded ${
-                currentPage === index + 1
-                  ? "bg-primary text-white"
-                  : "bg-gray-300 text-black"
-              }`}
+              className={`mx-1 px-3 py-1 rounded ${currentPage === index + 1
+                ? "bg-primary text-white"
+                : "bg-gray-300 text-black"
+                }`}
             >
               {index + 1}
             </button>
           ))}
         </div>
       </div>
-
-      {/* Modal for updating user */}
-      {/* {isModalOpen && (
-        <div className="fixed inset-0 flex items-center justify-center z-50 bg-black bg-opacity-50">
-          <div className="bg-white p-6 rounded shadow-lg w-11/12 max-w-md">
-            <h3 className="text-lg font-bold mb-4">Update User</h3>
-            <form
-              onSubmit={(e) => {
-                e.preventDefault();
-                handleUpdate();
-              }}
-            >
-              <div className="mb-4">
-                <label className="block text-gray-700">Name</label>
-                <input
-                  type="text"
-                  value={formData.name}
-                  onChange={(e) =>
-                    setFormData({ ...formData, name: e.target.value })
-                  }
-                  className="border border-gray-300 rounded w-full px-2 py-1"
-                  required
-                />
-              </div>
-              <div className="mb-4">
-                <label className="block text-gray-700">Phone Number</label>
-                <input
-                  type="text"
-                  value={formData.phone}
-                  onChange={(e) =>
-                    setFormData({ ...formData, phone: e.target.value })
-                  }
-                  className="border border-gray-300 rounded w-full px-2 py-1"
-                  required
-                />
-              </div>
-              <div className="mb-4">
-                <label className="block text-gray-700">Reference</label>
-                <input
-                  type="text"
-                  value={formData.code}
-                  onChange={(e) =>
-                    setFormData({ ...formData, code: e.target.value })
-                  }
-                  className="border border-gray-300 rounded w-full px-2 py-1"
-                  required
-                />
-              </div>
-              <div className="flex justify-end">
-                <button
-                  type="button"
-                  onClick={() => setIsModalOpen(false)}
-                  className="px-4 py-2 bg-gray-400 text-white rounded mr-2"
-                >
-                  Cancel
-                </button>
-                <button
-                  type="submit"
-                  className="px-4 py-2 bg-blue-600 text-white rounded"
-                >
-                  Update
-                </button>
-              </div>
-            </form>
-          </div>
-        </div>
- 
-      )} */}
-
+      {/* add Course */}
       <Modal
         visible={addModalOpen}
         onOk={handleAddOk}
@@ -408,7 +295,7 @@ const AllCourses = () => {
       >
         {selectedUser && (
           <div>
-            <h2 className="heading2 mb-4 text-center">Add Task</h2>
+            <h2 className="heading2 mb-4 text-center">Add Course1222</h2>
             <div
               className="max-w-[1000px] task-form rounded-[16px] mx-auto my-4 md:my-8"
               style={{ backdropFilter: "blur(30px)" }}
@@ -416,24 +303,25 @@ const AllCourses = () => {
               <Form
                 layout="vertical"
                 className="space-y-4 p-4"
-                // onFinish={onFinish}
+                onFinish={onFinish}
                 form={form}
               >
                 <Form.Item
-                  label="Task Name: "
-                  name="taskName"
+                  label="Course Name: "
+                  name="course_name"
                   required
                   className="text-white"
                 >
                   <Input
-                    placeholder="Input Task Name"
+                    placeholder="Course Name"
                     type="text"
-                    className="p-2 md:p-3 lg:p-4 xl:p-5 bg-[#78120D] text-white border description focus:bg-[#78120D] hover:bg-[#78120D] focus:border-white hover:border-white placeholder-white"
+                    className="p-2 md:p-3 lg:p-4 xl:p-5 bg-[#78120D] text-gray-100 border description focus:bg-[#78120D] hover:bg-[#78120D] focus:border-white hover:border-white placeholder-white"
                   />
                 </Form.Item>
+
                 <Form.Item
                   label="Task Coin: "
-                  name="coin"
+                  name="course_price"
                   required
                   className="text-white"
                 >
@@ -445,14 +333,48 @@ const AllCourses = () => {
                 </Form.Item>
 
                 <Form.Item
-                  label="Task Description:"
-                  name="taskDescription"
+                  label="Course Description:"
+                  name="description"
                   required
                   className="text-white"
                 >
                   <Input.TextArea
-                    placeholder="Input Task Description"
+                    placeholder="Input Course Description"
                     type="text"
+                    className="p-2 md:p-3 lg:p-4 xl:p-5 bg-[#78120D] text-white border description focus:bg-[#78120D] hover:bg-[#78120D] focus:border-white hover:border-white placeholder-white"
+                  />
+                </Form.Item>
+
+                <Form.Item
+                  label="Course Image:"
+                  name="thumbnail_image"
+                  className="text-white"
+                  required
+                >
+                  <Input
+                    placeholder="Upload Image"
+                    type="file"
+                    accept="image/*"
+                    className="p-2 md:p-3 lg:p-4 xl:p-5 bg-[#78120D] text-white border description focus:bg-[#78120D] hover:bg-[#78120D] focus:border-white hover:border-white"
+                    onChange={(e) => {
+                      const file = e.target.files[0];
+                      if (file) {
+                        // Store the file in a state or perform any additional operations
+                        setImageFile(file); // Assuming `setImageFile` is a useState hook
+                      }
+                    }}
+                  />
+                </Form.Item>
+
+                <Form.Item
+                  label="Video Link:"
+                  name="video"
+                  required
+                  className="text-white"
+                >
+                  <Input
+                    placeholder="Input Video Link"
+                    type="url"
                     className="p-2 md:p-3 lg:p-4 xl:p-5 bg-[#78120D] text-white border description focus:bg-[#78120D] hover:bg-[#78120D] focus:border-white hover:border-white placeholder-white"
                   />
                 </Form.Item>
@@ -468,6 +390,121 @@ const AllCourses = () => {
           </div>
         )}
       </Modal>
+
+      {/* updated course */}
+      <Modal
+        visible={handleOpenModal} // State to control visibility
+        onOk={handleEditdOk} // Handle modal OK action
+        onCancel={() => setHandleOpenModal(false)} // Close modal
+        footer={null}
+        className="custom-modal"
+        bodyStyle={{
+          backgroundColor: "#78120D",
+          color: "white",
+        }}
+      >
+        {selectedCourse && (
+          <div>
+            <h2 className="heading2 mb-4 text-center">Update Course</h2>
+            <div
+              className="max-w-[1000px] task-form rounded-[16px] mx-auto my-4 md:my-8"
+              style={{ backdropFilter: "blur(30px)" }}
+            >
+              <Form
+                layout="vertical"
+                className="space-y-4 p-4"
+                onFinish={onUpdateFinish} // Update handler
+                form={form}
+                initialValues={{
+                  course_name: selectedCourse.course_name,
+                  course_price: selectedCourse.course_price,
+                  description: selectedCourse.description,
+                  video: selectedCourse.video,
+                }} // Pre-fill with selected course data
+              >
+                <Form.Item
+                  label="Course Name:"
+                  name="course_name"
+                  required
+                  className="text-white"
+                >
+                  <Input
+                    placeholder="Course Name"
+                    type="text"
+                    className="p-2 md:p-3 lg:p-4 xl:p-5 bg-[#78120D] text-gray-100 border description focus:bg-[#78120D] hover:bg-[#78120D] focus:border-white hover:border-white placeholder-white"
+                  />
+                </Form.Item>
+
+                <Form.Item
+                  label="Task Coin:"
+                  name="course_price"
+                  required
+                  className="text-white"
+                >
+                  <Input
+                    placeholder="Input Task Coin"
+                    type="text"
+                    className="p-2 md:p-3 lg:p-4 xl:p-5 bg-[#78120D] text-white border description focus:bg-[#78120D] hover:bg-[#78120D] focus:border-white hover:border-white placeholder-white"
+                  />
+                </Form.Item>
+
+                <Form.Item
+                  label="Course Description:"
+                  name="description"
+                  required
+                  className="text-white"
+                >
+                  <Input.TextArea
+                    placeholder="Input Course Description"
+                    type="text"
+                    className="p-2 md:p-3 lg:p-4 xl:p-5 bg-[#78120D] text-white border description focus:bg-[#78120D] hover:bg-[#78120D] focus:border-white hover:border-white placeholder-white"
+                  />
+                </Form.Item>
+
+                <Form.Item
+                  label="Course Image:"
+                  name="thumbnail_image"
+                  className="text-white"
+                >
+                  <Input
+                    placeholder="Upload Image"
+                    type="file"
+                    accept="image/*"
+                    className="p-2 md:p-3 lg:p-4 xl:p-5 bg-[#78120D] text-white border description focus:bg-[#78120D] hover:bg-[#78120D] focus:border-white hover:border-white"
+                    onChange={(e) => {
+                      const file = e.target.files[0];
+                      if (file) {
+                        setImageFile(file); // Update state with new file
+                      }
+                    }}
+                  />
+                </Form.Item>
+
+                <Form.Item
+                  label="Video Link:"
+                  name="video"
+                  required
+                  className="text-white"
+                >
+                  <Input
+                    placeholder="Input Video Link"
+                    type="url"
+                    className="p-2 md:p-3 lg:p-4 xl:p-5 bg-[#78120D] text-white border description focus:bg-[#78120D] hover:bg-[#78120D] focus:border-white hover:border-white placeholder-white"
+                  />
+                </Form.Item>
+
+                <button
+                  type="submit"
+                  className="common-button w-full !mt-10 !rounded-md"
+                >
+                  Update
+                </button>
+              </Form>
+            </div>
+          </div>
+        )}
+      </Modal>
+
     </>
   );
 };

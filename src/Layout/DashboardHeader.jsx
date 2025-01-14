@@ -71,7 +71,6 @@ const DashboardHeader = () => {
     },
   ];
 
-  // Format name to display only the first two words
   const formattedName = currentUser?.name
     ? currentUser.name.split(" ").length > 3
       ? currentUser.name.split(" ").slice(0, 2).join(" ")
@@ -101,10 +100,10 @@ const DashboardHeader = () => {
             <Link
               to="/"
               target="_blank"
-              className="flex items-center gap-1 hover:text-primary"
+              className="flex items-center space-x-1 hover:text-primary"
             >
               <ImExit className="text-sm sm:text-lg text-white" />
-              <p className="text-sm whitespace-pre sm:text-lg text-white">
+              <p className="text-sm whitespace-pre relative mt-4 sm:text-lg text-white">
                 Live Site
               </p>
             </Link>
