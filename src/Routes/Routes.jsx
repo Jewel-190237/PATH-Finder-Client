@@ -58,6 +58,7 @@ import VirtualAssistantMembers from "../Pages/VirtualAssistant/VirtulaAssistantM
 import CourseDetails from "../Pages/Home/Course/CourseDetails";
 import PaymentSuccess from "../Pages/Payment/PaymentSuccess";
 import PaymentFail from "../Pages/Payment/PaymentFail";
+import AllCourses from "../Pages/Dashboard/Courses/Courses";
 
 export const router = createBrowserRouter([
   {
@@ -170,6 +171,10 @@ export const router = createBrowserRouter([
       {
         path: "subAdmin",
         element: <AllMaster />,
+      },
+      {
+        path: "courses",
+        element: <AllCourses />,
       },
       {
         path: "adminDashboard",
