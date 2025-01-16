@@ -55,7 +55,10 @@ import SkillSpecialistMembers from "../Pages/SkillSpecialist/SkillSpecialistMemb
 import DevAdvisorMembers from "../Pages/DevVisor/DevAdvisorMembers";
 import SalesDirectorMembers from "../Pages/SalesDirector/SalesDirectorMembers";
 import VirtualAssistantMembers from "../Pages/VirtualAssistant/VirtulaAssistantMembers";
+import Courses from "../Pages/Home/AllCourse/AllCourse";
 import AllCourses from "../Pages/Dashboard/Courses/Courses";
+import CourseDetails from "../Pages/Home/AllCourse/CourseDetails";
+
 
 export const router = createBrowserRouter([
   {
@@ -84,10 +87,15 @@ export const router = createBrowserRouter([
       //   element: <AllService />
       // },
 
-      // {
-      //   path: '/about',
-      //   element: <About />
-      // },
+      {
+        path: '/all-courses',
+        element: <Courses />
+      },
+      {
+        path: '/course/:id',
+        element: <CourseDetails />
+      },
+      // <Route path="/courses/:id" element={<CourseDetails />} />
       {
         path: "/plan",
         element: <Plan />,

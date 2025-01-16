@@ -7,7 +7,7 @@ import { AiOutlineDown } from "react-icons/ai";
 import AuthButton from "../../../Authentication/AuthButton/AuthButton";
 const links = [
   { name: "Home", path: "/" },
-  { name: "Course", path: "/course" },
+  { name: "Course", path: "/all-courses" },
   { name: "Review", path: "/review" },
   { name: "FAQ", path: "/faq" },
   {
