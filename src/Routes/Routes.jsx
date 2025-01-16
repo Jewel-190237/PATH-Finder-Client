@@ -15,7 +15,6 @@ import Plan from "../Pages/Plan/Plan";
 import Aspire from "../Pages/Aspire/Aspire";
 import Forum from "../Pages/Forum/Forum";
 import Dashboard from "../Layout/Dashboard";
-// import Profile from "../Pages/Profile/Profile";
 import AdminDashboard from "../Pages/Dashboard/AdminDashboard/AdminDashboard";
 import ManagerDashboard from "../Layout/ManagerDashboard/ManagerDashboard";
 import ManagerOverview from "../Pages/HeadOfMarketing/ManagerOverview";

@@ -44,7 +44,7 @@ const AllCourses = () => {
   }, []);
 
 
-
+  console.log("all course--------------", courses.map((course) => course._id));
 
   const handleDelete = (course) => {
     Swal.fire({
@@ -89,18 +89,26 @@ const AllCourses = () => {
     setAddModalOpen(true);
   };
 
-  const handleUpdateModal = (course) => {
-    setSelectedUser(course);
-    setAddModalOpen(true);
-  };
   const handleAddOk = () => {
     setAddModalOpen(false);
     setSelectedUser(null);
   };
 
+  const handleUpdateModal = (id) => {
+    console.log("id getting", id)
+    const course = courses.find((c) => c._id === id);
+    if (course) {
+      setSelectedCourse(course); 
+      setHandleOpenModal(true); 
+    } else {
+      console.error("Course not found for id:", id);
+    }
+  };
+  
+
   const handleEditdOk = () => {
-    setHandleOpenModal(false);
-    setSelectedUser(null);
+    setHandleOpenModal(false); // Close modal
+    setSelectedCourse(null); // Reset selected course
   };
 
   const [imageFile, setImageFile] = useState(null); // State for storing the file
@@ -154,9 +162,10 @@ const AllCourses = () => {
 
 
   const onUpdateFinish = async (values) => {
+    console.log("Values122222222", values)
     try {
       const formData = new FormData();
-      formData.append("id", values._id); // Add course ID for identification
+      formData.append("_id", values._id); // Add course ID for identification
       formData.append("course_name", values.course_name);
       formData.append("description", values.description);
       if (imageFile) {
@@ -164,16 +173,16 @@ const AllCourses = () => {
       }
       formData.append("video", values.video);
       formData.append("course_price", parseFloat(values.course_price));
-  
+
       const token = localStorage.getItem("token");
-      const response = await fetch("http://localhost:5000/courses/update", {
+      const response = await fetch(`http://localhost:5000/courses/${selectedCourse._id}`, {
         method: "PUT",
         headers: {
           Authorization: `Bearer ${token}`,
         },
         body: formData,
       });
-  
+
       if (response.ok) {
         const result = await response.json();
         message.success("Course updated successfully");
@@ -190,11 +199,6 @@ const AllCourses = () => {
       console.error("Error updating course:", error);
     }
   };
-  
-
-
-
-
 
   // Pagination logic
   const indexOfLastUser = currentPage * usersPerPage;
@@ -233,8 +237,9 @@ const AllCourses = () => {
               </tr>
             </thead>
             <tbody className="divide-y divide-gray-200">
-              {courses.map((course, index) => (
-                <tr key={index}>
+              {courses.map((course,index) => (
+                <tr key={course._id}>
+                  <td>{course._id}</td>
                   <td className="px-4 py-2">{index + indexOfFirstUser + 1}</td>
                   <td>
                     <img src={course?.thumbnail_image} className="w-10 h-10" />
@@ -242,14 +247,22 @@ const AllCourses = () => {
                   <td className="px-4 py-2">{course?.course_name}</td>
                   <td className="px-4 py-2">{course?.description}</td>
                   <td className="px-4 py-2">{course?.course_price}</td>
-                  <td className="pl-8 py-2">
-                    <button
+                  {/* <td className="pl-8 py-2"> */}
+                  {/* <button
                       onClick={() => handleUpdateModal(course)}
                       className="text-blue-600"
                     >
                       <FaRegEdit  className="text-xl text-primary" />
+                    </button> */}
+                  <td className="pl-8 py-2">
+                    <button
+                      onClick={() => handleUpdateModal(course._id)}
+                      className="text-blue-600"
+                    >
+                      <FaRegEdit className="text-xl text-primary" />
                     </button>
                   </td>
+                  {/* </td> */}
 
                   <td className="pl-8 py-2">
                     <button
@@ -403,7 +416,7 @@ const AllCourses = () => {
           color: "white",
         }}
       >
-        {selectedCourse && (
+        { handleOpenModal && selectedCourse && (
           <div>
             <h2 className="heading2 mb-4 text-center">Update Course</h2>
             <div
@@ -416,12 +429,22 @@ const AllCourses = () => {
                 onFinish={onUpdateFinish} // Update handler
                 form={form}
                 initialValues={{
+                  _id: selectedCourse._id,
                   course_name: selectedCourse.course_name,
                   course_price: selectedCourse.course_price,
                   description: selectedCourse.description,
                   video: selectedCourse.video,
+                  // thumbnail_image: selectedCourse.thumbnail_image
                 }} // Pre-fill with selected course data
               >
+                <Form.Item label="Course ID:" className="text-white" hidden>
+                  <Input
+                    value={selectedCourse._id}
+                    disabled
+                    className="p-2 md:p-3 lg:p-4 xl:p-5 bg-[#78120D] text-gray-100 border description focus:bg-[#78120D] hover:bg-[#78120D] focus:border-white hover:border-white"
+                  />
+                </Form.Item>
+
                 <Form.Item
                   label="Course Name:"
                   name="course_name"
