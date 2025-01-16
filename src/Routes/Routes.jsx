@@ -15,7 +15,6 @@ import Plan from "../Pages/Plan/Plan";
 import Aspire from "../Pages/Aspire/Aspire";
 import Forum from "../Pages/Forum/Forum";
 import Dashboard from "../Layout/Dashboard";
-// import Profile from "../Pages/Profile/Profile";
 import AdminDashboard from "../Pages/Dashboard/AdminDashboard/AdminDashboard";
 import ManagerDashboard from "../Layout/ManagerDashboard/ManagerDashboard";
 import ManagerOverview from "../Pages/HeadOfMarketing/ManagerOverview";
@@ -58,7 +57,10 @@ import VirtualAssistantMembers from "../Pages/VirtualAssistant/VirtulaAssistantM
 import CourseDetails from "../Pages/Home/Course/CourseDetails";
 import PaymentSuccess from "../Pages/Payment/PaymentSuccess";
 import PaymentFail from "../Pages/Payment/PaymentFail";
+import Courses from "../Pages/Home/AllCourse/AllCourse";
 import AllCourses from "../Pages/Dashboard/Courses/Courses";
+import CourseDetails from "../Pages/Home/AllCourse/CourseDetails";
+
 
 export const router = createBrowserRouter([
   {
@@ -82,15 +84,14 @@ export const router = createBrowserRouter([
         path: "/signup",
         element: <SignUp />,
       },
-      // {
-      //   path: '/service/:id',
-      //   element: <AllService />
-      // },
-
-      // {
-      //   path: '/about',
-      //   element: <About />
-      // },
+      {
+        path: '/all-courses',
+        element: <Courses />
+      },
+      {
+        path: '/course/:id',
+        element: <CourseDetails />
+      },
       {
         path: "/plan",
         element: <Plan />,
