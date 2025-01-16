@@ -46,6 +46,7 @@ const AllCourses = () => {
 
   console.log("all course--------------", courses.map((course) => course._id));
 
+
   const handleDelete = (course) => {
     Swal.fire({
       title: "Are you sure?",
@@ -239,7 +240,6 @@ const AllCourses = () => {
             <tbody className="divide-y divide-gray-200">
               {courses.map((course,index) => (
                 <tr key={course._id}>
-                  <td>{course._id}</td>
                   <td className="px-4 py-2">{index + indexOfFirstUser + 1}</td>
                   <td>
                     <img src={course?.thumbnail_image} className="w-10 h-10" />
@@ -437,7 +437,7 @@ const AllCourses = () => {
                   // thumbnail_image: selectedCourse.thumbnail_image
                 }} // Pre-fill with selected course data
               >
-                <Form.Item label="Course ID:" className="text-white" hidden>
+                <Form.Item name="_id" label="Course ID:" className="text-white" hidden>
                   <Input
                     value={selectedCourse._id}
                     disabled
