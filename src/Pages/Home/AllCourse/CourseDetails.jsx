@@ -1,9 +1,23 @@
 import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
-
+import axios from "axios";
+import React from "react";
 const CourseDetails = () => {
     const { id } = useParams();
     const [course, setCourse] = useState(null);
+    const handlePayment = async () => {
+        try {
+         
+          const { data } = await axios.post(
+            "http://localhost:5000/api/bkash/payment/create",
+            { amount: 50, userId: "3iu9475hi9045u4" },
+            { withCredentials: true } // Allow credentials if needed
+          );
+          window.location.href = data.bkashURL; // Redirect to bKash payment page
+        } catch (error) {
+          console.log(error.response?.data || "Error occurred");
+        }
+      };
 
     useEffect(() => {
         const fetchCourse = async () => {
@@ -52,9 +66,9 @@ const CourseDetails = () => {
                 <div className="mt-8 text-center">
                     <button
                         className="px-8 py-3 bg-[#3F3FDE] text-black text-lg font-semibold rounded-lg hover:bg-yellow-600 transition-all duration-200"
-                        onClick={() => alert(`You have selected to buy ${course.course_name}`)}
+                        onClick={handlePayment}
                     >
-                        Buy It
+                        Buy Now
                     </button>
                 </div>
             </div>

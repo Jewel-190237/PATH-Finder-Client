@@ -54,7 +54,7 @@ import SkillSpecialistMembers from "../Pages/SkillSpecialist/SkillSpecialistMemb
 import DevAdvisorMembers from "../Pages/DevVisor/DevAdvisorMembers";
 import SalesDirectorMembers from "../Pages/SalesDirector/SalesDirectorMembers";
 import VirtualAssistantMembers from "../Pages/VirtualAssistant/VirtulaAssistantMembers";
-import CourseDetails from "../Pages/Home/Course/CourseDetails";
+// import CourseDetails from "../Pages/Home/Course/CourseDetails";
 import PaymentSuccess from "../Pages/Payment/PaymentSuccess";
 import PaymentFail from "../Pages/Payment/PaymentFail";
 import Courses from "../Pages/Home/AllCourse/AllCourse";
