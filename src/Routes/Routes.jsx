@@ -60,6 +60,9 @@ import PaymentFail from "../Pages/Payment/PaymentFail";
 import Courses from "../Pages/Home/AllCourse/AllCourse";
 import AllCourses from "../Pages/Dashboard/Courses/Courses";
 import CourseDetails from "../Pages/Home/AllCourse/CourseDetails";
+import StudentDashboard from "../Layout/StudentDashboard/SrudentDashboard";
+import StudentOverview from "../Pages/Student/StudentOverview";
+import StudentCourse from "../Pages/Student/StudentCourse";
 
 
 export const router = createBrowserRouter([
@@ -124,10 +127,10 @@ export const router = createBrowserRouter([
         path: "/team",
         element: <TeamGrid />,
       },
-      {
-        path: "/editProfile",
-        element: <EditProfile />,
-      },
+      // {
+      //   path: "/editProfile",
+      //   element: <EditProfile />,
+      // },
       {
         path: "/forgetPassword",
         element: <ForgetPassword />,
@@ -146,6 +149,10 @@ export const router = createBrowserRouter([
       },
       {
         path: '/payment/fail',
+        element: <PaymentFail/>
+      },
+      {
+        path: '/userProfile/profile',
         element: <PaymentFail/>
       }
     ],
@@ -344,6 +351,21 @@ export const router = createBrowserRouter([
       {
         path: "students",
         element: <VirtualAssistantMembers />,
+      },
+    ],
+  },
+  //Student Dashboard
+  {
+    path: "studentDashboard",
+    element: <StudentDashboard />,
+    children: [
+      {
+        path: "studentHome",
+        element: <StudentOverview />,
+      },
+      {
+        path: "courses",
+        element: <StudentCourse />,
       },
     ],
   },

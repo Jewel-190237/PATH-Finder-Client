@@ -1,0 +1,21 @@
+import { Outlet } from "react-router-dom";
+import DashboardSidebar from "./DashboardSidebar";
+import StudentDashboardHeader from "./StudentDashboardHeader";
+
+const StudentDashboard = () => {
+  return (
+    <div className="flex h-screen w-full">
+      <div className="bg-[#78120D] flex-shrink-0">
+        <DashboardSidebar />
+      </div>
+      <main className="flex flex-col w-full h-full">
+        <StudentDashboardHeader />
+        <div className="bg-[#20010D] flex-grow overflow-y-auto">
+          <Outlet />
+        </div>
+      </main>
+    </div>
+  );
+};
+
+export default StudentDashboard;

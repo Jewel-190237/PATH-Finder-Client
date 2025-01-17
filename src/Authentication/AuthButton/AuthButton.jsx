@@ -62,6 +62,8 @@ const AuthButton = () => {
       return navigate("/salesDirectorDashboard/directorHome");
     } else if (currentUser?.subRole === "Virtual assistant") {
       return navigate("/virtualAssistantDashboard/assistantHome");
+    } else if (currentUser?.role === "student") {
+      return navigate("/studentDashboard/studentHome");
     } else {
       return navigate("/login");
     }

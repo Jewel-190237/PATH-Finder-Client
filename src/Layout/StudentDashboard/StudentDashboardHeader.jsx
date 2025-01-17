@@ -4,10 +4,10 @@ import { BiUser } from "react-icons/bi";
 import { FiLogOut, FiUser } from "react-icons/fi";
 import { ImExit } from "react-icons/im";
 import { Link, useNavigate } from "react-router-dom";
-import GetUser from "../Backend/GetUser";
-import coin from "../assets/coin.png";
+import coin from "../../assets/coin.png";
+import GetUser from "../../Backend/GetUser";
 
-const DashboardHeader = () => {
+const StudentDashboardHeader = () => {
   const navigate = useNavigate();
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [currentUser, setCurrentUser] = useState(null);
@@ -34,12 +34,11 @@ const DashboardHeader = () => {
     };
   }, [user]);
 
-  // Handle profile navigation
+
   const handleProfile = () => {
-    navigate("/userProfile/profile");
+    navigate("/studentDashboard/profile");
   };
 
-  // Handle logout functionality
   const logout = () => {
     localStorage.removeItem("token");
     localStorage.removeItem("userId");
@@ -48,7 +47,6 @@ const DashboardHeader = () => {
     setIsAuthenticated(false);
   };
 
-  // Handle menu item clicks
   const handleMenuClick = ({ key }) => {
     if (key === "profile") {
       handleProfile();
@@ -57,7 +55,6 @@ const DashboardHeader = () => {
     }
   };
 
-  // Dropdown menu items
   const menuItems = [
     {
       label: "Profile",
@@ -83,20 +80,18 @@ const DashboardHeader = () => {
         <h1 className="heading2 text-white">Dashboard</h1>
         <div className="flex justify-between items-center h-full">
           <div className="flex items-center space-x-1 sm:space-x-3 md:gap-x-6 notification-popover">
-            {user?.subRole && (
-              <div className="flex items-center">
-                <img
-                  className="w-10 h-10 rounded-full -mr-4 relative z-50"
-                  src={coin}
-                  alt="coin"
-                />
-                <div className="heading3 bg-[#78120D] rounded-[20px] ">
-                  <p className="text-white px-6 py-1 pr-3">
-                    {currentUser?.coins || 0}{" "}
-                  </p>
-                </div>
+            <div className="flex items-center">
+              <img
+                className="w-10 h-10 rounded-full -mr-4 relative z-50"
+                src={coin}
+                alt="coin"
+              />
+              <div className="heading3 bg-[#78120D] rounded-[20px] ">
+                <p className="text-white px-6 py-1 pr-3">
+                  {currentUser?.coins || 0}{" "}
+                </p>
               </div>
-            )}
+            </div>
             <Link
               to="/"
               target="_blank"
@@ -133,4 +128,4 @@ const DashboardHeader = () => {
   );
 };
 
-export default DashboardHeader;
+export default StudentDashboardHeader;

@@ -44,6 +44,8 @@ const Login = () => {
         navigate("/salesDirectorDashboard/directorHome");
       } else if (subRole === "Virtual assistant") {
         navigate("/virtualAssistantDashboard/assistantHome");
+      } else if (role === "student") {
+        navigate("/studentDashboard/studentHome");
       } else {
         navigate("/login");
       }
