@@ -8,20 +8,11 @@ const AllCourses = () => {
   const [form] = Form.useForm();
   const [currentPage, setCurrentPage] = useState(1);
   const [usersPerPage] = useState(12);
-  const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedUser, setSelectedUser] = useState(null);
   const [addModalOpen, setAddModalOpen] = useState(false);
   const [handleOpenModal, setHandleOpenModal] = useState(false);
   const [selectedCourse, setSelectedCourse] = useState(null);
-  const [selectedUserShow, setSelectedUserShow] = useState(null);
   const [imageFile, setImageFile] = useState(null);  
-
-  const [formData, setFormData] = useState({
-    name: "",
-    phone: "",
-    location: "",
-    role: "",
-  });
   const [loading, setLoading] = useState(false);
 
   const fetchCourses = async () => {
@@ -322,13 +313,13 @@ const AllCourses = () => {
                 </Form.Item>
 
                 <Form.Item
-                  label="Task Coin: "
+                  label="Course Price: "
                   name="course_price"
                   required
                   className="text-white"
                 >
                   <Input
-                    placeholder="Input Task Coin"
+                    placeholder="course price"
                     type="text"
                     className="p-2 md:p-3 lg:p-4 xl:p-5 bg-[#78120D] text-white border description focus:bg-[#78120D] hover:bg-[#78120D] focus:border-white hover:border-white placeholder-white"
                   />
