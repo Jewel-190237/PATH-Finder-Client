@@ -45,12 +45,12 @@ const CourseDetails = () => {
             className="bg-cover bg-center relative text-white min-h-screen"
             style={{ backgroundImage: 'url("/src/assets/explorePics/bg.png")' }}
         >
-            <div className="max-w-[1320px] mx-auto p-6  rounded-lg shadow-lg">
+            <div className="max-w-[1320px] mx-auto p-6  rounded-lg shadow-2xl">
                 {/* Course Image */}
                 <img
                     src={course.thumbnail_image || '/src/assets/explorePics/placeholder.png'}
                     alt={course.course_name}
-                    className="w-full h-64 object-cover rounded-lg"
+                    className="w-full h-[600px] object-fit rounded-lg"
                 />
 
                 {/* Course Name and Details */}
