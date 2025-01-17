@@ -14,6 +14,8 @@ const AllCourses = () => {
   const [handleOpenModal, setHandleOpenModal] = useState(false);
   const [selectedCourse, setSelectedCourse] = useState(null);
   const [selectedUserShow, setSelectedUserShow] = useState(null);
+  const [imageFile, setImageFile] = useState(null);  
+
   const [formData, setFormData] = useState({
     name: "",
     phone: "",
@@ -43,10 +45,6 @@ const AllCourses = () => {
     fetchCourses();
   }, []);
 
-
-  console.log("all course--------------", courses.map((course) => course._id));
-
-
   const handleDelete = (course) => {
     Swal.fire({
       title: "Are you sure?",
@@ -70,20 +68,21 @@ const AllCourses = () => {
           .then((result) => {
             if (result.message === "Course deleted successfully") {
               message.success("Course deleted successfully");
-              setCourses((prevUsers) =>
-                prevUsers.filter((u) => u._id !== course?._id)
+              setCourses((prevCourses) =>
+                prevCourses.filter((u) => u._id !== course?._id)
               );
             } else {
-              message.error("An error occurred while deleting the Course.");
+              message.error(result.message || "An error occurred while deleting the course.");
             }
           })
           .catch((error) => {
-            console.error("Error deleting Course:", error);
-            message.error("An error occurred while deleting the Course.");
+            console.error("Error deleting course:", error);
+            message.error("An error occurred while deleting the course.");
           });
       }
     });
   };
+
 
   const showAddModal = (course) => {
     setSelectedUser(course);
@@ -95,73 +94,22 @@ const AllCourses = () => {
     setSelectedUser(null);
   };
 
+
   const handleUpdateModal = (id) => {
-    console.log("id getting", id)
     const course = courses.find((c) => c._id === id);
     if (course) {
       setSelectedCourse(course);
       setHandleOpenModal(true);
+      form.setFieldsValue(course); // Populate form with course data
     } else {
       console.error("Course not found for id:", id);
     }
   };
 
-
   const handleEditdOk = () => {
     setHandleOpenModal(false); // Close modal
     setSelectedCourse(null); // Reset selected course
   };
-
-  const [imageFile, setImageFile] = useState(null);  // State for storing the file
-
-  // const onFinish = async (values) => {
-  //   try {
-  //     if (!imageFile) {
-  //       message.error("Please select an image file.");
-  //       return;
-  //     }
-
-  //     // Prepare the form data
-  //     const formData = new FormData();
-  //     formData.append("course_name", values.course_name);
-  //     formData.append("description", values.description);
-  //     formData.append("thumbnail_image", imageFile); // Use the file stored in state
-  //     formData.append("video", values.video);
-  //     formData.append("course_price", parseFloat(values.course_price));
-
-  //     const token = localStorage.getItem("token");
-  //     const response = await fetch("http://localhost:5000/courses", {
-  //       method: "POST",
-  //       headers: {
-  //         Authorization: `Bearer ${token}`,
-  //       },
-  //       body: formData,
-  //     });
-
-  //     if (response.ok) {
-  //       const result = await response.json();
-  //       message.success("Course added successfully");
-
-  //       // Reset form and clear image state
-  //       setImageFile(null);
-  //       form.resetFields();
-
-  //       // Close the modal
-  //       setAddModalOpen(false); // Assuming setAddModalOpen is the state handler for the modal
-
-  //       // Refresh the data
-  //       fetchCourses(); // Call a function to refresh the courses list
-  //     } else {
-  //       const error = await response.json();
-  //       message.error(error.message || "Error adding course");
-  //     }
-  //   } catch (error) {
-  //     message.error("Error adding course");
-  //     console.error("Error adding course:", error);
-  //   }
-  // };
-
-
   const onFinish = async (values) => {
     try {
       if (!imageFile) {
@@ -231,14 +179,13 @@ const AllCourses = () => {
         },
         body: formData,
       });
-
       if (response.ok) {
         const result = await response.json();
         message.success("Course updated successfully");
-        fetchCourses(); // Refresh course list
-        setUpdateModalOpen(false); // Close modal
-        setImageFile(null); // Clear image file state
-        form.resetFields(); // Reset form fields
+        fetchCourses(); 
+        setHandleOpenModal(false); 
+        setImageFile(null);
+        form.resetFields(); 
       } else {
         const error = await response.json();
         message.error(error.message || "Failed to update course");
@@ -295,13 +242,7 @@ const AllCourses = () => {
                   <td className="px-4 py-2">{course?.course_name}</td>
                   <td className="px-4 py-2">{course?.description}</td>
                   <td className="px-4 py-2">{course?.course_price}</td>
-                  {/* <td className="pl-8 py-2"> */}
-                  {/* <button
-                      onClick={() => handleUpdateModal(course)}
-                      className="text-blue-600"
-                    >
-                      <FaRegEdit  className="text-xl text-primary" />
-                    </button> */}
+
                   <td className="pl-8 py-2">
                     <button
                       onClick={() => handleUpdateModal(course._id)}
@@ -356,7 +297,7 @@ const AllCourses = () => {
       >
         {selectedUser && (
           <div>
-            <h2 className="heading2 mb-4 text-center">Add Course1222</h2>
+            <h2 className="heading2 mb-4 text-center">Add Course</h2>
             <div
               className="max-w-[1000px] task-form rounded-[16px] mx-auto my-4 md:my-8"
               style={{ backdropFilter: "blur(30px)" }}
@@ -481,7 +422,7 @@ const AllCourses = () => {
                   course_price: selectedCourse.course_price,
                   description: selectedCourse.description,
                   video: selectedCourse.video,
-                  // thumbnail_image: selectedCourse.thumbnail_image
+
                 }} // Pre-fill with selected course data
               >
                 <Form.Item name="_id" label="Course ID:" className="text-white" hidden>
@@ -531,24 +472,25 @@ const AllCourses = () => {
                   />
                 </Form.Item>
 
-                <Form.Item
+
+                {/* <Form.Item
                   label="Course Image:"
                   name="thumbnail_image"
                   className="text-white"
+                  required
                 >
                   <Input
-                    placeholder="Upload Image"
                     type="file"
                     accept="image/*"
-                    className="p-2 md:p-3 lg:p-4 xl:p-5 bg-[#78120D] text-white border description focus:bg-[#78120D] hover:bg-[#78120D] focus:border-white hover:border-white"
+                    className="p-2 bg-[#78120D] text-white"
                     onChange={(e) => {
                       const file = e.target.files[0];
                       if (file) {
-                        setImageFile(file); // Update state with new file
+                        setImageFile(file);
                       }
                     }}
                   />
-                </Form.Item>
+                </Form.Item> */}
 
                 <Form.Item
                   label="Video Link:"
