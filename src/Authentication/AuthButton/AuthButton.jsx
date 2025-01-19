@@ -22,11 +22,9 @@ const AuthButton = () => {
       setIsAuthenticated(!!updatedToken);
     };
 
-    // Add event listener for localStorage changes
     window.addEventListener("storage", handleStorageChange);
 
     return () => {
-      // Clean up the event listener on component unmount
       window.removeEventListener("storage", handleStorageChange);
     };
   }, []);

@@ -1,8 +1,30 @@
-import { Outlet } from "react-router-dom";
+import { Outlet, useNavigate } from "react-router-dom";
 import DashboardSidebar from "./DashboardSidebar";
 import ManagerDashboardHeader from "./ManagerDashboardHeader";
+import { useEffect, useState } from "react";
+import GetUser from "../../Backend/GetUser";
 
 const Dashboard = () => {
+  const navigate = useNavigate();
+  const [loading, setLoading] = useState(true);
+  const user = GetUser();
+
+  useEffect(() => {
+    console.log("Fetched User Data:", user);
+    if (user === null) return;
+
+    if (!user) {
+      navigate("/login");
+    } else if (user.subRole !== "Marketing Panel") {
+      navigate("/");
+    } else {
+      setLoading(false);
+    }
+  }, [user, navigate]);
+
+  if (loading || user === null) {
+    return <div>Loading...</div>;
+  }
   return (
     <div className="flex h-screen w-full">
       <div className="bg-[#78120D] flex-shrink-0">
