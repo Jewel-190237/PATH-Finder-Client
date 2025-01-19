@@ -64,7 +64,6 @@ import StudentDashboard from "../Layout/StudentDashboard/SrudentDashboard";
 import StudentOverview from "../Pages/Student/StudentOverview";
 import StudentCourse from "../Pages/Student/StudentCourse";
 
-
 export const router = createBrowserRouter([
   {
     path: "/",
@@ -88,12 +87,12 @@ export const router = createBrowserRouter([
         element: <SignUp />,
       },
       {
-        path: '/all-courses',
-        element: <Courses />
+        path: "/all-courses",
+        element: <Courses />,
       },
       {
-        path: '/course/:id',
-        element: <CourseDetails />
+        path: "/course/:id",
+        element: <CourseDetails />,
       },
       {
         path: "/plan",
@@ -144,17 +143,17 @@ export const router = createBrowserRouter([
         element: <CourseDetails />,
       },
       {
-        path: '/payment/success',
-        element: <PaymentSuccess/>
+        path: "/payment/success",
+        element: <PaymentSuccess />,
       },
       {
-        path: '/payment/fail',
-        element: <PaymentFail/>
+        path: "/payment/fail",
+        element: <PaymentFail />,
       },
       {
-        path: '/userProfile/profile',
-        element: <PaymentFail/>
-      }
+        path: "/userProfile/profile",
+        element: <PaymentFail />,
+      },
     ],
   },
 
@@ -366,6 +365,10 @@ export const router = createBrowserRouter([
       {
         path: "courses",
         element: <StudentCourse />,
+      },
+      {
+        path: "profile",
+        element: <EditProfile />,
       },
     ],
   },
