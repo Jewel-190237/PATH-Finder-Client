@@ -20,7 +20,7 @@ export default function DashboardSidebar() {
           icon: FaUserGraduate,
         },
         {
-          to: "/studentDashboard/Assignments",
+          to: "/studentDashboard/assignments",
           label: "Assignments",
           icon: FaUserGraduate,
         },

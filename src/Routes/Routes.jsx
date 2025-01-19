@@ -63,6 +63,7 @@ import CourseDetails from "../Pages/Home/AllCourse/CourseDetails";
 import StudentDashboard from "../Layout/StudentDashboard/SrudentDashboard";
 import StudentOverview from "../Pages/Student/StudentOverview";
 import StudentCourse from "../Pages/Student/StudentCourse";
+import Assignment from "../Pages/Student/Assignment";
 
 export const router = createBrowserRouter([
   {
@@ -215,6 +216,10 @@ export const router = createBrowserRouter([
         path: "students",
         element: <CEOMembers />,
       },
+      {
+        path: "profile",
+        element: <EditProfile />,
+      },
     ],
   },
 
@@ -365,6 +370,10 @@ export const router = createBrowserRouter([
       {
         path: "courses",
         element: <StudentCourse />,
+      },
+      {
+        path: "assignments",
+        element: <Assignment />,
       },
       {
         path: "profile",

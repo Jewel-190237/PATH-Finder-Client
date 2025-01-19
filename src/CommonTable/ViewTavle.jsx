@@ -100,7 +100,6 @@ const ViewTable = ({ subRole }) => {
   };
 
   const handleTask = async (task, user, action) => {
-    console.log(task, action);
 
     // Validate task, user, and action
     if (!task || !task._id || !task.coin) {
