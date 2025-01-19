@@ -1,6 +1,8 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { LoadingOutlined, PlusOutlined } from "@ant-design/icons";
 import { message, Upload } from "antd";
+import GetUser from "../../Backend/GetUser";
+import { use } from "react";
 const getBase64 = (img, callback) => {
   const reader = new FileReader();
   reader.addEventListener("load", () => callback(reader.result));
@@ -61,6 +63,12 @@ const EditProfile = () => {
     motherContactNumber: "+880 15465 5465",
   });
 
+  const [currentUser, setCurrentUser] = useState(null);
+  console.log("🚀 ~ EditProfile ~ currentUser:", currentUser)
+  const user = GetUser();
+  useEffect(() => {
+    setCurrentUser(user);
+  }, [user]);
   const handleSave = () => {
     alert("Details saved! This setting is permanent.");
   };
