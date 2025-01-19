@@ -1,6 +1,6 @@
 import { Outlet } from "react-router-dom";
 import DashboardSidebar from "./DashboardSidebar";
-import DashboardHeader from "../DashboardHeader";
+import SalesDirectorDashboardHeader from "./SalesDirectorDashboardHeader";
 
 const SalesDirectorDashboard = () => {
   return (
@@ -9,7 +9,7 @@ const SalesDirectorDashboard = () => {
         <DashboardSidebar />
       </div>
       <main className="flex flex-col w-full h-full">
-        <DashboardHeader />
+        <SalesDirectorDashboardHeader />
         <div className="bg-[#20010D] flex-grow overflow-y-auto">
           <Outlet />
         </div>

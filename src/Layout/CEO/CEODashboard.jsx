@@ -2,7 +2,6 @@ import { Outlet } from "react-router-dom";
 import CEODashboardHeader from "./CEODashboardHeader";
 import DashboardSidebar from "./DashboardSidebar";
 
-
 const CEODashboard = () => {
   return (
     <div className="flex h-screen w-full">

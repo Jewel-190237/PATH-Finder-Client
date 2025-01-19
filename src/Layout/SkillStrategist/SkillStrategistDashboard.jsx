@@ -1,6 +1,6 @@
 import { Outlet } from "react-router-dom";
 import DashboardSidebar from "./DashboardSidebar";
-import DashboardHeader from "../DashboardHeader";
+import SkillStrategistDashboardHeader from "./SkillStrategistDashboardHeader";
 
 const SkillStrategistDashboard = () => {
   return (
@@ -9,7 +9,7 @@ const SkillStrategistDashboard = () => {
         <DashboardSidebar />
       </div>
       <main className="flex flex-col w-full h-full">
-        <DashboardHeader />
+        <SkillStrategistDashboardHeader />
         <div className="bg-[#20010D] flex-grow overflow-y-auto">
           <Outlet />
         </div>

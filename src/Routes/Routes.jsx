@@ -240,6 +240,10 @@ export const router = createBrowserRouter([
         path: "students",
         element: <HeadOfMarketingMembers />,
       },
+      {
+        path: "profile",
+        element:  <EditProfile />,
+      },
     ],
   },
 
@@ -259,6 +263,10 @@ export const router = createBrowserRouter([
       {
         path: "students",
         element: <MarketingExecutiveMembers />,
+      },
+      {
+        path: "profile",
+        element: <EditProfile />,
       },
     ],
   },
@@ -280,6 +288,10 @@ export const router = createBrowserRouter([
         path: "students",
         element: <SkillStrategistMembers />,
       },
+      {
+        path: "profile",
+        element: <EditProfile />,
+      },
     ],
   },
 
@@ -299,6 +311,10 @@ export const router = createBrowserRouter([
       {
         path: "students",
         element: <SkillSpecialistMembers />,
+      },
+      {
+        path: "profile",
+        element: <EditProfile />,
       },
     ],
   },
@@ -320,6 +336,10 @@ export const router = createBrowserRouter([
         path: "students",
         element: <DevAdvisorMembers />,
       },
+      {
+        path: "profile",
+        element: <EditProfile />,
+      },
     ],
   },
 
@@ -340,6 +360,10 @@ export const router = createBrowserRouter([
         path: "students",
         element: <SalesDirectorMembers />,
       },
+      {
+        path: "profile",
+        element: <EditProfile />,
+      },
     ],
   },
 
@@ -355,6 +379,10 @@ export const router = createBrowserRouter([
       {
         path: "students",
         element: <VirtualAssistantMembers />,
+      },
+      {
+        path: "profile",
+        element: <EditProfile />,
       },
     ],
   },
