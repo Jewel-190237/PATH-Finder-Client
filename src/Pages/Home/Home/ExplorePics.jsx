@@ -32,6 +32,7 @@ const ExplorePics = () => {
     const handleCardClick = (courseId) => {
         navigate(`/course/${courseId}`);
     };
+   
 
     const rating = 5;
     const enrolled = 10;
