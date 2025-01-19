@@ -1,16 +1,26 @@
-import { Link } from "react-router-dom";
-
+import { Link} from "react-router-dom";
+import signup from "../../assets/signup.png"; 
 const PaymentFail = () => {
-    return (
-        <div className="px-8 lg:px-0 mt-40 max-w-[1320px] mx-auto">
-            <div className="bg-[#FF4E25] mx-auto max-w-[868px] px-5 md:px-[150px] lg:px-[250px] py-20 md:py-[100px] lg:py-[150px] rounded bg-opacity-10">
-                <p className="auth-heading">Your Payment is Fail</p>
-                <p className="text-xl text-yellow-400 text-center">Please Tty Again</p>
-                <Link to='/'><button className=" mt-10 button w-full">Home</button></Link>
-            </div>
-
+ 
+  return (
+    <div
+      className="bg-cover bg-center relative"
+      style={{ backgroundImage: `url(${signup})` }}
+    >
+      <div className="path-container p-8 md:p-10 lg:p-12 xl:p-[60px] border-[1px] border-[#20010D]">
+        <div
+          className="py-14 md:py-16 lg:py-20 xl:py-32 max-w-[800px] rounded-[16px] bg-[#F6170C1A] border-[1px] border-[#E7E7E7] mx-auto login-form my-4 md:my-8 text-white"
+          style={{ backdropFilter: "blur(10px)" }}
+        >
+          <p className="text-center heading">Sorry Your Payment Failed</p>
+          <p className="text-center">Please Try Again</p>
+          <Link className="flex justify-center" to="/all-courses">
+            <button className="mt-10 rounded-md common-button mx-auto">Continue</button>
+          </Link>
         </div>
-    );
+      </div>
+    </div>
+  );
 };
 
 export default PaymentFail;
