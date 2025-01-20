@@ -26,7 +26,7 @@ const EarnRewards = () => {
 
   return (
     <div className="bg-[url('/src/assets/Rewards/bg.png')] bg-cover bg-center py-10 text-white">
-      <div className="max-w-[1320px] mx-auto ">
+      <div className="max-w-[1320px] mx-auto">
         {/* Heading */}
         <h2 className="heading">
           Earn Rewards with Every Action!

@@ -1,20 +1,25 @@
 import React, { useState, useEffect } from "react";
 import { Outlet } from "react-router-dom";
-import Footer from "../Pages/Shared-file/Footer/Footer";
 import Navbar from "../Pages/Shared-file/Navbar/Navbar";
 import CommonNav from "../Pages/Shared-file/commonNav/commonNav";
 import { Modal } from "antd";
-import "antd/dist/reset.css"; // Import Ant Design styles
+import "antd/dist/reset.css";
+import GetUser from "../Backend/GetUser";
+import CommonNavWithoutUser from "../Pages/Shared-file/commonNav/commonNavWithoutUser";
 
 const Main = () => {
+  const [currentUser, setCurrentUser] = useState(null);
+  const user = GetUser();
+  useEffect(() => {
+    setCurrentUser(user);
+  }, [user]);
   const [isModalVisible, setIsModalVisible] = useState(false);
 
   useEffect(() => {
-    // Check if the modal has already been shown in this session
     const modalShown = sessionStorage.getItem("modalShown");
     if (!modalShown) {
-      setIsModalVisible(true); // Show the modal
-      sessionStorage.setItem("modalShown", "true"); // Mark it as shown for this tab
+      setIsModalVisible(true);
+      sessionStorage.setItem("modalShown", "true");
     }
   }, []);
 
@@ -26,12 +31,7 @@ const Main = () => {
     <div>
       <Navbar />
       <Outlet />
-      <div className="mb-10 sm:mb-12 md:mb-16 lg:mb-20 xl:mb-24">
-        <Footer />
-      </div>
-      <CommonNav />
-
-      {/* Video Modal */}
+      {currentUser ? <CommonNav /> : <CommonNavWithoutUser />}
       <Modal
         open={isModalVisible}
         onCancel={handleClose}

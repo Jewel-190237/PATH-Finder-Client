@@ -23,7 +23,7 @@ const Aspire = () => {
       className="bg-cover bg-center relative"
       style={{ backgroundImage: `url(${planImage})` }}
     >
-      <div className="path-container pt-14 md:pt-[80px] lg:pt-[100px] xl:pt-[120px]">
+      <div className="path-container pt-14 md:pt-[80px] lg:pt-[100px] xl:pt-[120px] h-screen">
         <h1 className="heading text-white text-center">My Projects</h1>
         <div className="mt-8 md:mt-10 lg:mt-12 xl:mt-[60px] text-white grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-6 gap-3 md:gap-4 lg:gap-5 xl:gap-6">
           {data.map((item, index) => (

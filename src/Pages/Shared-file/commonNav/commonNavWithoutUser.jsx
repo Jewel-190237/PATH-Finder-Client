@@ -1,11 +1,11 @@
 import { useState, useEffect } from "react";
-import { FaHome } from "react-icons/fa";
+import { FaHome, FaPhoneAlt, FaWhatsapp } from "react-icons/fa";
 import { HiOutlineLightBulb } from "react-icons/hi";
 import { IoPersonCircleOutline } from "react-icons/io5";
-import { MdOutlineEditCalendar, MdOutlineForum } from "react-icons/md";
+import { MdOutlineForum } from "react-icons/md";
 import { Link } from "react-router-dom";
 
-const CommonNav = () => {
+const CommonNavWithoutUser = () => {
   const [active, setActive] = useState(0);
 
   useEffect(() => {
@@ -20,21 +20,40 @@ const CommonNav = () => {
     localStorage.setItem("activeNavItem", index);
   };
 
+  const handleAction = (action) => {
+    switch (action) {
+      case "call":
+        window.open("tel:+1234567890", "_self");
+        break;
+      case "messenger":
+        window.open("https://www.messenger.com", "_blank");
+        break;
+      case "whatsapp":
+        window.open("https://wa.me/+1234567890", "_blank");
+        break;
+      default:
+        break;
+    }
+  };
+
   const navItems = [
     { icon: <FaHome />, label: "Home", to: "/" },
-    { icon: <MdOutlineEditCalendar />, label: "Plan", to: "/plan" },
-    { icon: <HiOutlineLightBulb />, label: "Aspire", to: "/aspire" },
-    { icon: <MdOutlineForum />, label: "Forum", to: "/forum" },
-    { icon: <IoPersonCircleOutline />, label: "Profile", to: "/profile" },
+    { icon: <FaPhoneAlt />, label: "Call", action: "call" },
+    { icon: <HiOutlineLightBulb />, label: "Offer", to: "/aspire" },
+    { icon: <MdOutlineForum />, label: "Messenger", action: "messenger" },
+    { icon: <FaWhatsapp />, label: "WhatsApp", action: "whatsapp" },
   ];
 
   return (
     <div className="fixed z-50 bottom-0 w-full bg-[#20010D] description text-white mx-auto flex items-center justify-between">
       {navItems.map((item, index) => (
         <Link
-          to={item.to}
+          to={item.to || "#"}
           key={index}
-          onClick={() => handleSetActive(index)}
+          onClick={() => {
+            handleSetActive(index);
+            if (item.action) handleAction(item.action);
+          }}
           className="flex-1"
         >
           <button
@@ -53,4 +72,4 @@ const CommonNav = () => {
   );
 };
 
-export default CommonNav;
+export default CommonNavWithoutUser;

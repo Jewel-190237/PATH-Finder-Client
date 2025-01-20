@@ -41,7 +41,6 @@ import SkillSpecialist from "../Pages/SkillStrategist/SkillSpecialist";
 import DevAdvisor from "../Pages/SkillSpecialist/DevAdvisor";
 import VirtualAssistant from "../Pages/SalesDirector/VirtualAssistant";
 import PremiumServices from "../Pages/Premium/PremiumServices";
-import EarnRewards from "../Pages/Home/Home/EarnRewards";
 import TeamGrid from "../Pages/Team/TeamGrid";
 import Profile from "../Pages/Profile/Profile";
 import AxisPoint from "../Pages/AxisPoint/AxisPoint";
@@ -54,7 +53,6 @@ import SkillSpecialistMembers from "../Pages/SkillSpecialist/SkillSpecialistMemb
 import DevAdvisorMembers from "../Pages/DevVisor/DevAdvisorMembers";
 import SalesDirectorMembers from "../Pages/SalesDirector/SalesDirectorMembers";
 import VirtualAssistantMembers from "../Pages/VirtualAssistant/VirtulaAssistantMembers";
-// import CourseDetails from "../Pages/Home/Course/CourseDetails";
 import PaymentSuccess from "../Pages/Payment/PaymentSuccess";
 import PaymentFail from "../Pages/Payment/PaymentFail";
 import Courses from "../Pages/Home/AllCourse/AllCourse";
@@ -121,17 +119,9 @@ export const router = createBrowserRouter([
         element: <PremiumServices />,
       },
       {
-        path: "/afterLog",
-        element: <EarnRewards />,
-      },
-      {
         path: "/team",
         element: <TeamGrid />,
       },
-      // {
-      //   path: "/editProfile",
-      //   element: <EditProfile />,
-      // },
       {
         path: "/forgetPassword",
         element: <ForgetPassword />,
