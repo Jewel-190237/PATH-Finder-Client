@@ -1,5 +1,5 @@
 
-import {  useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { MdOutlineMan, MdPlayCircleOutline } from "react-icons/md";
 
 const VideoCourse = () => {
@@ -7,23 +7,23 @@ const VideoCourse = () => {
   const [loading, setLoading] = useState(false);
   const [selectedVideo, setSelectedVideo] = useState(null); // For modal video
 
-    useEffect(() => {
-        const fetchCourses = async () => {
-            try {
-                const response = await fetch("http://localhost:5000/courses");
-                if (!response.ok) {
-                    throw new Error("Failed to fetch courses");
-                }
-                const data = await response.json();
-                setCourses(data);
-            } catch (error) {
-                console.error("Error fetching courses:", error);
-            }
-        };
+  useEffect(() => {
+    const fetchCourses = async () => {
+      try {
+        const response = await fetch("http://localhost:5000/courses");
+        if (!response.ok) {
+          throw new Error("Failed to fetch courses");
+        }
+        const data = await response.json();
+        setCourses(data);
+      } catch (error) {
+        console.error("Error fetching courses:", error);
+      }
+    };
 
-        fetchCourses();
-    }, []);
- 
+    fetchCourses();
+  }, []);
+
   console.log("all course 123", courses)
 
 
@@ -43,7 +43,9 @@ const VideoCourse = () => {
 
   return (
     <div className="p-5 md:p-10 lg:p-12 xl:p-14 text-black">
-        h3fjrgtjbgnhk
+
+      <iframe src="https://drive.google.com/file/d/1kONK8ipLbbrSNF8V0kpku0NOX0rgHOrl/preview" width="640" height="480" allow="autoplay"></iframe>
+      {/* <iframe src="https://drive.google.com/file/d/1kONK8ipLbbrSNF8V0kpku0NOX0rgHOrl/preview" width="640" height="480" allow="autoplay"></iframe> */}
       {loading ? (
         <p>Loading courses...</p>
       ) : (
@@ -111,27 +113,27 @@ const VideoCourse = () => {
 
       {/* Video Modal */}
       {selectedVideo && (
-  <div className="fixed inset-0 bg-black bg-opacity-75 flex items-center justify-center z-50">
-    <div className="relative bg-white rounded-lg overflow-hidden w-[90%] md:w-[70%] lg:w-[50%]">
-      <button
-        onClick={closeModal}
-        className="absolute top-2 right-2 bg-red-500 text-white rounded-full px-2 py-1 hover:bg-red-600"
-      >
-        Close
-      </button>
-      <div className="aspect-w-16 aspect-h-9">
-        <iframe
-          src={selectedVideo.replace("watch?v=", "embed/")}
-          title="YouTube video player"
-          frameBorder="0"
-          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-          allowFullScreen
-          className="w-full h-[400px]"
-        ></iframe>
-      </div>
-    </div>
-  </div>
-)}
+        <div className="fixed inset-0 bg-black bg-opacity-75 flex items-center justify-center z-50">
+          <div className="relative bg-white rounded-lg overflow-hidden w-[90%] md:w-[70%] lg:w-[50%]">
+            <button
+              onClick={closeModal}
+              className="absolute top-2 right-2 bg-red-500 text-white rounded-full px-2 py-1 hover:bg-red-600"
+            >
+              Close
+            </button>
+            <div className="aspect-w-16 aspect-h-9">
+              <iframe
+                src='https://drive.google.com/file/d/1kONK8ipLbbrSNF8V0kpku0NOX0rgHOrl/preview'
+                title="YouTube video player"
+                frameBorder="0"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                allowFullScreen
+                className="w-full h-[400px]"
+              ></iframe>
+            </div>
+          </div>
+        </div>
+      )}
 
     </div>
   );
