@@ -31,6 +31,9 @@
 .card-description {
   @apply text-[20px] text-[#030712CC];
 }
+.ant-empty .ant-empty-description {
+  color: white;
+}
 
 /* Target the entire modal content */
 .custom-modal .ant-modal-content {

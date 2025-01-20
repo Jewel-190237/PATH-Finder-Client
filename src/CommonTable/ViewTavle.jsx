@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { FaEye, FaTelegramPlane, FaTrashAlt } from "react-icons/fa";
 import { MdOutlineWhatsapp } from "react-icons/md";
-import { message, Modal } from "antd";
+import { Empty, message, Modal } from "antd";
 import Swal from "sweetalert2";
 import GetUser from "../Backend/GetUser";
 import coin from "../assets/coin.png";
@@ -100,8 +100,6 @@ const ViewTable = ({ subRole }) => {
   };
 
   const handleTask = async (task, user, action) => {
-
-    // Validate task, user, and action
     if (!task || !task._id || !task.coin) {
       console.error("Invalid task data");
       message.error("Invalid task data");
@@ -117,7 +115,7 @@ const ViewTable = ({ subRole }) => {
     const taskPayload = {
       userId: user._id,
       coin: task.coin,
-      action, // Include the action in the request
+      action,
     };
 
     try {
@@ -305,13 +303,13 @@ const ViewTable = ({ subRole }) => {
             <h2 className="my-4 heading2 text-center py-2">Review Task</h2>
             <div className="space-y-2">
               {selectedUser?.tasks?.filter(
-                (task) => task?.taskStatus === "pending"
+                (task) => task?.taskStatus === "submitted"
               ).length > 0 ? (
                 selectedUser.tasks
-                  .filter((task) => task.taskStatus === "pending")
+                  .filter((task) => task.taskStatus === "submitted")
                   .map((task) => (
                     <div
-                      key={task._id} // Use task._id for a unique key
+                      key={task._id}
                       className="flex justify-between items-center bg-[#F6170C] bg-opacity-50 p-2 rounded"
                     >
                       <div>
@@ -351,7 +349,7 @@ const ViewTable = ({ subRole }) => {
                     </div>
                   ))
               ) : (
-                <p className="description text-center">No pending tasks</p>
+                <Empty description="No submitted Task Found" />
               )}
             </div>
           </div>
