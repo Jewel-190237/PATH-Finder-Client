@@ -41,6 +41,7 @@ const Announcement = () => {
   const onFinish = async (values) => {
     try {
       const payload = {
+        title: values.title,
         announcement: values.announcement,
       };
       const token = localStorage.getItem("token");
@@ -150,6 +151,7 @@ const Announcement = () => {
             <thead className="bg-[#78120D] text-white">
               <tr>
                 <th className="px-4 py-2">Sl No</th>
+                <th className="px-4 py-2">Title</th>
                 <th className="px-4 py-2">Announcement</th>
                 <th className="px-4 py-2">Created At</th>
                 <th className="px-4 py-2">Delete</th>
@@ -160,6 +162,9 @@ const Announcement = () => {
                 <tr key={project?._id}>
                   <td className="px-4 py-2">
                     {index + indexOfFirstProject + 1}
+                  </td>
+                  <td className="px-4 py-2">
+                    {project?.title}
                   </td>
                   <td className="px-4 py-2">
                     {project?.announcement?.split(" ").length > 60 ? (
@@ -222,6 +227,22 @@ const Announcement = () => {
             style={{ backdropFilter: "blur(30px)" }}
           >
             <Form layout="vertical" onFinish={onFinish} form={form}>
+              <Form.Item
+                label="Title:"
+                name="title"
+                rules={[
+                  {
+                    required: true,
+                    message: "Please input your Title",
+                  },
+                ]}
+                className="text-white"
+              >
+                <Input
+                  placeholder="Input your Title"
+                  className="p-2 md:p-3 lg:p-4 xl:p-5 bg-[#78120D] text-white border description focus:bg-[#78120D] hover:bg-[#78120D] focus:border-white hover:border-white placeholder-white"
+                />
+              </Form.Item>
               <Form.Item
                 label="Announcement:"
                 name="announcement"
