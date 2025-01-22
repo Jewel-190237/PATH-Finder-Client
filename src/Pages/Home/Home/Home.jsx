@@ -23,6 +23,12 @@ const Home = () => {
       {currentUser ? (
         <>
           <Banner />
+          <EarnRewards />
+          <Review />
+        </>
+      ) : (
+        <>
+          <Banner />
           <Service />
           <ExplorePics />
           <VideoFrame />
@@ -31,12 +37,6 @@ const Home = () => {
           <Review />
           <Leap />
           <Footer />
-        </>
-      ) : (
-        <>
-          <Banner />
-          <EarnRewards />
-          <Review />
         </>
       )}
     </section>

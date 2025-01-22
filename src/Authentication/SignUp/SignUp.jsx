@@ -26,7 +26,6 @@ const SignUp = () => {
   };
   const [param] = useSearchParams();
   const referenceCode = param?.get("reference");
-  console.log("🚀 ~ SignUp ~ referenceCode:", referenceCode)
 
   const onFinish = async (value) => {
     try {
