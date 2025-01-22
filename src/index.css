@@ -28,6 +28,9 @@
 .common-button {
   @apply text-white text-[12px] md:text-[16px] lg:text-[18px] xl:text-[20px] font-bold font-roboto bg-[#3F3FDE] py-2 lg:py-3 xl:py-4 px-4 md:px-6 lg:px-7 xl:px-8 hover:bg-[#0303f5] transition-colors duration-300 ease-in-out;
 }
+.course-button {
+  @apply text-white text-[12px] md:text-[16px] font-bold font-roboto bg-red-500 py-2 md:py-3 px-4 md:px-6 rounded hover:bg-red-600 transition-colors duration-300 ease-in-out;
+}
 .card-description {
   @apply text-[20px] text-[#030712CC];
 }

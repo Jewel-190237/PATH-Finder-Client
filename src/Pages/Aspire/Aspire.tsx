@@ -25,7 +25,7 @@ const Aspire = () => {
   const [form] = Form.useForm();
   const [currentUser, setCurrentUser] = useState(null);
   const [projects, setProjects] = useState([]);
-  console.log("🚀 ~ Aspire ~ projects:", projects)
+  console.log("🚀 ~ Aspire ~ projects:", projects);
 
   const user = GetUser();
   useEffect(() => {
@@ -132,7 +132,23 @@ const Aspire = () => {
           ))}
         </div>
         {/* all projects */}
-        <div></div>
+        <div className="mt-8 md:mt-10 lg:mt-12 xl:mt-[60px] text-white grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-3 md:gap-4 lg:gap-5 xl:gap-6">
+          {projects?.map((item, index) => (
+            <div
+              key={index}
+              className="bg-[#78120D] p-8 rounded-lg shadow-lg text-center hover:bg-red-900 transition duration-300"
+            >
+              <h3 className="heading2 mb-2">{item?.ProjectName}</h3>
+              <p className="description">{item?.problem}</p>
+              <button
+                onClick={() => showModal(item)}
+                className="course-button !bg-red-500 mt-4"
+              >
+                Details
+              </button>
+            </div>
+          ))}
+        </div>
         <div className="flex items-center justify-end mt-10">
           <button onClick={showAddModal} className="common-button rounded-lg">
             Create New Project
@@ -140,6 +156,7 @@ const Aspire = () => {
         </div>
       </div>
 
+      {/* Add modal */}
       <Modal
         visible={addModalOpen}
         onOk={handleAddOk}
@@ -220,6 +237,54 @@ const Aspire = () => {
                 Submit
               </button>
             </Form>
+          </div>
+        </div>
+      </Modal>
+
+      {/* show modal */}
+      <Modal
+        visible={showModalOpen}
+        onOk={handleOk}
+        onCancel={() => {
+          setShowModalOpen(false);
+          setSelectedUserShow(null);
+        }}
+        footer={null}
+        className="custom-modal"
+        bodyStyle={{
+          backgroundColor: "#78120D",
+          color: "white",
+        }}
+      >
+        <div>
+          <h2 className="heading2 mb-4 text-center">
+            {selectedUserShow?.ProjectName}
+          </h2>
+          <div
+            className="max-w-[1000px] task-form rounded-[16px] mx-auto my-4 md:my-8"
+            style={{ backdropFilter: "blur(30px)" }}
+          >
+            <div className="px-4">
+              <div>
+                <h3 className="description">Real Life Problem:</h3>
+                <p className="description bg-[#78120D] px-3 pb-3 rounded-md border-b">
+                  {selectedUserShow?.problem ||
+                    "No problem description available."}
+                </p>
+              </div>
+              <div>
+                <h3 className="description ">Solution Idea:</h3>
+                <p className="description bg-[#78120D] px-3 pb-3 rounded-md border-b">
+                  {selectedUserShow?.idea || "No solution idea provided."}
+                </p>
+              </div>
+              <div>
+                <h3 className="description ">Real Life Solution:</h3>
+                <p className="description bg-[#78120D] px-3 pb-3 rounded-md border-b">
+                  {selectedUserShow?.solve || "No solution described."}
+                </p>
+              </div>
+            </div>
           </div>
         </div>
       </Modal>

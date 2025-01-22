@@ -63,6 +63,7 @@ import StudentOverview from "../Pages/Student/StudentOverview";
 import StudentCourse from "../Pages/Student/StudentCourse";
 import Assignment from "../Pages/Student/Assignment";
 import VideoCourse from "../Pages/testing";
+import Projects from "../Pages/Dashboard/AdminDashboard/Projects";
 
 export const router = createBrowserRouter([
   {
@@ -187,6 +188,10 @@ export const router = createBrowserRouter([
       {
         path: "controlPanel",
         element: <ControlPanel />,
+      },
+      {
+        path: "projects",
+        element: <Projects />,
       },
     ],
   },
