@@ -8,6 +8,7 @@ import { Link } from "react-router-dom";
 import { RxDashboard } from "react-icons/rx";
 import { PiBookDuotone } from "react-icons/pi";
 import { FcIdea } from "react-icons/fc";
+import { GrAnnounce } from "react-icons/gr";
 export default function DashboardSidebar() {
   const navItems = [
     {
@@ -32,6 +33,11 @@ export default function DashboardSidebar() {
           to: "/dashboard/projects",
           label: "Projects",
           icon: FcIdea,
+        },
+        {
+          to: "/dashboard/announcements",
+          label: "Announcements",
+          icon: GrAnnounce,
         },
      
       ],
