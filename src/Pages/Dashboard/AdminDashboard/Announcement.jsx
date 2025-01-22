@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
-import { FaEye } from "react-icons/fa";
+import { FaEye, FaTrashAlt } from "react-icons/fa";
 import { Button, Form, Input, message, Modal } from "antd";
+import Swal from "sweetalert2";
 
 const Announcement = () => {
   const [projects, setProjects] = useState([]);
@@ -77,6 +78,46 @@ const Announcement = () => {
     setAddModalOpen(false);
   };
 
+
+  const handleDelete = async (id) => {
+    Swal.fire({
+      title: "Are you sure?",
+      text: "You won't be able to revert this!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, delete it!",
+    }).then(async (result) => {
+      if (result.isConfirmed) {
+        try {
+          const token = localStorage.getItem("token");
+          const response = await fetch(
+            `http://localhost:5000/announcement/${id}`,
+            {
+              method: "DELETE",
+              headers: {
+                "Content-Type": "application/json",
+                Authorization: `Bearer ${token}`,
+              },
+            }
+          );
+
+          if (response.ok) {
+            message.success("Announcement deleted successfully");
+            fetchAnnouncement(); // Refresh the announcement list
+          } else {
+            const error = await response.json();
+            message.error(error.message || "Error deleting Announcement");
+          }
+        } catch (error) {
+          message.error("Error deleting Announcement");
+          console.error("Error deleting Announcement:", error);
+        }
+      }
+    });
+  };
+
   const indexOfLastProject = currentPage * projectsPerPage;
   const indexOfFirstProject = indexOfLastProject - projectsPerPage;
   const currentProjects = projects.slice(
@@ -111,6 +152,7 @@ const Announcement = () => {
                 <th className="px-4 py-2">Sl No</th>
                 <th className="px-4 py-2">Announcement</th>
                 <th className="px-4 py-2">Created At</th>
+                <th className="px-4 py-2">Delete</th>
               </tr>
             </thead>
             <tbody className="divide-y divide-gray-200 description">
@@ -131,6 +173,11 @@ const Announcement = () => {
                   </td>
                   <td className="px-4 py-2">
                     {new Date(project?.createdAt).toLocaleDateString()}
+                  </td>
+                  <td className="px-4 py-2">
+                    <button onClick={() => handleDelete(project?._id)}>
+                      <FaTrashAlt />
+                    </button>
                   </td>
                 </tr>
               ))}
