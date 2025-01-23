@@ -12,8 +12,26 @@ const AllCourses = () => {
   const [addModalOpen, setAddModalOpen] = useState(false);
   const [handleOpenModal, setHandleOpenModal] = useState(false);
   const [selectedCourse, setSelectedCourse] = useState(null);
-  const [imageFile, setImageFile] = useState(null);  
+  const [imageFile, setImageFile] = useState(null);
   const [loading, setLoading] = useState(false);
+
+  const [videos, setVideos] = useState([""]);
+
+  const handleVideoChange = (index, value) => {
+    const updatedVideos = [...videos];
+    updatedVideos[index] = value;
+    setVideos(updatedVideos);
+  };
+
+  const handleAddVideo = () => {
+    setVideos([...videos, ""]);
+  };
+
+  const handleRemoveVideo = (index) => {
+    const updatedVideos = videos.filter((_, i) => i !== index);
+    setVideos(updatedVideos);
+  };
+
 
   const fetchCourses = async () => {
     setLoading(true);
@@ -101,6 +119,7 @@ const AllCourses = () => {
     setHandleOpenModal(false); // Close modal
     setSelectedCourse(null); // Reset selected course
   };
+
   const onFinish = async (values) => {
     try {
       if (!imageFile) {
@@ -112,9 +131,9 @@ const AllCourses = () => {
       const formData = new FormData();
       formData.append("course_name", values.course_name);
       formData.append("description", values.description);
-      formData.append("thumbnail_image", imageFile); // Use the file stored in state
-      formData.append("video", values.video);
+      formData.append("thumbnail_image", imageFile);
       formData.append("course_price", parseFloat(values.course_price));
+      formData.append("videos", JSON.stringify(videos)); // Add videos as a JSON string
 
       const token = localStorage.getItem("token");
       const response = await fetch("http://localhost:5000/courses", {
@@ -132,6 +151,7 @@ const AllCourses = () => {
         // Reset form and clear image state
         setImageFile(null);
         form.resetFields();
+        setVideos([""]); // Reset video fields
 
         // Close the modal
         setAddModalOpen(false);
@@ -149,43 +169,100 @@ const AllCourses = () => {
   };
 
 
-  const onUpdateFinish = async (values) => {
-    console.log("Values122222222", values)
-    try {
-      const formData = new FormData();
-      formData.append("_id", values._id); // Add course ID for identification
-      formData.append("course_name", values.course_name);
-      formData.append("description", values.description);
-      if (imageFile) {
-        formData.append("thumbnail_image", imageFile); // Only include the new file if provided
-      }
-      formData.append("video", values.video);
-      formData.append("course_price", parseFloat(values.course_price));
+  // const onUpdateFinish = async (values) => {
+  //   try {
+  //     const formData = new FormData();
+  //     formData.append("_id", values._id);
+  //     formData.append("course_name", values.course_name || ""); // Ensure default value
+  //     formData.append("description", values.description || "");
+  //     if (imageFile) {
+  //       formData.append("thumbnail_image", imageFile); // Only include if file is selected
+  //     }
+  //     formData.append("videos", values.video || "");
+  //     formData.append("course_price", parseFloat(values.course_price || 0)); // Default to 0 if not provided
 
+  //     const token = localStorage.getItem("token");
+  //     const response = await fetch(`http://localhost:5000/courses/${selectedCourse._id}`, {
+  //       method: "PUT",
+  //       headers: {
+  //         Authorization: `Bearer ${token}`,
+  //       },
+  //       body: formData,
+  //     });
+
+  //     if (response.ok) {
+  //       const result = await response.json();
+  //       message.success("Course updated successfully");
+  //       fetchCourses();
+  //       setHandleOpenModal(false);
+  //       setImageFile(null);
+  //       form.resetFields();
+  //     } else {
+  //       const error = await response.json();
+  //       message.error(error.message || "Failed to update course");
+  //     }
+  //   } catch (error) {
+  //     message.error("Error updating course");
+  //     console.error("Error updating course:", error);
+  //   }
+  // };
+
+
+  const onUpdateFinish = async (values) => {
+    try {
+      console.log("Form values before update:", values);
+  
+      const formData = new FormData();
+      formData.append("_id", values._id);
+      formData.append("course_name", values.course_name || "");
+      formData.append("description", values.description || "");
+      if (imageFile) {
+        formData.append("thumbnail_image", imageFile);
+      }
+  
+      // Handle multiple videos
+      if (Array.isArray(values.video)) {
+        values.video.forEach((vid) => {
+          formData.append("videos", vid); // Append each video separately
+        });
+      } else {
+        formData.append("videos", values.video || ""); // Fallback for single video
+      }
+  
+      formData.append("course_price", parseFloat(values.course_price || 0));
+  
       const token = localStorage.getItem("token");
-      const response = await fetch(`http://localhost:5000/courses/${selectedCourse._id}`, {
-        method: "PUT",
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-        body: formData,
-      });
+      const response = await fetch(
+        `http://localhost:5000/courses/${selectedCourse._id}`,
+        {
+          method: "PUT",
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+          body: formData,
+        }
+      );
+  
       if (response.ok) {
         const result = await response.json();
+        console.log("Update result:", result);
+  
         message.success("Course updated successfully");
-        fetchCourses(); 
-        setHandleOpenModal(false); 
+        fetchCourses();
+        setHandleOpenModal(false);
         setImageFile(null);
-        form.resetFields(); 
+        form.resetFields();
       } else {
         const error = await response.json();
+        console.error("Error response:", error);
         message.error(error.message || "Failed to update course");
       }
     } catch (error) {
-      message.error("Error updating course");
       console.error("Error updating course:", error);
+      message.error("Error updating course");
     }
   };
+  
 
   // Pagination logic
   const indexOfLastUser = currentPage * usersPerPage;
@@ -300,7 +377,7 @@ const AllCourses = () => {
                 form={form}
               >
                 <Form.Item
-                  label="Course Name: "
+                  label="Course Name:"
                   name="course_name"
                   required
                   className="text-white"
@@ -313,13 +390,13 @@ const AllCourses = () => {
                 </Form.Item>
 
                 <Form.Item
-                  label="Course Price: "
+                  label="Course Price:"
                   name="course_price"
                   required
                   className="text-white"
                 >
                   <Input
-                    placeholder="course price"
+                    placeholder="Course Price"
                     type="text"
                     className="p-2 md:p-3 lg:p-4 xl:p-5 bg-[#78120D] text-white border description focus:bg-[#78120D] hover:bg-[#78120D] focus:border-white hover:border-white placeholder-white"
                   />
@@ -357,19 +434,37 @@ const AllCourses = () => {
                   />
                 </Form.Item>
 
-
-                <Form.Item
-                  label="Video Link:"
-                  name="video"
-                  required
-                  className="text-white"
-                >
-                  <Input
-                    placeholder="Input Video Link"
-                    type="url"
-                    className="p-2 md:p-3 lg:p-4 xl:p-5 bg-[#78120D] text-white border description focus:bg-[#78120D] hover:bg-[#78120D] focus:border-white hover:border-white placeholder-white"
-                  />
-                </Form.Item>
+                {/* Multiple Video Fields */}
+                <div className="space-y-4">
+                  <h3 className="text-white">Video Links:</h3>
+                  {videos.map((video, index) => (
+                    <div key={index} className="flex items-center space-x-2">
+                      <Input
+                        placeholder={`Video Link ${index + 1}`}
+                        type="url"
+                        value={video}
+                        onChange={(e) =>
+                          handleVideoChange(index, e.target.value)
+                        }
+                        className="flex-1 p-2 md:p-3 lg:p-4 bg-[#78120D] text-white border focus:bg-[#78120D] hover:bg-[#78120D] focus:border-white hover:border-white placeholder-white"
+                      />
+                      <button
+                        type="button"
+                        onClick={() => handleRemoveVideo(index)}
+                        className="p-2 text-white bg-red-500 rounded-md hover:bg-red-600"
+                      >
+                        Remove
+                      </button>
+                    </div>
+                  ))}
+                  <button
+                    type="button"
+                    onClick={handleAddVideo}
+                    className="p-2 mt-2 text-white bg-green-500 rounded-md hover:bg-green-600"
+                  >
+                    Add Video
+                  </button>
+                </div>
 
                 <button
                   type="submit"
@@ -382,6 +477,7 @@ const AllCourses = () => {
           </div>
         )}
       </Modal>
+
 
       {/* updated course */}
       <Modal
@@ -463,27 +559,7 @@ const AllCourses = () => {
                   />
                 </Form.Item>
 
-
                 {/* <Form.Item
-                  label="Course Image:"
-                  name="thumbnail_image"
-                  className="text-white"
-                  required
-                >
-                  <Input
-                    type="file"
-                    accept="image/*"
-                    className="p-2 bg-[#78120D] text-white"
-                    onChange={(e) => {
-                      const file = e.target.files[0];
-                      if (file) {
-                        setImageFile(file);
-                      }
-                    }}
-                  />
-                </Form.Item> */}
-
-                <Form.Item
                   label="Video Link:"
                   name="video"
                   required
@@ -494,7 +570,38 @@ const AllCourses = () => {
                     type="url"
                     className="p-2 md:p-3 lg:p-4 xl:p-5 bg-[#78120D] text-white border description focus:bg-[#78120D] hover:bg-[#78120D] focus:border-white hover:border-white placeholder-white"
                   />
-                </Form.Item>
+                </Form.Item> */}
+                {/* Multiple Video Fields */}
+                <div className="space-y-4">
+                  <h3 className="text-white">Video Links:</h3>
+                  {videos.map((video, index) => (
+                    <div key={index} className="flex items-center space-x-2">
+                      <Input
+                        placeholder={`Video Link ${index + 1}`}
+                        type="url"
+                        value={video}
+                        onChange={(e) =>
+                          handleVideoChange(index, e.target.value)
+                        }
+                        className="flex-1 p-2 md:p-3 lg:p-4 bg-[#78120D] text-white border focus:bg-[#78120D] hover:bg-[#78120D] focus:border-white hover:border-white placeholder-white"
+                      />
+                      <button
+                        type="button"
+                        onClick={() => handleRemoveVideo(index)}
+                        className="p-2 text-white bg-red-500 rounded-md hover:bg-red-600"
+                      >
+                        Remove
+                      </button>
+                    </div>
+                  ))}
+                  <button
+                    type="button"
+                    onClick={handleAddVideo}
+                    className="p-2 mt-2 text-white bg-green-500 rounded-md hover:bg-green-600"
+                  >
+                    Add Video
+                  </button>
+                </div>
 
                 <button
                   type="submit"
