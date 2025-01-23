@@ -24,6 +24,11 @@ export default function DashboardSidebar() {
           label: "Assignments",
           icon: FaUserGraduate,
         },
+        {
+          to: "/studentDashboard/post",
+          label: "My Post",
+          icon: FaUserGraduate,
+        },
         { to: "/", label: "Home", icon: FaHome },
       ],
     },
