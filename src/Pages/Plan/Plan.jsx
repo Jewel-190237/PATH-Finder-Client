@@ -39,7 +39,7 @@ const Plan = () => {
       className="bg-cover bg-center relative"
       style={{ backgroundImage: `url(${planImage})` }}
     >
-      <div className="path-container pt-14 md:pt-[80px] lg:pt-[100px] xl:pt-[120px]">
+      <div className="path-container py-14 md:py-[80px] lg:py-[100px] xl:py-[120px]">
         <h1 className="heading text-white text-center">My challenge </h1>
         <div className="mt-8 md:mt-10 lg:mt-12 xl:mt-[60px] text-white flex flex-col md:flex-row gap-3 md:gap-4 lg:gap-5 xl:gap-6">
           <div className="flex-1">

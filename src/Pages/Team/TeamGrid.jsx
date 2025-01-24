@@ -35,7 +35,7 @@ const teamMembers = [
 
 const TeamGrid = () => {
     return (
-        <div className="bg-[url('/src/assets/Rewards/bg.png')] bg-cover bg-center py-10 text-white">
+        <div className="bg-[url('/src/assets/Rewards/bg.png')] bg-cover bg-center pt-10 pb-60 text-white">
             <div className="max-w-[1320px] mx-auto">
                 <div className="text-center mb-10">
                     <h1 className="heading xl:text-5xl max-w-[750px] mx-auto">Unmatched Quality and Convenience with Our Services!</h1>
