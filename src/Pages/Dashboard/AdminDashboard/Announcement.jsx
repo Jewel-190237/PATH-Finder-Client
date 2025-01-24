@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { FaEye, FaTrashAlt } from "react-icons/fa";
+import { FaTrashAlt } from "react-icons/fa";
 import { Button, Form, Input, message, Modal } from "antd";
 import Swal from "sweetalert2";
 
@@ -7,8 +7,6 @@ const Announcement = () => {
   const [projects, setProjects] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [projectsPerPage] = useState(12);
-  const [selectedUserShow, setSelectedUserShow] = useState(null);
-  const [showModalOpen, setShowModalOpen] = useState(false);
   const [addModalOpen, setAddModalOpen] = useState(false);
   const [form] = Form.useForm();
 

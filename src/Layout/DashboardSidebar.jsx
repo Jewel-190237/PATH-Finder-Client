@@ -39,6 +39,11 @@ export default function DashboardSidebar() {
           label: "Announcements",
           icon: GrAnnounce,
         },
+        {
+          to: "/dashboard/posts",
+          label: "Posts",
+          icon: GrAnnounce,
+        },
      
       ],
     },

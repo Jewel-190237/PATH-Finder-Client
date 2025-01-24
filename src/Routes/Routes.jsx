@@ -66,6 +66,7 @@ import VideoCourse from "../Pages/testing";
 import Projects from "../Pages/Dashboard/AdminDashboard/Projects";
 import Announcement from "../Pages/Dashboard/AdminDashboard/Announcement";
 import Post from "../Pages/Student/Post";
+import AdminPost from "../Pages/Dashboard/AdminDashboard/AdminPost";
 
 export const router = createBrowserRouter([
   {
@@ -198,6 +199,10 @@ export const router = createBrowserRouter([
       {
         path: "announcements",
         element: <Announcement />,
+      },
+      {
+        path: "posts",
+        element: <AdminPost />,
       },
       {
         path: "profile",
