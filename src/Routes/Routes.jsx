@@ -199,6 +199,10 @@ export const router = createBrowserRouter([
         path: "announcements",
         element: <Announcement />,
       },
+      {
+        path: "profile",
+        element: <EditProfile />,
+      },
     ],
   },
 

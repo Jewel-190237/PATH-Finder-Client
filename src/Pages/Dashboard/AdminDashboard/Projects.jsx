@@ -1,6 +1,8 @@
 import { useEffect, useState } from "react";
 import { FaEye } from "react-icons/fa";
 import { message, Modal } from "antd";
+import Swal from "sweetalert2";
+import { BsTrash3 } from "react-icons/bs";
 
 const Projects = () => {
   const [projects, setProjects] = useState([]);
@@ -28,11 +30,10 @@ const Projects = () => {
         const result = await response.json();
         setProjects(result.projects || []);
       } else {
-        message.error("Failed to fetch projects");
+        console.error("Failed to fetch projects");
       }
     } catch (error) {
       console.error("Error fetching projects:", error);
-      message.error("An error occurred while fetching projects");
     }
   };
   const showModal = (user) => {
@@ -54,6 +55,48 @@ const Projects = () => {
   );
   const totalPages = Math.ceil(projects.length / projectsPerPage);
 
+
+
+  const handleDelete = async (projectId) => {
+    try {
+      const result = await Swal.fire({
+        title: "Are you sure?",
+        text: "You won't be able to revert this!",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#d33",
+        cancelButtonColor: "#3085d6",
+        confirmButtonText: "Yes, delete it!",
+      });
+
+      if (result.isConfirmed) {
+        const token = localStorage.getItem("token");
+        const response = await fetch(
+          `http://localhost:5000/projects/${projectId}`,
+          {
+            method: "DELETE",
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: `Bearer ${token}`,
+            },
+          }
+        );
+
+        if (response.ok) {
+          message.success("Project deleted successfully");
+          fetchProjects();
+        } else {
+          const error = await response.json();
+          message.error(error.message || "Error deleting project");
+        }
+      }
+    } catch (error) {
+      console.error("Error deleting project:", error);
+      message.error("An error occurred while deleting the project");
+    }
+  };
+
+
   return (
     <>
       <div className="flex justify-center py-8 text-white">
@@ -71,8 +114,10 @@ const Projects = () => {
                 <th className="px-4 py-2">Sl No</th>
                 <th className="px-4 py-2">Project Name</th>
                 <th className="px-4 py-2">Problem</th>
+                <th className="px-4 py-2">Creator</th>
                 <th className="px-4 py-2">Created At</th>
                 <th className="px-4 py-2">View</th>
+                <th className="px-4 py-2">Delete</th>
               </tr>
             </thead>
             <tbody className="divide-y divide-gray-200 description">
@@ -83,15 +128,24 @@ const Projects = () => {
                   </td>
                   <td className="px-4 py-2">{project.ProjectName}</td>
                   <td className="px-4 py-2">{project.problem}</td>
+                  <td className="px-4 py-2">{project.userName}</td>
                   <td className="px-4 py-2">
                     {new Date(project.createdAt).toLocaleDateString()}
                   </td>
                   <td className="px-4 py-2">
                     <button
                       className="btn btn-ghost btn-sm"
-                      onClick={() => showModal(project)} 
+                      onClick={() => showModal(project)}
                     >
                       <FaEye className="text-blue-600 text-lg" />
+                    </button>
+                  </td>
+                  <td className="px-4 py-2">
+                    <button
+                      className="btn btn-ghost btn-sm"
+                      onClick={() => handleDelete(project._id)}
+                    >
+                      <BsTrash3 className="text-red-600 text-lg" />
                     </button>
                   </td>
                 </tr>
@@ -106,11 +160,10 @@ const Projects = () => {
             <button
               key={index + 1}
               onClick={() => setCurrentPage(index + 1)}
-              className={`mx-1 px-3 py-1 rounded ${
-                currentPage === index + 1
-                  ? "bg-primary text-white"
-                  : "bg-gray-300 text-black"
-              }`}
+              className={`mx-1 px-3 py-1 rounded ${currentPage === index + 1
+                ? "bg-primary text-white"
+                : "bg-gray-300 text-black"
+                }`}
             >
               {index + 1}
             </button>

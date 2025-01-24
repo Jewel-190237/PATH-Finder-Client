@@ -82,6 +82,7 @@ const Aspire = () => {
       problem: values.problem,
       idea: values.idea,
       solve: values.solve,
+      userName: currentUser.name,
     };
     try {
       const token = localStorage.getItem("token");

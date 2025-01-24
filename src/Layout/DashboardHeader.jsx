@@ -34,12 +34,10 @@ const DashboardHeader = () => {
     };
   }, [user]);
 
-  // Handle profile navigation
   const handleProfile = () => {
-    navigate("/userProfile/profile");
+    navigate("/dashboard/profile");
   };
 
-  // Handle logout functionality
   const logout = () => {
     localStorage.removeItem("token");
     localStorage.removeItem("userId");
@@ -48,7 +46,6 @@ const DashboardHeader = () => {
     setIsAuthenticated(false);
   };
 
-  // Handle menu item clicks
   const handleMenuClick = ({ key }) => {
     if (key === "profile") {
       handleProfile();
@@ -57,7 +54,6 @@ const DashboardHeader = () => {
     }
   };
 
-  // Dropdown menu items
   const menuItems = [
     {
       label: "Profile",
