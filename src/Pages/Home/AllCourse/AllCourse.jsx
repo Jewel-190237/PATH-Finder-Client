@@ -31,19 +31,19 @@ const Courses = () => {
 
     return (
         <div className="bg-cover bg-center relative text-white" style={{ backgroundImage: 'url("/src/assets/explorePics/bg.png")' }}>
-            <div className="max-w-[1320px] mx-auto py-14">
+            <div className="max-w-[1320px] mx-auto py-14 ">
                 <h1 className="text-4xl font-bold text-center mb-8">All Courses</h1>
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6" >
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 " >
                     {courses.map((course) => (
                         <div
                             onClick={() => handleCardClick(course?._id)}
                             key={course.id}
-                            className="rounded-3xl overflow-hidden w-full transform transition-transform hover:scale-105 shadow-[0px_4px_10px_0px_rgba(220,220,220,0.20)]"
+                            className="rounded-3xl overflow-hidden w-full transform transition-transform hover:scale-105 shadow-[0px_4px_10px_0px_rgba(220,220,220,0.20)] cursor-pointer"
                         >
                             <img
                                 src={course?.thumbnail_image || '/src/assets/explorePics/3.png'}
                                 alt={course?.course_name}
-                                className="w-full h-48 object-cover"
+                                className="w-full h-64 object-fill"
                             />
                             <div className="p-4 text-center bg-[#20010D]">
                                 <div className="flex justify-between">

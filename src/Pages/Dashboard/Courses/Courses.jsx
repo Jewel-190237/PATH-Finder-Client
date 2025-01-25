@@ -115,7 +115,9 @@ const AllCourses = () => {
     }
   };
 
-  const handleEditdOk = () => {
+
+  const handleEditdOk = (values) => {
+    console.log(" values form ", values )
     setHandleOpenModal(false); // Close modal
     setSelectedCourse(null); // Reset selected course
   };
@@ -169,43 +171,6 @@ const AllCourses = () => {
   };
 
 
-  // const onUpdateFinish = async (values) => {
-  //   try {
-  //     const formData = new FormData();
-  //     formData.append("_id", values._id);
-  //     formData.append("course_name", values.course_name || ""); // Ensure default value
-  //     formData.append("description", values.description || "");
-  //     if (imageFile) {
-  //       formData.append("thumbnail_image", imageFile); // Only include if file is selected
-  //     }
-  //     formData.append("videos", values.video || "");
-  //     formData.append("course_price", parseFloat(values.course_price || 0)); // Default to 0 if not provided
-
-  //     const token = localStorage.getItem("token");
-  //     const response = await fetch(`http://localhost:5000/courses/${selectedCourse._id}`, {
-  //       method: "PUT",
-  //       headers: {
-  //         Authorization: `Bearer ${token}`,
-  //       },
-  //       body: formData,
-  //     });
-
-  //     if (response.ok) {
-  //       const result = await response.json();
-  //       message.success("Course updated successfully");
-  //       fetchCourses();
-  //       setHandleOpenModal(false);
-  //       setImageFile(null);
-  //       form.resetFields();
-  //     } else {
-  //       const error = await response.json();
-  //       message.error(error.message || "Failed to update course");
-  //     }
-  //   } catch (error) {
-  //     message.error("Error updating course");
-  //     console.error("Error updating course:", error);
-  //   }
-  // };
 
 
   const onUpdateFinish = async (values) => {
@@ -263,7 +228,6 @@ const AllCourses = () => {
     }
   };
   
-
   // Pagination logic
   const indexOfLastUser = currentPage * usersPerPage;
   const indexOfFirstUser = indexOfLastUser - usersPerPage;
