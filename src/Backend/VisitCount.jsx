@@ -1,23 +1,25 @@
-import React, { useEffect, useState } from "react";
-import axios from "axios";
-const VisitCount = () => {
-  const [visitCount, setVisitCount] = useState(0);
-  const userId = localStorage.getItem("userId");
+export const updateVisitCount = async (userId) => {
+  if (!userId) {
+    throw new Error("UserId is required");
+  }
 
-  useEffect(() => {
-    if (userId) {
-      axios
-        .post("http://localhost:5000/visit-count", { userId })
-        .then((response) => {
-          setVisitCount(response.data.visitCount);
-        })
-        .catch((error) => {
-          console.error("Error fetching visit count:", error);
-        });
+  try {
+    const response = await fetch(`http://localhost:5000/visit-count/${userId}`, {
+      method: "PUT", // Use PUT to update data
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+
+    if (!response.ok) {
+      const errorText = await response.text();
+      throw new Error(errorText || "Failed to update visit count");
     }
-  }, [userId]);
 
-  return visitCount;
+    const data = await response.json();
+    return data.visitCount; // Return the updated visit count
+  } catch (error) {
+    console.error("Error updating visit count:", error);
+    throw error;
+  }
 };
-
-export default VisitCount;

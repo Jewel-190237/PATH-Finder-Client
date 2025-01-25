@@ -2,18 +2,31 @@ import React, { useState, useEffect } from "react";
 import { Outlet } from "react-router-dom";
 import Navbar from "../Pages/Shared-file/Navbar/Navbar";
 import CommonNav from "../Pages/Shared-file/commonNav/commonNav";
+import CommonNavWithoutUser from "../Pages/Shared-file/commonNav/commonNavWithoutUser";
 import { Modal } from "antd";
 import "antd/dist/reset.css";
-import GetUser from "../Backend/GetUser";
-import CommonNavWithoutUser from "../Pages/Shared-file/commonNav/commonNavWithoutUser";
+import useGetUser from "../Backend/GetUser";
+import { updateVisitCount } from "../Backend/VisitCount";
 
 const Main = () => {
-  const [currentUser, setCurrentUser] = useState(null);
-  const user = GetUser();
-  useEffect(() => {
-    setCurrentUser(user);
-  }, [user]);
+  const currentUser = useGetUser(); // Get current user from custom hook
+  const [visitCount, setVisitCount] = useState(0);
   const [isModalVisible, setIsModalVisible] = useState(false);
+
+  useEffect(() => {
+    const fetchVisitCount = async () => {
+      if (currentUser?._id) {
+        try {
+          const count = await updateVisitCount(currentUser._id);
+          setVisitCount(count);
+        } catch (err) {
+          console.error("Error updating visit count:", err);
+        }
+      }
+    };
+
+    fetchVisitCount();
+  }, [currentUser]);
 
   useEffect(() => {
     const modalShown = sessionStorage.getItem("modalShown");
