@@ -25,7 +25,7 @@ const CEODashboard = () => {
     return <div>Loading...</div>;
   }
   return (
-    <div className="flex h-screen w-full">
+    <div className="flex h-screen w-full  bg-[#20010D] overflow-y-auto">
       <div className="bg-[#78120D] flex-shrink-0">
         <DashboardSidebar />
       </div>

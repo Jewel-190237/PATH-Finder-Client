@@ -1,3 +1,5 @@
+import { FaWhatsapp } from "react-icons/fa";
+import { RiTelegramLine } from "react-icons/ri";
 
 
 const teamMembers = [
@@ -56,20 +58,12 @@ const TeamGrid = () => {
                           <p className="heading2 text-[#D9D9D9] mt-3">{member.role}</p>
                         </div>
                         <div className="absolute flex flex-col bottom-36 right-3 space-y-2">
-                          <button className="bg-[#25d366] p-2 rounded-full">
-                            <img
-                              src="/icons/whatsapp.png" 
-                              alt="WhatsApp"
-                              className="w-5 h-5"
-                            />
-                          </button>
-                          <button className="bg-[#0088cc] p-2 rounded-full">
-                            <img
-                              src="/icons/telegram.png" 
-                              alt="Telegram"
-                              className="w-5 h-5"
-                            />
-                          </button>
+                          <a href="https://wa.me/01660013379" className="bg-[#25d366] p-2 rounded-full">
+                          <FaWhatsapp className="text-xl" />
+                          </a>
+                          <a href="https://t.me/PathFinderOfficial" className="bg-[#0088cc] p-2 rounded-full">
+                          <RiTelegramLine className="text-xl" />
+                          </a>
                         </div>
                       </div>
                     ))}

@@ -1,9 +1,8 @@
-import { use, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import GetUser from "../../Backend/GetUser";
-import { useNavigate } from "react-router-dom";
+
 
 const AxisPoint = () => {
-  const navigate = useNavigate();
   const [currentUser, setCurrentUser] = useState(null);
   const [users, setUsers] = useState([]);
   const user = GetUser();
@@ -33,7 +32,7 @@ const AxisPoint = () => {
       : users.filter((user) => user.subRole === currentUser?.subRole);
 
   return (
-    <div className="bg-[url('/src/assets/service/premium.png')] bg-cover bg-center text-white pt-10 py-60 px-5">
+    <div className="bg-[url('/src/assets/service/premium.png')] bg-cover bg-center text-white pt-40 pb-96 px-5">
       <div className="max-w-[1320px] mx-auto">
         <div className="text-center text-white">
           <h1 className="heading font-bold mb-4">

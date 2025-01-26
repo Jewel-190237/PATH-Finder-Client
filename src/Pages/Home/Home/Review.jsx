@@ -1,10 +1,12 @@
-import React from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
-import { Autoplay, Keyboard, Pagination } from "swiper/modules";
+import { Keyboard, Pagination } from "swiper/modules";
 import "swiper/css";
 import "swiper/css/pagination";
 import reviewBg from "../../../assets/reviewBg.png";
 import review1 from "../../../assets/review1.png";
+import mem1 from "../../../assets/mem1.png";
+import mem2 from "../../../assets/mem2.png";
+import mem3 from "../../../assets/mem3.png";
 import ReviewCard from "../../Shared-file/card/ReviewCard";
 
 const Review = () => {
@@ -17,7 +19,21 @@ const Review = () => {
         "Incredible work! The final video exceeded our expectations, and the process was seamless..",
     },
     {
-      image: review1,
+      image: mem1,
+      name: "John Doe",
+      rating: 4.5,
+      description:
+        "Incredible work! The final video exceeded our expectations, and the process was seamless..",
+    },
+    {
+      image: mem2,
+      name: "John Doe",
+      rating: 4.5,
+      description:
+        "Incredible work! The final video exceeded our expectations, and the process was seamless..",
+    },
+    {
+      image: mem3,
       name: "John Doe",
       rating: 4.5,
       description:
@@ -31,35 +47,21 @@ const Review = () => {
         "Incredible work! The final video exceeded our expectations, and the process was seamless..",
     },
     {
-      image: review1,
+      image: mem1,
       name: "John Doe",
       rating: 4.5,
       description:
         "Incredible work! The final video exceeded our expectations, and the process was seamless..",
     },
     {
-      image: review1,
-      name: "John Doe",
-      rating: 4.5,
-      description:
-        "Incredible work! The final video exceeded our expectations, and the process was seamless..",
-    },
-    {
-      image: review1,
-      name: "John Doe",
-      rating: 4.5,
-      description:
-        "Incredible work! The final video exceeded our expectations, and the process was seamless..",
-    },
-    {
-      image: review1,
+      image: mem2,
       name: "John Doe",
       rating: 4.5,
       description:
         "Incredible work! The final video exceeded our expectations, and the process was seamless.",
     },
     {
-      image: review1,
+      image: mem3,
       name: "John Doe",
       rating: 4.5,
       description:
