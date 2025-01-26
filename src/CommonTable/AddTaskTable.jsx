@@ -118,7 +118,6 @@ const AddTaskTable = ({ subRole }) => {
                 <th className="px-4 py-2">Name</th>
                 <th className="px-4 py-2">Coin</th>
                 <th className="px-4 py-2">Level</th>
-                <th className="px-4 py-2">Student</th>
                 <th className="px-4 py-2">Add Task</th>
                 <th className="px-4 py-2">View Task</th>
               </tr>
@@ -130,7 +129,6 @@ const AddTaskTable = ({ subRole }) => {
                   <td className="px-4 py-2">{user?.name}</td>
                   <td className="px-4 py-2">{user?.coins || 0} </td>
                   <td className="px-4 py-2">{user?.level || 0} </td>
-                  <td className="px-4 py-2">0</td>
                   <td className="px-4 py-2">
                     <button
                       onClick={() => showAddModal(user)}

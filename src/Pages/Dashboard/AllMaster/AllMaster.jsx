@@ -1,20 +1,15 @@
-import { message } from "antd";
+import { Form, Input, message, Modal } from "antd";
 import { useEffect, useState } from "react";
 import { FaRegEdit, FaTrashAlt } from "react-icons/fa";
 import Swal from "sweetalert2";
 
 const AllMaster = () => {
+  const [form] = Form.useForm();
   const [users, setUsers] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [usersPerPage] = useState(12);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedUser, setSelectedUser] = useState(null);
-  const [formData, setFormData] = useState({
-    name: "",
-    phone: "",
-    location: "",
-    role: "",
-  });
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
@@ -93,18 +88,11 @@ const AllMaster = () => {
     });
   };
 
-  const handleOpenModal = (user) => {
-    setSelectedUser(user);
-    setFormData({
-      name: user.name,
-      phone: user.phone,
-      code: user.code,
-    });
-    setIsModalOpen(true);
-  };
-
-  const handleUpdate = () => {
+  const onFinish = () => {
     const token = localStorage.getItem("token");
+
+    const formData = form.getFieldsValue();
+
     fetch(`http://localhost:5000/specific-users/${selectedUser._id}`, {
       method: "PUT",
       headers: {
@@ -119,7 +107,7 @@ const AllMaster = () => {
           message.success(result.message || "User updated successfully");
           reloadUsers();
           setIsModalOpen(false);
-          setFormData({ name: "", phone: "", code: "" });
+          form.resetFields();
         } else {
           message.error(result.message || "Failed to update user");
         }
@@ -129,8 +117,11 @@ const AllMaster = () => {
         message.error("An error occurred while updating the user.");
       });
   };
+  const handleCancel = () => {
+    setIsModalOpen(false);
+    form.resetFields();
+  };
 
-  //handle approved counter master status is approved
   const handleApprove = (user) => {
     Swal.fire({
       title: "Are you sure?",
@@ -226,8 +217,8 @@ const AllMaster = () => {
                 <th className="px-4 py-2">Sl No</th>
                 <th className="px-4 py-2">Name</th>
                 <th className="px-4 py-2">Phone Number</th>
+                <th className="px-4 py-2">Balance</th>
                 <th className="px-4 py-2">Coin</th>
-                <th className="px-4 py-2">Reference</th>
                 <th className="px-4 py-2">Select Role</th>
                 <th className="px-4 py-2">Update</th>
                 <th className="px-4 py-2">Delete</th>
@@ -239,8 +230,8 @@ const AllMaster = () => {
                   <td className="px-4 py-2">{index + indexOfFirstUser + 1}</td>
                   <td className="px-4 py-2">{user.name}</td>
                   <td className="px-4 py-2">{user.phone}</td>
+                  <td className="px-4 py-2">{user.balance || 0}</td>
                   <td className="px-4 py-2">{user.coins || 0}</td>
-                  <td className="px-4 py-2">{user.code}</td>
                   <td className="px-4 py-2">
                     {user.status === "approved" ? (
                       <select
@@ -250,9 +241,6 @@ const AllMaster = () => {
                         defaultValue={user?.subRole}
                         className="rounded px-2 py-1 bg-[#78120D] text-white cursor-pointer"
                       >
-                        {/* <option value="" disabled>
-                          Select Role
-                        </option> */}
                         <option value="CEO">CEO</option>
                         <option value="Marketing Panel">Marketing Panel</option>
                         <option value="Marketing Executive">
@@ -281,7 +269,10 @@ const AllMaster = () => {
                   </td>
                   <td className="pl-8 py-2">
                     <button
-                      onClick={() => handleOpenModal(user)}
+                      onClick={() => {
+                        setSelectedUser(user);
+                        setIsModalOpen(true)
+                      }}
                       className="text-blue-600"
                     >
                       <FaRegEdit className="text-xl text-primary" />
@@ -308,11 +299,10 @@ const AllMaster = () => {
             <button
               key={index + 1}
               onClick={() => setCurrentPage(index + 1)}
-              className={`mx-1 px-3 py-1 rounded ${
-                currentPage === index + 1
-                  ? "bg-primary text-white"
-                  : "bg-gray-300 text-black"
-              }`}
+              className={`mx-1 px-3 py-1 rounded ${currentPage === index + 1
+                ? "bg-primary text-white"
+                : "bg-gray-300 text-black"
+                }`}
             >
               {index + 1}
             </button>
@@ -321,71 +311,70 @@ const AllMaster = () => {
       </div>
 
       {/* Modal for updating user */}
-      {isModalOpen && (
-        <div className="fixed inset-0 flex items-center justify-center z-50 bg-black bg-opacity-50">
-          <div className="bg-white p-6 rounded shadow-lg w-11/12 max-w-md">
-            <h3 className="text-lg font-bold mb-4">Update User</h3>
-            <form
-              onSubmit={(e) => {
-                e.preventDefault();
-                handleUpdate();
-              }}
-            >
-              <div className="mb-4">
-                <label className="block text-gray-700">Name</label>
-                <input
-                  type="text"
-                  value={formData.name}
-                  onChange={(e) =>
-                    setFormData({ ...formData, name: e.target.value })
-                  }
-                  className="border border-gray-300 rounded w-full px-2 py-1"
-                  required
+      <Modal
+        open={isModalOpen}
+        onCancel={handleCancel}
+        footer={null}
+        className="custom-modal"
+        bodyStyle={{
+          backgroundColor: "#78120D",
+          color: "white",
+        }}
+      >
+        <div>
+          <h2 className="heading2 mb-4 text-center">Update Sub Admin</h2>
+          <div
+            className="max-w-[1000px] task-form rounded-[16px] mx-auto my-4 md:my-8"
+            style={{ backdropFilter: "blur(30px)" }}
+          >
+            <Form layout="vertical" onFinish={onFinish} form={form}
+              initialValues={{
+                balance: selectedUser?.balance || 0,
+                coins: selectedUser?.coins,
+              }}>
+
+              <Form.Item
+                label="Balance:"
+                name="balance"
+                rules={[
+                  {
+                    required: true,
+                    message: "Please input Balance",
+                  },
+                ]}
+                className="text-white"
+              >
+                <Input
+                  placeholder="Input your Balance"
+                  className="p-2 md:p-3 lg:p-4 xl:p-5 bg-[#78120D] text-white border description focus:bg-[#78120D] hover:bg-[#78120D] focus:border-white hover:border-white placeholder-white"
                 />
-              </div>
-              <div className="mb-4">
-                <label className="block text-gray-700">Phone Number</label>
-                <input
-                  type="text"
-                  value={formData.phone}
-                  onChange={(e) =>
-                    setFormData({ ...formData, phone: e.target.value })
-                  }
-                  className="border border-gray-300 rounded w-full px-2 py-1"
-                  required
+              </Form.Item>
+              <Form.Item
+                label="Coin:"
+                name="coins"
+                rules={[
+                  {
+                    required: true,
+                    message: "Please input Coins",
+                  },
+                ]}
+                className="text-white"
+              >
+                <Input
+                  placeholder="Input your Coins"
+                  className="p-2 md:p-3 lg:p-4 xl:p-5 bg-[#78120D] text-white border description focus:bg-[#78120D] hover:bg-[#78120D] focus:border-white hover:border-white placeholder-white"
                 />
-              </div>
-              <div className="mb-4">
-                <label className="block text-gray-700">Reference</label>
-                <input
-                  type="text"
-                  value={formData.code}
-                  onChange={(e) =>
-                    setFormData({ ...formData, code: e.target.value })
-                  }
-                  className="border border-gray-300 rounded w-full px-2 py-1"
-                  required
-                />
-              </div>
-              <div className="flex justify-end">
-                <button
-                  type="button"
-                  onClick={() => setIsModalOpen(false)}
-                  className="px-4 py-2 bg-gray-400 text-white rounded mr-2"
-                >
-                  Cancel
-                </button>
-                <button
-                  type="submit"
-                  className="px-4 py-2 bg-blue-600 text-white rounded"
-                >
-                  Update
-                </button>
-              </div>
-            </form>
+              </Form.Item>
+              <button
+                type="submit"
+                className="common-button w-full !mt-5 !rounded-md"
+              >
+                Update
+              </button>
+            </Form>
           </div>
         </div>
-      )}
+      </Modal>
     </>
   );
 };

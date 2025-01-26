@@ -1,27 +1,66 @@
-import { message } from "antd";
+import { Form, Input, message, Modal } from "antd";
 import { useEffect, useState } from "react";
-import { FaTrashAlt } from "react-icons/fa";
+import { FaRegEdit, FaTrashAlt } from "react-icons/fa";
 import Swal from "sweetalert2";
 
 const AllUsers = () => {
   const [users, setUsers] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [usersPerPage] = useState(12);
+  const [selectedUser, setSelectedUser] = useState(null);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [form] = Form.useForm();
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     fetchUsers();
   }, []);
 
-  const fetchUsers = () => {
+  const fetchUsers = async () => {
+    setLoading(true);
+    try {
+      const response = await fetch(`http://localhost:5000/users`);
+      const data = await response.json();
+      setUsers(data);
+    } catch (error) {
+      console.error("Error fetching users:", error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  // update users 
+  const onFinish = () => {
     const token = localStorage.getItem("token");
-    fetch("http://localhost:5000/users", {
+    const formData = form.getFieldsValue();
+    fetch(`http://localhost:5000/specific-users/${selectedUser._id}`, {
+      method: "PUT",
       headers: {
+        "Content-Type": "application/json",
         Authorization: `Bearer ${token}`,
       },
+      body: JSON.stringify(formData),
     })
       .then((response) => response.json())
-      .then((data) => setUsers(data))
-      .catch((error) => console.error("Error fetching users:", error));
+      .then((result) => {
+        if (result.success) {
+          message.success(result.message || "User updated successfully");
+          fetchUsers();
+          setIsModalOpen(false);
+          form.resetFields();
+        } else {
+          message.error(result.message || "Failed to update user");
+        }
+      })
+      .catch((error) => {
+        console.error("Error updating user:", error);
+        message.error("An error occurred while updating the user.");
+      });
+  };
+
+  const handleCancel = () => {
+    setIsModalOpen(false);
+    form.resetFields();
   };
 
   // Handle user deletion
@@ -89,6 +128,7 @@ const AllUsers = () => {
                 <th className="px-4 py-2">Phone Number</th>
                 <th className="px-4 py-2">Sub Admin</th>
                 <th className="px-4 py-2">Coin</th>
+                <th className="px-4 py-2">Update</th>
                 <th className="px-4 py-2">Delete</th>
               </tr>
             </thead>
@@ -104,6 +144,17 @@ const AllUsers = () => {
                       : "NA"}
                   </td>
                   <td className="px-4 py-2">{user?.coins || "0"}</td>
+                  <td className="px-4 py-2">
+                    <button
+                      onClick={() => {
+                        setSelectedUser(user);
+                        setIsModalOpen(true)
+                      }}
+                      className="text-blue-600"
+                    >
+                      <FaRegEdit className="text-xl text-primary" />
+                    </button>
+                  </td>
 
                   <td className="px-4 py-2">
                     <button
@@ -125,17 +176,62 @@ const AllUsers = () => {
             <button
               key={index + 1}
               onClick={() => setCurrentPage(index + 1)}
-              className={`mx-1 px-3 py-1 rounded ${
-                currentPage === index + 1
-                  ? "bg-primary text-white"
-                  : "bg-gray-300 text-black"
-              }`}
+              className={`mx-1 px-3 py-1 rounded ${currentPage === index + 1
+                ? "bg-primary text-white"
+                : "bg-gray-300 text-black"
+                }`}
             >
               {index + 1}
             </button>
           ))}
         </div>
       </div>
+      <Modal
+        open={isModalOpen}
+        onCancel={handleCancel}
+        footer={null}
+        className="custom-modal"
+        bodyStyle={{
+          backgroundColor: "#78120D",
+          color: "white",
+        }}
+      >
+        <div>
+          <h2 className="heading2 mb-4 text-center">Update Users</h2>
+          <div
+            className="max-w-[1000px] task-form rounded-[16px] mx-auto my-4 md:my-8"
+            style={{ backdropFilter: "blur(30px)" }}
+          >
+            <Form layout="vertical" onFinish={onFinish} form={form}
+              initialValues={{
+                coins: selectedUser?.coins,
+              }}>
+              <Form.Item
+                label="Coin:"
+                name="coins"
+                rules={[
+                  {
+                    required: true,
+                    message: "Please input Coins",
+                  },
+                ]}
+                className="text-white"
+              >
+                <Input
+                  placeholder="Input your Coins"
+                  className="p-2 md:p-3 lg:p-4 xl:p-5 bg-[#78120D] text-white border description focus:bg-[#78120D] hover:bg-[#78120D] focus:border-white hover:border-white placeholder-white"
+                />
+              </Form.Item>
+              <button
+                type="submit"
+                className="common-button w-full !mt-5 !rounded-md"
+              >
+                Update
+              </button>
+            </Form>
+          </div>
+        </div>
+      </Modal>
     </>
   );
 };

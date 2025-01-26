@@ -11,6 +11,8 @@ import {
 } from "chart.js";
 import GetUser from "../../../Backend/GetUser";
 import { useEffect, useState } from "react";
+import axios from "axios";
+import moment from "moment";
 
 ChartJS.register(
   LineElement,
@@ -24,24 +26,53 @@ ChartJS.register(
 
 const InvestoryNote = () => {
   const [currentUser, setCurrentUser] = useState(null);
+  const [orders, setOrders] = useState([]);
   const user = GetUser();
+
   useEffect(() => {
     setCurrentUser(user);
   }, [user]);
-  
-  const statistics = [
-    { title: `$${currentUser?.balance || 0}`, subtitle: "Revenue" },
-    { title: `$${currentUser?.sales || 0}`, subtitle: "Sales" },
-    { title: "Canva Pro", subtitle: "Most sold" },
-    { title: `$${currentUser?.visitCount || 0}`, subtitle: "Website traffic" },
-  ];
+
+  useEffect(() => {
+    const fetchOrders = async () => {
+      try {
+        const token = localStorage.getItem("token");
+        const response = await axios.get("http://localhost:5000/orders", {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
+        setOrders(response.data);
+      } catch (err) {
+        console.error("Failed to fetch orders", err);
+      }
+    };
+
+    fetchOrders();
+  }, []);
+
+  const sales = orders.filter(
+    (order) => order?.subAdminId === currentUser?._id && order?.status === "paid"
+  );
+  console.log("🚀 ~ InvestoryNote ~ sales:", sales)
+
+  // Generate sales data grouped by month
+  const salesByMonth = sales.reduce((acc, sale) => {
+    const month = moment(sale.createdAt).format("MMM");
+    acc[month] = (acc[month] || 0) + sale.amount;
+    return acc;
+  }, {});
+
+  // Prepare chart labels and data
+  const labels = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+  const chartData = labels.map((month) => salesByMonth[month] || 0);
 
   const data = {
-    labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul"],
+    labels,
     datasets: [
       {
         label: "Sales Activities",
-        data: [30000, 45000, 32000, 50000, 42000, 60000, 70000],
+        data: chartData,
         borderColor: "#FF5C2C",
         backgroundColor: "rgba(255, 92, 44, 0.3)",
         pointBackgroundColor: "#FF5C2C",
@@ -81,15 +112,20 @@ const InvestoryNote = () => {
     },
   };
 
+  const statistics = [
+    { title: `$${currentUser?.balance || 0}`, subtitle: "Revenue" },
+    { title: `${sales?.length || 0} course`, subtitle: "Sales" },
+    { title: "Canvas Pro", subtitle: "Most sold" },
+    { title: `$${currentUser?.visitCount || 0}`, subtitle: "Website traffic" },
+  ];
+
   return (
     <div className="bg-[rgba(35,7,19,0.30)] mt-14">
       <div className="max-w-[1320px] mx-auto">
-        <div className=" text-white">
+        <div className="text-white">
           <h1 className="heading">Affirmation note</h1>
           <p className="max-w-[900px] heading2">
-            From buying premium apps and shopping in our exclusive store to
-            exchanging dollars securely and recharging your mobile, every action
-            you take brings rewards.
+            From buying premium apps and shopping in our exclusive store to exchanging dollars securely and recharging your mobile, every action you take brings rewards.
           </p>
           <div className="bg-[#78120D] max-w-[310px] mx-auto text-center py-6 px-4 rounded-lg font-semibold hover:bg-red-800 my-14">
             <p className="text-[#B0B0B0] text-14px font-roboto">Low</p>
@@ -111,16 +147,9 @@ const InvestoryNote = () => {
         </div>
 
         <div className="bg-[#78120D] mt-10 p-6 rounded-lg text-white shadow-md">
-          <div className="flex justify-between items-center mb-4">
-            <h3 className="text-[#B0B0B0] text-14px font-roboto">
-              Sales activities
-            </h3>
-            <select className="bg-[#20010D] text-white py-1 px-3 rounded-md">
-              <option>Monthly</option>
-              <option>Weekly</option>
-              <option>Daily</option>
-            </select>
-          </div>
+          <h3 className="text-[#B0B0B0] text-14px font-roboto mb-4">
+            Sales activities
+          </h3>
           <div className="h-64">
             <Line data={data} options={options} />
           </div>

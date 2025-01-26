@@ -3,7 +3,6 @@ import GetUser from "../../Backend/GetUser";
 import { useNavigate } from "react-router-dom";
 
 const AxisPoint = () => {
-  const navigate = useNavigate();
   const [currentUser, setCurrentUser] = useState(null);
   const [users, setUsers] = useState([]);
   const user = GetUser();
@@ -27,10 +26,7 @@ const AxisPoint = () => {
   };
 
   
-  const selectedUsers =
-    currentUser?.role === "student"
-      ? users.filter((user) => user.role === "student")
-      : users.filter((user) => user.subRole === currentUser?.subRole);
+  const selectedUsers = users.filter((user) => user.subAdmin === currentUser?._id);
 
   return (
     <div className="bg-[url('/src/assets/service/premium.png')] bg-cover bg-center text-white pt-10 py-60 px-5">

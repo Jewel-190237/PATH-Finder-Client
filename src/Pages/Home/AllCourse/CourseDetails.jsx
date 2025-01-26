@@ -18,7 +18,8 @@ const CourseDetails = () => {
           {
             amount: course?.course_price || 50,
             userId: currentUser?._id,
-            courseId: course?._id
+            courseId: course?._id,
+            subAdminId: currentUser?.subAdmin,
           },
           { withCredentials: true }
         );

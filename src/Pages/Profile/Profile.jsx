@@ -1,21 +1,11 @@
 import { useEffect, useState } from "react";
 import { Progress, Slider, Space } from "antd";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import GetUser from "../../Backend/GetUser";
 const Profile = () => {
   const [salaryPercent, setSalaryPercent] = useState(50);
   const [taskPercent, setTaskPercent] = useState(70);
   const [skillPercent, setSkillPercent] = useState(30);
-  const data = [
-    { id: 1, name: "Omar Saris", amount: "35469 $" },
-    { id: 2, name: "Omar Saris", amount: "35469 $" },
-    { id: 3, name: "Omar Saris", amount: "35469 $" },
-    { id: 4, name: "Marley Septimus", amount: "35469 $" },
-    { id: 5, name: "Talan Donin", amount: "35469 $" },
-    { id: 6, name: "Cheyenne Kenter", amount: "35469 $" },
-    { id: 7, name: "Tiana Baptista", amount: "35469 $" },
-  ];
-
   const [currentUser, setCurrentUser] = useState(null);
   const [users, setUsers] = useState([]);
   const user = GetUser();
@@ -36,10 +26,7 @@ const Profile = () => {
       .catch((error) => console.error("Error fetching users:", error));
   };
 
-  const selectedUsers =
-    currentUser?.role === "student"
-      ? users.filter((user) => user.role === "student")
-      : users.filter((user) => user.subRole === currentUser?.subRole);
+  const selectedUsers = users.filter((user) => user.subAdmin === currentUser?._id);
 
   return (
     <div
@@ -75,42 +62,46 @@ const Profile = () => {
             </div>
           </div>
           <div className="text-white flex-1 text-left ml-5">
-            <p className="text-lg font-semibold">Coins: {currentUser?.coins}</p>
+            <p className="text-lg font-semibold">Coins: {currentUser?.coins || 0}</p>
           </div>
           <div className="text-white flex-1 text-right mr-5">
-            <p className="text-lg font-semibold">Level : {currentUser?.level}</p>
+            <p className="text-lg font-semibold">Level : {currentUser?.level || 0}</p>
           </div>
         </div>
         <div className="mt-5 text-white ml-auto">
           <p className="font-bold">Name : {currentUser?.name}</p>
           <p>ID : {currentUser?._id.slice(0, 5)}</p>
         </div>
-        <div className="flex flex-wrap justify-between gap-5 mt-10 mb-20 w-full">
-          <div className="bg-[#78120D] text-white p-3 shadow-md w-64 rounded-[12px]">
-            <p className="text-lg font-bold text-[#B0B0B0]">Profit</p>
-            <p className="text-sm">{currentUser?.balance || 0}</p>
-          </div>
-          <p className="text-[#F38122] hidden xl:flex items-center">
-            ------------------------------------
-          </p>
-          <Link to="/axisPoint">
-            <div className="w-64 p-3 bg-[#78120D] text-white shadow-md rounded-[12px] cursor-pointer">
-              <p className="text-[#B0B0B0] text-lg font-bold">
-                Junior Employee
+        {
+          currentUser?.role !== "student" && (
+            <div className="flex flex-wrap justify-between gap-5 mt-10 mb-20 w-full">
+              <div className="bg-[#78120D] text-white p-3 shadow-md w-64 rounded-[12px]">
+                <p className="text-lg font-bold text-[#B0B0B0]">Profit</p>
+                <p className="text-sm">{currentUser?.balance || 0}</p>
+              </div>
+              <p className="text-[#F38122] hidden xl:flex items-center">
+                ------------------------------------
               </p>
-              <p className="text-sm">{selectedUsers.length}</p>
+              <Link to="/axisPoint">
+                <div className="w-64 p-3 bg-[#78120D] text-white shadow-md rounded-[12px] cursor-pointer">
+                  <p className="text-[#B0B0B0] text-lg font-bold">
+                    Junior Employee
+                  </p>
+                  <p className="text-sm">{selectedUsers.length}</p>
+                </div>
+              </Link>
+              <p className="text-[#F38122] hidden xl:flex items-center">
+                ------------------------------------
+              </p>
+              <Link to="/team">
+                <div className="bg-[#78120D] text-white  p-3 shadow-md w-64 rounded-[12px]">
+                  <p className="text-lg font-bold text-[#B0B0B0]">Axis Point</p>
+                  <p className="text-sm">06</p>
+                </div>
+              </Link>
             </div>
-          </Link>
-          <p className="text-[#F38122] hidden xl:flex items-center">
-            ------------------------------------
-          </p>
-          <Link to="/team">
-            <div className="bg-[#78120D] text-white  p-3 shadow-md w-64 rounded-[12px]">
-              <p className="text-lg font-bold text-[#B0B0B0]">Axis Point</p>
-              <p className="text-sm">06</p>
-            </div>
-          </Link>
-        </div>
+          )
+        }
       </div>
 
       <div className=" pt-14 md:pt-[80px] lg:pt-[100px] xl:pt-[120px] flex flex-col lg:flex-row w-full gap-6">

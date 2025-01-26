@@ -26,12 +26,13 @@ const SignUp = () => {
   };
   const [param] = useSearchParams();
   const referenceCode = param?.get("reference");
+  console.log("🚀 ~ SignUp ~ referenceCode:", referenceCode)
 
   const onFinish = async (value) => {
     try {
       const fetchedUsers = await fetchUsers();
       const matchingUser = fetchedUsers.find(
-        (user) => user.code === value.code
+        (user) => user.code === referenceCode
       );
 
       const newUser = {
@@ -39,9 +40,10 @@ const SignUp = () => {
         phone: value.phone,
         role: activeRole,
         password: value.password,
-        code: referenceCode || 0,
         subAdmin: matchingUser ? matchingUser._id : null,
       };
+
+      console.log("New User:", newUser);
       const response = await axiosSecurePublic.post("/users", newUser);
 
       if (response.status === 200) {
