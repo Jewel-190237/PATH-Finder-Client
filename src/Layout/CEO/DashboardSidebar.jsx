@@ -31,6 +31,11 @@ export default function DashboardSidebar() {
           label: "Students",
           icon: FaUserGraduate,
         },
+        {
+          to: "/CEODashboard/posts",
+          label: "Posts",
+          icon: FaUserGraduate,
+        },
         { to: "/", label: "Home", icon: FaHome },
       ],
     },

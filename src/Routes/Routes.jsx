@@ -69,6 +69,7 @@ import Post from "../Pages/Student/Post";
 import AdminPost from "../Pages/Dashboard/AdminDashboard/AdminPost";
 import MarketingPost from "../Pages/HeadOfMarketing/MarketingPost";
 import AllFaq from "../Pages/FAQ/AllFaq";
+import CEOPost from "../Pages/CEO/CEOPost";
 // import AllFaq from "../Pages/FAQ/AllFaq";
 
 export const router = createBrowserRouter([
@@ -245,6 +246,10 @@ export const router = createBrowserRouter([
       {
         path: "profile",
         element: <EditProfile />,
+      },
+      {
+        path: "posts",
+        element: <CEOPost />,
       },
     ],
   },
