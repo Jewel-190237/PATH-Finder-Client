@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import planImage from "../../assets/plan/plan.png";
 import person from "../../assets/person.png";
 import { HiOutlineCalendar } from "react-icons/hi";
@@ -67,7 +67,7 @@ const Forum = () => {
     const content = activeTab === "Feed" ? posts : announcements;
 
     return content.map((item, index) => (
-      <div key={index} className="mt-4 md:mt-6 lg:mt-7 xl:mt-[34px] text-white">
+      <div key={index} className="mt-4 md:mt-6 lg:mt-7 xl:mt-[34px]  text-white">
         <div className="bg-[#F6170C] rounded lg:gap-4 p-3 md:p-4 lg:p-5 xl:p-6">
           <div className="flex items-center gap-3">
             <img
@@ -91,10 +91,10 @@ const Forum = () => {
 
   return (
     <div
-      className="bg-cover bg-center relative"
+      className="bg-cover bg-center relative pb-48"
       style={{ backgroundImage: `url(${planImage})` }}
     >
-      <div className="path-container text-white py-14 md:py-[80px] lg:py-[100px] xl:py-[120px]">
+      <div className="path-container text-white py-14 md:py-[80px] lg:py-[100px] xl:pt-[120px] ">
         <h1 className="heading text-center">
           Join the Conversation: Connect, <br /> Share, and Grow!
         </h1>

@@ -135,6 +135,7 @@ const AllCourses = () => {
       formData.append("description", values.description);
       formData.append("thumbnail_image", imageFile);
       formData.append("course_price", parseFloat(values.course_price));
+      formData.append("course_discount", parseFloat(values.course_discount));
       formData.append("videos", JSON.stringify(videos)); // Add videos as a JSON string
 
       const token = localStorage.getItem("token");
@@ -181,6 +182,8 @@ const AllCourses = () => {
       formData.append("_id", values._id);
       formData.append("course_name", values.course_name || "");
       formData.append("description", values.description || "");
+  
+      // Append image only if a new image is selected
       if (imageFile) {
         formData.append("thumbnail_image", imageFile);
       }
@@ -260,6 +263,7 @@ const AllCourses = () => {
                 <th className="px-4 py-2">Name</th>
                 <th className="px-4 py-2">Description</th>
                 <th className="px-4 py-2">Price</th>
+                <th className="px-4 py-2">Discount</th> 
                 <th className="px-4 py-2">Update</th>
                 <th className="px-4 py-2">Delete</th>
               </tr>
@@ -274,6 +278,7 @@ const AllCourses = () => {
                   <td className="px-4 py-2">{course?.course_name}</td>
                   <td className="px-4 py-2">{course?.description}</td>
                   <td className="px-4 py-2">{course?.course_price}</td>
+                  <td className="px-4 py-2">{course?.course_discount? `${course.course_discount}%` : "0%"}</td>
 
                   <td className="pl-8 py-2">
                     <button
@@ -365,7 +370,18 @@ const AllCourses = () => {
                     className="p-2 md:p-3 lg:p-4 xl:p-5 bg-[#78120D] text-white border description focus:bg-[#78120D] hover:bg-[#78120D] focus:border-white hover:border-white placeholder-white"
                   />
                 </Form.Item>
-
+                <Form.Item
+                  label="Course Discount:"
+                  name="course_discount"
+                  required
+                  className="text-white"
+                >
+                  <Input
+                    placeholder="discount eg. 5%"
+                    type="text"
+                    className="p-2 md:p-3 lg:p-4 xl:p-5 bg-[#78120D] text-white border description focus:bg-[#78120D] hover:bg-[#78120D] focus:border-white hover:border-white placeholder-white"
+                  />
+                </Form.Item>
                 <Form.Item
                   label="Course Description:"
                   name="description"
@@ -471,10 +487,11 @@ const AllCourses = () => {
                   _id: selectedCourse._id,
                   course_name: selectedCourse.course_name,
                   course_price: selectedCourse.course_price,
+                  course_discount: selectedCourse.course_discount,
                   description: selectedCourse.description,
                   video: selectedCourse.video,
 
-                }} // Pre-fill with selected course data
+                }} 
               >
                 <Form.Item name="_id" label="Course ID:" className="text-white" hidden>
                   <Input
@@ -505,6 +522,18 @@ const AllCourses = () => {
                 >
                   <Input
                     placeholder="Input Task Coin"
+                    type="text"
+                    className="p-2 md:p-3 lg:p-4 xl:p-5 bg-[#78120D] text-white border description focus:bg-[#78120D] hover:bg-[#78120D] focus:border-white hover:border-white placeholder-white"
+                  />
+                </Form.Item>
+                <Form.Item
+                  label="Task Coin:"
+                  name="course_dicount"
+                  required
+                  className="text-white"
+                >
+                  <Input
+                    placeholder="discount eg. 5%"
                     type="text"
                     className="p-2 md:p-3 lg:p-4 xl:p-5 bg-[#78120D] text-white border description focus:bg-[#78120D] hover:bg-[#78120D] focus:border-white hover:border-white placeholder-white"
                   />

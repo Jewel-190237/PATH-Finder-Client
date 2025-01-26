@@ -1,6 +1,5 @@
 import { Outlet, useNavigate } from "react-router-dom";
 import DashboardSidebar from "./DashboardSidebar";
-import DashboardHeader from "../DashboardHeader";
 import VirtualAssistantDashboardHeader from "./VirtualAssistantDashboardHeader";
 import { useEffect, useState } from "react";
 import GetUser from "../../Backend/GetUser";
@@ -27,7 +26,7 @@ const VirtualAssistantDashboard = () => {
     return <div>Loading...</div>;
   }
   return (
-    <div className="flex h-screen w-full">
+    <div className="flex h-screen w-full  bg-[#20010D] overflow-y-auto">
       <div className="bg-[#78120D] flex-shrink-0">
         <DashboardSidebar />
       </div>

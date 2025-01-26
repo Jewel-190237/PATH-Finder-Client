@@ -57,7 +57,7 @@ const ExplorePics = () => {
                             <img
                                 src={course?.thumbnail_image || '/src/assets/explorePics/3.png'}
                                 alt={course?.course_name}
-                                className="w-full h-48 object-cover"
+                                className="w-full h-48 object-fill"
                             />
                             <div className="p-4 text-center bg-[#20010D]">
                                 <div className="flex justify-between">
