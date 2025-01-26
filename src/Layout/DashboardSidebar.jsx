@@ -1,6 +1,6 @@
 import { useState, useRef, useEffect } from "react";
-import { FaHome, FaBars, FaTimes, FaUserGraduate } from "react-icons/fa";
-import { FaUsers} from "react-icons/fa6";
+import { FaBars, FaTimes, FaUserGraduate } from "react-icons/fa";
+import { FaUsers } from "react-icons/fa6";
 import { MdDashboard, MdOutlineControlCamera } from "react-icons/md";
 import { useLocation } from "react-router-dom";
 import logo from "../assets/logo2.png";
@@ -15,15 +15,14 @@ export default function DashboardSidebar() {
       navTitle: "General",
       link: [
         { to: "/dashboard/adminHome", label: "Overview", icon: MdDashboard },
-        { to: "/", label: "Home", icon: FaHome },
-        { to: "/dashboard/users", label: "Students", icon: FaUserGraduate },
-        { to: "/dashboard/subAdmin", label: "Sub Admins", icon: FaUsers },
-        { to: "/dashboard/courses", label: "All Courses", icon: PiBookDuotone },
         {
           to: "/dashboard/adminDashboard",
           label: "Dashboard",
           icon: RxDashboard,
         },
+        { to: "/dashboard/users", label: "Students", icon: FaUserGraduate },
+        { to: "/dashboard/subAdmin", label: "Sub Admins", icon: FaUsers },
+        { to: "/dashboard/courses", label: "All Courses", icon: PiBookDuotone },
         {
           to: "/dashboard/controlPanel",
           label: "Control Panel",
@@ -44,7 +43,7 @@ export default function DashboardSidebar() {
           label: "Posts",
           icon: GrAnnounce,
         },
-     
+
       ],
     },
 
@@ -54,7 +53,6 @@ export default function DashboardSidebar() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const sidebarRef = useRef(null);
 
-  // Determine the active item based on the current URL
   const activePath = location.pathname;
   const activeItem = navItems
     .flatMap((section) => section.link)
@@ -79,9 +77,8 @@ export default function DashboardSidebar() {
         {/* Sidebar for small and medium devices */}
         <div
           ref={sidebarRef}
-          className={`bg-[#78120D] rounded-xl p-4 ${
-            isMenuOpen ? "block absolute top-0 left-0 z-50" : "hidden"
-          } block lg:hidden`}
+          className={`bg-[#78120D] rounded-xl p-4 ${isMenuOpen ? "block absolute top-0 left-0 z-50" : "hidden"
+            } block lg:hidden`}
         >
           <ul className="mt-14">
             <div className="bg-[#78120D] p-4 rounded-xl mb-6">
@@ -102,11 +99,10 @@ export default function DashboardSidebar() {
                   <li key={index} className="p-1 ml-5">
                     <Link to={item.to}>
                       <div
-                        className={`flex items-center  space-x-2 p-1 hover:bg-[#FCBB5833] hover:text-white rounded duration-300 ${
-                          activeItem === item.label
+                        className={`flex items-center  space-x-2 p-1 hover:bg-[#FCBB5833] hover:text-white rounded duration-300 ${activeItem === item.label
                             ? "bg-[#FCBB5833] text-white border"
                             : ""
-                        }`}
+                          }`}
                       >
                         <item.icon className="text-sm" />
                         <span className="text-sm !font-medium font-roboto">
@@ -135,11 +131,10 @@ export default function DashboardSidebar() {
                     <li key={index} className="py-2 uppercase">
                       <Link to={item.to}>
                         <div
-                          className={`flex items-center space-x-3 px-10 py-4 hover:bg-[#FCBB5833] hover:text-white duration-300 ${
-                            activeItem === item.label
+                          className={`flex items-center space-x-3 px-10 py-4 hover:bg-[#FCBB5833] hover:text-white duration-300 ${activeItem === item.label
                               ? "bg-[#FCBB5833] text-white"
                               : ""
-                          }`}
+                            }`}
                         >
                           <item.icon className="text-xl" />
                           <span className="description font-roboto">

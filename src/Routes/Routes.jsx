@@ -172,6 +172,10 @@ export const router = createBrowserRouter([
         element: <AdminHome />,
       },
       {
+        path: "adminDashboard",
+        element: <AdminDashboard />,
+      },
+      {
         path: "users",
         element: <AllUsers />,
       },
@@ -182,11 +186,6 @@ export const router = createBrowserRouter([
       {
         path: "courses",
         element: <AllCourses />,
-      },
-   
-      {
-        path: "adminDashboard",
-        element: <AdminDashboard />,
       },
       {
         path: "controlPanel",

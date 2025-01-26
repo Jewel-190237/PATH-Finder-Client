@@ -8,21 +8,8 @@ import {
   ResponsiveContainer,
 } from "recharts";
 
-const data = [
-  { day: "S", percentage: 7 },
-  { day: "M", percentage: 11 },
-  { day: "T", percentage: 14 },
-  { day: "W", percentage: 21 },
-  { day: "T", percentage: 23 },
-  { day: "F", percentage: 5 },
-  { day: "S", percentage: 15 },
-];
-
-// Custom X-Axis Tick Renderer
-const CustomXAxisTick = ({ x, y, payload }) => {
+const CustomXAxisTick = ({ x, y, payload, data }) => {
   const { value } = payload;
-
-  // Find the corresponding percentage from the data
   const matchingData = data[payload.index];
 
   return (
@@ -51,7 +38,7 @@ const CustomXAxisTick = ({ x, y, payload }) => {
   );
 };
 
-const RevenueChart = ({title, revenue}) => {
+const RevenueChart = ({ title, revenue, data }) => {
   return (
     <div
       style={{
@@ -59,7 +46,6 @@ const RevenueChart = ({title, revenue}) => {
         color: "white",
         padding: "20px",
         borderRadius: "10px",
-        // width: "420px",
       }}
     >
       <div className="flex justify-between">
@@ -67,26 +53,14 @@ const RevenueChart = ({title, revenue}) => {
           <h3 className="description text-[#B0B0B0]">{title}</h3>
           <h1 className="font-bold heading2">{revenue}</h1>
         </div>
-        <div style={{ marginTop: "10px" }}>
-          <select
-            style={{
-              backgroundColor: "#3d0000",
-              color: "white",
-              padding: "5px",
-              borderRadius: "5px",
-              border: "none",
-            }}
-          >
-            <option>Today</option>
-            <option>This Week</option>
-            <option>This Month</option>
-          </select>
-        </div>
       </div>
       <ResponsiveContainer width="100%" height={200}>
         <BarChart data={data} margin={{ top: 20, right: 0, left: 0, bottom: 10 }}>
-          <XAxis dataKey="day" stroke="#fff" tick={<CustomXAxisTick />} />
-          {/* <YAxis stroke="#fff" /> */}
+          <XAxis
+            dataKey="day"
+            stroke="#fff"
+            tick={<CustomXAxisTick data={data} />}
+          />
           <Tooltip cursor={{ fill: "rgba(255, 255, 255, 0.2)" }} />
           <Bar dataKey="percentage" fill="#fcb85f" radius={[10, 10, 0, 0]} />
         </BarChart>

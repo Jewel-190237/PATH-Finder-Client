@@ -1,66 +1,131 @@
+import axios from "axios";
+import { p } from "framer-motion/client";
 import { useEffect, useState } from "react";
 import { FaUsers } from "react-icons/fa";
-import { FaBookAtlas } from "react-icons/fa6";
+import { FaBookAtlas, FaMoneyBillTrendUp } from "react-icons/fa6";
 import { GiClick, GiPoliceOfficerHead } from "react-icons/gi";
+import { GrAnnounce } from "react-icons/gr";
 import { MdShoppingCart } from "react-icons/md";
 import { PiStudentDuotone } from "react-icons/pi";
+import { SiPolymerproject } from "react-icons/si";
 import { TbCoinTaka } from "react-icons/tb";
-import { TfiCommentAlt } from "react-icons/tfi";
 
 const AdminHome = () => {
   const [totalUsers, setTotalUsers] = useState(0);
   const [mastersCount, setMastersCount] = useState(0);
-  const [normalUsersCount, setNormalUsersCount] = useState(0);
-  const [totalBuses, setTotalBuses] = useState(0);
+  const [course, setCourse] = useState(0);
+  const [order, setOrder] = useState(0);
+  const [announcements, setAnnouncements] = useState(0);
+  const [projects, setProjects] = useState(0);
 
-  useEffect(() => {
-    const token = localStorage.getItem("token"); // Assuming you have token stored in localStorage
-    fetch("http://localhost:5000/users", {
-      headers: {
-        Authorization: `Bearer ${token}`, // Include token in headers
-      },
-    })
-      .then((response) => {
-        if (!response.ok) {
-          // Handle unauthorized access
-          throw new Error("Failed to fetch users");
-        }
-        return response.json();
-      })
-      .then((data) => {
-        console.log(data);
-        const allUsers = data.length;
-        const masters = data.filter((user) => user.role === "subAdmin").length;
-        const normalUsers = data.filter(
-          (user) => user.role === "student"
-        ).length;
-
-        setTotalUsers(allUsers);
-        setMastersCount(masters);
-        setNormalUsersCount(normalUsers);
-      })
-      .catch((error) => console.error("Error fetching users:", error));
-  }, []);
-
-  // Fetch total buses
   useEffect(() => {
     const token = localStorage.getItem("token");
-    fetch("http://localhost:5000/buses", {
+    fetch("http://localhost:5000/users", {
       headers: {
         Authorization: `Bearer ${token}`,
       },
     })
       .then((response) => {
         if (!response.ok) {
-          throw new Error("Failed to fetch buses");
+          throw new Error("Failed to fetch users");
         }
         return response.json();
       })
       .then((data) => {
-        setTotalBuses(data.length);
+        const allUsers = data.length;
+        const masters = data.filter((user) => user.role === "subAdmin").length;
+        setTotalUsers(allUsers);
+        setMastersCount(masters);
+
       })
-      .catch((error) => console.error("Error fetching buses:", error));
+      .catch((error) => console.error("Error fetching users:", error));
   }, []);
+
+  useEffect(() => {
+    const fetchCourses = async () => {
+      try {
+        const response = await axios.get("http://localhost:5000/courses");
+        setCourse(response.data);
+      } catch (err) {
+        console.error(err);
+      }
+    };
+    fetchCourses();
+  }, []);
+
+  //get all orders
+  useEffect(() => {
+    const fetchOrders = async () => {
+      const token = localStorage.getItem("token");
+      try {
+        const response = await axios.get("http://localhost:5000/orders", {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
+        setOrder(response.data);
+      } catch (err) {
+        console.error(err);
+      }
+    };
+    fetchOrders();
+  }, []);
+
+  //  get all announcement 
+  useEffect(() => {
+    const fetchOrders = async () => {
+      const token = localStorage.getItem("token");
+      try {
+        const response = await axios.get("http://localhost:5000/all-announcement", {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
+        setAnnouncements(response.data);
+      } catch (err) {
+        console.error(err);
+      }
+    };
+    fetchOrders();
+  }, []);
+
+  //get all projects
+  useEffect(() => {
+    const fetchOrders = async () => {
+      const token = localStorage.getItem("token");
+      try {
+        const response = await axios.get("http://localhost:5000/all-project", {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
+        setProjects(response.data);
+      } catch (err) {
+        console.error(err);
+      }
+    };
+    fetchOrders();
+  }, []);
+
+
+  const soldOrder = Array.isArray(order)
+    ? order.filter((order) => order.status === "paid").length
+    : 0;
+  const totalSales = Array.isArray(order)
+    ? order.reduce((acc, order) => acc + order.amount, 0)
+    : 0;
+
+  const uniqueOrders = Array.from(
+    Array.isArray(order)
+      ? order.reduce((map, orderItem) => {
+        if (!map.has(orderItem.userId)) {
+          map.set(orderItem.userId, orderItem);
+        }
+        return map;
+      }, new Map())
+      : new Map()
+        .values()
+  );
 
   const dashboardItems = [
     {
@@ -75,39 +140,38 @@ const AdminHome = () => {
     },
     {
       icon: FaBookAtlas,
-      count: normalUsersCount,
+      count: course?.length,
       text: "Total Courses",
     },
     {
-      icon: TfiCommentAlt,
-      count: totalBuses,
-      text: "Total Reviews",
+      icon: FaMoneyBillTrendUp,
+      count: soldOrder,
+      text: "Total Orders",
     },
     {
       icon: MdShoppingCart,
-      count: 2,
+      count: totalSales,
       text: "Total Sales",
     },
     {
-      icon: TbCoinTaka,
-      count: 2,
-      text: "Total Revenue",
+      icon: SiPolymerproject,
+      count: projects?.projects?.length,
+      text: "Total Projects",
     },
     {
       icon: PiStudentDuotone,
-      count: 2,
+      count: uniqueOrders.length,
       text: "Total Enrolled",
     },
     {
-      icon: GiClick,
-      count: 2,
-      text: "Total Clicked",
+      icon: GrAnnounce,
+      count: announcements?.announcements?.length,
+      text: "Total Announcement",
     },
   ];
 
   return (
     <div className="mx-6 md:mx-8 lg:mx-9 xl:mx-11 pt-6 md:pt-8 lg:pt-9 xl:pt-11">
-      {/* Dashboard content */}
       <div className="grid grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-4 lg:gap-6 xl:gap-8 w-full justify-center">
         {dashboardItems.map((item, index) => (
           <div
