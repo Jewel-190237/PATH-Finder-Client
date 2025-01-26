@@ -89,7 +89,6 @@ const AdminDashboard = () => {
       percentage: Math.round((revenueByDay[index] || 0) / 100),
     }));
   };
-
   const revenueData = calculateRevenueData();
 
   // Announcement Data
@@ -111,7 +110,6 @@ const AdminDashboard = () => {
       percentage: totalAnnouncements > 0 ? Math.round(((announcementsByDay[index] || 0) / totalAnnouncements) * 100) : 0,
     }));
   };
-
   const announcementData = calculateAnnouncementData();
 
   // Project Data
@@ -133,7 +131,6 @@ const AdminDashboard = () => {
       percentage: totalProjects > 0 ? Math.round(((projectsByDay[index] || 0) / totalProjects) * 100) : 0,
     }));
   };
-
   const projectData = calculateProjectData();
 
   return (

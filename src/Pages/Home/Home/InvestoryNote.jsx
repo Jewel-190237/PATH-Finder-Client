@@ -54,8 +54,7 @@ const InvestoryNote = () => {
   const sales = orders.filter(
     (order) => order?.subAdminId === currentUser?._id && order?.status === "paid"
   );
-  console.log("🚀 ~ InvestoryNote ~ sales:", sales)
-
+ 
   // Generate sales data grouped by month
   const salesByMonth = sales.reduce((acc, sale) => {
     const month = moment(sale.createdAt).format("MMM");
@@ -63,7 +62,6 @@ const InvestoryNote = () => {
     return acc;
   }, {});
 
-  // Prepare chart labels and data
   const labels = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
   const chartData = labels.map((month) => salesByMonth[month] || 0);
 

@@ -67,6 +67,7 @@ import Projects from "../Pages/Dashboard/AdminDashboard/Projects";
 import Announcement from "../Pages/Dashboard/AdminDashboard/Announcement";
 import Post from "../Pages/Student/Post";
 import AdminPost from "../Pages/Dashboard/AdminDashboard/AdminPost";
+import MarketingPost from "../Pages/HeadOfMarketing/MarketingPost";
 
 export const router = createBrowserRouter([
   {
@@ -254,6 +255,10 @@ export const router = createBrowserRouter([
       {
         path: "students",
         element: <HeadOfMarketingMembers />,
+      },
+      {
+        path: "posts",
+        element: <MarketingPost />,
       },
       {
         path: "profile",

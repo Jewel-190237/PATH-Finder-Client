@@ -25,6 +25,11 @@ export default function DashboardSidebar() {
           label: "Students",
           icon: FaUserGraduate,
         },
+        {
+          to: "/managerDashboard/posts",
+          label: "Posts",
+          icon: FaUserGraduate,
+        },
         { to: "/", label: "Home", icon: FaHome },
       ],
     },
