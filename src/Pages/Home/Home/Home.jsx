@@ -23,7 +23,9 @@ const Home = () => {
       {currentUser ? (
         <>
           <Banner />
-          <EarnRewards />
+        <div className="pt-10 bg-[#20010D] -mt-20">
+        <EarnRewards />
+        </div>
           <Review />
         </>
       ) : (
