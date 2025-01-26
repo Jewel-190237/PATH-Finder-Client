@@ -9,7 +9,7 @@ import useGetUser from "../Backend/GetUser";
 import { updateVisitCount } from "../Backend/VisitCount";
 
 const Main = () => {
-  const currentUser = useGetUser(); // Get current user from custom hook
+  const currentUser = useGetUser();
   const [visitCount, setVisitCount] = useState(0);
   const [isModalVisible, setIsModalVisible] = useState(false);
 
@@ -27,7 +27,6 @@ const Main = () => {
 
     fetchVisitCount();
   }, [currentUser]);
-
   useEffect(() => {
     const modalShown = sessionStorage.getItem("modalShown");
     if (!modalShown) {

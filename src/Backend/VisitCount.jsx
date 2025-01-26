@@ -5,7 +5,7 @@ export const updateVisitCount = async (userId) => {
 
   try {
     const response = await fetch(`http://localhost:5000/visit-count/${userId}`, {
-      method: "PUT", // Use PUT to update data
+      method: "PUT", 
       headers: {
         "Content-Type": "application/json",
       },
@@ -17,7 +17,7 @@ export const updateVisitCount = async (userId) => {
     }
 
     const data = await response.json();
-    return data.visitCount; // Return the updated visit count
+    return data.visitCount; 
   } catch (error) {
     console.error("Error updating visit count:", error);
     throw error;

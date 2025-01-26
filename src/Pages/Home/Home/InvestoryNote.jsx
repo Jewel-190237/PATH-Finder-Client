@@ -28,11 +28,12 @@ const InvestoryNote = () => {
   useEffect(() => {
     setCurrentUser(user);
   }, [user]);
+  
   const statistics = [
     { title: `$${currentUser?.balance || 0}`, subtitle: "Revenue" },
     { title: `$${currentUser?.sales || 0}`, subtitle: "Sales" },
     { title: "Canva Pro", subtitle: "Most sold" },
-    { title: "485417", subtitle: "Website traffic" },
+    { title: `$${currentUser?.visitCount || 0}`, subtitle: "Website traffic" },
   ];
 
   const data = {
@@ -96,10 +97,9 @@ const InvestoryNote = () => {
           </div>
         </div>
 
-        {/* Stats Section */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 bg-[rgba(35,7,19,0.30)] py-6">
           {statistics.map((item, index) => (
-            <div key={index} className="bg-[#78120D]  p-4 rounded-lg shadow-md">
+            <div key={index} className="bg-[#78120D] hover:bg-red-800 p-4 rounded-lg shadow-md">
               <div className="flex justify-between">
                 <p className="text-[#B0B0B0] text-14px font-roboto">
                   {item.subtitle}
@@ -110,7 +110,6 @@ const InvestoryNote = () => {
           ))}
         </div>
 
-        {/* Chart Section */}
         <div className="bg-[#78120D] mt-10 p-6 rounded-lg text-white shadow-md">
           <div className="flex justify-between items-center mb-4">
             <h3 className="text-[#B0B0B0] text-14px font-roboto">

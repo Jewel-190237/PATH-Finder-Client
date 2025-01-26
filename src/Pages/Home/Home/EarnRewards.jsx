@@ -35,7 +35,6 @@ const EarnRewards = () => {
           From buying premium apps and shopping in our exclusive store to exchanging dollars securely and recharging your mobile, every action you take brings rewards.
         </p>
 
-        {/* Cards */}
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6">
           {cardData.map((card, index) => (
             <div
