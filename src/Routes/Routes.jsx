@@ -67,6 +67,8 @@ import Projects from "../Pages/Dashboard/AdminDashboard/Projects";
 import Announcement from "../Pages/Dashboard/AdminDashboard/Announcement";
 import Post from "../Pages/Student/Post";
 import AdminPost from "../Pages/Dashboard/AdminDashboard/AdminPost";
+import AllFaq from "../Pages/FAQ/AllFaq";
+// import AllFaq from "../Pages/FAQ/AllFaq";
 
 export const router = createBrowserRouter([
   {
@@ -117,6 +119,10 @@ export const router = createBrowserRouter([
       {
         path: "/axisPoint",
         element: <AxisPoint />,
+      },
+      {
+        path: "faq",
+        element: <AllFaq />,
       },
       {
         path: "/premiumServe",
@@ -183,6 +189,7 @@ export const router = createBrowserRouter([
         path: "courses",
         element: <AllCourses />,
       },
+
    
       {
         path: "adminDashboard",
