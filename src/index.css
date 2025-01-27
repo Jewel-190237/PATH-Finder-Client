@@ -143,12 +143,30 @@
     border: none;
   }
 
-  /* Change hover border color to black for Ant Design input */
   .ant-input:hover,
   .ant-input-password:hover,
   .ant-input-affix-wrapper:hover {
     border: none;
     background-color: #78120d;
+  }
+
+  .ant-input-password.ant-input-affix-wrapper:focus,
+  .ant-input-password.ant-input-affix-wrapper-focused {
+    background-color: #78120d !important;
+    border: none !important;
+  }
+
+  .ant-input-password input:focus {
+    background-color: #78120d !important;
+    border: none !important;
+  }
+  .ant-input-password .ant-input-password-icon {
+    color: white !important; 
+  }
+
+  .ant-input-password:hover .ant-input-password-icon,
+  .ant-input-password.ant-input-affix-wrapper-focused .ant-input-password-icon {
+    color: white !important; 
   }
 }
 
@@ -160,7 +178,7 @@
   .ant-input,
   .ant-input-focused,
   .ant-input:hover {
-    border-color: white !important; 
+    border-color: white !important;
   }
 
   .ant-input-textarea,
@@ -174,15 +192,15 @@
   .ant-input-textarea::placeholder {
     color: white !important;
   }
-  .ant-form-item .ant-form-item-label >label {
+  .ant-form-item .ant-form-item-label > label {
     position: relative;
     display: inline-flex;
     align-items: center;
     max-width: 100%;
     height: 32px;
     color: white;
-    @apply description
-}
+    @apply description;
+  }
 }
 
 /* azhar added for new site */
