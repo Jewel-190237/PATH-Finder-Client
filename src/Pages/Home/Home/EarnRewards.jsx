@@ -8,7 +8,7 @@ const EarnRewards = () => {
       icon: "/src/assets/Rewards/bitcoin.png",
     },
     {
-      title: "Premium Store",
+      title: "Premium Services",
       description: "Access our premium store for top-notch products. Every purchase brings exclusive rewards.",
       icon: "/src/assets/Rewards/security.png",
     },
