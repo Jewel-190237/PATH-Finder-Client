@@ -60,7 +60,7 @@ const CEOOverview = () => {
 
   const salesByMonth = sales.reduce((acc, sale) => {
     const month = moment(sale.createdAt).format("MMM");
-    acc[month] = (acc[month] || 0) + sale.amount;
+    acc[month] = (acc[month] || 0) + sale.revenue;
     return acc;
   }, {});
 

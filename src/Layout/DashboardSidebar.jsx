@@ -1,7 +1,7 @@
 import { useState, useRef, useEffect } from "react";
 import { FaBars, FaTimes, FaUserGraduate } from "react-icons/fa";
 import { FaUsers } from "react-icons/fa6";
-import { MdDashboard, MdOutlineControlCamera } from "react-icons/md";
+import { MdDashboard, MdOutlineControlCamera, MdOutlinePostAdd } from "react-icons/md";
 import { useLocation } from "react-router-dom";
 import logo from "../assets/logo2.png";
 import { Link } from "react-router-dom";
@@ -41,7 +41,7 @@ export default function DashboardSidebar() {
         {
           to: "/dashboard/posts",
           label: "Posts",
-          icon: GrAnnounce,
+          icon: MdOutlinePostAdd,
         },
 
       ],

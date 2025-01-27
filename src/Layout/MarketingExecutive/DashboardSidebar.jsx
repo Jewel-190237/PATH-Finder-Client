@@ -5,6 +5,7 @@ import logo from "../../assets/logo2.png";
 import { Link } from "react-router-dom";
 import { RxDashboard } from "react-icons/rx";
 import { AiOutlineUsergroupAdd } from "react-icons/ai";
+import { MdOutlinePostAdd } from "react-icons/md";
 export default function DashboardSidebar() {
   const navItems = [
     {
@@ -18,14 +19,18 @@ export default function DashboardSidebar() {
         {
           to: "/marketingDashboard/skillStrategist",
           label: "Skill Strategist",
-          icon: AiOutlineUsergroupAdd ,
+          icon: AiOutlineUsergroupAdd,
         },
         {
           to: "/marketingDashboard/students",
           label: "Students",
-          icon: FaUserGraduate ,
+          icon: FaUserGraduate,
         },
-        { to: "/", label: "Home", icon: FaHome },
+        {
+          to: "/marketingDashboard/posts",
+          label: "POsts",
+          icon: MdOutlinePostAdd,
+        },
       ],
     },
   ];

@@ -20,6 +20,7 @@ const CourseDetails = () => {
             userId: currentUser?._id,
             courseId: course?._id,
             subAdminId: currentUser?.subAdmin,
+            revenue : course?.course_price * course?.course_discount / 100
           },
           { withCredentials: true }
         );

@@ -6,6 +6,7 @@ import { Link } from "react-router-dom";
 import { RxDashboard } from "react-icons/rx";
 import { FcBusinessman } from "react-icons/fc";
 import { FaUserGraduate, FaUserLarge } from "react-icons/fa6";
+import { MdOutlinePostAdd } from "react-icons/md";
 export default function DashboardSidebar() {
   const navItems = [
     {
@@ -34,9 +35,8 @@ export default function DashboardSidebar() {
         {
           to: "/CEODashboard/posts",
           label: "Posts",
-          icon: FaUserGraduate,
+          icon: MdOutlinePostAdd,
         },
-        { to: "/", label: "Home", icon: FaHome },
       ],
     },
   ];

@@ -25,7 +25,7 @@ ChartJS.register(
   CategoryScale
 );
 
-const ManagerOverview = () => {
+const SalesDirectorOverview = () => {
   const [currentUser, setCurrentUser] = useState(null);
   const [orders, setOrders] = useState([]);
   const user = GetUser();
@@ -213,4 +213,4 @@ const ManagerOverview = () => {
   );
 };
 
-export default ManagerOverview;
+export default SalesDirectorOverview;
