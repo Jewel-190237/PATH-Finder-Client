@@ -1,22 +1,21 @@
 import { useState } from 'react';
 import { Collapse } from 'antd';
 import bg from '../../assets/Faq/FAQ.png'
-
+import man from "../../assets/Faq/1.png"
 const FAQ = () => {
   const [activeKey, setActiveKey] = useState('1');
-  const faqData = [
-    { key: '1', label: 'What are the operating hours of the bus terminal?', content: 'The bus terminal operates daily from 6:00 AM to 10:00 PM, providing services throughout the day for your convenience.' },
-    { key: '2', label: 'How can I purchase a bus ticket?', content: 'Tickets can be purchased at the terminal ticket counter or through our online booking system for added convenience' },
-    { key: '3', label: 'Are there facilities available at the bus terminal?', content: 'Yes, the bus terminal offers various facilities, including waiting areas, restrooms, food stalls, and free Wi-Fi access for travelers.' },
-    { key: '4', label: 'What should I do if my bus is delayed?', content: 'In case of a delay, please check the display boards for updated information or consult our staff at the information desk for assistance.' },
-    { key: '5', label: 'What are the operating hours of the bus terminal?', content: 'The bus terminal operates daily from 6:00 AM to 10:00 PM, providing services throughout the day for your convenience.' },
-    { key: '6', label: 'How can I purchase a bus ticket?', content: 'Tickets can be purchased at the terminal ticket counter or through our online booking system for added convenience' },
-    
-  ]
+  const courseData = [
+    { key: '1', label: 'What are the available course timings?', content: 'Courses are available with flexible schedules, including morning, afternoon, and evening batches to accommodate your preferences.' },
+    { key: '2', label: 'How can I enroll in a course?', content: 'You can enroll in a course by visiting our registration portal online or contacting our admissions office for guidance.' },
+    { key: '3', label: 'Are there any facilities available for students?', content: 'Yes, we provide well-equipped classrooms, a comprehensive library, online learning resources, and student support services.' },
+    { key: '4', label: 'What should I do if I miss a class?', content: 'In case you miss a class, you can access recorded sessions through the student portal or schedule a one-on-one session with the instructor for assistance.' },
+    { key: '5', label: 'What is the duration of each course?', content: 'Course durations vary depending on the subject. We offer short-term courses of a few weeks and long-term courses up to several months.' },
+    { key: '6', label: 'Is there any certification provided?', content: 'Yes, upon successful completion of the course, you will receive a certification recognized by industry experts.' },
+  ];
 
   return (
     <div
-      className=" justify-center text-white items-center  overflow-hidden px-6 lg:px-0 -mt-20"
+      className=" justify-center text-white items-center  overflow-hidden px-6 lg:px-0 -mt-20 py-24"
       style={{
         backgroundImage: `url(${bg})`,
         backgroundSize: 'cover',
@@ -32,7 +31,7 @@ const FAQ = () => {
         </p>
         <div className='flex  flex-col lg:flex-row gap-6'>
           <div className='w-full lg:w-2/5 flex justify-center items-center'>
-            <img src="/src/assets/Faq/1.png" className="w-full" alt="FAQ Illustration" />
+            <img src={man} className="w-full" alt="FAQ Illustration" />
           </div>
           <div className=" w-full lg:w-3/5 bg-[#F38122] rounded-xl">
 
@@ -57,7 +56,7 @@ const FAQ = () => {
                 )}
                 className="!bg-transparent"
               >
-                {faqData.map((item) => (
+                {courseData.map((item) => (
                   <Collapse.Panel
                     key={item.key}
                     header={

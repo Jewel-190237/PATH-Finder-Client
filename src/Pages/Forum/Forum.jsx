@@ -1,13 +1,14 @@
 import { useEffect, useState } from "react";
 import planImage from "../../assets/plan/plan.png";
 import person from "../../assets/person.png";
+import personImage from "../../assets/user.jpg";
 import { HiOutlineCalendar } from "react-icons/hi";
 import { GrAnnounce } from "react-icons/gr";
 
 const Forum = () => {
   const [announcements, setAnnouncements] = useState([]);
   const [posts, setPosts] = useState([]);
-  const [activeTab, setActiveTab] = useState("Feed"); // Default tab is "Feed"
+  const [activeTab, setActiveTab] = useState("Feed"); 
 
   useEffect(() => {
     fetchAnnouncement();
@@ -49,7 +50,7 @@ const Forum = () => {
 
       if (response.ok) {
         const result = await response.json();
-        setPosts(result?.announcements || []); 
+        setPosts(result?.announcements || []);
       } else {
         console.error("Failed to fetch posts");
       }
@@ -58,25 +59,27 @@ const Forum = () => {
     }
   };
 
+  console.log("posts", posts);
   const tabs = [
     { title: "Feed", icon: <HiOutlineCalendar /> },
     { title: "Announcements", icon: <GrAnnounce /> },
   ];
 
   const renderContent = () => {
-    const content = activeTab === "Feed" ? posts : announcements;
-
-    return content.map((item, index) => (
-      <div key={index} className="mt-4 md:mt-6 lg:mt-7 xl:mt-[34px]  text-white">
+    return (activeTab === "Feed" ? posts : announcements).map((item, index) => (
+      <div
+        key={index}
+        className="mt-4 md:mt-6 lg:mt-7 xl:mt-[34px] text-white"
+      >
         <div className="bg-[#F6170C] rounded lg:gap-4 p-3 md:p-4 lg:p-5 xl:p-6">
           <div className="flex items-center gap-3">
             <img
-              className="w-[70px] h-[70px] rounded-full"
-              src={person}
+              className={`w-[70px] h-[70px] rounded-full ${activeTab == "Feed" ? "border-2 border-white" : ""}`}
+              src={activeTab === "Feed" ? personImage : person}
               alt="person"
             />
             <div>
-              <p className="description">Ashikur Rahamn</p>
+              <p className="description">{activeTab === "Feed" ? item.name : "Ashikur Rahman"}</p>
               <p className="description">
                 {new Date(item.createdAt).toLocaleString()}
               </p>
@@ -103,7 +106,7 @@ const Forum = () => {
             <button
               key={index}
               onClick={() => setActiveTab(tab.title)}
-              className={`rounded-[4px] flex items-center justify-center gap-2  p-2 ${
+              className={`rounded-[4px] flex items-center justify-center gap-2 p-2 ${
                 activeTab === tab.title ? "bg-blue-500" : "bg-[#2D2D2D]"
               }`}
             >

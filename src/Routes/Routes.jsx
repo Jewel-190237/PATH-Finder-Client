@@ -76,6 +76,10 @@ import SkillSpecialistPost from "../Pages/SkillSpecialist/SkillSpecialistPost";
 import DevAdvisorPost from "../Pages/DevVisor/DevAdvisorPost";
 import SalesDirectorPost from "../Pages/SalesDirector/SalesDirectorPost";
 import VirtualAssistantPost from "../Pages/VirtualAssistant/VirtualAssistantPost";
+import Review from "../Pages/Review/Review";
+import PrivacyPolicy from "../Pages/PrivacyPolicy/PrivacyPolicy";
+import About from "../Pages/About/About";
+import ContactPage from "../Pages/ContactPage/ContactPage";
 // import AllFaq from "../Pages/FAQ/AllFaq";
 
 export const router = createBrowserRouter([
@@ -167,6 +171,22 @@ export const router = createBrowserRouter([
       {
         path: "coursesVideo",
         element: <VideoCourse/>,
+      },
+      {
+        path: "/review",
+        element: <Review/>,
+      },
+      {
+        path: "/privacy",
+        element: <PrivacyPolicy/>,
+      },
+      {
+        path: "/about",
+        element: <About/>,
+      },
+      {
+        path: "/contact",
+        element: <ContactPage/>,
       },
     ],
   },

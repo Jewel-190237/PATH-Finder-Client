@@ -27,7 +27,7 @@ const Courses = () => {
 
 
     return (
-        <div className="bg-cover bg-center relative text-white" style={{ backgroundImage: 'url("/src/assets/explorePics/bg.png")' }}>
+        <div className="bg-cover bg-center pb-28 pt-10 relative text-white" style={{ backgroundImage: 'url("/src/assets/explorePics/bg.png")' }}>
             <div className="max-w-[1320px] mx-auto py-14 ">
                 <h1 className="text-4xl font-bold text-center mb-8">All Courses</h1>
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 " >

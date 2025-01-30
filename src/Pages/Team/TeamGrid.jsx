@@ -1,38 +1,46 @@
 import { FaWhatsapp } from "react-icons/fa";
 import { RiTelegramLine } from "react-icons/ri";
-
+import img1 from "../../../src/assets/Team/1.png"
+import img2 from "../../../src/assets/Team/2.png"
+import img3 from "../../../src/assets/Team/3.png"
+import img4 from "../../../src/assets/Team/4.png"
 
 const teamMembers = [
     {
         name: "Charlie Septimus",
         role: "Motion Graphics Designer",
-        img: "/src/assets/Team/1.png", 
+        img: img1, 
     },
     {
         name: "Jaylon Ekstrom",
         role: "Graphics Designer",
-        img: "/src/assets/Team/2.png", 
+        img: img2, 
     },
+
     {
         name: "Justin Vaccaro",
         role: "Copywriter",
-        img: "/src/assets/Team/3.png", 
+        img: img3, 
     },
+
     {
         name: "Jhon Smith",
         role: "Content Writer",
-        img: "/src/assets/Team/4.png", 
+        img: img4, 
     },
+
     {
         name: "Jakob Rosser",
         role: "UI/UX Designer",
-        img: "/src/assets/Team/1.png",
+        img: img1,
     },
+
     {
         name: "Emerson Arc",
         role: "Sound Designer",
-        img: "/src/assets/Team/2.png",
+        img: img2,
     },
+    
 ];
 
 const TeamGrid = () => {

@@ -1,5 +1,5 @@
 import{ useState } from 'react';
-
+import aboutImg from '../../assets/about/admin.jpeg'
 const Welcome = () => {
     const [activeTab, setActiveTab] = useState('mission');
 
@@ -11,11 +11,11 @@ const Welcome = () => {
     const tabs = ['mission', 'vision', 'values'];
 
     return (
-        <div className='mx-auto max-w-[1320px]'>
+        <div className='mx-auto max-w-[1320px] text-white'>
             <div className='flex flex-col lg:flex-row-reverse mx-8 md:mx-0 gap-24 '>
-                <div className='w-full md:w-1/2 mt-28 bg-primary p-10 rounded-md '>
+                <div className='w-full md:w-1/2 mt-28 bg-[#3F3FDE] p-10 rounded-md '>
                     <div className='h-auto md:h-[650px]'>
-                        <img src='/src/assets/about/admin.jpeg' alt="bg" className='h-auto md:h-[650px] rounded-md w-full' />
+                        <img src={aboutImg} alt="bg" className='h-auto md:h-[650px] rounded-md w-full' />
                     </div>
                 </div>
                 <div className='w-full md:w-1/2 flex flex-col justify-center items-center'>
@@ -31,7 +31,7 @@ const Welcome = () => {
                                     <button
                                         key={tab}
                                         onClick={() => setActiveTab(tab)}
-                                        className={`text-[18px] capitalize font-bold duration-300 hover:scale-105 hover:border-b-2 ${activeTab === tab ? 'border-primary text-primary' : 'text-secondary'}`}
+                                        className={`text-[18px] capitalize font-bold duration-300 hover:scale-105 hover:border-b-2 ${activeTab === tab ? 'border-[#3F3FDE] text-[#3F3FDE]' : 'text-white'}`}
                                     >
                                         {tab.charAt(0).toUpperCase() + tab.slice(1)}
                                     </button>
@@ -39,7 +39,7 @@ const Welcome = () => {
                             </div>
                             <p className='text-justify mt-8'>{descriptions[activeTab]}</p>
                         </div>
-                        <button className="mx-auto mt-[50px] rounded bg-[#E67529] shadow-custom-light text-[18px] capitalize duration-300 hover:scale-105 font-medium text-white px-8 py-4">
+                        <button className="mx-auto mt-[50px] rounded bg-[#3F3FDE] shadow-custom-light text-[18px] capitalize duration-300 hover:scale-105 font-medium text-white px-8 py-4">
                             Service
                         </button>
                     </div>

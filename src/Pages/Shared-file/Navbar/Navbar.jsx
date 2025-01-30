@@ -19,12 +19,8 @@ const links = [
     submenu: [
       { name: "About", path: "/about" },
       { name: "Contact", path: "/contact" },
-      { name: "Privacy Policy", path: "/privacy-policy" },
-      { name: "Premium Services", path: "/premiumServe" },
-      { name: "After login", path: "/afterLog" },
-      { name: "Edit Profile", path: "/editProfile" },
-
-      
+      { name: "Privacy Policy", path: "/privacy" },
+      { name: "Premium Services", path: "/premiumServe" },   
     ],
   },
 ];
