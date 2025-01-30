@@ -5,6 +5,9 @@ import { BsSun, BsMoon } from "react-icons/bs";
 import { useNavigate } from "react-router-dom";
 import { AiOutlineDown } from "react-icons/ai";
 import AuthButton from "../../../Authentication/AuthButton/AuthButton";
+import logoImage from "../../../../src/assets/others/logo.png"
+import searchImg from "../../../assets/navbar/search.png"
+import  coinImg from "../../../assets/navbar/coin.png"
 const links = [
   { name: "Home", path: "/" },
   { name: "Course", path: "/all-courses" },
@@ -98,7 +101,7 @@ const Navbar = () => {
         <div className="flex items-center space-x-8">
           <a href="/">
             <img
-              src="/src/assets/logo.png"
+              src={logoImage}
               alt="logoImage"
               className="w-24 h-14"
             />
@@ -116,12 +119,12 @@ const Navbar = () => {
             />
             <div className="absolute right-2 top-1/2 transform -translate-y-1/2 text-white cursor-pointer">
               <img
-                src="/src/assets/navbar/search.png"
+                src={searchImg}
                 className="w-7 h-7"
               ></img>
             </div>
           </div>
-          <img src="/src/assets/navbar/coin.png" className="w-7 h-7"></img>
+          <img src={coinImg} className="w-7 h-7"></img>
           {/* <img src='/src/assets/navbar/login.png' className='w-7 h-7'></img> */}
           <AuthButton />
           <button onClick={toggleDarkMode} className="focus:outline-none">

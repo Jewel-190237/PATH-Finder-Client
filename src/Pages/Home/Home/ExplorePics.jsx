@@ -1,8 +1,7 @@
-import { message } from "antd";
 import { useEffect, useState } from "react";
 import { MdOutlineMan } from "react-icons/md";
 import { useNavigate } from "react-router-dom";
-
+import bgimage from "../../../assets/explorePics/bg.png"
 const ExplorePics = () => {
     const [courses, setCourses] = useState([]);
     const [loading, setLoading] = useState(false);
@@ -12,13 +11,9 @@ const ExplorePics = () => {
         setLoading(true);
         try {
             const response = await fetch("http://localhost:5000/courses");
-            if (!response.ok) {
-                throw new Error("Failed to fetch courses");
-            }
             const data = await response.json();
             setCourses(data);
         } catch (error) {
-            message.error("Failed to fetch courses.");
             console.error("Error fetching courses:", error);
         } finally {
             setLoading(false);
@@ -38,7 +33,7 @@ const ExplorePics = () => {
     const enrolled = 10;
 
     return (
-        <div className="bg-cover bg-center relative text-white -mt-20" style={{ backgroundImage: 'url("/src/assets/explorePics/bg.png")' }}>
+        <div className="bg-cover bg-center relative text-white -mt-20" style={{ backgroundImage: `url(${bgimage})` }}>
             <div className="max-w-[1320px] mx-auto py-14 md:py-20 lg:py-[100px] xl:py-[120px]">
                 <h1 className="text-4xl font-bold text-left">
                     Explore Our Top Picks Just<br /> for You!

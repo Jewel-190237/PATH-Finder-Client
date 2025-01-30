@@ -1,6 +1,8 @@
 
 import LeaderBoardImage from "../../../assets/leaderboard.png";
-
+import mansPng from '../../../assets/leaderboard/mans.png'
+import groupPng from "../../../assets/leaderboard/group.png"
+import design from "../../../assets/leaderboard/design.png"
 const LeaderBoard = () => {
   const data = [
     { id: 4, name: "Omar Saris", amount: "35469 $" },
@@ -18,11 +20,11 @@ const LeaderBoard = () => {
       <div className="path-container pt-14 md:pt-[80px] lg:pt-[100px] xl:pt-[120px] flex flex-col lg:flex-row w-full gap-6">
        <div className="w-full lg:w-1/2">
           <div>
-            <img src="/src/assets/leaderboard/mans.png" alt="image" className="" />
+            <img src={mansPng} alt="image" className="" />
           </div>
           <h1 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl xl:text-5xl  font-extrabold font-roboto text-white mb-4 mt-10">Leaderbord Spotlight: Highest <br /> <span className="text-transparent bg-clip-text bg-[linear-gradient(90deg,#3F3FDE_0.07%,#FF0DEF_32.88%)]">Earners</span> This Month!</h1>
           <p className="text-white text-lg md:text-xl lg:text-[24px] mt-4 font-medium font-roboto">Why settle for less when you can have the best? Our services are designed to offer unmatched quality, reliability.</p>
-          <img src="/src/assets/leaderboard/design.png" alt="design.png" className="relative ml-auto -mr-20 hidden lg:flex" />
+          <img src={design} alt="design.png" className="relative ml-auto -mr-20 hidden lg:flex" />
        </div>
        <div className="w-full lg:w-1/2 absolute bottom-0 right-0 lg:pl-20 ">
        <div className="bg-[#F6170C] p-12  rounded-tl-[60px] max-w-[710px] shadow-lg mx-auto border-[1px] border-[#F5F8FC] -mr-0 relative">
@@ -40,7 +42,7 @@ const LeaderBoard = () => {
           <p className="text-white font-semibold">{item.amount}</p>
         </div>
       ))}
-      <img src="/src/assets/leaderboard/group.png" alt="group.png" className="absolute hidden lg:flex -top-20 -left-14" />
+      <img src={groupPng} alt="group.png" className="absolute hidden lg:flex -top-20 -left-14" />
     </div>
        </div>
       </div>

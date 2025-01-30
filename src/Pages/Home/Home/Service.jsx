@@ -1,22 +1,26 @@
 
 import { RiArrowDropDownLine } from "react-icons/ri";
-
+import facebook from "../../../assets/service/facebook.png"
+import tiktok from "../../../assets/service/tiktok.png"
+import youtube from "../../../assets/service/youtube.png"
+import bgImg from "../../../assets/banner/bg.png"
+import fbPng from "../../../assets/service/FB.png"
 const cardsData = [
     {
         id: 1,
-        image: "/src/assets/service/facebook.png",
+        image: facebook,
         text: "Get rewards by following us on Facebook",
        
     },
     {
         id: 2,
-        image: "/src/assets/service/tiktok.png" , 
+        image: tiktok , 
         text: "Get rewards by following us on TikTok",
         
     },
     {
         id: 3,
-        image: "/src/assets/service/youtube.png",
+        image: youtube,
         text: "Get rewards by subscribing to us on YouTube",
        
     },
@@ -26,7 +30,7 @@ const Service = () => {
     return (
         <div
             className="bg-cover bg-center relative text-white -mt-40 mb-20"
-            style={{ backgroundImage: `url(/src/assets/banner/bg.png)` }}
+            style={{ backgroundImage: `url(${bgImg})` }}
         >
             <div className="max-w-[1320px] mx-auto relative z-10 p-6 lg:p-10 xl:p-12">
                 <div className="mx-auto p-6 md:p-8 lg:p-12 xl:p-[60px] my-5 md:my-8 lg:my-[90px] xl:my-[110px]">
@@ -69,7 +73,7 @@ const Service = () => {
                             <div
                                 className="relative w-80 h-48 bg-cover bg-center rounded-lg shadow-lg mx-auto flex flex-col justify-end p-4"
                                 style={{
-                                    backgroundImage: `url(/src/assets/service/FB.png)`,
+                                    backgroundImage: `url(${fbPng})`,
                                 }}
                             >
                                 <div className="w-full py-3 px-4 rounded-md flex items-center justify-between">
