@@ -47,7 +47,7 @@ const AdminDashboard = () => {
             Authorization: `Bearer ${token}`,
           },
         });
-        setAnnouncements(response.data.announcements); // Assuming data.announcements is the array
+        setAnnouncements(response.data.announcements); 
       } catch (err) {
         console.error(err);
       }

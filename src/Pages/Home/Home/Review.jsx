@@ -13,56 +13,56 @@ const Review = () => {
   const reviewData = [
     {
       image: review1,
-      name: "John Doe",
+      name: "John Markot",
       rating: 4.5,
       description:
         "Incredible work! The final video exceeded our expectations, and the process was seamless..",
     },
     {
       image: mem1,
-      name: "John Doe",
+      name: "Melinium Nakari",
       rating: 4.5,
       description:
         "Incredible work! The final video exceeded our expectations, and the process was seamless..",
     },
     {
       image: mem2,
-      name: "John Doe",
+      name: "Mararas Kumari",
       rating: 4.5,
       description:
         "Incredible work! The final video exceeded our expectations, and the process was seamless..",
     },
     {
       image: mem3,
-      name: "John Doe",
+      name: "Markol Devid",
       rating: 4.5,
       description:
         "Incredible work! The final video exceeded our expectations, and the process was seamless..",
     },
     {
       image: review1,
-      name: "John Doe",
+      name: "Alaskan Fore",
       rating: 4.5,
       description:
         "Incredible work! The final video exceeded our expectations, and the process was seamless..",
     },
     {
       image: mem1,
-      name: "John Doe",
+      name: "Medium Sheti",
       rating: 4.5,
       description:
         "Incredible work! The final video exceeded our expectations, and the process was seamless..",
     },
     {
       image: mem2,
-      name: "John Doe",
+      name: "Himalaya Nodni",
       rating: 4.5,
       description:
         "Incredible work! The final video exceeded our expectations, and the process was seamless.",
     },
     {
       image: mem3,
-      name: "John Doe",
+      name: "Bhutan Gouri",
       rating: 4.5,
       description:
         "Incredible work! The final video exceeded our expectations, and the process was seamless.",

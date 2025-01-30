@@ -8,31 +8,102 @@ import { TfiCommentAlt } from "react-icons/tfi";
 import { FaBookAtlas } from "react-icons/fa6";
 const StudentOverview = () => {
   const [currentUser, setCurrentUser] = useState(null);
+  const [loading, setLoading] = useState(false);
+  const [courses, setCourses] = useState([]);
+  const [projects, setProjects] = useState([]);
+  const [posts, setPosts] = useState([]);
   const user = GetUser();
   useEffect(() => {
     setCurrentUser(user);
+    fetchCourses();
+    fetchProjects();
+    fetchPost();
   }, [user]);
-  const dashboardItems = [
 
+  const fetchCourses = async () => {
+    setLoading(true);
+    try {
+      const response = await fetch(
+        `http://localhost:5000/courses/student/${currentUser?._id}`
+      );
+      if (!response.ok) {
+        throw new Error("Failed to fetch courses");
+      }
+      const data = await response.json();
+      setCourses(data);
+    } catch (error) {
+      console.error("Error fetching courses:", error);
+    } finally {
+      setLoading(false);
+    }
+  };
+  const fetchProjects = async () => {
+    try {
+      const token = localStorage.getItem("token");
+      const response = await fetch(
+        `http://localhost:5000/projects/${currentUser?._id}`,
+        {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+      if (response.ok) {
+        const result = await response.json();
+        setProjects(result.projects || []);
+      } else {
+        console.error("Failed to fetch projects");
+      }
+    } catch (error) {
+      console.error("Error fetching projects:", error);
+    }
+  }
+  const fetchPost = async () => {
+    try {
+      const token = localStorage.getItem("token");
+      const response = await fetch(
+        `http://localhost:5000/all-post/${currentUser._id}`,
+        {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+
+      if (response.ok) {
+        const result = await response.json();
+        setPosts(result?.announcements || []);
+      } else {
+        console.error("Failed to fetch post");
+      }
+    } catch (error) {
+      console.error("Error fetching post:", error);
+    }
+  }; 
+  const dashboardItems = [
     {
       icon: FaBookAtlas,
-      count: 2,
+      count: courses.length,
       text: "Total Courses",
     },
     {
       icon: TfiCommentAlt,
-      count: 3,
-      text: "Total Reviews",
+      count: projects.length,
+      text: "Total Projects",
     },
     {
       icon: PiStudentDuotone,
-      count: 2,
-      text: "Total Enrolled",
+      count: posts.length,
+      text: "Total Posts",
     },
     {
       icon: GiClick,
-      count: 2,
-      text: "Total Clicked",
+      count: currentUser?.visitCount,
+      text: "TotalVisit Count",
     },
   ];
   return (
@@ -42,7 +113,6 @@ const StudentOverview = () => {
         Afternoon
       </h1>
       <div className="mx-6 md:mx-8 lg:mx-9 xl:mx-11 pt-6 md:pt-8 lg:pt-9 xl:pt-11">
-        {/* Dashboard content */}
         <div className="grid grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-4 lg:gap-6 xl:gap-8 w-full justify-center">
           {dashboardItems.map((item, index) => (
             <div

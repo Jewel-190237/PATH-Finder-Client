@@ -41,11 +41,11 @@ const StudentCourse = () => {
 
   const handleCardClick = (course) => {
     console.log("Selected Course:", course);
-    setSelectedCourse(course); // Show the modal with the selected course details
+    setSelectedCourse(course); 
   };
 
   const closeModal = () => {
-    setSelectedCourse(null); // Close the modal
+    setSelectedCourse(null); 
   };
 
   return (

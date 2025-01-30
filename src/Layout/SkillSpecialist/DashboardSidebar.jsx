@@ -5,6 +5,7 @@ import logo from "../../assets/logo2.png";
 import { Link } from "react-router-dom";
 import { RxDashboard } from "react-icons/rx";
 import { SlUser } from "react-icons/sl";
+import { MdOutlinePostAdd } from "react-icons/md";
 export default function DashboardSidebar() {
   const navItems = [
     {
@@ -25,7 +26,11 @@ export default function DashboardSidebar() {
           label: "Students",
           icon: FaUserGraduate,
         },
-        { to: "/", label: "Home", icon: FaHome },
+        {
+          to: "/skillSpecialist/posts",
+          label: "Posts",
+          icon: MdOutlinePostAdd,
+        },
       ],
     },
   ];

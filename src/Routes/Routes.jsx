@@ -19,16 +19,16 @@ import AdminDashboard from "../Pages/Dashboard/AdminDashboard/AdminDashboard";
 import ManagerDashboard from "../Layout/ManagerDashboard/ManagerDashboard";
 import ManagerOverview from "../Pages/HeadOfMarketing/ManagerOverview";
 import MarketingOverview from "../Pages/MarketingExecutive/MarketingOverview";
-import VirtualAssistantOverview from "../Pages/VirtualAssistant/SalesDirector";
+import VirtualAssistantOverview from "../Pages/VirtualAssistant/VirtualAssistantOverview";
 import VirtualAssistantDashboard from "../Layout/VirtualAssistant/VirtualAssistantDashboard";
 import SalesDirectorDashboard from "../Layout/SalesDirector/SalesDirectorDashboard";
-import SalesDirectorOverview from "../Pages/SalesDirector/SalesDirector";
+import SalesDirectorOverview from "../Pages/SalesDirector/SalesDirectorOverview";
 import DevAdvisorDashboard from "../Layout/DevAdvisor/DevAdvisorDashboard";
-import DevAdvisorOverview from "../Pages/DevVisor/DevAdvisor";
+import DevAdvisorOverview from "../Pages/DevVisor/DevAdvisorOverview";
 import SkillSpecialistDashboard from "../Layout/SkillSpecialist/SkillSpecilistDashboard";
-import SkillSpecialistOverview from "../Pages/SkillSpecialist/SkillSpecialist";
+import SkillSpecialistOverview from "../Pages/SkillSpecialist/SkillSpecialistOverview";
 import SkillStrategistDashboard from "../Layout/SkillStrategist/SkillStrategistDashboard";
-import SkillStrategistOverview from "../Pages/SkillStrategist/SkillStrategist";
+import SkillStrategistOverview from "../Pages/SkillStrategist/SkillStrategistOverview";
 import MarketingDashboard from "../Layout/MarketingExecutive/MarketingDashboard";
 import ControlPanel from "../Pages/Dashboard/AdminDashboard/ControlPanel";
 import CEODashboard from "../Layout/CEO/CEODashboard";
@@ -69,6 +69,13 @@ import Post from "../Pages/Student/Post";
 import AdminPost from "../Pages/Dashboard/AdminDashboard/AdminPost";
 import MarketingPost from "../Pages/HeadOfMarketing/MarketingPost";
 import AllFaq from "../Pages/FAQ/AllFaq";
+import CEOPost from "../Pages/CEO/CEOPost";
+import MarketingExecutivePost from "../Pages/MarketingExecutive/MarketingExecutivePost";
+import SkillStrategistPost from "../Pages/SkillStrategist/SkillStrategistPost";
+import SkillSpecialistPost from "../Pages/SkillSpecialist/SkillSpecialistPost";
+import DevAdvisorPost from "../Pages/DevVisor/DevAdvisorPost";
+import SalesDirectorPost from "../Pages/SalesDirector/SalesDirectorPost";
+import VirtualAssistantPost from "../Pages/VirtualAssistant/VirtualAssistantPost";
 // import AllFaq from "../Pages/FAQ/AllFaq";
 
 export const router = createBrowserRouter([
@@ -246,6 +253,10 @@ export const router = createBrowserRouter([
         path: "profile",
         element: <EditProfile />,
       },
+      {
+        path: "posts",
+        element: <CEOPost />,
+      },
     ],
   },
 
@@ -298,6 +309,10 @@ export const router = createBrowserRouter([
         path: "profile",
         element: <EditProfile />,
       },
+      {
+        path: "posts",
+        element: <MarketingExecutivePost />,
+      },
     ],
   },
 
@@ -321,6 +336,10 @@ export const router = createBrowserRouter([
       {
         path: "profile",
         element: <EditProfile />,
+      },
+      {
+        path: "posts",
+        element: <SkillStrategistPost />,
       },
     ],
   },
@@ -346,6 +365,10 @@ export const router = createBrowserRouter([
         path: "profile",
         element: <EditProfile />,
       },
+      {
+        path: "posts",
+        element: <SkillSpecialistPost />,
+      },
     ],
   },
 
@@ -369,6 +392,10 @@ export const router = createBrowserRouter([
       {
         path: "profile",
         element: <EditProfile />,
+      },
+      {
+        path: "posts",
+        element: <DevAdvisorPost />,
       },
     ],
   },
@@ -394,6 +421,10 @@ export const router = createBrowserRouter([
         path: "profile",
         element: <EditProfile />,
       },
+      {
+        path: "posts",
+        element: <SalesDirectorPost />,
+      },
     ],
   },
 
@@ -413,6 +444,10 @@ export const router = createBrowserRouter([
       {
         path: "profile",
         element: <EditProfile />,
+      },
+      {
+        path: "posts",
+        element: <VirtualAssistantPost />,
       },
     ],
   },

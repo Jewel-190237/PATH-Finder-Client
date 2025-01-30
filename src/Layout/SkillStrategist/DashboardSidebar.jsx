@@ -5,15 +5,12 @@ import logo from "../../assets/logo2.png";
 import { Link } from "react-router-dom";
 import { RxDashboard } from "react-icons/rx";
 import { HiOutlineUserCircle } from "react-icons/hi";
+import { MdOutlinePostAdd } from "react-icons/md";
 export default function DashboardSidebar() {
   const navItems = [
     {
       navTitle: "General",
       link: [
-        // { to: "/dashboard/adminHome", label: "Overview", icon: MdDashboard },
-        // marketingDashboard/marketingHome
-        // { to: "/dashboard/users", label: "Members", icon: PiUsersFourFill },
-        // { to: "/dashboard/subAdmin", label: "Sub Admins", icon: FaUsers },
         {
           to: "/skillStrategist/strategistHome",
           label: "Dashboard",
@@ -29,7 +26,11 @@ export default function DashboardSidebar() {
           label: "Students", 
           icon: FaUserGraduate,
         },
-        { to: "/", label: "Home", icon: FaHome },
+        {
+          to: "/skillStrategist/posts",
+          label: "Posts", 
+          icon: MdOutlinePostAdd,
+        },
       ],
     },
   ];

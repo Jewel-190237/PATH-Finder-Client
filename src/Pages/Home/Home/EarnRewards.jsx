@@ -11,7 +11,7 @@ const EarnRewards = () => {
       icon: bitcoin,
     },
     {
-      title: "Premium Store",
+      title: "Premium Services",
       description: "Access our premium store for top-notch products. Every purchase brings exclusive rewards.",
       icon: security,
     },
