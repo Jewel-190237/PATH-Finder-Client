@@ -13,26 +13,31 @@ const teamMembers = [
         role: "Graphics Designer",
         img: "/src/assets/Team/2.png", 
     },
+
     {
         name: "Justin Vaccaro",
         role: "Copywriter",
         img: "/src/assets/Team/3.png", 
     },
+
     {
         name: "Jhon Smith",
         role: "Content Writer",
         img: "/src/assets/Team/4.png", 
     },
+
     {
         name: "Jakob Rosser",
         role: "UI/UX Designer",
         img: "/src/assets/Team/1.png",
     },
+
     {
         name: "Emerson Arc",
         role: "Sound Designer",
         img: "/src/assets/Team/2.png",
     },
+    
 ];
 
 const TeamGrid = () => {
