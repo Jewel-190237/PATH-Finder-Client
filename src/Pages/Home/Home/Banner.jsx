@@ -1,7 +1,7 @@
 import { useState } from "react";
 import HeroVideoDialog from "./HeroVideoDialog";
-
-
+import heroBg from '../../../assets/banner/bg.png'
+import posterImg from '../../../assets/banner/poster.png'
 const Banner = () => {
   const [isHovered, setIsHovered] = useState(false);
   return (
@@ -10,7 +10,7 @@ const Banner = () => {
         <div
             className="w-full h-full bg-cover bg-center -mt-24"
             style={{
-                backgroundImage: "url('/src/assets/banner/bg.png')",
+                backgroundImage: `url(${heroBg})` ,
             }}
             onMouseEnter={() => setIsHovered(true)}
             onMouseLeave={() => setIsHovered(false)}
@@ -20,7 +20,7 @@ const Banner = () => {
                     className="dark:hidden block"
                     animationStyle="top-in-bottom-out"
                     videoSrc="https://www.youtube.com/embed/qh3NGpYRG3I?si=4rb-zSdDkVK9qxxb"
-                    thumbnailSrc="/src/assets/banner/poster.png"
+                    thumbnailSrc={posterImg}
                     thumbnailAlt="Hero Video"
                 />
                 <div

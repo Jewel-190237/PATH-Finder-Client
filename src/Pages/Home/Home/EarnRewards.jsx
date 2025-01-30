@@ -1,26 +1,29 @@
 import InvestoryNote from "./InvestoryNote";
-
+import bitcoin from "../../../assets/Rewards/bitcoin.png"
+import security from "../../../assets/Rewards/security.png"
+import shop from "../../../assets/Rewards/shop.png"
+import slider from "../../../assets/Rewards/slider.png"
 const EarnRewards = () => {
   const cardData = [
     {
       title: "Premium App",
       description: "Buy premium apps from our platform and earn rewards on every purchase.",
-      icon: "/src/assets/Rewards/bitcoin.png",
+      icon: bitcoin,
     },
     {
       title: "Premium Services",
       description: "Access our premium store for top-notch products. Every purchase brings exclusive rewards.",
-      icon: "/src/assets/Rewards/security.png",
+      icon: security,
     },
     {
       title: "Dollar Exchange",
       description: "Convert currency securely and earn commissions on every transaction. The smarter way to save.",
-      icon: "/src/assets/Rewards/shop.png",
+      icon: shop,
     },
     {
       title: "Mobile Recharge",
       description: "Enjoy hassle-free phone recharges and earn rewards. Stay connected and earn big!",
-      icon: "/src/assets/Rewards/slider.png",
+      icon: slider,
     },
   ];
 
