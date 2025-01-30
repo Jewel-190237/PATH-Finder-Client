@@ -18,7 +18,6 @@ const ExplorePics = () => {
             const data = await response.json();
             setCourses(data);
         } catch (error) {
-            message.error("Failed to fetch courses.");
             console.error("Error fetching courses:", error);
         } finally {
             setLoading(false);

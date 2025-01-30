@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { Collapse } from 'antd';
+import bg from '../../assets/Faq/FAQ.png'
 
 const FAQ = () => {
   const [activeKey, setActiveKey] = useState('1');
@@ -17,7 +18,7 @@ const FAQ = () => {
     <div
       className=" justify-center text-white items-center  overflow-hidden px-6 lg:px-0 -mt-20"
       style={{
-        backgroundImage: 'url("/src/assets/Faq/FAQ.png")',
+        backgroundImage: `url(${bg})`,
         backgroundSize: 'cover',
         backgroundPosition: 'center',
         backgroundRepeat: 'no-repeat',
