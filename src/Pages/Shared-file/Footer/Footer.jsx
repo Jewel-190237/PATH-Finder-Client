@@ -6,6 +6,7 @@ import shape from "../../../assets/shape.png";
 import logo from "../../../assets/logo1.png";
 import call from "../../../assets/call.png";
 import email from "../../../assets/email.png";
+import { Link } from "react-router-dom";
 
 const Footer = () => {
   return (
@@ -13,7 +14,7 @@ const Footer = () => {
       className="bg-cover bg-center"
       style={{ backgroundImage: `url(${footerImg})` }}
     >
-      <div className="py-14 md:py-20 lg:py-24 xl:py-[120px] max-w-[1320px] px-8 md:px-4 lg:px-2 xl:px-0 mx-auto text-white">
+      <div className="py-10 md:py-14 lg:py-[70px] xl:py-[90px] max-w-[1320px] px-8 md:px-4 lg:px-2 xl:px-0 mx-auto text-white">
         <div className="w-full bg-[#20010D] border-[1px] border-[#FFFFFF1A] px-3 md:px-4 lg:px-5 xl:px-6 py-1 md:py-2 lg:py-3 xl:py-4 rounded-lg">
           <div className="flex flex-col md:flex-row items-center justify-between">
             <img
@@ -128,7 +129,7 @@ const Footer = () => {
             CopyRights {new Date().getFullYear()} All rights reserved.
             <span className="text-primary"> PATH Finder</span>
           </p>
-          <p className="description p-3 lg:p-4 xl:p-5">Privacy and Policy</p>
+          <Link to={'/privacy'} className="description p-3 lg:p-4 xl:p-5">Privacy and Policy</Link>
         </div>
       </div>
     </footer>
