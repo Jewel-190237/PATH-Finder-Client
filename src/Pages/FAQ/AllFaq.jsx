@@ -2,7 +2,7 @@ import FAQ from "./Faq";
 
 const AllFaq = () => {
     return (
-        <div>
+        <div className="">
            <FAQ/>
         </div>
     );

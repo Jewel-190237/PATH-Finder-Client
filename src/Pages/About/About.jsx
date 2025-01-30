@@ -1,10 +1,10 @@
-import BasicHeader from "../Shared-file/BasicHeader";
+
 import Welcome from "./Welcome";
 
 const About = () => {
     return (
-        <div>
-             <BasicHeader heading='About'/>
+        <div className="bg-[#20010D] pt-10 pb-40">
+             
              <Welcome></Welcome>
         </div>
     );
