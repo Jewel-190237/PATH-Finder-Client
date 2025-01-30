@@ -52,9 +52,10 @@ const InvestoryNote = () => {
   }, []);
 
   const sales = orders.filter(
-    (order) => order?.subAdminId === currentUser?._id && order?.status === "paid"
+    (order) =>
+      order?.subAdminId === currentUser?._id && order?.status === "paid"
   );
- 
+
   // Generate sales data grouped by month
   const salesByMonth = sales.reduce((acc, sale) => {
     const month = moment(sale.createdAt).format("MMM");
@@ -62,7 +63,20 @@ const InvestoryNote = () => {
     return acc;
   }, {});
 
-  const labels = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+  const labels = [
+    "Jan",
+    "Feb",
+    "Mar",
+    "Apr",
+    "May",
+    "Jun",
+    "Jul",
+    "Aug",
+    "Sep",
+    "Oct",
+    "Nov",
+    "Dec",
+  ];
   const chartData = labels.map((month) => salesByMonth[month] || 0);
 
   const data = {
@@ -123,7 +137,9 @@ const InvestoryNote = () => {
         <div className="text-white">
           <h1 className="heading">Affirmation note</h1>
           <p className="max-w-[900px] heading2">
-            From buying premium apps and shopping in our exclusive store to exchanging dollars securely and recharging your mobile, every action you take brings rewards.
+            From buying premium apps and shopping in our exclusive store to
+            exchanging dollars securely and recharging your mobile, every action
+            you take brings rewards.
           </p>
           <div className="bg-[#78120D] max-w-[310px] mx-auto text-center py-6 px-4 rounded-lg font-semibold hover:bg-red-800 my-14">
             <p className="text-[#B0B0B0] text-14px font-roboto">Low</p>
@@ -133,7 +149,10 @@ const InvestoryNote = () => {
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 bg-[rgba(35,7,19,0.30)] py-6">
           {statistics.map((item, index) => (
-            <div key={index} className="bg-[#78120D] hover:bg-red-800 p-4 rounded-lg shadow-md">
+            <div
+              key={index}
+              className="bg-[#78120D] hover:bg-red-800 p-4 rounded-lg shadow-md"
+            >
               <div className="flex justify-between">
                 <p className="text-[#B0B0B0] text-14px font-roboto">
                   {item.subtitle}
@@ -144,14 +163,16 @@ const InvestoryNote = () => {
           ))}
         </div>
 
-        <div className="bg-[#78120D] mt-10 p-6 rounded-lg text-white shadow-md">
-          <h3 className="text-[#B0B0B0] text-14px font-roboto mb-4">
-            Sales activities
-          </h3>
-          <div className="h-64">
-            <Line data={data} options={options} />
+        {currentUser?.role === "subAdmin" && (
+          <div className="bg-[#78120D] mt-10 p-6 rounded-lg text-white shadow-md">
+            <h3 className="text-[#B0B0B0] text-14px font-roboto mb-4">
+              Sales activities
+            </h3>
+            <div className="h-64">
+              <Line data={data} options={options} />
+            </div>
           </div>
-        </div>
+        )}
       </div>
     </div>
   );

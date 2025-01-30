@@ -1,8 +1,31 @@
+
+import { Line } from "react-chartjs-2";
+import {
+  Chart as ChartJS,
+  LineElement,
+  PointElement,
+  LinearScale,
+  Title,
+  Tooltip,
+  Legend,
+  CategoryScale,
+} from "chart.js";
+
 import { useEffect, useState } from "react";
 import GetUser from "../../../Backend/GetUser";
 import RevenueChart from "../../../CommonChart/RevenueChart";
-import Marketing from "../../../CommonChart/Marketing";
 import axios from "axios";
+import moment from "moment";
+
+ChartJS.register(
+  LineElement,
+  PointElement,
+  LinearScale,
+  Title,
+  Tooltip,
+  Legend,
+  CategoryScale
+);
 
 const AdminDashboard = () => {
   const [currentUser, setCurrentUser] = useState(null);
@@ -42,12 +65,15 @@ const AdminDashboard = () => {
     const fetchAnnouncements = async () => {
       const token = localStorage.getItem("token");
       try {
-        const response = await axios.get("http://localhost:5000/all-announcement", {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        });
-        setAnnouncements(response.data.announcements); 
+        const response = await axios.get(
+          "http://localhost:5000/all-announcement",
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          }
+        );
+        setAnnouncements(response.data.announcements);
       } catch (err) {
         console.error(err);
       }
@@ -96,18 +122,26 @@ const AdminDashboard = () => {
     if (!Array.isArray(announcements)) return [];
 
     const weekDays = ["S", "M", "T", "W", "T", "F", "S"];
-    const announcementsByDay = announcements.reduce((acc, currentAnnouncement) => {
-      const day = new Date(currentAnnouncement.createdAt).getDay();
-      acc[day] = (acc[day] || 0) + 1;
-      return acc;
-    }, {});
+    const announcementsByDay = announcements.reduce(
+      (acc, currentAnnouncement) => {
+        const day = new Date(currentAnnouncement.createdAt).getDay();
+        acc[day] = (acc[day] || 0) + 1;
+        return acc;
+      },
+      {}
+    );
 
     const totalAnnouncements = announcements.length;
 
     return weekDays.map((day, index) => ({
       day,
       count: announcementsByDay[index] || 0,
-      percentage: totalAnnouncements > 0 ? Math.round(((announcementsByDay[index] || 0) / totalAnnouncements) * 100) : 0,
+      percentage:
+        totalAnnouncements > 0
+          ? Math.round(
+              ((announcementsByDay[index] || 0) / totalAnnouncements) * 100
+            )
+          : 0,
     }));
   };
   const announcementData = calculateAnnouncementData();
@@ -128,10 +162,82 @@ const AdminDashboard = () => {
     return weekDays.map((day, index) => ({
       day,
       count: projectsByDay[index] || 0,
-      percentage: totalProjects > 0 ? Math.round(((projectsByDay[index] || 0) / totalProjects) * 100) : 0,
+      percentage:
+        totalProjects > 0
+          ? Math.round(((projectsByDay[index] || 0) / totalProjects) * 100)
+          : 0,
     }));
   };
   const projectData = calculateProjectData();
+  const paidOrder = order.filter((order) => order.status === "paid");
+
+  // Generate sales data grouped by month
+  const salesByMonth = paidOrder.reduce((acc, sale) => {
+    const month = moment(sale.createdAt).format("MMM");
+    acc[month] = (acc[month] || 0) + sale.amount;
+    return acc;
+  }, {});
+
+  const labels = [
+    "Jan",
+    "Feb",
+    "Mar",
+    "Apr",
+    "May",
+    "Jun",
+    "Jul",
+    "Aug",
+    "Sep",
+    "Oct",
+    "Nov",
+    "Dec",
+  ];
+  const chartData = labels.map((month) => salesByMonth[month] || 0);
+
+  const data = {
+    labels,
+    datasets: [
+      {
+        label: "Sales Activities",
+        data: chartData,
+        borderColor: "#FF5C2C",
+        backgroundColor: "rgba(255, 92, 44, 0.3)",
+        pointBackgroundColor: "#FF5C2C",
+        pointBorderColor: "#FF5C2C",
+        tension: 0.4,
+        borderWidth: 2,
+        fill: true,
+      },
+    ],
+  };
+
+  const options = {
+    responsive: true,
+    maintainAspectRatio: false,
+    plugins: {
+      legend: {
+        display: false,
+      },
+    },
+    scales: {
+      x: {
+        grid: {
+          display: false,
+        },
+        ticks: {
+          color: "#FFFFFF",
+        },
+      },
+      y: {
+        grid: {
+          color: "rgba(255, 255, 255, 0.1)",
+        },
+        ticks: {
+          color: "#FFFFFF",
+        },
+      },
+    },
+  };
 
   return (
     <div className="p-5 md:p-10 lg:p-12 xl:p-14 text-white">
@@ -140,39 +246,29 @@ const AdminDashboard = () => {
         Afternoon
       </h1>
       <div className="mt-4 md:mt-5 lg:mt-6 xl:mt-8 grid justify-between grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-3 md:gap-4 xl:gap-6">
-        <RevenueChart title={"Total Sales"} revenue={totalSales} data={revenueData} />
-        <RevenueChart title={"Total Announcements"} revenue={announcements.length} data={announcementData} />
-        <RevenueChart title={"Total Projects"} revenue={projects.length} data={projectData} />
+        <RevenueChart
+          title={"Total Sales"}
+          revenue={totalSales}
+          data={revenueData}
+        />
+        <RevenueChart
+          title={"Total Announcements"}
+          revenue={announcements.length}
+          data={announcementData}
+        />
+        <RevenueChart
+          title={"Total Projects"}
+          revenue={projects.length}
+          data={projectData}
+        />
       </div>
 
-      <h3 className="heading2 py-3 lg:py-4 xl:py-6">Course activities</h3>
-      <div className="bg-[#F6170C] bg-opacity-20 px-4 py-3 rounded-xl">
-        <div className="flex items-center justify-between">
-          <h2 className="heading2">CEO Activities</h2>
-          <div className="space-y-1">
-            <div className="flex items-center gap-2">
-              <div className="h-4 w-4 rounded-full bg-[#8979FF] bg-opacity-30 flex items-center justify-center">
-                <div className="h-[10px] w-[10px] rounded-full bg-[#8979FF]"></div>
-              </div>
-              <p>Canava</p>
-            </div>
-            <div className="flex items-center gap-2">
-              <div className="h-4 w-4 rounded-full bg-[#FF928A] bg-opacity-30 flex items-center justify-center">
-                <div className="h-[10px] w-[10px] rounded-full bg-[#FF928A]"></div>
-              </div>
-              <p>E-Book</p>
-            </div>
-            <div className="flex items-center gap-2">
-              <div className="h-4 w-4 rounded-full bg-[#3CC3DF] bg-opacity-30 flex items-center justify-center">
-                <div className="h-[10px] w-[10px] rounded-full bg-[#3CC3DF]"></div>
-              </div>
-              <p>Copyright</p>
-            </div>
-          </div>
-        </div>
-        <div className="mt-3 lg:mt-4 flex items-center flex-col sm:flex-row justify-between w-full gap-3 md:gap-4 xl:gap-6">
-          <Marketing title={"Revenue"} amount={"12,000"} />
-          <Marketing title={"Sales"} amount={"6,000"} />
+      <div className="bg-[#78120D] mt-10 p-6 rounded-lg text-white shadow-md">
+        <h3 className="text-[#B0B0B0] text-14px font-roboto mb-4">
+          Sales activities
+        </h3>
+        <div className="h-64">
+          <Line data={data} options={options} />
         </div>
       </div>
     </div>
