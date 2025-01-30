@@ -13,7 +13,7 @@ const Footer = () => {
       className="bg-cover bg-center"
       style={{ backgroundImage: `url(${footerImg})` }}
     >
-      <div className="pt-14 md:pt-20 lg:pt-24 xl:pt-[120px] max-w-[1320px] px-8 md:px-4 lg:px-2 xl:px-0 mx-auto text-white">
+      <div className="py-14 md:py-20 lg:py-24 xl:py-[120px] max-w-[1320px] px-8 md:px-4 lg:px-2 xl:px-0 mx-auto text-white">
         <div className="w-full bg-[#20010D] border-[1px] border-[#FFFFFF1A] px-3 md:px-4 lg:px-5 xl:px-6 py-1 md:py-2 lg:py-3 xl:py-4 rounded-lg">
           <div className="flex flex-col md:flex-row items-center justify-between">
             <img

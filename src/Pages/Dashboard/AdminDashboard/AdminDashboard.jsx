@@ -1,35 +1,14 @@
-
 import { Line } from "react-chartjs-2";
-import {
-  Chart as ChartJS,
-  LineElement,
-  PointElement,
-  LinearScale,
-  Title,
-  Tooltip,
-  Legend,
-  CategoryScale,
-} from "chart.js";
-
 import { useEffect, useState } from "react";
-import GetUser from "../../../Backend/GetUser";
-import RevenueChart from "../../../CommonChart/RevenueChart";
 import axios from "axios";
 import moment from "moment";
-
-ChartJS.register(
-  LineElement,
-  PointElement,
-  LinearScale,
-  Title,
-  Tooltip,
-  Legend,
-  CategoryScale
-);
+import GetUser from "../../../Backend/GetUser";
+import RevenueChart from "../../../CommonChart/RevenueChart";
 
 const AdminDashboard = () => {
-  const [currentUser, setCurrentUser] = useState(null);
   const [order, setOrder] = useState([]);
+  const [view, setView] = useState("yearly");
+  const [currentUser, setCurrentUser] = useState(null);
   const [announcements, setAnnouncements] = useState([]);
   const [projects, setProjects] = useState([]);
   const user = GetUser();
@@ -38,29 +17,7 @@ const AdminDashboard = () => {
     setCurrentUser(user);
   }, [user]);
 
-  // Get all orders (Revenue)
-  useEffect(() => {
-    const fetchOrders = async () => {
-      const token = localStorage.getItem("token");
-      try {
-        const response = await axios.get("http://localhost:5000/orders", {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        });
-        setOrder(response.data);
-      } catch (err) {
-        console.error(err);
-      }
-    };
-    fetchOrders();
-  }, []);
-
-  const totalSales = Array.isArray(order)
-    ? order.reduce((acc, order) => acc + order.amount, 0)
-    : 0;
-
-  // Get all announcements
+  //All Announcement
   useEffect(() => {
     const fetchAnnouncements = async () => {
       const token = localStorage.getItem("token");
@@ -80,42 +37,6 @@ const AdminDashboard = () => {
     };
     fetchAnnouncements();
   }, []);
-
-  // Get all projects
-  useEffect(() => {
-    const fetchProjects = async () => {
-      const token = localStorage.getItem("token");
-      try {
-        const response = await axios.get("http://localhost:5000/all-project", {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        });
-        setProjects(response.data.projects); // Assuming the response contains projects in a 'projects' array
-      } catch (err) {
-        console.error(err);
-      }
-    };
-    fetchProjects();
-  }, []);
-
-  // Revenue Calculation per day
-  const calculateRevenueData = () => {
-    if (!Array.isArray(order)) return [];
-
-    const weekDays = ["S", "M", "T", "W", "T", "F", "S"];
-    const revenueByDay = order.reduce((acc, currentOrder) => {
-      const day = new Date(currentOrder.createdAt).getDay();
-      acc[day] = (acc[day] || 0) + currentOrder.amount;
-      return acc;
-    }, {});
-
-    return weekDays.map((day, index) => ({
-      day,
-      percentage: Math.round((revenueByDay[index] || 0) / 100),
-    }));
-  };
-  const revenueData = calculateRevenueData();
 
   // Announcement Data
   const calculateAnnouncementData = () => {
@@ -146,6 +67,47 @@ const AdminDashboard = () => {
   };
   const announcementData = calculateAnnouncementData();
 
+  // order data
+  useEffect(() => {
+    const fetchOrders = async () => {
+      const token = localStorage.getItem("token");
+      try {
+        const response = await axios.get("http://localhost:5000/orders", {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
+        setOrder(response.data);
+      } catch (err) {
+        console.error(err);
+      }
+    };
+    fetchOrders();
+  }, []);
+  const totalSales = Array.isArray(order)
+    ? order.reduce((acc, order) => acc + order.amount, 0)
+    : 0;
+
+  //project fetch
+  useEffect(() => {
+    const fetchProjects = async () => {
+      const token = localStorage.getItem("token");
+      try {
+        const response = await axios.get("http://localhost:5000/all-project", {
+          headers: {
+            Authorization: `Bearer ${token}`, // Corrected syntax for template literal
+          },
+        });
+        setProjects(response.data.projects); // Assuming the response contains projects in a 'projects' array
+      } catch (err) {
+        console.error(err);
+      }
+    };
+    fetchProjects();
+  }, []);
+
+  // project data
+
   // Project Data
   const calculateProjectData = () => {
     if (!Array.isArray(projects)) return [];
@@ -169,30 +131,70 @@ const AdminDashboard = () => {
     }));
   };
   const projectData = calculateProjectData();
-  const paidOrder = order.filter((order) => order.status === "paid");
 
-  // Generate sales data grouped by month
-  const salesByMonth = paidOrder.reduce((acc, sale) => {
-    const month = moment(sale.createdAt).format("MMM");
-    acc[month] = (acc[month] || 0) + sale.amount;
-    return acc;
-  }, {});
+  // Revenue Calculation per day
+  const calculateRevenueData = () => {
+    if (!Array.isArray(order)) return [];
 
-  const labels = [
-    "Jan",
-    "Feb",
-    "Mar",
-    "Apr",
-    "May",
-    "Jun",
-    "Jul",
-    "Aug",
-    "Sep",
-    "Oct",
-    "Nov",
-    "Dec",
-  ];
-  const chartData = labels.map((month) => salesByMonth[month] || 0);
+    const weekDays = ["S", "M", "T", "W", "T", "F", "S"];
+    const revenueByDay = order.reduce((acc, currentOrder) => {
+      const day = new Date(currentOrder.createdAt).getDay();
+      acc[day] = (acc[day] || 0) + currentOrder.amount;
+      return acc;
+    }, {});
+
+    return weekDays.map((day, index) => ({
+      day,
+      percentage: Math.round((revenueByDay[index] || 0) / 100),
+    }));
+  };
+  const revenueData = calculateRevenueData();
+
+  const paidOrders = order.filter((order) => order?.status === "paid");
+
+  const generateChartData = () => {
+    if (view === "yearly") {
+      const salesByMonth = paidOrders.reduce((acc, sale) => {
+        const month = moment(sale.createdAt).format("MMM");
+        acc[month] = (acc[month] || 0) + sale.amount;
+        return acc;
+      }, {});
+
+      const labels = [
+        "Jan",
+        "Feb",
+        "Mar",
+        "Apr",
+        "May",
+        "Jun",
+        "Jul",
+        "Aug",
+        "Sep",
+        "Oct",
+        "Nov",
+        "Dec",
+      ];
+      const chartData = labels.map((month) => salesByMonth[month] || 0);
+
+      return { labels, data: chartData };
+    } else {
+      const daysInMonth = moment().daysInMonth();
+      const salesByDay = paidOrders.reduce((acc, sale) => {
+        const day = moment(sale.createdAt).format("D");
+        acc[day] = (acc[day] || 0) + sale.amount;
+        return acc;
+      }, {});
+
+      const labels = Array.from({ length: daysInMonth }, (_, i) =>
+        (i + 1).toString()
+      );
+      const chartData = labels.map((day) => salesByDay[day] || 0);
+
+      return { labels, data: chartData };
+    }
+  };
+
+  const { labels, data: chartData } = generateChartData();
 
   const data = {
     labels,
@@ -263,10 +265,20 @@ const AdminDashboard = () => {
         />
       </div>
 
-      <div className="bg-[#78120D] mt-10 p-6 rounded-lg text-white shadow-md">
-        <h3 className="text-[#B0B0B0] text-14px font-roboto mb-4">
-          Sales activities
-        </h3>
+      <div className="bg-[#F6170C] bg-opacity-20 mt-10 px-4 py-3 rounded-xl">
+        <div className="flex justify-between items-center mb-4">
+          <h3 className="text-[#B0B0B0] text-14px font-roboto">
+            Sales activities
+          </h3>
+          <select
+            className="bg-[#78120D] text-white p-2 rounded"
+            value={view}
+            onChange={(e) => setView(e.target.value)}
+          >
+            <option value="monthly">Monthly</option>
+            <option value="yearly">Yearly</option>
+          </select>
+        </div>
         <div className="h-64">
           <Line data={data} options={options} />
         </div>
