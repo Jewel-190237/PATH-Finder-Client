@@ -29,8 +29,7 @@ const EarnRewards = () => {
 
   return (
     <div className="bg-[url('/src/assets/Rewards/bg.png')] bg-cover bg-center py-10 text-white">
-      <div className="max-w-[1320px] mx-auto">
-        
+      <div className="path-container">
         <h2 className="heading">
           Earn Rewards with Every Action!
         </h2>
@@ -38,27 +37,27 @@ const EarnRewards = () => {
           From buying premium apps and shopping in our exclusive store to exchanging dollars securely and recharging your mobile, every action you take brings rewards.
         </p>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6">
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-2 sm:gap-3 md:gap-4 lg:gap-5 xl:gap-6">
           {cardData.map((card, index) => (
             <div
               key={index}
-              className="bg-[#78120D] p-8 rounded-lg shadow-lg text-center hover:bg-red-800 transition duration-300"
+              className="bg-[#78120D] p-3 md:p-4 lg:p-6 xl:p-8 rounded-lg shadow-lg text-center hover:bg-red-800 transition duration-300"
             >
-                <div className="bg-[rgba(35,7,19,0.30)] p-4 w-[72px] h-[72px] rounded-lg mx-auto mb-8 mt-4">
+              <div className="bg-[rgba(35,7,19,0.30)] p-4 w-[72px] h-[72px] rounded-lg mx-auto mb-3 sm:mb-4 md:mb-6 lg:mb-7 xl:mb-8 mt-4">
                 <img
-                src={card.icon}
-                alt={card.title}
-                
-              />
-                </div>
-              
+                  src={card.icon}
+                  alt={card.title}
+
+                />
+              </div>
+
               <h3 className="heading2 mb-2">{card.title}</h3>
               <p className="heading4">{card.description}</p>
             </div>
           ))}
         </div>
       </div>
-       <InvestoryNote/>
+      <InvestoryNote />
     </div>
   );
 };

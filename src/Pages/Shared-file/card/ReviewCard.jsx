@@ -5,27 +5,23 @@ import { Rate } from "antd";
 const ReviewCard = ({ image, name, rating, description }) => {
   return (
     <div className="relative group">
-      {/* Card Image */}
       <img className="w-full" src={image} alt="" />
-
-      {/* Initial Content */}
       <div className="group-hover:hidden relative">
         <img className="-mt-1 w-full" src={content} alt="" />
         <div className="absolute inset-0 p-3 xl:p-4 text-white">
           <h2 className="heading2">{name}</h2>
-          <div className="description mt-2 xl:mt-3 flex items-center gap-2">
+          <div className=" description mt-2 xl:mt-3 flex items-center gap-1 md:gap-2">
             <p className="-mb-[6px]">4.9</p>
             <Rate
               disabled
               count={5}
-              className="text-[#F5A714] "
+              className="text-[#F5A714] text-sm sm:text-xl"
               defaultValue={rating}
             />
           </div>
         </div>
       </div>
 
-      {/* Hover Content */}
       <div
         className="absolute  md:-bottom-[120px] lg:-bottom-[110px] xl:-bottom-[120px] w-full opacity-0 pointer-events-none group-hover:opacity-100 group-hover:pointer-events-auto transition-all duration-1000 ease-in-out"
       >
@@ -35,12 +31,12 @@ const ReviewCard = ({ image, name, rating, description }) => {
         >
           <div className="p-3 xl:p-4 text-white w-full px-6">
             <h2 className="heading2">{name}</h2>
-            <div className="description mt-2 xl:mt-3 flex items-center gap-2">
+            <div className="description mt-2 xl:mt-3 flex items-center gap-1 md:gap-2">
               <p className="mb-[6px]">4.9</p>
               <Rate
                 disabled
                 count={5}
-                className="text-[#F5A714] "
+                className="text-[#F5A714] text-sm sm:text-xl"
                 defaultValue={rating}
               />
             </div>
