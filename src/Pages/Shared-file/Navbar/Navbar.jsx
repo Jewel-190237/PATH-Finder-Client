@@ -74,7 +74,7 @@ const Navbar = () => {
           )}
         </div>
         {link.submenu && (
-          <div className="hidden group-hover:block w-36 z-50 absolute top-full left-0 bg-gray-800 text-white shadow-md rounded-md p-2 space-y-2">
+          <div className="hidden group-hover:block w-36 z-50 absolute top-full left-0 bg-primary/60 text-white shadow-md rounded-md p-2 space-y-2">
             {link.submenu.map((sublink, subIndex) => (
               <a
                 key={subIndex}
@@ -130,7 +130,7 @@ const Navbar = () => {
               <BsMoon className="text-xl text-orange-900" />
             )}
           </button>
-          <button onClick={toggleMenu} className="lg:hidden text-2xl">
+          <button onClick={toggleMenu} className="lg:hidden text-2xl text-white">
             {isOpen ? <IoMdCloseCircle /> : <GiHamburgerMenu />}
           </button>
         </div>
@@ -138,7 +138,7 @@ const Navbar = () => {
 
       {/* Mobile Menu */}
       {isOpen && (
-        <div className="lg:hidden bg-gray-800 text-white p-4 space-y-4">
+        <div className="lg:hidden bg-primary/5 text-white p-4 space-y-4">
           {renderLinks()}
         </div>
       )}

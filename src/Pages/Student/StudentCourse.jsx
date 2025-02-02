@@ -1,19 +1,20 @@
-
 import { useEffect, useState } from "react";
 import GetUser from "../../Backend/GetUser";
-import { MdOutlineMan, MdPlayCircleOutline } from "react-icons/md";
+import { MdPlayCircleOutline } from "react-icons/md";
 
 const StudentCourse = () => {
   const [courses, setCourses] = useState([]);
   const [loading, setLoading] = useState(false);
   const [currentUser, setCurrentUser] = useState(null);
-  const [selectedCourse, setSelectedCourse] = useState(null); // For modal course data
+  const [activeCourseId, setActiveCourseId] = useState(null);
+  const [videoProgress, setVideoProgress] = useState({}); // Store progress per course
+  const [isModalOpen, setIsModalOpen] = useState(false); // Modal visibility state
+  const [modalVideoUrl, setModalVideoUrl] = useState(""); // URL for the modal video
   const user = GetUser();
 
   useEffect(() => {
     setCurrentUser(user);
   }, [user]);
-
 
   const fetchCourses = async () => {
     setLoading(true);
@@ -26,11 +27,20 @@ const StudentCourse = () => {
       }
       const data = await response.json();
       setCourses(data);
+      initializeVideoProgress(data);
     } catch (error) {
       console.error("Error fetching courses:", error);
     } finally {
       setLoading(false);
     }
+  };
+
+  const initializeVideoProgress = (courses) => {
+    const progress = {};
+    courses.forEach((course) => {
+      progress[course._id] = 0; // Initialize progress to 0
+    });
+    setVideoProgress(progress);
   };
 
   useEffect(() => {
@@ -39,13 +49,28 @@ const StudentCourse = () => {
     }
   }, [currentUser]);
 
-  const handleCardClick = (course) => {
-    console.log("Selected Course:", course);
-    setSelectedCourse(course); 
+  const handleCourseClick = (courseId) => {
+    setActiveCourseId((prevId) => (prevId === courseId ? null : courseId));
+  };
+
+  const handleVideoCompletion = (courseId) => {
+    setVideoProgress((prevProgress) => {
+      const nextVideoIndex = prevProgress[courseId] + 1;
+      return {
+        ...prevProgress,
+        [courseId]: nextVideoIndex,
+      };
+    });
+  };
+
+  const openModal = (videoUrl) => {
+    setModalVideoUrl(videoUrl);
+    setIsModalOpen(true);
   };
 
   const closeModal = () => {
-    setSelectedCourse(null); 
+    setIsModalOpen(false);
+    setModalVideoUrl("");
   };
 
   return (
@@ -55,76 +80,86 @@ const StudentCourse = () => {
       ) : (
         <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-2 sm:gap-2 lg:gap-3 xl:gap-4">
           {courses?.map((course) => (
-            <div
-              key={course?._id}
-              className="rounded-xl overflow-hidden w-full transform transition-transform hover:scale-105 shadow-[0px_4px_10px_0px_rgba(220,220,220,0.20)]"
-            >
-              <div className="relative">
-                <img
-                  src={course?.thumbnail_image || "/src/assets/explorePics/3.png"}
-                  alt={course?.course_name}
-                  className="w-full h-20 object-cover"
-                />
-                <div
-                  onClick={() => handleCardClick(course)}
-                  className="absolute inset-0 flex items-center justify-center bg-black bg-opacity-30 hover:bg-opacity-50 cursor-pointer"
-                >
-                  <MdPlayCircleOutline size={50} className="text-white" />
+            <div key={course?._id} className="w-full">
+              <div
+                className="rounded-xl overflow-hidden transform transition-transform hover:scale-105 shadow-md cursor-pointer"
+                onClick={() => handleCourseClick(course?._id)}
+              >
+                <div className="relative">
+                  <img
+                    src={course?.thumbnail_image || "/src/assets/explorePics/3.png"}
+                    alt={course?.course_name}
+                    className="w-full h-64 object-fill"
+                  />
+                  <div className="absolute inset-0 flex items-center justify-center bg-black bg-opacity-30 hover:bg-opacity-50">
+                    <MdPlayCircleOutline size={50} className="text-white" />
+                  </div>
+                </div>
+                <div className="px-4 py-2 text-center bg-[#20010D]">
+                  <h2 className="text-lg font-bold text-white">{course?.course_name}</h2>
                 </div>
               </div>
-              <div className="px-4 py-2 text-center bg-[#20010D]">
-                <div className="flex justify-between items-center">
-                  <h2 className="text-lg font-bold text-white">
-                    {course?.course_name}
-                  </h2>
+
+              {activeCourseId === course?._id && (
+                <div className="mt-4">
+                  {course?.videos?.length > 0 ? (
+                    course?.videos.map((video, index) => (
+                      <div
+                        key={index}
+                        className={`bg-[#20010D] rounded-lg overflow-hidden shadow-md mt-4 ${
+                          index > videoProgress[course?._id] ? "hidden" : "block"
+                        }`}
+                      >
+                        <div
+                          onClick={() => openModal(video)}
+                          className="cursor-pointer p-4 bg-gray-700 text-white"
+                        >
+                          Video {index + 1} (Click to Play)
+                        </div>
+                        {index === videoProgress[course?._id] && (
+                          <div className="p-3 text-center">
+                            <button
+                              onClick={() => handleVideoCompletion(course?._id)}
+                              className="bg-green-500 hover:bg-green-600 text-white py-2 px-4 rounded-lg mt-4"
+                            >
+                              Mark as Completed
+                            </button>
+                          </div>
+                        )}
+                      </div>
+                    ))
+                  ) : (
+                    <p className="text-center text-red-400 mt-4">No videos available.</p>
+                  )}
                 </div>
-              </div>
+              )}
             </div>
           ))}
         </div>
       )}
 
-      {selectedCourse && (
-        <div className="fixed inset-0 bg-black bg-opacity-75 flex items-center justify-center z-50">
-          <div className="relative bg-white rounded-lg overflow-hidden w-[90%] md:w-[70%] lg:w-[50%]">
+      {/* Modal for Video */}
+      {isModalOpen && (
+        <div className="fixed inset-0 flex justify-center items-center bg-black bg-opacity-50 z-50">
+          <div className="relative bg-white w-[90%] max-w-3xl p-4 rounded-lg">
             <button
               onClick={closeModal}
-              className="absolute top-2 right-2 bg-red-500 text-white rounded-full px-2 py-1 hover:bg-red-600"
+              className="absolute top-2 right-2 text-black text-2xl"
             >
-              Close
+              X
             </button>
-            <div className="p-5">
-              <h2 className="text-xl font-bold mb-4 text-center">
-                {selectedCourse?.course_name}
-              </h2>
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                {selectedCourse?.videos?.map((videoUrl, index) => (
-                  <div
-                    key={index}
-                    className="rounded-lg overflow-hidden shadow-md bg-[#20010D] cursor-pointer"
-                  >
-                    <div className="relative">
-                      <iframe
-                        src={videoUrl.replace("watch?v=", "embed/")}
-                        title={`Video ${index + 1}`}
-                        frameBorder="0"
-                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                        allowFullScreen
-                        className="w-full h-48"
-                      ></iframe>
-                    </div>
-                    <div className="p-3 text-center text-white">
-                      <p className="text-sm">Video {index + 1}</p>
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </div>
+            <iframe
+              src={modalVideoUrl.replace("watch?v=", "embed/")}
+              title="Video Modal"
+              frameBorder="0"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+              allowFullScreen
+              className="w-full h-[400px]"
+            ></iframe>
           </div>
         </div>
       )}
     </div>
-
   );
 };
 

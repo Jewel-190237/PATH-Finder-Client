@@ -70,12 +70,10 @@ const SignUp = () => {
       <div className="p-10 md:p-[80px] lg:p-[100px] xl:p-[120px] path-container text-white rounded-lg">
         <div className="">
           <h2 className="heading2 text-center">
-            Unlock 10% Off with Just a Few Clicks!
+          Join Our Learning Revolution
           </h2>
           <p className="mt-3 lg:mt-4 xl:mt-6 description text-center max-w-[480px] mx-auto">
-            Fill out the form with your details and enjoy an exclusive 10%
-            discount on your next purchase. It's quick, simple, and <br />{" "}
-            rewarding!
+          Unlock your full potential with our comprehensive courses designed to elevate your skills. Sign up today and take the first step toward success
           </p>
           <div className="flex items-center justify-center mt-4 md:mt-5 lg:mt-6 xl:mt-8 gap-2 md:gap-3 lg:gap-4 xl:gap-6">
             {userRole.map((role) => (

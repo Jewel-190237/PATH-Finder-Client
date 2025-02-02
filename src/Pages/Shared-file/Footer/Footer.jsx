@@ -1,14 +1,36 @@
-import React from "react";
+
+import { useState } from "react";
+import Swal from "sweetalert2";
 import footerImg from "../../../assets/footerbg.png";
 import facebook from "../../../assets/facebook.png";
 import person from "../../../assets/person.png";
 import shape from "../../../assets/shape.png";
 import logo from "../../../assets/logo1.png";
 import call from "../../../assets/call.png";
-import email from "../../../assets/email.png";
-import { Link } from "react-router-dom";
-
+import mail from "../../../assets/email.png";
 const Footer = () => {
+  const [email, setEmail] = useState("");
+
+  const handleSubscribe = () => {
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+    if (!emailRegex.test(email)) {
+      Swal.fire({
+        icon: "error",
+        title: "Invalid Email",
+        text: "Please enter a valid email address!",
+      });
+      return;
+    }
+
+    Swal.fire({
+      icon: "success",
+      title: "Subscribed Successfully",
+      text: "Thank you for subscribing!",
+    });
+
+    setEmail(""); // Reset input field
+  };
   return (
     <footer
       className="bg-cover bg-center"
@@ -27,15 +49,11 @@ const Footer = () => {
             <div className="flex items-center gap-2 md:gap-3 lg:gap-6 xl:gap-7">
               <div className="flex items-center gap-2">
                 <img className="w-[30px] h-[30px]" src={call} alt="Call" />
-                <p className="description">+0123 456 7891</p>
+                <p className="description -mb-1">+0123 456 7891</p>
               </div>
               <div className="flex items-center gap-2">
-                <img
-                  className="w-[30px] h-[30px]"
-                  src={email}
-                  alt="email"
-                />
-                <p className="description">info@pathfinder.com</p>
+                <img className="w-[30px] h-[30px]" src={mail } alt="email" />
+                <p className="description -mb-1">info@pathfinder.com</p>
               </div>
             </div>
           </div>
@@ -98,7 +116,7 @@ const Footer = () => {
               </li>
             </ul>
           </div>
-          <div className="-ml-4 p-4 ">
+          <div className="-ml-4 p-4">
             <p className="heading2 !font-medium">Subscribe to our newsletter</p>
             <p className="description mt-2">
               Get pro video editing tips, trends, and insights—delivered to your
@@ -108,10 +126,13 @@ const Footer = () => {
               <input
                 type="text"
                 placeholder="Enter your email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
                 className="w-full bg-[#78120D] text-white p-3 lg:p-4 xl:p-5 rounded"
               />
               <button
                 type="button"
+                onClick={handleSubscribe}
                 className="heading3 uppercase absolute top-1/2 right-[1px] transform -translate-y-1/2 bg-[#3F3FDE] text-white px-5 lg:px-6 xl:px-8 py-[11px] lg:py-[15px] xl:py-[18px] rounded"
               >
                 Subscribe
