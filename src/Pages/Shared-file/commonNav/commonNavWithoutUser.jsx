@@ -61,9 +61,9 @@ const CommonNavWithoutUser = () => {
               active === index ? "bg-[#78120D]" : ""
             }`}
           >
-            <div className="description mx-auto flex gap-1 lg:gap-2 items-center justify-center text-center">
+            <div className="description mx-auto flex flex-col sm:flex-row gap-1 lg:gap-2 items-center justify-center text-center">
               <span>{item.icon}</span>
-              <span className="mr-2 inline-block">{item.label}</span>
+              <span className="inline-block">{item.label}</span>
             </div>
           </button>
         </Link>

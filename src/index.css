@@ -171,9 +171,8 @@
 }
 
 .task-form {
-  /* Custom CSS for the label text color */
   .ant-form-item-label {
-    color: white !important; /* Make label white */
+    color: white !important; 
   }
   .ant-input,
   .ant-input-focused,
@@ -252,3 +251,24 @@
     padding: 20px 16px;
   }
 }
+
+.custom-select-dropdown .ant-select-item {
+  color: white !important; 
+}
+
+.custom-select-dropdown .ant-select-item-option-selected {
+  background-color: #78120D !important; 
+  color: white !important;
+}
+
+.ant-select-selector {
+  color: white !important;
+  background-color: #78120D !important;
+  border: none !important;
+}
+
+.ant-select-focused .ant-select-selector {
+  box-shadow: none !important; 
+  border: 1px solid white !important;
+}
+
