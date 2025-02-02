@@ -80,6 +80,7 @@ import Review from "../Pages/Review/Review";
 import PrivacyPolicy from "../Pages/PrivacyPolicy/PrivacyPolicy";
 import About from "../Pages/About/About";
 import ContactPage from "../Pages/ContactPage/ContactPage";
+import Offer from "../Pages/Offer/Offer";
 // import AllFaq from "../Pages/FAQ/AllFaq";
 
 export const router = createBrowserRouter([
@@ -123,6 +124,10 @@ export const router = createBrowserRouter([
       {
         path: "/forum",
         element: <Forum />,
+      },
+      {
+        path: "/offer",
+        element: <Offer />,
       },
       {
         path: "/profile",
