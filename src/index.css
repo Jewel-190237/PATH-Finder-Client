@@ -20,7 +20,7 @@
   @apply text-[12px] md:text-[14px] lg:text-[15px] xl:text-[16px] font-roboto;
 }
 .path-container {
-  @apply max-w-[1320px] mx-auto px-4 lg:px-1 xl:px-0;
+  @apply max-w-[1320px] mx-auto px-2 lg:px-1 xl:px-0;
 }
 .watch-button {
   @apply text-white text-[12px] md:text-[16px] lg:text-[18px] xl:text-[20px] font-bold font-roboto bg-[#2D2D2D] py-2 lg:py-3 xl:py-4 px-4 md:px-6 lg:px-7 xl:px-8 hover:bg-[#111111] transition-colors duration-300 ease-in-out;
@@ -171,9 +171,8 @@
 }
 
 .task-form {
-  /* Custom CSS for the label text color */
   .ant-form-item-label {
-    color: white !important; /* Make label white */
+    color: white !important; 
   }
   .ant-input,
   .ant-input-focused,
@@ -269,3 +268,23 @@
   height: 12px;
   transition: background-color 0.2s;
 }
+.custom-select-dropdown .ant-select-item {
+  color: white !important; 
+}
+
+.custom-select-dropdown .ant-select-item-option-selected {
+  background-color: #78120D !important; 
+  color: white !important;
+}
+
+.ant-select-selector {
+  color: white !important;
+  background-color: #78120D !important;
+  border: none !important;
+}
+
+.ant-select-focused .ant-select-selector {
+  box-shadow: none !important; 
+  border: 1px solid white !important;
+}
+

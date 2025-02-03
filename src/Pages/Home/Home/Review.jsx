@@ -1,5 +1,5 @@
 import { Swiper, SwiperSlide } from "swiper/react";
-import { Keyboard, Pagination } from "swiper/modules";
+import { Keyboard, Mousewheel, Pagination, } from "swiper/modules";
 import "swiper/css";
 import "swiper/css/pagination";
 import reviewBg from "../../../assets/reviewBg.png";
@@ -73,7 +73,7 @@ const Review = () => {
       className="bg-cover bg-center relative text-white"
       style={{ backgroundImage: `url(${reviewBg})` }}
     >
-      <div className="max-w-[1320px] mx-auto py-14 md:py-20 lg:py-[100px] xl:py-[120px]">
+      <div className="path-container py-14 md:py-20 lg:py-[100px] xl:py-[120px]">
         <h1 className="heading text-left">Hear from Our Happy Clients</h1>
         <p className="description mt-2 md:mt-3 lg:mt-4">
           Trusted by hundreds, loved by all—here’s{" "}
@@ -83,14 +83,15 @@ const Review = () => {
           <Swiper
             spaceBetween={20}
             breakpoints={{
-              640: { slidesPerView: 1 },
-              768: { slidesPerView: 2 },
-              1024: { slidesPerView: 3 },
-              1280: { slidesPerView: 4 },
+              0: { slidesPerView: 2, spaceBetween: 4 },
+              640: { slidesPerView: 3, spaceBetween: 8 },
+              768: { slidesPerView: 3, spaceBetween: 10 },
+              1024: { slidesPerView: 3, spaceBetween: 16 },
+              1280: { slidesPerView: 4, spaceBetween: 20 },
             }}
             pagination={{ clickable: true }}
             keyboard={{ enabled: true }}
-            modules={[ Keyboard, Pagination]}
+            modules={[ Keyboard, Pagination, Mousewheel]}
             className="my-8"
           >
             {reviewData.map((item, index) => (

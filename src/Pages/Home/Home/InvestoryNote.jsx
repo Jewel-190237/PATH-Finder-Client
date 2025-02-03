@@ -133,7 +133,7 @@ const InvestoryNote = () => {
 
   return (
     <div className="bg-[rgba(35,7,19,0.30)] mt-14">
-      <div className="max-w-[1320px] mx-auto">
+      <div className="path-container">
         <div className="text-white">
           <h1 className="heading">Affirmation note</h1>
           <p className="max-w-[900px] heading2">
@@ -141,13 +141,13 @@ const InvestoryNote = () => {
             exchanging dollars securely and recharging your mobile, every action
             you take brings rewards.
           </p>
-          <div className="bg-[#78120D] max-w-[310px] mx-auto text-center py-6 px-4 rounded-lg font-semibold hover:bg-red-800 my-14">
+          <div className="bg-[#78120D] max-w-[310px] mx-auto text-center py-6 px-4 rounded-lg font-semibold hover:bg-red-800 my-4 sm:my-5 md:my-6 lg:my-8 xl:my-10">
             <p className="text-[#B0B0B0] text-14px font-roboto">Low</p>
             <h1 className="heading2">Investory</h1>
           </div>
         </div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 bg-[rgba(35,7,19,0.30)] py-6">
+        <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 sm:gap-3 md:gap-4 lg:gap-5 xl:gap-6 bg-[rgba(35,7,19,0.30)]">
           {statistics.map((item, index) => (
             <div
               key={index}
@@ -164,12 +164,14 @@ const InvestoryNote = () => {
         </div>
 
         {currentUser?.role === "subAdmin" && (
-          <div className="bg-[#78120D] mt-10 p-6 rounded-lg text-white shadow-md">
-            <h3 className="text-[#B0B0B0] text-14px font-roboto mb-4">
-              Sales activities
-            </h3>
-            <div className="h-64">
-              <Line data={data} options={options} />
+          <div className="overflow-x-auto w-full ">
+            <div className="bg-[#78120D] mt-10 p-6 rounded-lg text-white shadow-md w-[900px] md:w-full ">
+              <h3 className="text-[#B0B0B0] text-14px font-roboto mb-4">
+                Sales activities
+              </h3>
+              <div className="h-60 ">
+                <Line data={data} options={options} />
+              </div>
             </div>
           </div>
         )}

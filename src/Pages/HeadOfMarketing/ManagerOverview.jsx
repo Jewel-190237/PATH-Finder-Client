@@ -31,7 +31,7 @@ const ManagerOverview = () => {
   const user = GetUser();
   const [projects, setProjects] = useState([]);
   const [posts, setPosts] = useState([]);
-  
+
   useEffect(() => {
     setCurrentUser(user);
   }, [user]);

@@ -10,6 +10,7 @@ const CourseDetails = () => {
   }, [user]);
   const { id } = useParams();
   const [course, setCourse] = useState(null);
+  const [offer, setOffer] = useState(null);
   const handlePayment = async () => {
     if (currentUser) {
       try {
@@ -20,7 +21,7 @@ const CourseDetails = () => {
             userId: currentUser?._id,
             courseId: course?._id,
             subAdminId: currentUser?.subAdmin,
-            revenue : course?.course_price * course?.course_discount / 100
+            revenue: course?.course_price * course?.course_discount / 100
           },
           { withCredentials: true }
         );
@@ -50,50 +51,74 @@ const CourseDetails = () => {
     fetchCourse();
   }, [id]);
 
+
+  // fetch offer
+  useEffect(() => {
+    const fetchOffer = async () => {
+      try {
+        const response = await fetch(`http://localhost:5000/offer`);
+        if (!response.ok) {
+          throw new Error("Failed to fetch offer");
+        }
+        const data = await response.json();
+        setOffer(data);
+      } catch (error) {
+        console.error("Error fetching course details:", error);
+      }
+    }
+
+    fetchOffer();
+  }, []);
+
   if (!course) {
     return <p>Loading...</p>;
   }
-
+  console.log('offer', offer)
   return (
     <div
       className="bg-cover bg-center relative text-white min-h-screen"
       style={{ backgroundImage: 'url("/src/assets/explorePics/bg.png")' }}
     >
-      <div className="max-w-[1320px] mx-auto  py-20  rounded-lg shadow-lg ">
+      <div className="path-container py-20 rounded-lg shadow-lg ">
         {/* Course Image */}
-        <div className="flex flex-col md:flex-row space-x-10 p-10 bg-[#20010D] rounded-2xl ">
-        <div className="w-full md:w-1/2 bg-slate-400 rounded-2xl">
-          <img
-            src={
-              course.thumbnail_image || "/src/assets/explorePics/placeholder.png"
-            }
-            alt={course.course_name}
-            className="w-full h-96 object-fill rounded-lg"
-          />
-        </div>
-
-        {/* Course Name and Details */}
-        <div className="w-full md:w-1/2 flex flex-col justify-center">
-          <div className="mt-6">
-            <h1 className="text-3xl font-bold">Course Name: {course.course_name}</h1>
-            <p className="mt-4 text-xl text-yellow-500">
-              Price: ${course.course_price}
-            </p>
-            <p className="mt-6 text-lg text-[#B0B0B0] leading-relaxed">
-              Course Description: {course.description || "No description available for this course."}
-            </p>
+        <div className="flex flex-col sm:flex-row gap-4 md:gap-4 lg:gap-6 p-6 md:p-7 lg:p-8 xl:p-10 bg-[#20010D] rounded-2xl ">
+          <div className="w-full  md:w-1/2  rounded-2xl">
+            <img
+              src={
+                course.thumbnail_image || "/src/assets/explorePics/placeholder.png"
+              }
+              alt={course.course_name}
+              className="w-full h-[250px] sm:h-96 object-fill rounded-lg"
+            />
           </div>
 
-          {/* Buy It Button */}
-          <div className="mt-16 flex justify-end items-end">
-            <button
-              className="px-8 py-3 bg-[#3F3FDE] text-black text-lg font-semibold rounded-lg hover:bg-yellow-600 transition-all duration-200"
-              onClick={handlePayment}
-            >
-              Buy Now
-            </button>
+          {/* Course Name and Details */}
+          <div className="w-full md:w-1/2 flex flex-col justify-center">
+            <div className="mt-6">
+              <h1 className="text-3xl font-bold">Course Name: {course.course_name}</h1>
+              <div className="flex items-center justify-between">
+                <p className="mt-4 text-base text-yellow-500">
+                  Regular Price: ${course.course_price}
+                </p>
+                <p className="mt-4 text-base text-yellow-500">
+                  Discount Price: ${course.course_price}
+                </p>
+              </div>
+              <p className="mt-4 md:mt-5 lg:mt-6 text-lg text-[#B0B0B0] leading-relaxed">
+                Course Description: {course.description || "No description available for this course."}
+              </p>
+            </div>
+
+            {/* Buy It Button */}
+            <div className="mt-16 flex justify-end items-end">
+              <button
+                className="px-8 py-3 bg-[#3F3FDE] text-black text-lg font-semibold rounded-lg hover:bg-yellow-600 transition-all duration-200"
+                onClick={handlePayment}
+              >
+                Buy Now
+              </button>
+            </div>
           </div>
-        </div>
         </div>
       </div>
     </div>

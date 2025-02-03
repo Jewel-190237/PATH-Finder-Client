@@ -42,9 +42,9 @@ const CommonNav = () => {
               active === index ? "bg-[#78120D]" : ""
             }`}
           >
-            <div className="description mx-auto flex gap-1 lg:gap-2 items-center justify-center text-center">
-              <span>{item.icon}</span>
-              <span className="mr-2 inline-block">{item.label}</span>
+            <div className="description mx-auto flex flex-col sm:flex-row gap-1 lg:gap-2 items-center justify-center text-center">
+              <span className="">{item.icon}</span>
+              <span className=" inline-block">{item.label}</span>
             </div>
           </button>
         </Link>

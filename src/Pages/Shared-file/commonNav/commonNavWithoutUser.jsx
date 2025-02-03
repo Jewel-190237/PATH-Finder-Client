@@ -23,13 +23,13 @@ const CommonNavWithoutUser = () => {
   const handleAction = (action) => {
     switch (action) {
       case "call":
-        window.open("tel:+1234567890", "_self");
+        window.open("tel:+8801660013379", "_self");
         break;
       case "messenger":
-        window.open("https://www.messenger.com", "_blank");
+        window.open("https://www.facebook.com/messages/t/100092690208797", "_blank");
         break;
       case "whatsapp":
-        window.open("https://wa.me/+1234567890", "_blank");
+        window.open("https://wa.me/+8801660013379", "_blank");
         break;
       default:
         break;
@@ -39,7 +39,7 @@ const CommonNavWithoutUser = () => {
   const navItems = [
     { icon: <FaHome />, label: "Home", to: "/" },
     { icon: <FaPhoneAlt />, label: "Call", action: "call" },
-    { icon: <HiOutlineLightBulb />, label: "Offer", to: "/aspire" },
+    { icon: <HiOutlineLightBulb />, label: "Offer", to: "/offer" },
     { icon: <MdOutlineForum />, label: "Messenger", action: "messenger" },
     { icon: <FaWhatsapp />, label: "WhatsApp", action: "whatsapp" },
   ];
@@ -61,9 +61,9 @@ const CommonNavWithoutUser = () => {
               active === index ? "bg-[#78120D]" : ""
             }`}
           >
-            <div className="description mx-auto flex gap-1 lg:gap-2 items-center justify-center text-center">
+            <div className="description mx-auto flex flex-col sm:flex-row gap-1 lg:gap-2 items-center justify-center text-center">
               <span>{item.icon}</span>
-              <span className="mr-2 inline-block">{item.label}</span>
+              <span className="inline-block">{item.label}</span>
             </div>
           </button>
         </Link>
