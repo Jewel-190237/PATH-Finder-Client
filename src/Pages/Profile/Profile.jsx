@@ -111,7 +111,7 @@ const Profile = () => {
       </div>
 
       <div className=" pt-14 md:pt-[80px] lg:pt-[100px] xl:pt-[120px] flex flex-col lg:flex-row w-full gap-6">
-        <div className="w-full lg:w-1/2 bg-[rgba(120,18,13,0.3)] max-w-[480px] h-[650px] rounded-[20px]">
+        <div className="w-full lg:w-1/2 bg-[rgba(120,18,13,0.3)] max-w-[480px] h-[650px] rounded-[20px] mb-20 lg:mb-0">
           <div className="flex justify-between items-center text-white p-5">
             <h2 className="text-lg font-semibold">Personal Statistics</h2>
           </div>
@@ -195,7 +195,7 @@ const Profile = () => {
           </div>
         </div>
 
-        <div className="w-full lg:w-1/2 absolute bottom-0 right-0 lg:pl-20 pb-12">
+        <div className="w-full lg:w-1/2 absolute bottom-0 right-0 lg:pl-20 pb-12 :">
           <div className="bg-[#F6170C] p-12  rounded-tl-[60px] max-w-[710px] shadow-lg mx-auto border-[1px] border-[#F5F8FC] -mr-0 relative">
             {selectedUsers.map((item, index) => (
               <div

@@ -231,7 +231,6 @@
     > .ant-collapse-item.ant-collapse-item-active
     > .ant-collapse-header {
     background-color: #78120d;
-    /* padding: 40px 20px; */
     border-top-left-radius: 12px !important;
     border-top-right-radius: 12px !important;
   }
@@ -276,13 +275,11 @@
   background-color: #78120D !important; 
   color: white !important;
 }
-
 .ant-select-selector {
   color: white !important;
   background-color: #78120D !important;
   border: none !important;
 }
-
 .ant-select-focused .ant-select-selector {
   box-shadow: none !important; 
   border: 1px solid white !important;
