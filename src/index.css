@@ -252,3 +252,20 @@
     padding: 20px 16px;
   }
 }
+
+:where(.css-dev-only-do-not-override-7ny38l).ant-slider-horizontal {
+  padding-block: 0px;
+  border-radius: 40px;
+}
+
+.ant-slider-horizontal .ant-slider-track {
+  width: 100%;
+  height: 12px;
+}
+.ant-slider .ant-slider-rail {
+  position: absolute;
+  background-color: #b0b0b0;
+  border-radius: 2px;
+  height: 12px;
+  transition: background-color 0.2s;
+}

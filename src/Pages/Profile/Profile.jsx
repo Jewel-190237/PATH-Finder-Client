@@ -111,86 +111,84 @@ const Profile = () => {
       </div>
 
       <div className=" pt-14 md:pt-[80px] lg:pt-[100px] xl:pt-[120px] flex flex-col lg:flex-row w-full gap-6">
-        <div className="w-full lg:w-1/2 bg-[rgba(120,18,13,0.3)] max-w-[480px]  h-[650px] rounded-[20px]">
-          <div className="flex justify-between items-center text-white p-5 ">
+        <div className="w-full lg:w-1/2 bg-[rgba(120,18,13,0.3)] max-w-[480px] h-[650px] rounded-[20px]">
+          <div className="flex justify-between items-center text-white p-5">
             <h2 className="text-lg font-semibold">Personal Statistics</h2>
-            <button className="bg-[#F6170C] text-white text-sm px-4 py-2 rounded flex items-center">
-              Today
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                fill="none"
-                viewBox="0 0 24 24"
-                strokeWidth="2"
-                stroke="currentColor"
-                className="w-4 h-4 ml-1"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  d="M19 9l-7 7-7-7"
-                />
-              </svg>
-            </button>
           </div>
           <p className="text-sm text-white mb-6 px-5">Personal Statistics</p>
+
           <div
-            className="flex flex-col items-center justify-center  space-y-8"
+            className="flex flex-col items-center justify-center space-y-8"
             style={{ padding: "20px" }}
           >
-            <div className="space-y-4">
-              <Progress
-                type="circle"
-                percent={salaryPercent}
-                strokeColor="#FF4D4F"
-                format={() => `${salaryPercent}%`}
-              />
-              <Progress
-                type="circle"
-                percent={taskPercent}
-                strokeColor="#FFA940"
-                format={() => `${taskPercent}%`}
-              />
-              <Progress
-                type="circle"
-                percent={skillPercent}
-                strokeColor="#FFC53D"
-                format={() => `${skillPercent}%`}
-              />
+            {/* Nested Circular Progress */}
+            <div className="relative">
+              {/* Outer Circle */}
+              <div className="transform rotate-90">
+                <Progress
+                  type="circle"
+                  percent={skillPercent}
+                  strokeColor="#F6170C"
+                  format={() => ` `}
+                  width={150}
+                />
+              </div>
+
+              {/* Middle Circle */}
+              <div className="absolute top-[20px] left-5 transform rotate-90">
+                <Progress
+                  type="circle"
+                  percent={taskPercent}
+                  strokeColor="#F38122"
+                  format={() => ` `}
+                  width={110}
+                />
+              </div>
+
+              {/* Inner Circle */}
+              <div className="absolute top-[34px] left-[38px] transform rotate-90">
+                <Progress
+                  type="circle"
+                  percent={salaryPercent}
+                  strokeColor="#FCBB58"
+                  format={() => ` `}
+                  width={80}
+                />
+              </div>
             </div>
 
             <Space direction="vertical" size="large" className="w-full">
               <div className="w-80">
-                <p>Salary</p>
+                <p className="text-white">Salary</p>
                 <Slider
                   value={salaryPercent}
                   onChange={(value) => setSalaryPercent(value)}
                   min={0}
                   max={100}
-                  trackStyle={{ backgroundColor: "#FF4D4F" }}
-                  handleStyle={{ borderColor: "#FF4D4F" }}
+                  trackStyle={{ backgroundColor: "#FCBB58" }}
+                  handleStyle={{ borderColor: "#FCBB58" }}
                 />
               </div>
               <div className="w-80 -mt-6">
-                <p>Task Plan</p>
+                <p className="text-white">Task Plan</p>
                 <Slider
                   value={taskPercent}
                   onChange={(value) => setTaskPercent(value)}
                   min={0}
                   max={100}
-                  trackStyle={{ backgroundColor: "#FFA940" }}
-                  handleStyle={{ borderColor: "#FFA940" }}
+                  trackStyle={{ backgroundColor: "#F38122" }}
+                  handleStyle={{ borderColor: "#F38122" }}
                 />
               </div>
               <div className="w-80 -mt-6">
-                <p>Skill Plan</p>
+                <p className="text-white">Skill Plan</p>
                 <Slider
                   value={skillPercent}
-                  className="!h-12"
                   onChange={(value) => setSkillPercent(value)}
                   min={0}
                   max={100}
-                  trackStyle={{ backgroundColor: "#FFC53D" }}
-                  handleStyle={{ borderColor: "#FFC53D" }}
+                  trackStyle={{ backgroundColor: "#F6170C " }}
+                  handleStyle={{ borderColor: "#F6170C" }}
                 />
               </div>
             </Space>
