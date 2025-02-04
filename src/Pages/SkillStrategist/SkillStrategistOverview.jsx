@@ -148,9 +148,6 @@ const SkillStrategistOverview = () => {
     fetchPosts();
   }, [currentUser]);
 
-  console.log("projects", projects);
-  console.log("posts", posts);
-
   const calculateProjectData = () => {
     if (!Array.isArray(projects)) return [];
 

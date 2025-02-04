@@ -9,7 +9,6 @@ const VirtualAssistant = () => {
     setCurrentUser(user);
   }, [user]);
 
-  console.log("Current User:", currentUser);
   return (
     <div className="p-5 md:p-10 lg:p-12 xl:p-14 text-white">
       <ViewTable subRole="Virtual assistant" />

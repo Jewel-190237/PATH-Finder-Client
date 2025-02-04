@@ -61,7 +61,6 @@ const CourseDetails = () => {
     finalPrice = course?.course_price;
   }
 
-  console.log("final price", finalPrice);
   const handlePayment = async () => {
     if (currentUser) {
       try {
@@ -78,8 +77,7 @@ const CourseDetails = () => {
         );
         window.location.href = data.bkashURL;
       } catch (error) {
-        console.log(error.response?.data || "Error occurred");
-      }
+        console.error("Error creating payment:", error);}
     } else {
       window.location.href = "/login";
     }

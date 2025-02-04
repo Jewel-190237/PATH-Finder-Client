@@ -26,9 +26,6 @@ const Analytics = () => {
             return res.data;
         }
     })
-    console.log(user);
-    console.log(currentUser[0]?.name);
-
     const { data: information = [] } = useQuery({
         queryKey: ['admin-states'],
         queryFn: async () => {
@@ -36,8 +33,6 @@ const Analytics = () => {
             return info.data;
         }
     })
-    console.log(information);
-
 
     //customize ber chart
     const getPath = (x, y, width, height) => {

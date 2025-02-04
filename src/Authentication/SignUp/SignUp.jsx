@@ -26,7 +26,6 @@ const SignUp = () => {
   };
   const [param] = useSearchParams();
   const referenceCode = param?.get("reference");
-  console.log("🚀 ~ SignUp ~ referenceCode:", referenceCode)
 
   const onFinish = async (value) => {
     try {
@@ -43,7 +42,6 @@ const SignUp = () => {
         subAdmin: matchingUser ? matchingUser._id : null,
       };
 
-      console.log("New User:", newUser);
       const response = await axiosSecurePublic.post("/users", newUser);
 
       if (response.status === 200) {

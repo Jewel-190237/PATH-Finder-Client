@@ -17,7 +17,6 @@ const Offer = () => {
         telegram: value.telegram,
       };
 
-      console.log("New User:", newUser);
       const response = await axiosSecurePublic.post("/offer", newUser);
 
       if (response.status === 200) {

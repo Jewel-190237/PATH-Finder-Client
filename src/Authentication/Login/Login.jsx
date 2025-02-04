@@ -19,7 +19,6 @@ const Login = () => {
         role: activeRole,
       });
 
-      console.log("Server Response:", response.data);
       message.success("Login successful");
 
       const { token, userId, role, subRole } = response.data;

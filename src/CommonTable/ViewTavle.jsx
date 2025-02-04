@@ -86,7 +86,6 @@ const ViewTable = ({ subRole }) => {
   const showModal = (user) => {
     setSelectedUser(user);
     setIsModalOpen(true);
-    console.log("User", user);
   };
 
   const handleOk = () => {

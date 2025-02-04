@@ -10,7 +10,6 @@ const StudentDashboard = () => {
   const user = GetUser();
 
   useEffect(() => {
-    console.log("Fetched User Data:", user);
     if (user === null) return;
 
     if (!user) {

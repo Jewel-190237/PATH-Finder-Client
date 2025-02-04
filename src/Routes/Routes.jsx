@@ -62,7 +62,6 @@ import StudentDashboard from "../Layout/StudentDashboard/SrudentDashboard";
 import StudentOverview from "../Pages/Student/StudentOverview";
 import StudentCourse from "../Pages/Student/StudentCourse";
 import Assignment from "../Pages/Student/Assignment";
-import VideoCourse from "../Pages/testing";
 import Projects from "../Pages/Dashboard/AdminDashboard/Projects";
 import Announcement from "../Pages/Dashboard/AdminDashboard/Announcement";
 import Post from "../Pages/Student/Post";
@@ -172,10 +171,6 @@ export const router = createBrowserRouter([
       {
         path: "/userProfile/profile",
         element: <PaymentFail />,
-      },
-      {
-        path: "coursesVideo",
-        element: <VideoCourse/>,
       },
       {
         path: "/review",
