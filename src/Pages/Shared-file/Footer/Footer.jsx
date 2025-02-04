@@ -8,6 +8,7 @@ import shape from "../../../assets/shape.png";
 import logo from "../../../assets/logo1.png";
 import call from "../../../assets/call.png";
 import mail from "../../../assets/email.png";
+import { Link } from "react-router-dom";
 const Footer = () => {
   const [email, setEmail] = useState("");
 

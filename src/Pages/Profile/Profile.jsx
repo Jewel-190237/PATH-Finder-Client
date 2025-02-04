@@ -3,7 +3,10 @@ import { Progress, Slider, Space } from "antd";
 import { Link } from "react-router-dom";
 import bg from "../../assets/profile/Rank.png";
 import person from "../../assets/user.jpg";
+// /src/assets/profile/verified.svg
+
 import GetUser from "../../Backend/GetUser";
+import { MdVerified } from "react-icons/md";
 const Profile = () => {
   const [salaryPercent, setSalaryPercent] = useState(50);
   const [taskPercent, setTaskPercent] = useState(70);
@@ -48,29 +51,25 @@ const Profile = () => {
             services.access to all our services.
           </p>
         </div>
-        <div className="bg-[#F38122] w-full rounded-xl p-[30px] flex items-center justify-between relative shadow-lg mt-40">
-          <div className="absolute -top-[108px] left-1/2 transform -translate-x-1/2">
-            <div className="rounded-full bg-red-800 overflow-hidden w-[200px] h-[200px]">
+        <div className="bg-[#F38122] w-full rounded sm:rounded-md lg:rounded-lg xl:rounded-xl lg:p-4 xl:p-5 2xl:p-[30px] flex items-center justify-between relative shadow-lg mt-40">
+          <div className="absolute -top-6 sm:-top-[40px] lg:-top-[50px] xl:-top-[70px] 2xl:-top-[108px] left-1/2 transform -translate-x-1/2">
+            <div className="rounded-full bg-red-800 overflow-hidden w-16 h-16 sm:w-[80px] sm:h-[80px] lg:w-[120px] lg:h-[120px] xl:w-[150px] xl:h-[150px] 2xl:w-[200px] 2xl:h-[200px]">
               <img
                 src={person}
                 alt="Profile"
-                className="w-full h-full object-cover"
+                className="w-full h-full object-fill rounded-full"
               />
             </div>
             <div className="absolute bottom-0 right-0 rounded-full flex items-center justify-center">
-              <img
-                src="/src/assets/profile/verified.svg"
-                alt="img.png"
-                className="w-14 h-14"
-              />
+              <MdVerified className="w-7 h-7 sm:w-9 sm:h-9 lg:w-12 lg:h-12 xl:w-14 xl:h-14 text-blue-700" />
             </div>
           </div>
-          <div className="text-white flex-1 text-left ml-5">
+          <div className="text-white flex-1 text-left ml-5 mt-3">
             <p className="text-lg font-semibold">
               Coins: {currentUser?.coins || 0}
             </p>
           </div>
-          <div className="text-white flex-1 text-right mr-5">
+          <div className="text-white flex-1 text-right mr-5 mt-3">
             <p className="text-lg font-semibold">
               Level : {currentUser?.level || 0}
             </p>
