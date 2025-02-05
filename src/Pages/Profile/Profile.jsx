@@ -3,7 +3,10 @@ import { Progress, Slider, Space } from "antd";
 import { Link } from "react-router-dom";
 import bg from "../../assets/profile/Rank.png";
 import person from "../../assets/user.jpg";
+// /src/assets/profile/verified.svg
+
 import GetUser from "../../Backend/GetUser";
+import { MdVerified } from "react-icons/md";
 const Profile = () => {
   const [salaryPercent, setSalaryPercent] = useState(50);
   const [taskPercent, setTaskPercent] = useState(70);
@@ -48,29 +51,25 @@ const Profile = () => {
             services.access to all our services.
           </p>
         </div>
-        <div className="bg-[#F38122] w-full rounded-xl p-[30px] flex items-center justify-between relative shadow-lg mt-40">
-          <div className="absolute -top-[108px] left-1/2 transform -translate-x-1/2">
-            <div className="rounded-full bg-red-800 overflow-hidden w-[200px] h-[200px]">
+        <div className="bg-[#F38122] w-full rounded sm:rounded-md lg:rounded-lg xl:rounded-xl lg:p-4 xl:p-5 2xl:p-[30px] flex items-center justify-between relative shadow-lg mt-40">
+          <div className="absolute -top-6 sm:-top-[40px] lg:-top-[50px] xl:-top-[70px] 2xl:-top-[108px] left-1/2 transform -translate-x-1/2">
+            <div className="rounded-full bg-red-800 overflow-hidden w-16 h-16 sm:w-[80px] sm:h-[80px] lg:w-[120px] lg:h-[120px] xl:w-[150px] xl:h-[150px] 2xl:w-[200px] 2xl:h-[200px]">
               <img
                 src={person}
                 alt="Profile"
-                className="w-full h-full object-cover"
+                className="w-full h-full object-fill rounded-full"
               />
             </div>
             <div className="absolute bottom-0 right-0 rounded-full flex items-center justify-center">
-              <img
-                src="/src/assets/profile/verified.svg"
-                alt="img.png"
-                className="w-14 h-14"
-              />
+              <MdVerified className="w-7 h-7 sm:w-9 sm:h-9 lg:w-12 lg:h-12 xl:w-14 xl:h-14 text-blue-700" />
             </div>
           </div>
-          <div className="text-white flex-1 text-left ml-5">
+          <div className="text-white flex-1 text-left ml-5 mt-3">
             <p className="text-lg font-semibold">
               Coins: {currentUser?.coins || 0}
             </p>
           </div>
-          <div className="text-white flex-1 text-right mr-5">
+          <div className="text-white flex-1 text-right mr-5 mt-3">
             <p className="text-lg font-semibold">
               Level : {currentUser?.level || 0}
             </p>
@@ -111,93 +110,91 @@ const Profile = () => {
       </div>
 
       <div className=" pt-14 md:pt-[80px] lg:pt-[100px] xl:pt-[120px] flex flex-col lg:flex-row w-full gap-6">
-        <div className="w-full lg:w-1/2 bg-[rgba(120,18,13,0.3)] max-w-[480px]  h-[650px] rounded-[20px]">
-          <div className="flex justify-between items-center text-white p-5 ">
+        <div className="w-full lg:w-1/2 bg-[rgba(120,18,13,0.3)] max-w-[480px] h-[650px] rounded-[20px] mb-20 lg:mb-0">
+          <div className="flex justify-between items-center text-white p-5">
             <h2 className="text-lg font-semibold">Personal Statistics</h2>
-            <button className="bg-[#F6170C] text-white text-sm px-4 py-2 rounded flex items-center">
-              Today
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                fill="none"
-                viewBox="0 0 24 24"
-                strokeWidth="2"
-                stroke="currentColor"
-                className="w-4 h-4 ml-1"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  d="M19 9l-7 7-7-7"
-                />
-              </svg>
-            </button>
           </div>
           <p className="text-sm text-white mb-6 px-5">Personal Statistics</p>
+
           <div
-            className="flex flex-col items-center justify-center  space-y-8"
+            className="flex flex-col items-center justify-center space-y-8"
             style={{ padding: "20px" }}
           >
-            <div className="space-y-4">
-              <Progress
-                type="circle"
-                percent={salaryPercent}
-                strokeColor="#FF4D4F"
-                format={() => `${salaryPercent}%`}
-              />
-              <Progress
-                type="circle"
-                percent={taskPercent}
-                strokeColor="#FFA940"
-                format={() => `${taskPercent}%`}
-              />
-              <Progress
-                type="circle"
-                percent={skillPercent}
-                strokeColor="#FFC53D"
-                format={() => `${skillPercent}%`}
-              />
+            {/* Nested Circular Progress */}
+            <div className="relative">
+              {/* Outer Circle */}
+              <div className="transform rotate-90">
+                <Progress
+                  type="circle"
+                  percent={skillPercent}
+                  strokeColor="#F6170C"
+                  format={() => ` `}
+                  width={150}
+                />
+              </div>
+
+              {/* Middle Circle */}
+              <div className="absolute top-[20px] left-5 transform rotate-90">
+                <Progress
+                  type="circle"
+                  percent={taskPercent}
+                  strokeColor="#F38122"
+                  format={() => ` `}
+                  width={110}
+                />
+              </div>
+
+              {/* Inner Circle */}
+              <div className="absolute top-[34px] left-[38px] transform rotate-90">
+                <Progress
+                  type="circle"
+                  percent={salaryPercent}
+                  strokeColor="#FCBB58"
+                  format={() => ` `}
+                  width={80}
+                />
+              </div>
             </div>
 
             <Space direction="vertical" size="large" className="w-full">
               <div className="w-80">
-                <p>Salary</p>
+                <p className="text-white">Salary</p>
                 <Slider
                   value={salaryPercent}
                   onChange={(value) => setSalaryPercent(value)}
                   min={0}
                   max={100}
-                  trackStyle={{ backgroundColor: "#FF4D4F" }}
-                  handleStyle={{ borderColor: "#FF4D4F" }}
+                  trackStyle={{ backgroundColor: "#FCBB58" }}
+                  handleStyle={{ borderColor: "#FCBB58" }}
                 />
               </div>
               <div className="w-80 -mt-6">
-                <p>Task Plan</p>
+                <p className="text-white">Task Plan</p>
                 <Slider
                   value={taskPercent}
                   onChange={(value) => setTaskPercent(value)}
                   min={0}
                   max={100}
-                  trackStyle={{ backgroundColor: "#FFA940" }}
-                  handleStyle={{ borderColor: "#FFA940" }}
+                  trackStyle={{ backgroundColor: "#F38122" }}
+                  handleStyle={{ borderColor: "#F38122" }}
                 />
               </div>
               <div className="w-80 -mt-6">
-                <p>Skill Plan</p>
+                <p className="text-white">Skill Plan</p>
                 <Slider
                   value={skillPercent}
-                  className="!h-12"
                   onChange={(value) => setSkillPercent(value)}
                   min={0}
                   max={100}
-                  trackStyle={{ backgroundColor: "#FFC53D" }}
-                  handleStyle={{ borderColor: "#FFC53D" }}
+                  trackStyle={{ backgroundColor: "#F6170C " }}
+                  handleStyle={{ borderColor: "#F6170C" }}
                 />
               </div>
             </Space>
           </div>
         </div>
 
-        <div className="w-full lg:w-1/2 absolute bottom-0 right-0 lg:pl-20 pb-12">
+        <div className="w-full lg:w-1/2 absolute bottom-0 right-0 lg:pl-20 pb-12 :">
           <div className="bg-[#F6170C] p-12  rounded-tl-[60px] max-w-[710px] shadow-lg mx-auto border-[1px] border-[#F5F8FC] -mr-0 relative">
             {selectedUsers.map((item, index) => (
               <div

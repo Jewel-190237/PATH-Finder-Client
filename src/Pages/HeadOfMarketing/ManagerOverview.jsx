@@ -31,7 +31,7 @@ const ManagerOverview = () => {
   const user = GetUser();
   const [projects, setProjects] = useState([]);
   const [posts, setPosts] = useState([]);
-  
+
   useEffect(() => {
     setCurrentUser(user);
   }, [user]);
@@ -147,10 +147,7 @@ const ManagerOverview = () => {
     };
     fetchPosts();
   }, [currentUser]);
-
-  console.log("projects", projects);
-  console.log("posts", posts);
-
+  
   const calculateProjectData = () => {
     if (!Array.isArray(projects)) return [];
 

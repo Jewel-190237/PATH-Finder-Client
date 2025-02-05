@@ -37,7 +37,6 @@ const AdminPost = () => {
     }
   };
 
-  console.log('Project ssss',projects);
   const handleDelete = async (id) => {
     Swal.fire({
       title: "Are you sure?",

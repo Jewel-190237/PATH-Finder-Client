@@ -1,6 +1,7 @@
 import { Form, Input, message, Modal } from "antd";
 import { useEffect, useState } from "react";
-import { FaRegEdit, FaTrashAlt } from "react-icons/fa";
+import { FaRegCopy, FaRegEdit, FaTrashAlt } from "react-icons/fa";
+import { MdGeneratingTokens } from "react-icons/md";
 import Swal from "sweetalert2";
 
 const AllMaster = () => {
@@ -22,7 +23,6 @@ const AllMaster = () => {
       .then((response) => response.json())
       .then((data) => setUsers(data))
       .catch((error) => {
-        message.error("Failed to fetch users.");
         console.error("Error fetching users:", error);
       })
       .finally(() => setLoading(false));
@@ -196,6 +196,41 @@ const AllMaster = () => {
   const currentUsers = memberUsers.slice(indexOfFirstUser, indexOfLastUser);
   const totalPages = Math.ceil(memberUsers.length / usersPerPage);
 
+  const handleGenerate = (user) => {
+    let randomSixDigitNumber = Math.floor(100000 + Math.random() * 900000);
+    let isUnique = false;
+
+    while (!isUnique) {
+      randomSixDigitNumber = Math.floor(100000 + Math.random() * 900000);
+      isUnique = !users.some((u) => u.code === randomSixDigitNumber); 
+    }
+    const token = localStorage.getItem("token");
+    try {
+      fetch(`http://localhost:5000/generate-code/${user._id}`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify({ code: randomSixDigitNumber }),
+      }).then((response) => {
+        if (response.ok) {
+          message.success("Code generated successfully");
+          reloadUsers();
+        }
+      });
+    } catch (error) {
+      message.error("Error generating code");
+      console.error("Error generating code:", error);
+    }
+  };
+  const handleCopy = (code) => {
+    const url = `https://pathxfinder.com/signup?reference=${code}`;
+    navigator.clipboard.writeText(url).then(() => {
+      message.success("URL copied to clipboard!");
+    });
+  };
+
   if (loading) {
     return <div>Loading...</div>;
   }
@@ -217,6 +252,7 @@ const AllMaster = () => {
                 <th className="px-4 py-2">Sl No</th>
                 <th className="px-4 py-2">Name</th>
                 <th className="px-4 py-2">Phone Number</th>
+                <th className="px-4 py-2">Reference</th>
                 <th className="px-4 py-2">Balance</th>
                 <th className="px-4 py-2">Coin</th>
                 <th className="px-4 py-2">Select Role</th>
@@ -230,6 +266,17 @@ const AllMaster = () => {
                   <td className="px-4 py-2">{index + indexOfFirstUser + 1}</td>
                   <td className="px-4 py-2">{user.name}</td>
                   <td className="px-4 py-2">{user.phone}</td>
+                  <td className="px-4 py-2">
+                    {user?.code ? (
+                      <button onClick={() => handleCopy(user.code)}>
+                        <FaRegCopy className="text-2xl text-blue-500" />
+                      </button>
+                    ) : (
+                      <button onClick={() => handleGenerate(user)}>
+                        <MdGeneratingTokens className="text-2xl text-blue-500" />
+                      </button>
+                    )}
+                  </td>
                   <td className="px-4 py-2">{user.balance || 0}</td>
                   <td className="px-4 py-2">{user.coins || 0}</td>
                   <td className="px-4 py-2">
@@ -271,7 +318,7 @@ const AllMaster = () => {
                     <button
                       onClick={() => {
                         setSelectedUser(user);
-                        setIsModalOpen(true)
+                        setIsModalOpen(true);
                       }}
                       className="text-blue-600"
                     >
@@ -299,10 +346,11 @@ const AllMaster = () => {
             <button
               key={index + 1}
               onClick={() => setCurrentPage(index + 1)}
-              className={`mx-1 px-3 py-1 rounded ${currentPage === index + 1
-                ? "bg-primary text-white"
-                : "bg-gray-300 text-black"
-                }`}
+              className={`mx-1 px-3 py-1 rounded ${
+                currentPage === index + 1
+                  ? "bg-primary text-white"
+                  : "bg-gray-300 text-black"
+              }`}
             >
               {index + 1}
             </button>
@@ -327,12 +375,15 @@ const AllMaster = () => {
             className="max-w-[1000px] task-form rounded-[16px] mx-auto my-4 md:my-8"
             style={{ backdropFilter: "blur(30px)" }}
           >
-            <Form layout="vertical" onFinish={onFinish} form={form}
+            <Form
+              layout="vertical"
+              onFinish={onFinish}
+              form={form}
               initialValues={{
                 balance: selectedUser?.balance || 0,
                 coins: selectedUser?.coins,
-              }}>
-
+              }}
+            >
               <Form.Item
                 label="Balance:"
                 name="balance"

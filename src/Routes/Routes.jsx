@@ -62,7 +62,6 @@ import StudentDashboard from "../Layout/StudentDashboard/SrudentDashboard";
 import StudentOverview from "../Pages/Student/StudentOverview";
 import StudentCourse from "../Pages/Student/StudentCourse";
 import Assignment from "../Pages/Student/Assignment";
-import VideoCourse from "../Pages/testing";
 import Projects from "../Pages/Dashboard/AdminDashboard/Projects";
 import Announcement from "../Pages/Dashboard/AdminDashboard/Announcement";
 import Post from "../Pages/Student/Post";
@@ -80,6 +79,7 @@ import Review from "../Pages/Review/Review";
 import PrivacyPolicy from "../Pages/PrivacyPolicy/PrivacyPolicy";
 import About from "../Pages/About/About";
 import ContactPage from "../Pages/ContactPage/ContactPage";
+import Offer from "../Pages/Offer/Offer";
 // import AllFaq from "../Pages/FAQ/AllFaq";
 
 export const router = createBrowserRouter([
@@ -125,6 +125,10 @@ export const router = createBrowserRouter([
         element: <Forum />,
       },
       {
+        path: "/offer",
+        element: <Offer />,
+      },
+      {
         path: "/profile",
         element: <Profile />,
       },
@@ -167,10 +171,6 @@ export const router = createBrowserRouter([
       {
         path: "/userProfile/profile",
         element: <PaymentFail />,
-      },
-      {
-        path: "coursesVideo",
-        element: <VideoCourse/>,
       },
       {
         path: "/review",

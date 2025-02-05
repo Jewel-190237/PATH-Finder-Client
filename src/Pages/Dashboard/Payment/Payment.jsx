@@ -55,7 +55,6 @@ const Payment = () => {
         })
             .then(response => {
                 setPaymentHistory(response.data);
-                console.log('date = ', selectedDate)
                 setSelectedBus(busName);
             })
             .catch(error => {

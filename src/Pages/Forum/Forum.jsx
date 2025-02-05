@@ -59,7 +59,6 @@ const Forum = () => {
     }
   };
 
-  console.log("posts", posts);
   const tabs = [
     { title: "Feed", icon: <HiOutlineCalendar /> },
     { title: "Announcements", icon: <GrAnnounce /> },

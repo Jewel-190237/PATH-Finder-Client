@@ -1,21 +1,22 @@
 //@ts-nocheck
 import React, { useEffect, useState } from "react";
 import planImage from "../../assets/plan/plan.png";
-import { FiBookOpen } from "react-icons/fi";
-import { FaC } from "react-icons/fa6";
-import { FaJava, FaPython } from "react-icons/fa";
+import { FaCodePullRequest } from "react-icons/fa6";
+import { FaBorderAll, FaIdeal } from "react-icons/fa";
 import { TbBrandJavascript, TbWorldWww } from "react-icons/tb";
-import { Form, Input, message, Modal } from "antd";
+import { Empty, Form, Input, message, Modal, Select } from "antd";
 import GetUser from "../../Backend/GetUser";
+import { GiSkills, GiThink } from "react-icons/gi";
+import { SiDavinciresolve } from "react-icons/si";
 
 const Aspire = () => {
   const data = [
-    { title: "All", number: <FiBookOpen /> },
-    { title: "Python", number: <FaPython /> },
-    { title: "Web", number: <TbWorldWww /> },
-    { title: "Java", number: <FaJava /> },
-    { title: "C", number: <FaC /> },
-    { title: "JavaScript", number: <TbBrandJavascript /> },
+    { title: "All", number: <FaBorderAll /> },
+    { title: "What IF", number: <FaCodePullRequest /> },
+    { title: "Idea", number: <FaIdeal /> },
+    { title: "Think", number: <GiThink /> },
+    { title: "Problem-Solve", number: <SiDavinciresolve /> },
+    { title: "New Skill", number: <GiSkills /> },
   ];
   const [active, setActive] = React.useState(data[0]);
 
@@ -25,7 +26,8 @@ const Aspire = () => {
   const [form] = Form.useForm();
   const [currentUser, setCurrentUser] = useState(null);
   const [projects, setProjects] = useState([]);
-  console.log("🚀 ~ Aspire ~ projects:", projects);
+  const [filteredProjects, setFilteredProjects] = useState([]);
+
 
   const user = GetUser();
   useEffect(() => {
@@ -48,6 +50,7 @@ const Aspire = () => {
       if (response.ok) {
         const result = await response.json();
         setProjects(result.projects || []);
+        setFilteredProjects(result.projects || []);
       } else {
         console.error("Failed to fetch projects");
       }
@@ -83,7 +86,9 @@ const Aspire = () => {
       idea: values.idea,
       solve: values.solve,
       userName: currentUser.name,
+      category: values.category,
     };
+
     try {
       const token = localStorage.getItem("token");
       const response = await fetch("http://localhost:5000/add-new-project", {
@@ -111,6 +116,15 @@ const Aspire = () => {
     }
   };
 
+  const handleCategoryChange = (category) => {
+    setActive(category);
+    if (category.title === "All") {
+      setFilteredProjects(projects);
+    } else {
+      setFilteredProjects(projects.filter((project) => project.category === category.title));
+    }
+  };
+
   return (
     <div
       className="bg-cover bg-center relative pb-16 md:pb-20 lg:pb-24 xl:pb-32"
@@ -118,40 +132,48 @@ const Aspire = () => {
     >
       <div className="path-container pt-14 md:pt-[80px] lg:pt-[100px] xl:pt-[120px] h-screen">
         <h1 className="heading text-white text-center">My Projects</h1>
-        <div className="mt-8 md:mt-10 lg:mt-12 xl:mt-[60px] text-white grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-6 gap-3 md:gap-4 lg:gap-5 xl:gap-6">
-          {data.map((item, index) => (
-            <button
-              key={index}
-              onClick={() => setActive(item)}
-              className={`rounded-[4px] p-2 flex items-center gap-3 ${
-                active.title === item.title ? "bg-blue-500" : "bg-[#2D2D2D]"
-              }`}
-            >
-              <p className="description">{item.number}</p>
-              <p className="description">{item.title}</p>
-            </button>
-          ))}
-        </div>
-        {/* all projects */}
-        <div className="mt-8 md:mt-10 lg:mt-12 xl:mt-[60px] text-white grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-3 md:gap-4 lg:gap-5 xl:gap-6">
-          {projects?.map((item, index) => (
-            <div
-              key={index}
-              className="bg-[#78120D] p-8 rounded-lg shadow-lg text-center hover:bg-red-900 transition duration-300"
-            >
-              <h3 className="heading2 mb-2">{item?.ProjectName}</h3>
-              <p className="description">{item?.problem}</p>
+        <div className="overflow-x-auto w-full">
+          <div className="flex gap-2 md:gap-3 lg:gap-5 xl:gap-6 w-max mt-8 md:mt-10 lg:mt-12 xl:mt-[60px] text-white">
+            {data.map((item, index) => (
               <button
-                onClick={() => showModal(item)}
-                className="course-button !bg-red-500 mt-4"
+                key={index}
+                onClick={() => handleCategoryChange(item)}
+                className={`min-w-[130px] sm:min-w-[200px] w-full rounded sm:rounded-lg px-4 py-2 flex items-center justify-center pt-5 gap-3 ${active.title === item.title ? "bg-blue-500" : "bg-[#2D2D2D]"}`}
               >
-                Details
+                <p className="description">{item.number}</p>
+                <p className="description">{item.title}</p>
               </button>
-            </div>
-          ))}
+            ))}
+          </div>
+        </div>
+
+        {/* all projects */}
+        <div className="mt-8 md:mt-10 lg:mt-12 xl:mt-[60px] text-white grid grid-cols-2 sm:grid-cols-3 xl:grid-cols-4 gap-2 sm:gap-3 md:gap-4 lg:gap-5 xl:gap-6">
+          {
+            filteredProjects?.length > 0 ? (
+              filteredProjects?.map((item, index) => (
+                <div
+                  key={index}
+                  className="bg-[#78120D] p-8 rounded-lg shadow-lg text-center hover:bg-red-900 transition duration-300"
+                >
+                  <h3 className="heading2 mb-2">{item?.ProjectName}</h3>
+                  <p className="description">{item?.problem}</p>
+                  <button
+                    onClick={() => showModal(item)}
+                    className="course-button !bg-red-500 mt-4"
+                  >
+                    Details
+                  </button>
+                </div>
+              ))
+            ) : (
+              // <p className="description">No projects found</p>
+              <Empty className="text-white description" description="No projects found" />
+            )
+          }
         </div>
         <div className="flex items-center justify-end mt-10">
-          <button onClick={showAddModal} className="common-button rounded-lg">
+          <button onClick={showAddModal} className="common-button rounded sm:rounded-lg mt-1">
             Create New Project
           </button>
         </div>
@@ -230,7 +252,31 @@ const Aspire = () => {
                   className="p-2 md:p-3 lg:p-4 xl:p-5 bg-[#78120D] text-white border description focus:bg-[#78120D] hover:bg-[#78120D] focus:border-white hover:border-white placeholder-white"
                 />
               </Form.Item>
-
+              <div className="mt-4">
+                <Form.Item
+                  label="Category:"
+                  name="category"
+                  required
+                  className="text-white"
+                >
+                  <Select
+                    className="p-2 md:p-3 lg:p-4 xl:p-5 rounded bg-[#78120D] !text-white border description
+                 focus:bg-[#78120D] hover:bg-[#78120D] focus:border-white hover:border-white
+                 placeholder-white"
+                    allowClear
+                    placeholder="Select Category"
+                    dropdownStyle={{ backgroundColor: "#78120D", color: "white" }}
+                    style={{ color: "white" }}
+                    popupClassName="custom-select-dropdown"
+                  >
+                    {data.slice(1).map((item) => (
+                      <Select.Option key={item.title} value={item.title} className="!text-white">
+                        {item.title}
+                      </Select.Option>
+                    ))}
+                  </Select>
+                </Form.Item>
+              </div>
               <button
                 type="submit"
                 className="common-button w-full !mt-10 !rounded-md"
