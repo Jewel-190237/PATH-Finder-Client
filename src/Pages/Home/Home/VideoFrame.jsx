@@ -1,6 +1,7 @@
 import { useState } from "react";
 import HeroVideoDialog from "./HeroVideoDialog";
 import bg from "../../../assets/banner/bg.png";
+import posterImg from '../../../assets/banner/poster.png' 
 const VideoFrame = () => {
   const [isHovered, setIsHovered] = useState(false);
 
@@ -27,7 +28,7 @@ const VideoFrame = () => {
               className="dark:hidden block"
               animationStyle="top-in-bottom-out"
               videoSrc="https://www.youtube.com/embed/qh3NGpYRG3I?si=4rb-zSdDkVK9qxxb"
-              thumbnailSrc="/src/assets/banner/poster.png"
+              thumbnailSrc={posterImg }
               thumbnailAlt="Hero Video"
             />
             <div
