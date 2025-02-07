@@ -101,7 +101,7 @@ const Footer = () => {
                 </a>
               </li>
               <li>
-                <a href="#" className="">
+                <a href="/review" className="">
                   Client Says
                 </a>
               </li>
@@ -111,7 +111,7 @@ const Footer = () => {
                 </a>
               </li>
               <li>
-                <a href="#" className="">
+                <a href="/faq" className="">
                   Faq
                 </a>
               </li>
@@ -142,9 +142,9 @@ const Footer = () => {
           </div>
         </div>
         <div className="mt-2 md:mt-3 lg:-mt-5 xl:-mt-6 flex items-center justify-center">
-          <button className="common-button rounded-[16px] lg:rounded-[24px] xl:rounded-[32px]">
+          <Link to='/all-courses' className="common-button rounded-[16px] lg:rounded-[24px] xl:rounded-[32px]">
             Start Shopping
-          </button>
+          </Link>
         </div>
         <div className="bg-[#20010D] flex items-center justify-between border-[1px] border-[#FFFFFF33] border-b-0 rounded-t-[12px] mt-12 ">
           <p className="description p-3 lg:p-4 xl:p-5">

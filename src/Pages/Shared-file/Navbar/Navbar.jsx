@@ -5,12 +5,12 @@ import { BsSun, BsMoon } from "react-icons/bs";
 import { useNavigate } from "react-router-dom";
 import { AiOutlineDown } from "react-icons/ai";
 import AuthButton from "../../../Authentication/AuthButton/AuthButton";
-import logoImage from "../../../../src/assets/others/logo.png"
+import logoImage from "../../../../src/assets/logo.png"
 import searchImg from "../../../assets/navbar/search.png"
 import  coinImg from "../../../assets/navbar/coin.png"
 const links = [
   { name: "Home", path: "/" },
-  { name: "Course", path: "/all-courses" },
+  { name: "Workshop", path: "/all-courses" },
   { name: "Review", path: "/review" },
   { name: "FAQ", path: "/faq" },
   {
@@ -99,7 +99,7 @@ const Navbar = () => {
             <img
               src={logoImage}
               alt="logoImage"
-              className="w-24 h-14"
+              className="w-80 h-52"
             />
           </a>
           <div className="hidden lg:flex space-x-8">{renderLinks()}</div>

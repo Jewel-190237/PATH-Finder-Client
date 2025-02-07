@@ -2,6 +2,7 @@
 import React from "react";
 import leapBg from "../../../assets/leapBg.png";
 import bgImage from "../../../assets/bgImage.png";
+import { Link } from "react-router-dom";
 
 const Leap = () => {
   return (
@@ -24,8 +25,8 @@ const Leap = () => {
             today!
           </p>
           <div className="mt-4 md:mt-5 lg:mt-6 xl:mt-8 flex items-center justify-center gap-3 md:gap-4 lg:gap-5 xl:gap-6">
-            <button className="common-button rounded">GET STARTED</button>
-            <button className="watch-button rounded">WATCH NOW</button>
+            <Link to='/offer' className="common-button !bg-red-600 rounded">GET STARTED</Link>
+            <button className="watch-button !bg-green-600/50 rounded">WATCH NOW</button>
           </div>
         </div>
       </div>

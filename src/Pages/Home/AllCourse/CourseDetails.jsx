@@ -139,7 +139,7 @@ const CourseDetails = () => {
             {/* Buy It Button */}
             <div className="mt-16 flex justify-end items-end">
               <button
-                className="px-8 py-3 bg-[#3F3FDE] text-black text-lg font-semibold rounded-lg hover:bg-yellow-600 transition-all duration-200"
+                className="px-8 py-3 bg-red-600 text-white text-lg font-semibold rounded-lg hover:bg-yellow-600 transition-all duration-200"
                 onClick={handlePayment}
               >
                 Buy Now

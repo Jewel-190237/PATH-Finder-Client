@@ -5,6 +5,7 @@ import tiktok from "../../../assets/service/tiktok.png"
 import youtube from "../../../assets/service/youtube.png"
 import bgImg from "../../../assets/banner/bg.png"
 import fbPng from "../../../assets/service/FB.png"
+import { Link } from "react-router-dom";
 const cardsData = [
     {
         id: 1,
@@ -48,8 +49,8 @@ const Service = () => {
                         Effortlessly by referring users. Start earning effortlessly by referring <br /> users into rewards today!
                     </p>
                     <div className="mt-4 md:mt-5 lg:mt-6 xl:mt-8 flex items-center justify-center gap-3 md:gap-4 lg:gap-5 xl:gap-6">
-                        <button className="common-button rounded">GET STARTED</button>
-                        <button className="watch-button rounded capital">LEARN MORE</button>
+                        <Link to='/offer' className="common-button !bg-red-500 rounded">GET STARTED</Link>
+                        <Link to='/faq' className="watch-button !bg-green-600/50 rounded capital">LEARN MORE</Link>
                     </div>
                 </div>
             </div>

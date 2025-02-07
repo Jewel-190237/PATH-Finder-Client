@@ -32,11 +32,11 @@ const Home = () => {
         <>
           <Banner />
           <Service />
-          <ExplorePics />
-          <VideoFrame />
-          <FAQ />
-          <LeaderBoard />
           <Review />
+          <LeaderBoard />
+          <VideoFrame />
+          <ExplorePics />
+          <FAQ />
           <Leap />
           <Footer />
         </>
