@@ -1,10 +1,15 @@
-import React from 'react';
 
+import bgImg from '../../assets/service/premium.png'
+import img from '../../assets/service/photo.png'
 const PremiumServices = () => {
     return (
         <div
-            className="bg-[url('/src/assets/service/premium.png')] bg-cover bg-center text-white py-10 px-5"
-        >
+        style={{
+          backgroundImage: `url(${bgImg})`,
+        }}
+        className="bg-cover bg-center text-white pt-28 pb-40 px-5"
+      >
+      
             <div className="max-w-[1320px] mx-auto ">
                 {/* Heading */}
                 <h1 className="text-xl md:text-2xl lg:text-4xl xl:text-5xl  !font-roboto !font-bold mt-6 text-center max-w-[780px] mx-auto">
@@ -19,7 +24,7 @@ const PremiumServices = () => {
                 {/* Image */}
                 <div className="rounded-xl overflow-hidden mb-8">
                     <img
-                        src="/src/assets/service/photo.png"
+                        src={img}
                         alt="Students reading"
                         className="w-full h-auto"
                     />

@@ -113,8 +113,16 @@ const SignUp = () => {
                   className="p-2 md:p-3 lg:p-4 xl:p-5 bg-[#78120D] text-white !border-none description"
                 />
               </Form.Item>
-              <Form.Item label="Password" name="password" required>
-                <Input
+
+              <Form.Item
+                label="Password"
+                className="password"
+                name="password"
+                rules={[
+                  { required: true, message: "Please enter your password!" },
+                ]}
+              >
+                <Input.Password
                   placeholder="Input your password"
                   type="password"
                   className="p-2 md:p-3 lg:p-4 xl:p-5 bg-[#78120D] text-white !border-none description"

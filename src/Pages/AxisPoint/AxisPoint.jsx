@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import GetUser from "../../Backend/GetUser";
-
+import bgImg from "../../assets/service/premium.png"
 
 const AxisPoint = () => {
   const [currentUser, setCurrentUser] = useState(null);
@@ -25,11 +25,17 @@ const AxisPoint = () => {
       .catch((error) => console.error("Error fetching users:", error));
   };
 
-  
+
   const selectedUsers = users.filter((user) => user.subAdmin === currentUser?._id);
 
   return (
-    <div className="bg-[url('/src/assets/service/premium.png')] bg-cover bg-center text-white pt-40 pb-96 px-5">
+    < div
+      style={{
+        backgroundImage: `url(${bgImg})`,
+      }
+      }
+      className="bg-cover bg-center text-white pt-40 pb-96 px-5"
+    >
       <div className="max-w-[1320px] mx-auto">
         <div className="text-center text-white">
           <h1 className="heading font-bold mb-4">
@@ -69,7 +75,7 @@ const AxisPoint = () => {
           </div>
         </div>
       </div>
-    </div>
+    </div >
   );
 };
 
