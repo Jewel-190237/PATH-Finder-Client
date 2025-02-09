@@ -9,6 +9,7 @@ import logo from "../../../assets/logo1.png";
 import call from "../../../assets/call.png";
 import mail from "../../../assets/email.png";
 import { Link } from "react-router-dom";
+import { message } from "antd";
 const Footer = () => {
   const [email, setEmail] = useState("");
 
@@ -16,19 +17,10 @@ const Footer = () => {
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
     if (!emailRegex.test(email)) {
-      Swal.fire({
-        icon: "error",
-        title: "Invalid Email",
-        text: "Please enter a valid email address!",
-      });
+      message.error("Please enter a valid email address.");
       return;
     }
-
-    Swal.fire({
-      icon: "success",
-      title: "Subscribed Successfully",
-      text: "Thank you for subscribing!",
-    });
+    message.success("Subscribed successfully!");
 
     setEmail(""); // Reset input field
   };
@@ -53,7 +45,7 @@ const Footer = () => {
                 <p className="description -mb-1">+0123 456 7891</p>
               </div>
               <div className="flex items-center gap-2">
-                <img className="w-[30px] h-[30px]" src={mail } alt="email" />
+                <img className="w-[30px] h-[30px]" src={mail} alt="email" />
                 <p className="description -mb-1">info@pathfinder.com</p>
               </div>
             </div>
@@ -106,7 +98,7 @@ const Footer = () => {
                 </a>
               </li>
               <li>
-                <a href="#" className="">
+                <a href="/all-courses" className="">
                   Pricing
                 </a>
               </li>
