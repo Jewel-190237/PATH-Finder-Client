@@ -39,13 +39,13 @@ const Review = () => {
       className="bg-cover bg-center relative text-white"
       style={{ backgroundImage: `url(${reviewBg})` }}
     >
-      <div className="max-w-[1320px] mx-auto py-14 md:py-20 lg:py-[100px] xl:py-[120px]">
+      <div className="path-container py-14 md:py-20 lg:py-[100px] xl:py-[120px]">
         <h1 className="heading text-left">Hear from Our Happy Clients</h1>
         <p className="description mt-2 md:mt-3 lg:mt-4">
           Trusted by hundreds, loved by all—here’s <br className="hidden md:block" />
           what they have to share.
         </p>
-        <div className="mt-6 md:mt-10 lg:mt-12 xl:mt-[60px] review grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+        <div className="mt-6 md:mt-10 lg:mt-12 xl:mt-[60px] review grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:gap-6 lg:gap-5 md:gap-4 sm:gap-3 gap-2">
           {currentReviews.map((item, index) => (
             <ReviewCard
               key={index}

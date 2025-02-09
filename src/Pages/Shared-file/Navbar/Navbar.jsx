@@ -94,12 +94,12 @@ const Navbar = () => {
     <nav className="bg-[#20010D]">
       <div className="max-w-[1320px] mx-auto px-4 flex items-center justify-between h-16">
         {/* Left Side: Logo and Menu */}
-        <div className="flex items-center space-x-8">
+        <div className="flex items-center space-x-8 ">
           <a href="/">
             <img
               src={logoImage}
               alt="logoImage"
-              className="w-80 h-52"
+              className="w-60 h-52 border-4 border-green-400"
             />
           </a>
           <div className="hidden lg:flex space-x-8">{renderLinks()}</div>

@@ -62,7 +62,7 @@ const FAQ = () => {
                     header={
                       <div className="flex items-center justify-between">
                         <span
-                          className={`${activeKey === item.key ? 'text-white' : 'text-[#FFF]'} text-xl text-white font-semibold flex items-center`}
+                          className={`${activeKey === item.key ? 'text-white' : 'text-[#FFF]'} heading3 text-white font-semibold flex items-center`}
                         >
                           {item.label}
                         </span>
@@ -70,7 +70,7 @@ const FAQ = () => {
                     }
                     className='mb-6 !border !border-[#78120D] !rounded-[12px]'
                   >
-                    <p className='px-10 text-[16px] '>{item.content}</p>
+                    <p className='px-10  description'>{item.content}</p>
                   </Collapse.Panel>
                 ))}
               </Collapse>
