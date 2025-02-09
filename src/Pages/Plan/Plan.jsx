@@ -72,11 +72,11 @@ const Plan = () => {
                 {data.map((item, index) => (
                   <div
                     key={index}
-                    className="bg-[#F38122] flex items-center justify-between rounded-lg text-white py-2 px-3"
+                    className="bg-[#F38122] flex items-center justify-between rounded-lg text-white md:py-2 md:px-3 py-1 px-2"
                   >
                     <h3 className="heading2 mt-2">{item.title}</h3>
-                    <div className="bg-[#78120D] rounded-[16px] flex items-center gap-1 px-2 py-1">
-                      <img src={coin} alt="icon" />
+                    <div className="bg-[#78120D] md:rounded-[16px] rounded-xl flex items-center gap-1 px-3">
+                      <img src={coin} className="w-4 h-4 " alt="icon" />
                       <p className="description pt-4">{item.number}</p>
                     </div>
                   </div>

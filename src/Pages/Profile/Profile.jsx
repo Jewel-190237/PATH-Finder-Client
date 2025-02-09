@@ -3,8 +3,6 @@ import { Progress, Slider, Space } from "antd";
 import { Link } from "react-router-dom";
 import bg from "../../assets/profile/Rank.png";
 import person from "../../assets/user.jpg";
-// /src/assets/profile/verified.svg
-
 import GetUser from "../../Backend/GetUser";
 import { MdVerified } from "react-icons/md";
 const Profile = () => {
@@ -35,12 +33,26 @@ const Profile = () => {
     (user) => user.subAdmin === currentUser?._id
   );
 
+  const data = [
+    {
+      title: "Profit",
+      value: currentUser?.balance || 0
+    },
+    {
+      title: "Junior Employee",
+      value: selectedUsers.length || 0
+    },
+    {
+      title: "Axis Point",
+      percent: '06',
+    },
+  ]
   return (
     <div
       className="bg-cover bg-center bg-no-repeat w-full relative"
       style={{ backgroundImage: `url(${bg})` }}
     >
-      <div className=" max-w-[1320px] mx-auto pt-28  flex flex-col items-center justify-center relative">
+      <div className="path-container pt-28  flex flex-col items-center justify-center relative">
         <div className="text-center text-white">
           <h1 className="heading font-bold mb-4">
             Your Gateway to Exclusive Benefits!
@@ -51,7 +63,7 @@ const Profile = () => {
             services.access to all our services.
           </p>
         </div>
-        <div className="bg-[#F38122] w-full rounded sm:rounded-md lg:rounded-lg xl:rounded-xl lg:p-4 xl:p-5 2xl:p-[30px] flex items-center justify-between relative shadow-lg mt-40">
+        <div className="bg-[#F38122] w-full rounded sm:rounded-md lg:rounded-lg xl:rounded-xl lg:p-4 xl:p-5 2xl:p-[30px] flex items-center justify-between relative shadow-lg xl:mt-40 lg:mt-32 md:mt-24 sm:mt-20 mt-10">
           <div className="absolute -top-6 sm:-top-[40px] lg:-top-[50px] xl:-top-[70px] 2xl:-top-[108px] left-1/2 transform -translate-x-1/2">
             <div className="rounded-full bg-red-800 overflow-hidden w-16 h-16 sm:w-[80px] sm:h-[80px] lg:w-[120px] lg:h-[120px] xl:w-[150px] xl:h-[150px] 2xl:w-[200px] 2xl:h-[200px]">
               <img
@@ -75,22 +87,22 @@ const Profile = () => {
             </p>
           </div>
         </div>
-        <div className="mt-5 text-white ml-auto">
-          <p className="font-bold">Name : {currentUser?.name}</p>
-          <p>ID : {currentUser?._id.slice(0, 5)}</p>
+        <div className="mt-5 text-white mx-auto md:mx-0 md:ml-auto">
+          <p className="description">Name : {currentUser?.name}</p>
+          <p className="description">ID : {currentUser?._id.slice(0, 5)}</p>
         </div>
         {currentUser?.role !== "student" && (
-          <div className="flex flex-wrap justify-between gap-5 mt-10 mb-20 w-full">
-            <div className="bg-[#78120D] text-white p-3 shadow-md w-64 rounded-[12px]">
-              <p className="text-lg font-bold text-[#B0B0B0]">Profit</p>
+          <div className="flex justify-between md:gap-5 gap-2 mt-10 mb-20 w-full">
+            <div className="bg-[#78120D] text-white p-3 shadow-md md:w-64 rounded-[12px]">
+              <p className="heading3 text-[#B0B0B0] whitespace-pre">My Profit</p>
               <p className="text-sm">{currentUser?.balance || 0}</p>
             </div>
             <p className="text-[#F38122] hidden xl:flex items-center">
               ------------------------------------
             </p>
             <Link to="/axisPoint">
-              <div className="w-64 p-3 bg-[#78120D] text-white shadow-md rounded-[12px] cursor-pointer">
-                <p className="text-[#B0B0B0] text-lg font-bold">
+              <div className="md:w-64 w-32 p-3 bg-[#78120D] text-white shadow-md rounded-[12px] cursor-pointer">
+                <p className="text-[#B0B0B0] heading3 whitespace-pre">
                   Junior Employee
                 </p>
                 <p className="text-sm">{selectedUsers.length}</p>
@@ -100,8 +112,8 @@ const Profile = () => {
               ------------------------------------
             </p>
             <Link to="/team">
-              <div className="bg-[#78120D] text-white  p-3 shadow-md w-64 rounded-[12px]">
-                <p className="text-lg font-bold text-[#B0B0B0]">Axis Point</p>
+              <div className="bg-[#78120D] text-white p-3 shadow-md md:w-64 rounded-[12px]">
+                <p className="heading3 text-[#B0B0B0] whitespace-pre">Axis Point</p>
                 <p className="text-sm">06</p>
               </div>
             </Link>
@@ -109,20 +121,17 @@ const Profile = () => {
         )}
       </div>
 
-      <div className=" pt-14 md:pt-[80px] lg:pt-[100px] xl:pt-[120px] flex flex-col lg:flex-row w-full gap-6">
+      <div className=" flex flex-col lg:flex-row w-full gap-6">
         <div className="w-full lg:w-1/2 bg-[rgba(120,18,13,0.3)] max-w-[480px] h-[650px] rounded-[20px] mb-20 lg:mb-0">
           <div className="flex justify-between items-center text-white p-5">
             <h2 className="text-lg font-semibold">Personal Statistics</h2>
           </div>
           <p className="text-sm text-white mb-6 px-5">Personal Statistics</p>
-
           <div
             className="flex flex-col items-center justify-center space-y-8"
             style={{ padding: "20px" }}
           >
-            {/* Nested Circular Progress */}
             <div className="relative">
-              {/* Outer Circle */}
               <div className="transform rotate-90">
                 <Progress
                   type="circle"
@@ -132,8 +141,6 @@ const Profile = () => {
                   width={150}
                 />
               </div>
-
-              {/* Middle Circle */}
               <div className="absolute top-[20px] left-5 transform rotate-90">
                 <Progress
                   type="circle"
@@ -144,7 +151,6 @@ const Profile = () => {
                 />
               </div>
 
-              {/* Inner Circle */}
               <div className="absolute top-[34px] left-[38px] transform rotate-90">
                 <Progress
                   type="circle"
@@ -155,7 +161,6 @@ const Profile = () => {
                 />
               </div>
             </div>
-
             <Space direction="vertical" size="large" className="w-full">
               <div className="w-80">
                 <p className="text-white">Salary</p>

@@ -138,7 +138,7 @@ const Aspire = () => {
               <button
                 key={index}
                 onClick={() => handleCategoryChange(item)}
-                className={`min-w-[130px] sm:min-w-[200px] w-full rounded sm:rounded-lg px-4 py-2 flex items-center justify-center pt-5 gap-3 ${active.title === item.title ? "bg-blue-500" : "bg-[#2D2D2D]"}`}
+                className={`min-w-[150px] sm:min-w-[200px] w-full rounded sm:rounded-lg px-4 py-2 flex items-center justify-center pt-5  gap-3 ${active.title === item.title ? "bg-blue-500" : "bg-[#2D2D2D]"}`}
               >
                 <p className="description">{item.number}</p>
                 <p className="description">{item.title}</p>
@@ -167,7 +167,6 @@ const Aspire = () => {
                 </div>
               ))
             ) : (
-              // <p className="description">No projects found</p>
               <Empty className="text-white description" description="No projects found" />
             )
           }

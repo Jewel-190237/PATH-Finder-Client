@@ -41,13 +41,12 @@ const EarnRewards = () => {
           {cardData.map((card, index) => (
             <div
               key={index}
-              className="bg-[#78120D] p-3 md:p-4 lg:p-6 xl:p-8 rounded-lg shadow-lg text-center hover:bg-red-800 transition duration-300"
+              className="bg-[#78120D] p-1 md:p-4 lg:p-6 xl:p-8 rounded-lg shadow-lg text-center hover:bg-red-800 transition duration-300"
             >
-              <div className="bg-[rgba(35,7,19,0.30)] p-4 w-[72px] h-[72px] rounded-lg mx-auto mb-3 sm:mb-4 md:mb-6 lg:mb-7 xl:mb-8 mt-4">
+              <div className="bg-[rgba(35,7,19,0.30)] lg:p-4 md:p-2 p-2 w-8 h-8 sm:w-10 sm:h-10 md:w-12 md:h-12 lg:w-[72px] lg:h-[72px] rounded-lg mx-auto mb-3 sm:mb-4 md:mb-6 lg:mb-7 xl:mb-8 mt-4">
                 <img
                   src={card.icon}
                   alt={card.title}
-
                 />
               </div>
 
