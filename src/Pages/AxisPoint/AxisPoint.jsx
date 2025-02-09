@@ -61,7 +61,7 @@ const AxisPoint = () => {
                 <div className="flex  items-center">
                   <p className="text-white font-bold  w-8 flex items-center justify-center mr-4 border-r-4 border-white ">
                     {index + 1}{" "}
-                    <span className="border-r-4 border-white "></span>
+                    <span className="border-r-4 border-white"></span>
                   </p>
                   <p className="text-white font-medium">{item?.name}</p>
                 </div>

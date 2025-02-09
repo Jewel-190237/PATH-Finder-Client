@@ -36,15 +36,17 @@ const Profile = () => {
   const data = [
     {
       title: "Profit",
-      value: currentUser?.balance || 0
+      value: currentUser?.balance || 0,
     },
     {
       title: "Junior Employee",
-      value: selectedUsers.length || 0
+      value: selectedUsers.length || 0,
+      link: "/axisPoint",
     },
     {
       title: "Axis Point",
-      percent: '06',
+      value: '06',
+      link: "/team",
     },
   ]
   return (
@@ -92,36 +94,49 @@ const Profile = () => {
           <p className="description">ID : {currentUser?._id.slice(0, 5)}</p>
         </div>
         {currentUser?.role !== "student" && (
-          <div className="flex justify-between md:gap-5 gap-2 mt-10 mb-20 w-full">
-            <div className="bg-[#78120D] text-white p-3 shadow-md md:w-64 rounded-[12px]">
-              <p className="heading3 text-[#B0B0B0] whitespace-pre">My Profit</p>
-              <p className="text-sm">{currentUser?.balance || 0}</p>
-            </div>
-            <p className="text-[#F38122] hidden xl:flex items-center">
-              ------------------------------------
-            </p>
-            <Link to="/axisPoint">
-              <div className="md:w-64 w-32 p-3 bg-[#78120D] text-white shadow-md rounded-[12px] cursor-pointer">
-                <p className="text-[#B0B0B0] heading3 whitespace-pre">
-                  Junior Employee
-                </p>
-                <p className="text-sm">{selectedUsers.length}</p>
-              </div>
-            </Link>
-            <p className="text-[#F38122] hidden xl:flex items-center">
-              ------------------------------------
-            </p>
-            <Link to="/team">
+          <>
+            <div className="hidden md:flex justify-between md:gap-5 gap-2 mt-10 mb-20 w-full">
               <div className="bg-[#78120D] text-white p-3 shadow-md md:w-64 rounded-[12px]">
-                <p className="heading3 text-[#B0B0B0] whitespace-pre">Axis Point</p>
-                <p className="text-sm">06</p>
+                <p className="heading3 text-[#B0B0B0] whitespace-pre">My Profit</p>
+                <p className="text-sm">{currentUser?.balance || 0}</p>
               </div>
-            </Link>
-          </div>
+              <p className="text-[#F38122] hidden xl:flex items-center">
+                ------------------------------------
+              </p>
+              <Link to="/axisPoint">
+                <div className="md:w-64 w-32 p-3 bg-[#78120D] text-white shadow-md rounded-[12px] cursor-pointer">
+                  <p className="text-[#B0B0B0] heading3 whitespace-pre">
+                    Junior Employee
+                  </p>
+                  <p className="text-sm">{selectedUsers.length}</p>
+                </div>
+              </Link>
+              <p className="text-[#F38122] hidden xl:flex items-center">
+                ------------------------------------
+              </p>
+              <Link to="/team">
+                <div className="bg-[#78120D] text-white p-3 shadow-md md:w-64 rounded-[12px]">
+                  <p className="heading3 text-[#B0B0B0] whitespace-pre">Axis Point</p>
+                  <p className="text-sm">06</p>
+                </div>
+              </Link>
+            </div>
+            <div className="grid grid-cols-3 md:hidden justify-between sm:gap-3 gap-2 w-full mt-6">
+              {data.map((item, index) => (
+                <div key={index}>
+                  <Link to={item.link}>
+                    <div className="bg-[#78120D] text-white sm:p-3 p-2 shadow-md rounded-[12px]">
+                      <p className="heading3 text-[#B0B0B0] whitespace-pre">{item.title}</p>
+                      <p className="text-sm">{item.value}</p>
+                    </div>
+                  </Link> </div>
+              ))}
+            </div>
+          </>
         )}
       </div>
 
-      <div className=" flex flex-col lg:flex-row w-full gap-6">
+      <div className="mt-5 md:mt-0 flex flex-col lg:flex-row w-full gap-6">
         <div className="w-full lg:w-1/2 bg-[rgba(120,18,13,0.3)] max-w-[480px] h-[650px] rounded-[20px] mb-20 lg:mb-0">
           <div className="flex justify-between items-center text-white p-5">
             <h2 className="text-lg font-semibold">Personal Statistics</h2>
