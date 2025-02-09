@@ -11,19 +11,19 @@ const cardsData = [
       id: 1,
       image: facebook,
       text: "Get rewards by following us on Facebook",
-
+      link: "https://www.facebook.com/profile.php?id=61569871899271"
    },
    {
       id: 2,
       image: tiktok,
       text: "Get rewards by following us on TikTok",
-
+      link: "https://www.tiktok.com/@pathx.finder?_t=ZS-8tm60WUmNke&_r=1"
    },
    {
       id: 3,
       image: youtube,
       text: "Get rewards by subscribing to us on YouTube",
-
+      link: "https://www.youtube.com/@PathXFinder007ars"
    },
 ];
 
@@ -63,13 +63,13 @@ const Service = () => {
                >
                   <div className="relative max-w-[365px] h-full mx-auto pb-4 lg:pb-8 mt-5">
                      {/* Icon Section */}
-                     <div className="absolute sm:top-0 lg:-top-8 left-1/2 transform -translate-x-1/2 flex items-center justify-center shadow-lg">
+                     <Link to={card.link} className="absolute z-50 sm:top-0 lg:-top-8 left-1/2 transform -translate-x-1/2 flex items-center justify-center shadow-lg">
                         <img
                            src={card.image}
                            alt={card.text}
                            className="w-1/2 sm:w-[60%] lg:w-full"
                         />
-                     </div>
+                     </Link>
                      {/* Lower Section */}
                      <div
                         className="w-40 h-28 sm:w-56 sm:h-40 lg:w-80 lg:h-48 bg-cover bg-center rounded-lg shadow-lg mx-auto flex flex-col justify-end p-4"
