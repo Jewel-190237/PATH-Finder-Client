@@ -30,7 +30,7 @@ const cardsData = [
 const Service = () => {
    return (
       <div
-         className="bg-cover bg-center relative text-white -mt-40 mb-20"
+         className="bg-cover bg-center relative text-white -mt-40 sm:pb-20 "
          style={{ backgroundImage: `url(${bgImg})` }}
       >
          <div className="path-container relative z-10 p-6 lg:p-10 xl:p-12">
@@ -54,30 +54,30 @@ const Service = () => {
                </div>
             </div>
          </div>
-         <div className="grid grid-cols-2 sm:grid-cols-3 gap-2 sm:gap-3 md:gap-4 lg:gap-5 xl:gap-6 max-w-[1320px] mx-auto xl:-mt-20 pb-20">
+         <div className="grid grid-cols-3 gap-2 sm:gap-3 md:gap-4 lg:gap-5 xl:gap-6 max-w-[1320px] mx-auto xl:-mt-20 pb-20">
             {cardsData.map((card) => (
                <div
                   key={card.id}
                   className="rounded-[30px] bg-[#20010D]"
 
                >
-                  <div className="relative max-w-[365px] h-full mx-auto pb-4 lg:pb-8 mt-5">
+                  <div className="relative max-w-[250px] md:max-w-[365px] h-full mx-auto pb-4 lg:pb-8 mt-5">
                      {/* Icon Section */}
                      <Link to={card.link} className="absolute z-50 sm:top-0 lg:-top-8 left-1/2 transform -translate-x-1/2 flex items-center justify-center shadow-lg">
                         <img
                            src={card.image}
                            alt={card.text}
-                           className="w-1/2 sm:w-[60%] lg:w-full"
+                           className="w-1/2  lg:w-full"
                         />
                      </Link>
                      {/* Lower Section */}
                      <div
-                        className="w-40 h-28 sm:w-56 sm:h-40 lg:w-80 lg:h-48 bg-cover bg-center rounded-lg shadow-lg mx-auto flex flex-col justify-end p-4"
+                        className="max-w-28 h-28 sm:max-w-40 md:max-w-56 sm:h-40 lg:max-w-80 lg:h-48 bg-cover bg-center rounded-lg shadow-lg mx-auto flex flex-col justify-end p-4"
                         style={{
                            backgroundImage: `url(${fbPng})`,
                         }}
                      >
-                        <div className="hidden w-full py-3 px-4 rounded-md md:flex items-center justify-between">
+                        <div className="hidden w-full py-3 px-4 rounded-md lg:flex items-center justify-between">
                            <p className="text-white text-sm md:text-base font-medium">
                               {card.text}
                            </p>
