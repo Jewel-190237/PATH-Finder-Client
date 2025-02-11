@@ -16,7 +16,7 @@ const RouteManage = () => {
     useEffect(() => {
         const fetchBusData = async () => {
             try {
-                const response = await fetch('http://localhost:5000/routes', {
+                const response = await fetch('https://api3.pathxfinder.com/routes', {
                     headers: {
                         'Authorization': `Bearer ${localStorage.getItem('token')}` // Include token in headers
                     }
@@ -44,7 +44,7 @@ const RouteManage = () => {
         const { busId, routeIndex } = editingRoute;
 
         try {
-            const response = await fetch(`http://localhost:5000/routes/${busId}/${routeIndex}`, {
+            const response = await fetch(`https://api3.pathxfinder.com/routes/${busId}/${routeIndex}`, {
                 method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json',
@@ -93,7 +93,7 @@ const RouteManage = () => {
         }).then((result) => {
             if (result.isConfirmed) {
                 // Call the DELETE API to remove the route
-                fetch(`http://localhost:5000/routes/${busId}/${routeIndex}`, {
+                fetch(`https://api3.pathxfinder.com/routes/${busId}/${routeIndex}`, {
                     method: 'DELETE',
                     headers: {
                         'Authorization': `Bearer ${localStorage.getItem('token')}` // Include token in headers
@@ -112,7 +112,7 @@ const RouteManage = () => {
 
                             if (remainingRoutes === 0) {
                                 // Delete the bus if there are no remaining routes
-                                return fetch(`http://localhost:5000/buses/${busId}`, {
+                                return fetch(`https://api3.pathxfinder.com/buses/${busId}`, {
                                     method: 'DELETE',
                                     headers: {
                                         'Authorization': `Bearer ${localStorage.getItem('token')}` // Include token in headers

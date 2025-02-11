@@ -38,7 +38,7 @@ const Aspire = () => {
     try {
       const token = localStorage.getItem("token");
       const response = await fetch(
-        `http://localhost:5000/projects/${currentUser?._id}`,
+        `https://api3.pathxfinder.com/projects/${currentUser?._id}`,
         {
           method: "GET",
           headers: {
@@ -91,7 +91,7 @@ const Aspire = () => {
 
     try {
       const token = localStorage.getItem("token");
-      const response = await fetch("http://localhost:5000/add-new-project", {
+      const response = await fetch("https://api3.pathxfinder.com/add-new-project", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

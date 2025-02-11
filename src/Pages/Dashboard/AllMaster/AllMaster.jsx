@@ -15,7 +15,7 @@ const AllMaster = () => {
 
   useEffect(() => {
     setLoading(true);
-    fetch("http://localhost:5000/users", {
+    fetch("https://api3.pathxfinder.com/users", {
       headers: {
         Authorization: `Bearer ${localStorage.getItem("token")}`,
       },
@@ -31,7 +31,7 @@ const AllMaster = () => {
   const reloadUsers = async () => {
     try {
       const token = localStorage.getItem("token");
-      const response = await fetch("http://localhost:5000/users", {
+      const response = await fetch("https://api3.pathxfinder.com/users", {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -62,7 +62,7 @@ const AllMaster = () => {
     }).then((result) => {
       if (result.isConfirmed) {
         const token = localStorage.getItem("token");
-        fetch(`http://localhost:5000/users/${user._id}`, {
+        fetch(`https://api3.pathxfinder.com/users/${user._id}`, {
           method: "DELETE",
           headers: {
             "Content-Type": "application/json",
@@ -93,7 +93,7 @@ const AllMaster = () => {
 
     const formData = form.getFieldsValue();
 
-    fetch(`http://localhost:5000/specific-users/${selectedUser._id}`, {
+    fetch(`https://api3.pathxfinder.com/specific-users/${selectedUser._id}`, {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",
@@ -134,7 +134,7 @@ const AllMaster = () => {
     }).then((result) => {
       if (result.isConfirmed) {
         const token = localStorage.getItem("token");
-        fetch(`http://localhost:5000/users/${user._id}/approve`, {
+        fetch(`https://api3.pathxfinder.com/users/${user._id}/approve`, {
           method: "PUT",
           headers: {
             "Content-Type": "application/json",
@@ -163,7 +163,7 @@ const AllMaster = () => {
     try {
       const token = localStorage.getItem("token");
       const response = await fetch(
-        `http://localhost:5000/users/${user._id}/approve`,
+        `https://api3.pathxfinder.com/users/${user._id}/approve`,
         {
           method: "PUT",
           headers: {
@@ -206,7 +206,7 @@ const AllMaster = () => {
     }
     const token = localStorage.getItem("token");
     try {
-      fetch(`http://localhost:5000/generate-code/${user._id}`, {
+      fetch(`https://api3.pathxfinder.com/generate-code/${user._id}`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

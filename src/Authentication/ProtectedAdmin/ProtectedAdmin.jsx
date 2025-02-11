@@ -1,13 +1,13 @@
 /* eslint-disable react/prop-types */
 import { useEffect, useState } from 'react';
-import { useNavigate, useLocation } from 'react-router-dom';
+import { useNavigate} from 'react-router-dom';
 import axios from 'axios';
 import Swal from 'sweetalert2';
 
 const ProtectedAdmin = ({ children }) => {
     const [loading, setLoading] = useState(true);
     const navigate = useNavigate();
-    const location = useLocation();
+   
 
     useEffect(() => {
         const checkAdminAccess = async () => {
@@ -19,7 +19,7 @@ const ProtectedAdmin = ({ children }) => {
                 }
 
                 // Check the role from the server
-                const response = await axios.get('http://localhost:5000/auth-status', {
+                const response = await axios.get('https://api3.pathxfinder.com/auth-status', {
                     headers: { Authorization: `Bearer ${token}` }
                 });
 

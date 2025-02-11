@@ -18,7 +18,7 @@ const Forum = () => {
   const fetchAnnouncement = async () => {
     try {
       const token = localStorage.getItem("token");
-      const response = await fetch("http://localhost:5000/all-announcement", {
+      const response = await fetch("https://api3.pathxfinder.com/all-announcement", {
         method: "GET",
         headers: {
           "Content-Type": "application/json",
@@ -40,7 +40,7 @@ const Forum = () => {
   const fetchPost = async () => {
     try {
       const token = localStorage.getItem("token");
-      const response = await fetch("http://localhost:5000/all-post", {
+      const response = await fetch("https://api3.pathxfinder.com/all-post", {
         method: "GET",
         headers: {
           "Content-Type": "application/json",

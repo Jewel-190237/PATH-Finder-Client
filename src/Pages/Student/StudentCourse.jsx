@@ -20,7 +20,7 @@ const StudentCourse = () => {
     setLoading(true);
     try {
       const response = await fetch(
-        `http://localhost:5000/courses/student/${currentUser?._id}`
+        `https://api3.pathxfinder.com/courses/student/${currentUser?._id}`
       );
       if (!response.ok) {
         throw new Error("Failed to fetch courses");

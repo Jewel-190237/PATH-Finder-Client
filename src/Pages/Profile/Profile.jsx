@@ -19,7 +19,7 @@ const Profile = () => {
 
   const fetchUsers = () => {
     const token = localStorage.getItem("token");
-    fetch("http://localhost:5000/users", {
+    fetch("https://api3.pathxfinder.com/users", {
       headers: {
         Authorization: `Bearer ${token}`,
       },

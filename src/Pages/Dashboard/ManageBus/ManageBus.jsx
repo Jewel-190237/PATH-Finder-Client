@@ -15,7 +15,7 @@ const ManageBus = () => {
     useEffect(() => {
         const fetchBuses = async () => {
             try {
-                const response = await fetch('http://localhost:5000/buses');
+                const response = await fetch('https://api3.pathxfinder.com/buses');
                 if (!response.ok) throw new Error('Failed to fetch buses');
                 const data = await response.json();
                 setBuses(data);
@@ -46,7 +46,7 @@ const ManageBus = () => {
         if (confirmation.isConfirmed) {
             const token = localStorage.getItem('token');
             try {
-                const response = await fetch(`http://localhost:5000/buses/${bus._id}`, {
+                const response = await fetch(`https://api3.pathxfinder.com/buses/${bus._id}`, {
                     method: "DELETE",
                     headers: {
                         'Content-Type': 'application/json',
@@ -89,7 +89,7 @@ const ManageBus = () => {
         e.preventDefault();
         const token = localStorage.getItem('token');
         try {
-            const response = await fetch(`http://localhost:5000/buses/${selectedBus._id}`, {
+            const response = await fetch(`https://api3.pathxfinder.com/buses/${selectedBus._id}`, {
                 method: "PUT",
                 headers: {
                     'Content-Type': 'application/json',

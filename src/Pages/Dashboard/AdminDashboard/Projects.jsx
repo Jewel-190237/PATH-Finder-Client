@@ -18,7 +18,7 @@ const Projects = () => {
   const fetchProjects = async () => {
     try {
       const token = localStorage.getItem("token");
-      const response = await fetch("http://localhost:5000/all-project", {
+      const response = await fetch("https://api3.pathxfinder.com/all-project", {
         method: "GET",
         headers: {
           "Content-Type": "application/json",
@@ -72,7 +72,7 @@ const Projects = () => {
       if (result.isConfirmed) {
         const token = localStorage.getItem("token");
         const response = await fetch(
-          `http://localhost:5000/projects/${projectId}`,
+          `https://api3.pathxfinder.com/projects/${projectId}`,
           {
             method: "DELETE",
             headers: {

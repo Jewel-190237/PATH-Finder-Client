@@ -25,7 +25,7 @@ const ViewTable = ({ subRole }) => {
   const subAdmin = currentUser?._id;
   const fetchUsers = () => {
     const token = localStorage.getItem("token");
-    fetch("http://localhost:5000/users", {
+    fetch("https://api3.pathxfinder.com/users", {
       headers: {
         Authorization: `Bearer ${token}`,
       },
@@ -47,7 +47,7 @@ const ViewTable = ({ subRole }) => {
     }).then((result) => {
       if (result.isConfirmed) {
         const token = localStorage.getItem("token");
-        fetch(`http://localhost:5000/users/${user._id}`, {
+        fetch(`https://api3.pathxfinder.com/users/${user._id}`, {
           method: "DELETE",
           headers: {
             "Content-Type": "application/json",
@@ -125,7 +125,7 @@ const ViewTable = ({ subRole }) => {
       }
 
       const response = await fetch(
-        `http://localhost:5000/handle-task/${task._id}`,
+        `https://api3.pathxfinder.com/handle-task/${task._id}`,
         {
           method: "PUT",
           headers: {

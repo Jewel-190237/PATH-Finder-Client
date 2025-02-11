@@ -8,7 +8,7 @@ const Courses = () => {
     useEffect(() => {
         const fetchCourses = async () => {
             try {
-                const response = await fetch("http://localhost:5000/courses");
+                const response = await fetch("https://api3.pathxfinder.com/courses");
                 const data = await response.json();
                 setCourses(data);
             } catch (error) {

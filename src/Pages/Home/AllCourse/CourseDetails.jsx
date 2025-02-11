@@ -18,7 +18,7 @@ const CourseDetails = () => {
   useEffect(() => {
     const fetchCourse = async () => {
       try {
-        const response = await fetch(`http://localhost:5000/courses/${id}`);
+        const response = await fetch(`https://api3.pathxfinder.com/courses/${id}`);
         if (!response.ok) {
           throw new Error("Failed to fetch course details");
         }
@@ -36,7 +36,7 @@ const CourseDetails = () => {
   useEffect(() => {
     const fetchOffer = async () => {
       try {
-        const response = await fetch(`http://localhost:5000/offer`);
+        const response = await fetch(`https://api3.pathxfinder.com/offer`);
         if (!response.ok) {
           throw new Error("Failed to fetch offer");
         }
@@ -65,7 +65,7 @@ const CourseDetails = () => {
     if (currentUser) {
       try {
         const { data } = await axios.post(
-          "http://localhost:5000/api/bkash/payment/create",
+          "https://api3.pathxfinder.com/api/bkash/payment/create",
           {
             amount: finalPrice || course?.course_price,
             userId: currentUser?._id,

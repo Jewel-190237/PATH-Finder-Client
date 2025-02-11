@@ -36,7 +36,7 @@ const AllCourses = () => {
   const fetchCourses = async () => {
     setLoading(true);
     try {
-      const response = await fetch("http://localhost:5000/courses");
+      const response = await fetch("https://api3.pathxfinder.com/courses");
       if (!response.ok) {
         throw new Error("Failed to fetch courses");
       }
@@ -65,7 +65,7 @@ const AllCourses = () => {
     }).then((result) => {
       if (result.isConfirmed) {
         const token = localStorage.getItem("token");
-        fetch(`http://localhost:5000/courses/${course?._id}`, {
+        fetch(`https://api3.pathxfinder.com/courses/${course?._id}`, {
           method: "DELETE",
           headers: {
             "Content-Type": "application/json",
@@ -133,7 +133,7 @@ const AllCourses = () => {
       formData.append("videos", JSON.stringify(videos)); // Add videos as a JSON string
 
       const token = localStorage.getItem("token");
-      const response = await fetch("http://localhost:5000/courses", {
+      const response = await fetch("https://api3.pathxfinder.com/courses", {
         method: "POST",
         headers: {
           Authorization: `Bearer ${token}`,

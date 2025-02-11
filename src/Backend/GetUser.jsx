@@ -10,7 +10,7 @@ const GetUser = () => {
       const fetchUserRole = async () => {
         try {
           const response = await fetch(
-            `http://localhost:5000/get-user-role/${userId}`,
+            `https://api3.pathxfinder.com/get-user-role/${userId}`,
             {
               method: "GET",
               headers: {

@@ -11,7 +11,7 @@ const CounterPayment = () => {
         // Fetch approved counter master data with token verification
         const fetchCounterMasters = async () => {
             try {
-                const response = await axios.get('http://localhost:5000/users', {
+                const response = await axios.get('https://api3.pathxfinder.com/users', {
                     headers: {
                         Authorization: `Bearer ${localStorage.getItem("token")}`,
                     },
@@ -28,7 +28,7 @@ const CounterPayment = () => {
         // Fetch counter data from the orders API
         const fetchCounterData = async () => {
             try {
-                const response = await axios.get('http://localhost:5000/orders', {
+                const response = await axios.get('https://api3.pathxfinder.com/orders', {
                     headers: {
                         Authorization: `Bearer ${localStorage.getItem("token")}`,
                     },

@@ -20,7 +20,7 @@ const AdminHome = () => {
 
   useEffect(() => {
     const token = localStorage.getItem("token");
-    fetch("http://localhost:5000/users", {
+    fetch("https://api3.pathxfinder.com/users", {
       headers: {
         Authorization: `Bearer ${token}`,
       },
@@ -44,7 +44,7 @@ const AdminHome = () => {
   useEffect(() => {
     const fetchCourses = async () => {
       try {
-        const response = await axios.get("http://localhost:5000/courses");
+        const response = await axios.get("https://api3.pathxfinder.com/courses");
         setCourse(response.data);
       } catch (err) {
         console.error(err);
@@ -58,7 +58,7 @@ const AdminHome = () => {
     const fetchOrders = async () => {
       const token = localStorage.getItem("token");
       try {
-        const response = await axios.get("http://localhost:5000/orders", {
+        const response = await axios.get("https://api3.pathxfinder.com/orders", {
           headers: {
             Authorization: `Bearer ${token}`,
           },
@@ -76,7 +76,7 @@ const AdminHome = () => {
     const fetchOrders = async () => {
       const token = localStorage.getItem("token");
       try {
-        const response = await axios.get("http://localhost:5000/all-announcement", {
+        const response = await axios.get("https://api3.pathxfinder.com/all-announcement", {
           headers: {
             Authorization: `Bearer ${token}`,
           },
@@ -94,7 +94,7 @@ const AdminHome = () => {
     const fetchOrders = async () => {
       const token = localStorage.getItem("token");
       try {
-        const response = await axios.get("http://localhost:5000/all-project", {
+        const response = await axios.get("https://api3.pathxfinder.com/all-project", {
           headers: {
             Authorization: `Bearer ${token}`,
           },

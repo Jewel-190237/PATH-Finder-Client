@@ -17,7 +17,7 @@ const Announcement = () => {
   const fetchAnnouncement = async () => {
     try {
       const token = localStorage.getItem("token");
-      const response = await fetch("http://localhost:5000/all-announcement", {
+      const response = await fetch("https://api3.pathxfinder.com/all-announcement", {
         method: "GET",
         headers: {
           "Content-Type": "application/json",
@@ -43,7 +43,7 @@ const Announcement = () => {
         announcement: values.announcement,
       };
       const token = localStorage.getItem("token");
-      const response = await fetch("http://localhost:5000/announcement", {
+      const response = await fetch("https://api3.pathxfinder.com/announcement", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -92,7 +92,7 @@ const Announcement = () => {
         try {
           const token = localStorage.getItem("token");
           const response = await fetch(
-            `http://localhost:5000/announcement/${id}`,
+            `https://api3.pathxfinder.com/announcement/${id}`,
             {
               method: "DELETE",
               headers: {

@@ -16,7 +16,7 @@ const AdminPost = () => {
     try {
       const token = localStorage.getItem("token");
       const response = await fetch(
-        `http://localhost:5000/all-post`,
+        `https://api3.pathxfinder.com/all-post`,
         {
           method: "GET",
           headers: {
@@ -50,7 +50,7 @@ const AdminPost = () => {
       if (result.isConfirmed) {
         try {
           const token = localStorage.getItem("token");
-          const response = await fetch(`http://localhost:5000/post/${id}`, {
+          const response = await fetch(`https://api3.pathxfinder.com/post/${id}`, {
             method: "DELETE",
             headers: {
               "Content-Type": "application/json",

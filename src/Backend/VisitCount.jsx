@@ -4,7 +4,7 @@ export const updateVisitCount = async (userId) => {
   }
 
   try {
-    const response = await fetch(`http://localhost:5000/visit-count/${userId}`, {
+    const response = await fetch(`https://api3.pathxfinder.com/visit-count/${userId}`, {
       method: "PUT", 
       headers: {
         "Content-Type": "application/json",

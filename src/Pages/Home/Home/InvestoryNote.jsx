@@ -37,7 +37,7 @@ const InvestoryNote = () => {
     const fetchOrders = async () => {
       try {
         const token = localStorage.getItem("token");
-        const response = await axios.get("http://localhost:5000/orders", {
+        const response = await axios.get("https://api3.pathxfinder.com/orders", {
           headers: {
             Authorization: `Bearer ${token}`,
           },
