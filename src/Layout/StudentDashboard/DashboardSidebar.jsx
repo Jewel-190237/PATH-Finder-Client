@@ -1,7 +1,7 @@
 import { useState, useRef, useEffect } from "react";
 import { FaHome, FaBars, FaTimes, FaUserGraduate } from "react-icons/fa";
 import { useLocation } from "react-router-dom";
-import logo from "../../assets/logo2.png";
+import logo from "../../assets/logo.png";
 import { Link } from "react-router-dom";
 import { RxDashboard } from "react-icons/rx";
 import { MdOutlinePostAdd } from "react-icons/md";
