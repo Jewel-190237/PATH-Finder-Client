@@ -22,7 +22,7 @@ const Post = () => {
     try {
       const token = localStorage.getItem("token");
       const response = await fetch(
-        `https://api3.pathxfinder.com/all-post/${currentUser._id}`,
+        `http://localhost:5000/all-post/${currentUser._id}`,
         {
           method: "GET",
           headers: {
@@ -52,7 +52,7 @@ const Post = () => {
         name: currentUser?.name,
       };
       const token = localStorage.getItem("token");
-      const response = await fetch("https://api3.pathxfinder.com/post", {
+      const response = await fetch("http://localhost:5000/post", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -99,7 +99,7 @@ const Post = () => {
       if (result.isConfirmed) {
         try {
           const token = localStorage.getItem("token");
-          const response = await fetch(`https://api3.pathxfinder.com/post/${id}`, {
+          const response = await fetch(`http://localhost:5000/post/${id}`, {
             method: "DELETE",
             headers: {
               "Content-Type": "application/json",

@@ -19,7 +19,7 @@ const ProtectedAdmin = ({ children }) => {
                 }
 
                 // Check the role from the server
-                const response = await axios.get('https://api3.pathxfinder.com/auth-status', {
+                const response = await axios.get('http://localhost:5000/auth-status', {
                     headers: { Authorization: `Bearer ${token}` }
                 });
 
