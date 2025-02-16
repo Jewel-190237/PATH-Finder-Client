@@ -47,9 +47,9 @@ const AxisPoint = () => {
             services.access to all our services.
           </p>
         </div>
-        <div className="p-6 mt-20 -mb-28 border-[1px] border-[#F5F8FC] rounded-t-[60px]">
+        <div className="lg:p-6 md:p-4 p-3 mt-20 -mb-28 border-[1px] border-[#F5F8FC] rounded-t-[60px]">
           <div
-            className="p-12  rounded-t-[40px]  shadow-lg mx-auto border-[1px] border-[#F5F8FC]"
+            className="xl:p-12 lg:p-10 md:p-8 p-6 rounded-t-[40px]  shadow-lg mx-auto border-[1px] border-[#F5F8FC]"
             style={{ background: "rgba(246, 23, 12, 0.2)" }}
           >
             {selectedUsers?.map((item, index) => (
