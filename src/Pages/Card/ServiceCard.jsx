@@ -62,7 +62,7 @@ const ServiceCard = ({ img, startTime = "11:00 AM", totalSeat, _id, busName }) =
             const selectedDate = moment().format('DD/MM/YYYY')
             try {
                 const token = localStorage.getItem('token');
-                const response = await axios.get(`https://api3.pathxfinder.com/allocated-seats/${busName}`, {
+                const response = await axios.get(`http://localhost:5000/allocated-seats/${busName}`, {
                     headers: {
                         'Content-Type': 'application/json',
                         'Authorization': `Bearer ${token}` // Add Authorization header

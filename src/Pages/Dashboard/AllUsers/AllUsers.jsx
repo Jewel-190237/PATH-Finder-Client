@@ -19,7 +19,7 @@ const AllUsers = () => {
   const fetchUsers = async () => {
     setLoading(true);
     try {
-      const response = await fetch(`https://api3.pathxfinder.com/users`);
+      const response = await fetch(`http://localhost:5000/users`);
       const data = await response.json();
       setUsers(data);
     } catch (error) {
@@ -33,7 +33,7 @@ const AllUsers = () => {
   const onFinish = () => {
     const token = localStorage.getItem("token");
     const formData = form.getFieldsValue();
-    fetch(`https://api3.pathxfinder.com/specific-users/${selectedUser._id}`, {
+    fetch(`http://localhost:5000/specific-users/${selectedUser._id}`, {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",
@@ -76,7 +76,7 @@ const AllUsers = () => {
     }).then((result) => {
       if (result.isConfirmed) {
         const token = localStorage.getItem("token");
-        fetch(`https://api3.pathxfinder.com/users/${user._id}`, {
+        fetch(`http://localhost:5000/users/${user._id}`, {
           method: "DELETE",
           headers: {
             "Content-Type": "application/json",

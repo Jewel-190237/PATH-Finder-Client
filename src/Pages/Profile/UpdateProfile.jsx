@@ -60,7 +60,7 @@ const EditProfile = () => {
 
     try {
       const res = await axios.put(
-        `https://api3.pathxfinder.com/users/${user?._id}`,
+        `http://localhost:5000/users/${user?._id}`,
         updatedData
       );
       if (res.status === 200) {

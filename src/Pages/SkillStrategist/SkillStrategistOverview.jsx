@@ -40,7 +40,7 @@ const SkillStrategistOverview = () => {
     const fetchOrders = async () => {
       try {
         const token = localStorage.getItem("token");
-        const response = await axios.get("https://api3.pathxfinder.com/orders", {
+        const response = await axios.get("http://localhost:5000/orders", {
           headers: {
             Authorization: `Bearer ${token}`,
           },
@@ -117,7 +117,7 @@ const SkillStrategistOverview = () => {
     const fetchProjects = async () => {
       const token = localStorage.getItem("token");
       try {
-        const response = await axios.get(`https://api3.pathxfinder.com/projects/${currentUser?._id}`, {
+        const response = await axios.get(`http://localhost:5000/projects/${currentUser?._id}`, {
           headers: {
             Authorization: `Bearer ${token}`,
           },
@@ -135,7 +135,7 @@ const SkillStrategistOverview = () => {
     const fetchPosts = async () => {
       const token = localStorage.getItem("token");
       try {
-        const response = await axios.get(`https://api3.pathxfinder.com/all-post/${currentUser?._id}`, {
+        const response = await axios.get(`http://localhost:5000/all-post/${currentUser?._id}`, {
           headers: {
             Authorization: `Bearer ${token}`,
           },

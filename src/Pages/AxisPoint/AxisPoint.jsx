@@ -15,7 +15,7 @@ const AxisPoint = () => {
 
   const fetchUsers = () => {
     const token = localStorage.getItem("token");
-    fetch("https://api3.pathxfinder.com/users", {
+    fetch("http://localhost:5000/users", {
       headers: {
         Authorization: `Bearer ${token}`,
       },

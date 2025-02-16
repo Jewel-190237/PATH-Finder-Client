@@ -24,7 +24,7 @@ const StudentOverview = () => {
     setLoading(true);
     try {
       const response = await fetch(
-        `https://api3.pathxfinder.com/courses/student/${currentUser?._id}`
+        `http://localhost:5000/courses/student/${currentUser?._id}`
       );
       if (!response.ok) {
         throw new Error("Failed to fetch courses");
@@ -41,7 +41,7 @@ const StudentOverview = () => {
     try {
       const token = localStorage.getItem("token");
       const response = await fetch(
-        `https://api3.pathxfinder.com/projects/${currentUser?._id}`,
+        `http://localhost:5000/projects/${currentUser?._id}`,
         {
           method: "GET",
           headers: {
@@ -64,7 +64,7 @@ const StudentOverview = () => {
     try {
       const token = localStorage.getItem("token");
       const response = await fetch(
-        `https://api3.pathxfinder.com/all-post/${currentUser._id}`,
+        `http://localhost:5000/all-post/${currentUser._id}`,
         {
           method: "GET",
           headers: {

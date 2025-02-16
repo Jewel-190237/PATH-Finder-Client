@@ -13,7 +13,7 @@ const Payment = () => {
     const [totalSeat, setTotalSeat] = useState(0);
 
     useEffect(() => {
-        axios.get("https://api3.pathxfinder.com/buses")
+        axios.get("http://localhost:5000/buses")
             .then(response => {
                 setBuses(response.data);
             })
@@ -44,7 +44,7 @@ const Payment = () => {
             setTotalSeat(selectedBusData.totalSeats);  // Set total seats from the selected bus
         }
 
-        axios.get(`https://api3.pathxfinder.com/order-seats/${busName}`, {
+        axios.get(`http://localhost:5000/order-seats/${busName}`, {
             headers: {
                 'Content-Type': 'application/json',
                 'Authorization': `Bearer ${token}`
@@ -80,7 +80,7 @@ const Payment = () => {
             confirmButtonText: 'Yes, delete it!'
         }).then((result) => {
             if (result.isConfirmed) {
-                axios.delete(`https://api3.pathxfinder.com/order-seats/${busName}/${seatId}`, {
+                axios.delete(`http://localhost:5000/order-seats/${busName}/${seatId}`, {
                     headers: {
                         'Content-Type': 'application/json',
                         'Authorization': `Bearer ${token}`
@@ -110,7 +110,7 @@ const Payment = () => {
             confirmButtonText: 'Yes, clear all seats!'
         }).then((result) => {
             if (result.isConfirmed) {
-                axios.delete(`https://api3.pathxfinder.com/orders/clear-ala/${busName}`, {
+                axios.delete(`http://localhost:5000/orders/clear-ala/${busName}`, {
                     headers: {
                         'Authorization': `Bearer ${token}`
                     },

@@ -25,7 +25,7 @@ const AddTaskTable = ({ subRole }) => {
 
   const fetchUsers = () => {
     const token = localStorage.getItem("token");
-    fetch("https://api3.pathxfinder.com/users", {
+    fetch("http://localhost:5000/users", {
       headers: {
         Authorization: `Bearer ${token}`,
       },
@@ -76,7 +76,7 @@ const AddTaskTable = ({ subRole }) => {
     };
     try {
       const token = localStorage.getItem("token");
-      const response = await fetch("https://api3.pathxfinder.com/add-task", {
+      const response = await fetch("http://localhost:5000/add-task", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

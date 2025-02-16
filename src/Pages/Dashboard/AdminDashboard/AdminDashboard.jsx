@@ -23,7 +23,7 @@ const AdminDashboard = () => {
       const token = localStorage.getItem("token");
       try {
         const response = await axios.get(
-          "https://api3.pathxfinder.com/all-announcement",
+          "http://localhost:5000/all-announcement",
           {
             headers: {
               Authorization: `Bearer ${token}`,
@@ -72,7 +72,7 @@ const AdminDashboard = () => {
     const fetchOrders = async () => {
       const token = localStorage.getItem("token");
       try {
-        const response = await axios.get("https://api3.pathxfinder.com/orders", {
+        const response = await axios.get("http://localhost:5000/orders", {
           headers: {
             Authorization: `Bearer ${token}`,
           },
@@ -93,7 +93,7 @@ const AdminDashboard = () => {
     const fetchProjects = async () => {
       const token = localStorage.getItem("token");
       try {
-        const response = await axios.get("https://api3.pathxfinder.com/all-project", {
+        const response = await axios.get("http://localhost:5000/all-project", {
           headers: {
             Authorization: `Bearer ${token}`, // Corrected syntax for template literal
           },

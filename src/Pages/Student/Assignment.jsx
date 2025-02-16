@@ -21,7 +21,7 @@ const Assignment = () => {
       }
 
       const response = await fetch(
-        `https://api3.pathxfinder.com/handle-task-user/${task._id}`,
+        `http://localhost:5000/handle-task-user/${task._id}`,
         {
           method: "PUT",
           headers: {
