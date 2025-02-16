@@ -15,7 +15,6 @@ const links = [
   { name: "FAQ", path: "/faq" },
   {
     name: "Others",
-    path: "/others",
     submenu: [
       { name: "About", path: "/about" },
       { name: "Contact", path: "/contact" },
@@ -92,14 +91,14 @@ const Navbar = () => {
 
   return (
     <nav className="bg-[#20010D]">
-      <div className="max-w-[1320px] mx-auto px-4 flex items-center justify-between h-16">
+      <div className="max-w-[1320px]  mx-auto px-4 py-10 flex items-center justify-between h-16">
         {/* Left Side: Logo and Menu */}
-        <div className="flex items-center space-x-8 ">
+        <div className="flex items-center space-x-8  ">
           <a href="/">
             <img
               src={logoImage}
               alt="logoImage"
-              className="w-60 h-52 border-4 border-green-400"
+              className="w-48 h-40 sm:w-60 sm:h-52 "
             />
           </a>
           <div className="hidden lg:flex space-x-8">{renderLinks()}</div>
@@ -120,8 +119,8 @@ const Navbar = () => {
               ></img>
             </div>
           </div>
-          <img src={coinImg} className="w-7 h-7"></img>
-          {/* <img src='/src/assets/navbar/login.png' className='w-7 h-7'></img> */}
+          <img src={coinImg} className="w-7 h-7 hidden sm:flex"></img>
+         
           <AuthButton />
           <button onClick={toggleDarkMode} className="focus:outline-none">
             {darkMode ? (
@@ -130,9 +129,11 @@ const Navbar = () => {
               <BsMoon className="text-xl text-orange-900" />
             )}
           </button>
-          <button onClick={toggleMenu} className="lg:hidden text-2xl text-white">
+          <div className="relative right-2">
+          <button onClick={toggleMenu} className="lg:hidden text-2xl  text-white">
             {isOpen ? <IoMdCloseCircle /> : <GiHamburgerMenu />}
           </button>
+          </div>
         </div>
       </div>
 

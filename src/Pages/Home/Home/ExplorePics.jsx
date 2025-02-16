@@ -33,7 +33,7 @@ const ExplorePics = () => {
     const enrolled = 107;
 
     return (
-        <div className="bg-cover bg-center relative text-white -mt-20" style={{ backgroundImage: `url(${bgimage})` }}>
+        <div className="bg-cover bg-center relative text-white -mt-40 sm:-mt-20" style={{ backgroundImage: `url(${bgimage})` }}>
             <div className="path-container py-14 md:py-20 lg:py-[100px] xl:py-[120px]">
                 <h1 className="text-4xl font-bold text-left">
                     Explore Our Top Picks Just<br /> for You!

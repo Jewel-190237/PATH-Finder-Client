@@ -14,7 +14,7 @@ const VideoFrame = () => {
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
     >
-      <div className="relative h-[500px] sm:h-[650px] md:h-[680px] lg:h-[800px] xl:h-[982px]  mb-20 ">
+      <div className="relative h-[500px] sm:h-[650px] md:h-[680px] lg:h-[800px] xl:h-[982px]  sm:mb-20 ">
         <div
           className="w-full h-full bg-cover bg-center -mt-24"
           style={{

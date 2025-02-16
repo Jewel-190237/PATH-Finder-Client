@@ -23,7 +23,7 @@ const FAQ = () => {
         backgroundRepeat: 'no-repeat',
       }}
     >
-      <div className=' max-w-[1320px] mx-auto py-32 text-white'>
+      <div className=' max-w-[1320px] mx-auto sm:py-32 text-white'>
         <h1 className="heading text-left">Hear from Our Happy Clients</h1>
         <p className="description mt-2 md:mt-3 lg:mt-4">
           Trusted by hundreds, loved by all—here’s{" "}

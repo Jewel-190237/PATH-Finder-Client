@@ -105,7 +105,7 @@ const Profile = () => {
               </p>
               <Link to="/axisPoint">
                 <div className="md:w-64 w-32 p-3 bg-[#78120D] text-white shadow-md rounded-[12px] cursor-pointer">
-                  <p className="text-[#B0B0B0] heading3 whitespace-pre">
+                  <p className="text-[#B0B0B0] heading3 !text-[8px] ">
                     Junior Employee
                   </p>
                   <p className="text-sm">{selectedUsers.length}</p>
@@ -125,8 +125,8 @@ const Profile = () => {
               {data.map((item, index) => (
                 <div key={index}>
                   <Link to={item.link}>
-                    <div className="bg-[#78120D] text-white sm:p-3 p-2 shadow-md rounded-[12px]">
-                      <p className="heading3 text-[#B0B0B0] whitespace-pre">{item.title}</p>
+                    <div className="bg-[#78120D] text-white sm:p-3 p-1 shadow-md rounded-[12px]">
+                      <p className="heading3 !text-[12px] text-[#B0B0B0] whitespace-pre">{item.title}</p>
                       <p className="text-sm">{item.value}</p>
                     </div>
                   </Link> </div>

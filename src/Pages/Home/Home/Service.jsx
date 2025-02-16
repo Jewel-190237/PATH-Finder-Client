@@ -54,7 +54,7 @@ const Service = () => {
                </div>
             </div>
          </div>
-         <div className="grid grid-cols-3 gap-2 sm:gap-3 md:gap-4 lg:gap-5 xl:gap-6 max-w-[1320px] mx-auto xl:-mt-20 pb-20">
+         <div className="grid grid-cols-3 gap-2 sm:gap-3 md:gap-4 lg:gap-5 xl:gap-6 path-container xl:-mt-20 pb-20">
             {cardsData.map((card) => (
                <div
                   key={card.id}
