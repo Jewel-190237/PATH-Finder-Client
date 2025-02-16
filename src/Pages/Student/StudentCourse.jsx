@@ -62,6 +62,11 @@ const StudentCourse = () => {
       };
     });
   };
+  const handleCourseCompletion = (courseId) => {
+    console.log(`Course ${courseId} completed!`);
+    alert("Congratulations! You have completed the course 🎉");
+    // You can add API calls or state updates here
+  };
 
   const openModal = (videoUrl) => {
     setModalVideoUrl(videoUrl);
@@ -101,29 +106,38 @@ const StudentCourse = () => {
               </div>
 
               {activeCourseId === course?._id && (
+
                 <div className="mt-4">
                   {course?.videos?.length > 0 ? (
                     course?.videos.map((video, index) => (
                       <div
                         key={index}
-                        className={`bg-[#20010D] rounded-lg overflow-hidden shadow-md mt-4 ${
-                          index > videoProgress[course?._id] ? "hidden" : "block"
-                        }`}
+                        className={`bg-[#20010D] rounded-lg overflow-hidden shadow-md mt-4 ${index > videoProgress[course?._id] ? "hidden" : "block"
+                          }`}
                       >
                         <div
                           onClick={() => openModal(video)}
                           className="cursor-pointer p-4 bg-gray-700 text-white"
                         >
-                          Video {index + 1} (Click to Play)
+                          Module {index + 1} (Click to Play)
                         </div>
                         {index === videoProgress[course?._id] && (
                           <div className="p-3 text-center">
-                            <button
-                              onClick={() => handleVideoCompletion(course?._id)}
-                              className="bg-green-500 hover:bg-green-600 text-white py-2 px-4 rounded-lg mt-4"
-                            >
-                              Mark as Completed
-                            </button>
+                            {index === course.videos.length - 1 ? (
+                              <button
+                                onClick={() => handleCourseCompletion(course?._id)}
+                                className="bg-blue-500 hover:bg-blue-600 text-white py-2 px-4 rounded-lg mt-4"
+                              >
+                                Course Completed 🎉
+                              </button>
+                            ) : (
+                              <button
+                                onClick={() => handleVideoCompletion(course?._id)}
+                                className="bg-green-500 hover:bg-green-600 text-white py-2 px-4 rounded-lg mt-4"
+                              >
+                                Completed module {index + 1}
+                              </button>
+                            )}
                           </div>
                         )}
                       </div>
@@ -132,6 +146,7 @@ const StudentCourse = () => {
                     <p className="text-center text-red-400 mt-4">No videos available.</p>
                   )}
                 </div>
+
               )}
             </div>
           ))}
