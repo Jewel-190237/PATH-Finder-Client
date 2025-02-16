@@ -36,14 +36,14 @@ const ExplorePics = () => {
         <div className="bg-cover bg-center relative text-white -mt-40 sm:-mt-20" style={{ backgroundImage: `url(${bgimage})` }}>
             <div className="path-container py-14 md:py-20 lg:py-[100px] xl:py-[120px]">
                 <h1 className="text-4xl font-bold text-left">
-                    Explore Our Top Picks Just<br /> for You!
+                স্কিল নাই = কাজ নাই = টাকা নাই 💯
                 </h1>
                 <p className="text-lg mt-2 md:mt-3 lg:mt-4 text-left">
                     Trusted by hundreds, loved by all—here’s {" "}
                     <br className="hidden md:block" /> what they have to share.
                 </p>
                 <div className="grid grid-cols-3 xl:gap-6 lg:gap-5 md:gap-4 sm:gap-3 gap-1">
-                    {courses.slice(0, 3).map((course) => (
+                    {courses?.slice(0, 3).map((course) => (
                         <div
                             key={course?._id}
                             onClick={() => handleCardClick(course?._id)}

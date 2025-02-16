@@ -74,10 +74,11 @@ const Review = () => {
       style={{ backgroundImage: `url(${reviewBg})` }}
     >
       <div className="path-container py-14 md:py-20 lg:py-[100px] xl:py-[120px]">
-        <h1 className="heading text-left">Hear from Our Happy Clients</h1>
+        <h1 className="heading text-left">কাজ ঠিকঠাক জানলেই,  <br /> <br /> এই ইনকামের গ্যারান্টি দেয়া সম্ভব
+          কাজ না জানলে, <br /> <br /> ৫০ ডলার তো দূরের কথা ১ ডলার আয় করাও সম্ভব না
+        </h1>
         <p className="description mt-2 md:mt-3 lg:mt-4">
-          Trusted by hundreds, loved by all—here’s{" "}
-          <br className="hidden md:block" /> what they have to share.
+          কাজ জানলে - টাকা আছে! কাজ না জানলে - টাকা নেই! রিমাইন্ডার 🫵
         </p>
         <div className="mt-6 md:mt-10 lg:mt-12 xl:mt-[60px] review">
           <Swiper
@@ -91,7 +92,7 @@ const Review = () => {
             }}
             pagination={{ clickable: true }}
             keyboard={{ enabled: true }}
-            modules={[ Keyboard, Pagination, Mousewheel]}
+            modules={[Keyboard, Pagination, Mousewheel]}
             className="my-8"
           >
             {reviewData.map((item, index) => (

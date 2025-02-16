@@ -36,17 +36,17 @@ const Service = () => {
          <div className="path-container relative z-10 p-6 lg:p-10 xl:p-12">
             <div className="mx-auto p-6 md:p-8 lg:p-12 xl:p-[60px] my-5 md:my-8 lg:my-[90px] xl:my-[110px]">
                <h1 className="font-roboto text-lg font-extrabold md:text-xl lg:text-2xl text-center mx-auto uppercase">
-                  Earn Big Through
+               কত ইনকাম করবো ?
                </h1>
-               <h1 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl xl:text-5xl text-center font-extrabold font-roboto uppercase text-white mb-4">
-                  Premium{" "}
+               <h1 className="text-xl sm:text-2xl md:text-2xl lg:text-3xl xl:text-4xl text-center font-extrabold font-roboto uppercase text-white mb-4">
+                 
                   <span className="text-transparent bg-clip-text bg-[linear-gradient(90deg,#3F3FDE_0.07%,#FF0DEF_32.88%)]">
-                     Services
+                     ইনকাম মানে না কোনো Calculation , <br />
                   </span>
-                  , Currency <br /> Exchange, and Phone Recharges!
                </h1>
                <p className="description text-center max-w-[650px] mx-auto">
-                  Effortlessly by referring users. Start earning effortlessly by referring <br /> users into rewards today!
+               মানে না কোনো Boundary … <br />
+               So, Taka+Dollar+Coin=Unlimited Money Monetize 🔥
                </p>
                <div className="mt-4 md:mt-5 lg:mt-6 xl:mt-8 flex items-center justify-center gap-3 md:gap-4 lg:gap-5 xl:gap-6">
                   <Link to='/login' className="common-button rounded">GET STARTED</Link>

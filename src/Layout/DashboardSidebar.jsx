@@ -3,7 +3,7 @@ import { FaBars, FaTimes, FaUserGraduate } from "react-icons/fa";
 import { FaUsers } from "react-icons/fa6";
 import { MdDashboard, MdOutlineControlCamera, MdOutlinePostAdd } from "react-icons/md";
 import { useLocation } from "react-router-dom";
-import logo from "../assets/logo2.png";
+import logo from "../assets/logo.png";
 import { Link } from "react-router-dom";
 import { RxDashboard } from "react-icons/rx";
 import { PiBookDuotone } from "react-icons/pi";

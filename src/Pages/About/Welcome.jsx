@@ -1,5 +1,5 @@
 import{ useState } from 'react';
-import aboutImg from '../../assets/about/admin.jpeg'
+import aboutImg from '../../assets/about/asik.jpg'
 const Welcome = () => {
     const [activeTab, setActiveTab] = useState('mission');
 
@@ -24,7 +24,7 @@ const Welcome = () => {
                         <div className='mt-10'>
                             <h1 className='heading !text-left mb-10'>About Me</h1>
                             <p className='text-justify para1 mb-10'>
-                               Hello, I am Azharuddin, a passionate web developer with a strong foundation in Computer Science and Engineering, having graduated from Khulna University. My journey in web development has been fueled by a deep curiosity for creating user-friendly, visually appealing, and efficient web applications. With expertise in HTML, CSS, JavaScript, React, Node.js, Express, and MongoDB, I strive to deliver seamless and responsive web solutions.
+                               Hello, I am Ashikur Rahman, a passionate web developer with a strong foundation in Computer Science and Engineering, having graduated from Khulna University. My journey in web development has been fueled by a deep curiosity for creating user-friendly, visually appealing, and efficient web applications. With expertise in HTML, CSS, JavaScript, React, Node.js, Express, and MongoDB, I strive to deliver seamless and responsive web solutions.
                             </p>
                             <div className='space-x-6'>
                                 {tabs.map((tab) => (
