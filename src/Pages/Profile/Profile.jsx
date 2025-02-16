@@ -7,7 +7,6 @@ import GetUser from "../../Backend/GetUser";
 import { MdVerified } from "react-icons/md";
 const Profile = () => {
   const [salaryPercent, setSalaryPercent] = useState(50);
-  const [taskPercent, setTaskPercent] = useState(70);
   const [skillPercent, setSkillPercent] = useState(30);
   const [currentUser, setCurrentUser] = useState(null);
   const [users, setUsers] = useState([]);
@@ -49,6 +48,20 @@ const Profile = () => {
       link: "/team",
     },
   ]
+  console.log('userrrrrrr', currentUser);
+  const pendingTask = currentUser?.tasks?.filter((task) => task.taskStatus === "pending")?.length;
+  console.log("🚀 ~ Profile ~ pendingTask:", pendingTask)
+  console.log("🚀 ~ Profile ~ completeTask:", currentUser?.tasks?.length)
+
+  let taskPercent = 0
+  if (pendingTask > 0) {
+    taskPercent = (currentUser?.tasks?.length - pendingTask / currentUser?.tasks?.length) * 100
+  }
+  else {
+    taskPercent = 100
+  }
+
+
   return (
     <div
       className="bg-cover bg-center bg-no-repeat w-full relative"
@@ -141,7 +154,6 @@ const Profile = () => {
           <div className="flex justify-between items-center text-white p-5">
             <h2 className="text-lg font-semibold">Personal Statistics</h2>
           </div>
-          <p className="text-sm text-white mb-6 px-5">Personal Statistics</p>
           <div
             className="flex flex-col items-center justify-center space-y-8"
             style={{ padding: "20px" }}
@@ -181,7 +193,6 @@ const Profile = () => {
                 <p className="text-white">Salary</p>
                 <Slider
                   value={salaryPercent}
-                  onChange={(value) => setSalaryPercent(value)}
                   min={0}
                   max={100}
                   trackStyle={{ backgroundColor: "#FCBB58" }}
@@ -192,7 +203,6 @@ const Profile = () => {
                 <p className="text-white">Task Plan</p>
                 <Slider
                   value={taskPercent}
-                  onChange={(value) => setTaskPercent(value)}
                   min={0}
                   max={100}
                   trackStyle={{ backgroundColor: "#F38122" }}
@@ -203,7 +213,6 @@ const Profile = () => {
                 <p className="text-white">Skill Plan</p>
                 <Slider
                   value={skillPercent}
-                  onChange={(value) => setSkillPercent(value)}
                   min={0}
                   max={100}
                   trackStyle={{ backgroundColor: "#F6170C " }}

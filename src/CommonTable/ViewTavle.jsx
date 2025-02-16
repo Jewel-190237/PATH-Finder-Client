@@ -1,3 +1,5 @@
+/* eslint-disable no-unused-vars */
+/* eslint-disable react/prop-types */
 import React, { useEffect, useState } from "react";
 import { FaEye, FaTelegramPlane, FaTrashAlt } from "react-icons/fa";
 import { MdOutlineWhatsapp } from "react-icons/md";
@@ -113,7 +115,7 @@ const ViewTable = ({ subRole }) => {
 
     const taskPayload = {
       userId: user._id,
-      coin: task.coin,
+      coin: Number(task.coin),
       action,
     };
 
@@ -279,26 +281,6 @@ const ViewTable = ({ subRole }) => {
                 </tbody>
               </table>
             </div>
-
-            <div className="mb-4 description">
-              <p>Canvas course - 79% Complete</p>
-              <div className="w-full bg-gray-300 rounded-full h-2.5">
-                <div
-                  className="bg-red-600 h-2.5 rounded-full"
-                  style={{ width: "79%" }}
-                ></div>
-              </div>
-            </div>
-            <div className="mb-4 description">
-              <p>Copy course - 91% Complete</p>
-              <div className="w-full bg-gray-300 rounded-full h-2.5">
-                <div
-                  className="bg-red-600 h-2.5 rounded-full"
-                  style={{ width: "91%" }}
-                ></div>
-              </div>
-            </div>
-
             <h2 className="my-4 heading2 text-center py-2">Review Task</h2>
             <div className="space-y-2">
               {selectedUser?.tasks?.filter(
