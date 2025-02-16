@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import planImage from "../../assets/plan/plan.png";
 import level from "../../assets/plan/level.png";
 import coin from "../../assets/plan/coin.png";
