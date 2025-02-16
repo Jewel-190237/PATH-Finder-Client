@@ -1,6 +1,5 @@
 
 import { useState } from "react";
-import Swal from "sweetalert2";
 import footerImg from "../../../assets/footerbg.png";
 import facebook from "../../../assets/facebook.png";
 import person from "../../../assets/person.png";
