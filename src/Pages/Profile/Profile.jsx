@@ -7,7 +7,6 @@ import GetUser from "../../Backend/GetUser";
 import { MdVerified } from "react-icons/md";
 const Profile = () => {
   const [salaryPercent, setSalaryPercent] = useState(50);
-  const [skillPercent, setSkillPercent] = useState(30);
   const [currentUser, setCurrentUser] = useState(null);
   const [courses, setCourses] = useState([]);
   const [users, setUsers] = useState([]);
@@ -21,7 +20,7 @@ const Profile = () => {
   const fetchCourses = async () => {
     try {
       const response = await fetch(
-        `http://localhost:5000/courses/student/${currentUser?._id}`
+        `http://localhost:5000/task/student/${currentUser?._id}`
       );
       if (!response.ok) {
         throw new Error("Failed to fetch courses");
@@ -77,6 +76,13 @@ const Profile = () => {
   } else {
     taskPercent = 100;
   }
+
+  console.log('courses',courses)
+  const totalCompletion = courses.reduce((sum, course) => sum + course.complete, 0);
+
+  console.log('total', totalCompletion/courses.length)
+
+  const skillPercent = totalCompletion/courses.length;
 
   return (
     <div
