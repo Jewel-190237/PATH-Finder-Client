@@ -9,13 +9,30 @@ const Profile = () => {
   const [salaryPercent, setSalaryPercent] = useState(50);
   const [skillPercent, setSkillPercent] = useState(30);
   const [currentUser, setCurrentUser] = useState(null);
+  const [courses, setCourses] = useState([]);
   const [users, setUsers] = useState([]);
   const user = GetUser();
   useEffect(() => {
     setCurrentUser(user);
     fetchUsers();
+    fetchCourses();
   }, [user]);
 
+  const fetchCourses = async () => {
+    try {
+      const response = await fetch(
+        `http://localhost:5000/courses/student/${currentUser?._id}`
+      );
+      if (!response.ok) {
+        throw new Error("Failed to fetch courses");
+      }
+      const data = await response.json();
+      setCourses(data);
+      initializeVideoProgress(data);
+    } catch (error) {
+      console.error("Error fetching courses:", error);
+    }
+  };
   const fetchUsers = () => {
     const token = localStorage.getItem("token");
     fetch("http://localhost:5000/users", {
@@ -44,23 +61,22 @@ const Profile = () => {
     },
     {
       title: "Axis Point",
-      value: '06',
+      value: "06",
       link: "/team",
     },
-  ]
-  console.log('userrrrrrr', currentUser);
-  const pendingTask = currentUser?.tasks?.filter((task) => task.taskStatus === "pending")?.length;
-  console.log("🚀 ~ Profile ~ pendingTask:", pendingTask)
-  console.log("🚀 ~ Profile ~ completeTask:", currentUser?.tasks?.length)
+  ];
+  const pendingTask = currentUser?.tasks?.filter(
+    (task) => task.taskStatus === "pending"
+  )?.length;
 
-  let taskPercent = 0
+  let taskPercent = 0;
   if (pendingTask > 0) {
-    taskPercent = (currentUser?.tasks?.length - pendingTask / currentUser?.tasks?.length) * 100
+    taskPercent =
+      (currentUser?.tasks?.length - pendingTask / currentUser?.tasks?.length) *
+      100;
+  } else {
+    taskPercent = 100;
   }
-  else {
-    taskPercent = 100
-  }
-
 
   return (
     <div
@@ -110,7 +126,9 @@ const Profile = () => {
           <>
             <div className="hidden md:flex justify-between md:gap-5 gap-2 mt-10 mb-20 w-full">
               <div className="bg-[#78120D] text-white p-3 shadow-md md:w-64 rounded-[12px]">
-                <p className="heading3 text-[#B0B0B0] whitespace-pre">My Profit</p>
+                <p className="heading3 text-[#B0B0B0] whitespace-pre">
+                  My Profit
+                </p>
                 <p className="text-sm">{currentUser?.balance || 0}</p>
               </div>
               <p className="text-[#F38122] hidden xl:flex items-center">
@@ -129,7 +147,9 @@ const Profile = () => {
               </p>
               <Link to="/team">
                 <div className="bg-[#78120D] text-white p-3 shadow-md md:w-64 rounded-[12px]">
-                  <p className="heading3 text-[#B0B0B0] whitespace-pre">Axis Point</p>
+                  <p className="heading3 text-[#B0B0B0] whitespace-pre">
+                    Axis Point
+                  </p>
                   <p className="text-sm">06</p>
                 </div>
               </Link>
@@ -139,10 +159,13 @@ const Profile = () => {
                 <div key={index}>
                   <Link to={item.link}>
                     <div className="bg-[#78120D] text-white sm:p-3 p-2 shadow-md rounded-[12px]">
-                      <p className="heading3 text-[#B0B0B0] whitespace-pre">{item.title}</p>
+                      <p className="heading3 text-[#B0B0B0] whitespace-pre">
+                        {item.title}
+                      </p>
                       <p className="text-sm">{item.value}</p>
                     </div>
-                  </Link> </div>
+                  </Link>{" "}
+                </div>
               ))}
             </div>
           </>

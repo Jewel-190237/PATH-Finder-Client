@@ -35,10 +35,11 @@ const StudentCourse = () => {
     }
   };
 
+  console.log("courses", courses);
   const initializeVideoProgress = (courses) => {
     const progress = {};
     courses.forEach((course) => {
-      progress[course._id] = 0; // Initialize progress to 0
+      progress[course._id] = 0;
     });
     setVideoProgress(progress);
   };
@@ -53,7 +54,43 @@ const StudentCourse = () => {
     setActiveCourseId((prevId) => (prevId === courseId ? null : courseId));
   };
 
-  const handleVideoCompletion = (courseId) => {
+  const handleCourseComplete = async (courseId, video) => {
+    const videoLength = courses?.find((c) => c._id === courseId)?.videos?.length;
+    const payload = {
+      courseId,
+      video,
+      userId: currentUser?._id,
+      videoLength,
+    };
+
+    try {
+      if (!courseId || !video || !videoLength) {
+        console.error("Missing required parameters");
+        return;
+      }
+
+      const response = await fetch("http://localhost:5000/course/complete", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(payload),
+      });
+
+      const data = await response.json();
+
+      if (response.ok) {
+        console.log("Progress Updated:", data.progress);
+      } else {
+        console.error("Error:", data.message);
+      }
+    } catch (error) {
+      console.error("Error completing course:", error);
+    }
+  };
+
+  const handleVideoCompletion = (courseId, video) => {
+    handleCourseComplete(courseId, video);
     setVideoProgress((prevProgress) => {
       const nextVideoIndex = prevProgress[courseId] + 1;
       return {
@@ -61,6 +98,10 @@ const StudentCourse = () => {
         [courseId]: nextVideoIndex,
       };
     });
+  };
+  const handleCourseCompletion = (courseId, video) => {
+    console.log(`Course ${courseId} completed!`);
+    handleCourseComplete(courseId, video);
   };
 
   const openModal = (videoUrl) => {
@@ -87,7 +128,9 @@ const StudentCourse = () => {
               >
                 <div className="relative">
                   <img
-                    src={course?.thumbnail_image || "/src/assets/explorePics/3.png"}
+                    src={
+                      course?.thumbnail_image || "/src/assets/explorePics/3.png"
+                    }
                     alt={course?.course_name}
                     className="w-full h-64 object-fill"
                   />
@@ -96,7 +139,9 @@ const StudentCourse = () => {
                   </div>
                 </div>
                 <div className="px-4 py-2 text-center bg-[#20010D]">
-                  <h2 className="text-lg font-bold text-white">{course?.course_name}</h2>
+                  <h2 className="text-lg font-bold text-white">
+                    {course?.course_name}
+                  </h2>
                 </div>
               </div>
 
@@ -107,29 +152,46 @@ const StudentCourse = () => {
                       <div
                         key={index}
                         className={`bg-[#20010D] rounded-lg overflow-hidden shadow-md mt-4 ${
-                          index > videoProgress[course?._id] ? "hidden" : "block"
+                          index > videoProgress[course?._id]
+                            ? "hidden"
+                            : "block"
                         }`}
                       >
                         <div
                           onClick={() => openModal(video)}
                           className="cursor-pointer p-4 bg-gray-700 text-white"
                         >
-                          Video {index + 1} (Click to Play)
+                          Module {index + 1} (Click to Play)
                         </div>
                         {index === videoProgress[course?._id] && (
                           <div className="p-3 text-center">
-                            <button
-                              onClick={() => handleVideoCompletion(course?._id)}
-                              className="bg-green-500 hover:bg-green-600 text-white py-2 px-4 rounded-lg mt-4"
-                            >
-                              Mark as Completed
-                            </button>
+                            {index === course.videos.length - 1 ? (
+                              <button
+                                onClick={() =>
+                                  handleCourseCompletion(course?._id, video)
+                                }
+                                className="bg-blue-500 hover:bg-blue-600 text-white py-2 px-4 rounded-lg mt-4"
+                              >
+                                Course Completed 🎉
+                              </button>
+                            ) : (
+                              <button
+                                onClick={() =>
+                                  handleVideoCompletion(course?._id, video)
+                                }
+                                className="bg-green-500 hover:bg-green-600 text-white py-2 px-4 rounded-lg mt-4"
+                              >
+                                Completed module {index + 1}
+                              </button>
+                            )}
                           </div>
                         )}
                       </div>
                     ))
                   ) : (
-                    <p className="text-center text-red-400 mt-4">No videos available.</p>
+                    <p className="text-center text-red-400 mt-4">
+                      No videos available.
+                    </p>
                   )}
                 </div>
               )}
