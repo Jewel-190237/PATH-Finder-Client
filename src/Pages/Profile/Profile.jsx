@@ -77,10 +77,8 @@ const Profile = () => {
     taskPercent = 100;
   }
 
-  console.log('courses',courses)
   const totalCompletion = courses.reduce((sum, course) => sum + course.complete, 0);
 
-  console.log('total', totalCompletion/courses.length)
 
   const skillPercent = totalCompletion/courses.length;
 

@@ -35,7 +35,6 @@ const StudentCourse = () => {
     }
   };
 
-  console.log("courses", courses);
   const initializeVideoProgress = (courses) => {
     const progress = {};
     courses.forEach((course) => {
@@ -100,7 +99,6 @@ const StudentCourse = () => {
     });
   };
   const handleCourseCompletion = (courseId, video) => {
-    console.log(`Course ${courseId} completed!`);
     handleCourseComplete(courseId, video);
   };
 
