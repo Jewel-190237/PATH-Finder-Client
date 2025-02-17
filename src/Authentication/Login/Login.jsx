@@ -71,7 +71,7 @@ const Login = () => {
       className="bg-cover bg-center relative"
       style={{ backgroundImage: `url(${signup})` }}
     >
-      <div className="path-container p-8 md:p-10 lg:p-12 xl:p-[60px] border-[1px] border-[#20010D]">
+      <div className="path-container p-14 lg:p-20 xl:p-[100px]">
         <div className="text-white">
           <h2 className="heading2 text-center">
             Welcome Back! <br /> Access Your Account Now.
